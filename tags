@@ -1,0 +1,29 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+Find-GRRClient	.\PowerGRR.psm1	/^Function Find-GRRClient()$/;"	m
+Find-GRRClientByLabel	.\PowerGRR.psm1	/^Function Find-GRRClientByLabel()$/;"	m
+Get-ClientCertificate	.\PowerGRR.psm1	/^Function Get-ClientCertificate()$/;"	m
+Get-EpocTimeFromUtc	.\PowerGRR.psm1	/^function Get-EpocTimeFromUtc ([long]$UnixTime)$/;"	m
+Get-GRRClientIdFromComputerName	.\PowerGRR.psm1	/^Function Get-GRRClientIdFromComputerName()$/;"	m
+Get-GRRComputerNameFromClientId	.\PowerGRR.psm1	/^Function Get-GRRComputerNameFromClientId()$/;"	m
+Get-GRRFlowResult	.\PowerGRR.psm1	/^function Get-GRRFlowResult()$/;"	m
+Get-GRRHunt	.\PowerGRR.psm1	/^Function Get-GRRHunt()$/;"	m
+Get-GRRHuntInfo	.\PowerGRR.psm1	/^Function Get-GRRHuntInfo()$/;"	m
+Get-GRRHuntResult	.\PowerGRR.psm1	/^Function Get-GRRHuntResult()$/;"	m
+Get-GRRLabel	.\PowerGRR.psm1	/^Function Get-GRRLabel()$/;"	m
+Get-GRRSession	.\PowerGRR.psm1	/^function Get-GRRSession ()$/;"	m
+Invoke-GRRFlow	.\PowerGRR.psm1	/^function Invoke-GRRFlow()$/;"	m
+Invoke-GRRHunt	.\PowerGRR.psm1	/^function Invoke-GRRHunt()$/;"	m
+Invoke-GRRRequest	.\PowerGRR.psm1	/^function Invoke-GRRRequest ()$/;"	m
+New-DynamicParam	.\PowerGRR.psm1	/^Function New-DynamicParam ()$/;"	m
+New-GRRClientApproval	.\PowerGRR.psm1	/^function New-GRRClientApproval()$/;"	m
+New-GRRHunt	.\PowerGRR.psm1	/^function New-GRRHunt()$/;"	m
+New-GRRHuntApproval	.\PowerGRR.psm1	/^function New-GRRHuntApproval()$/;"	m
+Remove-GRRLabel	.\PowerGRR.psm1	/^function Remove-GRRLabel()$/;"	m
+Set-GRRLabel	.\PowerGRR.psm1	/^Function Set-GRRLabel()$/;"	m
+Set-NewVariables	.\PowerGRR.psm1	/^function Set-NewVariables()$/;"	m
+Start-GRRHunt	.\PowerGRR.psm1	/^function Start-GRRHunt()$/;"	m

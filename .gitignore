@@ -2,3 +2,4 @@
 *.swp
 !.gitignore
 /bin/*.exe
+/Configuration.ps1

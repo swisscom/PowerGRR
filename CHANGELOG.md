@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Removed
 
 ### Fixed
+* Fix bug when GRRIgnoreCertificateErrors is not set in the config file
 
 ### Security
 

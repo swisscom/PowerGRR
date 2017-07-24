@@ -13,24 +13,26 @@ PowerGRR is a PowerShell module for working with the GRR API. It allows
 working with flows, hunts, labels and the GRR search feature. Furthermore, it
 allows working with the computer names instead of the GRR internal client id.
 This makes handling and working with other tools more easy because often
-you just have the computer names.
+you just have the computer names. PowerGRR also enables you to easily
+document your work in text form which is then directly reusable by others.
 
 PowerGRR creates a comfortable, cli-based workflow for incident response.
-Working directly with PowerShell objects enables you to sift quickly 
-through flow and hunt data.
-
+PowerShell is installed on every Windows workstation and working directly with
+PowerShell objects enables you to sift quickly through flow and hunt data.
+This object-oriented approach gives you a fast way to analyze output
+within PowerShell, e.g. get all unique registry paths from a hunt or show a
+list of unique clients where a file was found.
 
 Some of the use cases where PowerGRR could speed up the work:
 * Start a flow on one or multiple clients and get flow results as PowerShell
     object for easier filtering.
 * Create and start a new hunt and get the hunt info or results as PowerShell
     objects
-    * The PowerShell object allows a fast way to analyze hunt output within
-      PowerShell, e.g. get all unique registry paths from a hunt or show a
-      list of unique clients where a file was found.
 * Add or remove a label on one or multiple clients based on a list of computer
     names.
 * List hunts, labels or clients and filter them in different ways.
+* Build IR scripts for common forensic workflows and start multiple hunts or
+    flows in one shot using multiple cmdlets inside a PowerShell script.
 
 The following plugins are available for hunts and flows and the target group
 is choosen based on labels.
@@ -129,7 +131,7 @@ Use `help <command>` to get the help for a command.
 help Get-GRRHuntInfo
 ...
 SYNTAX
-    Get-GRRHuntInfo [[-HuntId] <string>] [-Credential] <pscredential> [[-cert] <string>] [-WhatIf] [-Confirm]  [<CommonParameters>]
+    Get-GRRHuntInfo [[-HuntId] <string>] [-Credential] <pscredential> [[-cert] <string>] [-WhatIf] ...
 ...
 ```
 
@@ -141,7 +143,8 @@ build a hunt based on a label) and read the results.
 
 ```powershell
 # Read the client information to check LastSeenAt and the OSVersion
-Get-GRRClientIdFromComputerName -ComputerName WIN-DESKTOP01,MBP-LAPTOP02,WIN-DESKTOP03,WIN-DESKTOP04 -Credential $creds
+Get-GRRClientIdFromComputerName -ComputerName WIN-DESKTOP01,MBP-LAPTOP02,WIN-DESKTOP03,WIN-DESKTOP04 `
+                                -Credential $creds
  
 ComputerName    ClientId           LastSeenAt          OSVersion
 ------------    --------           ----------          ---------
@@ -163,7 +166,9 @@ Set-GRRLabel -ComputerName WIN-DESKTOP01, WIN-DESKTOP03, WIN-DESKTOP04 -Label IN
 $clients = Find-GRRClientByLabel -SearchString INC01 -Credential $creds -OnlyComputerName
 
 # Start a flow on the affected clients
-$clients | Invoke-GRRFlow -flow RegistryFinder -key "HKEY_USERS/%%users.sid%%/Software/Microsoft/Windows/CurrentVersion/Run/*" -Credential $cred
+$clients | Invoke-GRRFlow -flow RegistryFinder `
+                          -key "HKEY_USERS/%%users.sid%%/Software/Microsoft/Windows/CurrentVersion/Run/*" `
+                          -Credential $cred
 
 # Get flow results - see output of specific flow ids. Using
 # -OnlyPayload navigates directly to the payload section of the results
@@ -172,8 +177,7 @@ $res = Get-GRRFlowResult -Credential $cred -ComputerName WIN-DESKTOP01 -FlowId "
 
 # Show only the registry paths from the returned GRR object. Sometimes the
 # output is base64 encoded. Get-GRRFlowResult decodes the string if
-# possible. Without the -OnlyPayload you would have to type the following and
-# can't start directly on the stat_entry.
+# possible. 
 $ret.stat_entry.registry_data
 
 # Alternative you can start a hunt against that label. The EmailAddress
@@ -190,6 +194,8 @@ New-GRRHunt -HuntDescription "Search for notepad.exe" `
             -Credential $creds `
             -OnlyUrl `
             -Verbose
+
+Start-GRRHunt -Credential $creds -HuntId H:AAAAAAAA
 
 # Read hunt restuls
 Get-GRRHuntResult -Credential $cred -HuntId "H:AAAAAAAA"

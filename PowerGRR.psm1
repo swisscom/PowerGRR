@@ -1627,7 +1627,6 @@ Function New-DynamicParam ()
 # Module path for all functions
 $ModuleRoot = $PSScriptRoot
 
-
 # Load configuration file (URLs, ...)
 if (Test-Path "$ModuleRoot\Configuration.ps1")
 {
@@ -1654,7 +1653,8 @@ add-type @"
         }
     }
 "@
-if ($GRRIgnoreCertificateErrors)
+
+if (Get-Variable -Name GRRIgnoreCertificateErrors -ErrorAction SilentlyContinue)
 {
 	[System.Net.ServicePointManager]::CertificatePolicy = New-Object TrustAllCertsPolicy
 }

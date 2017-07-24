@@ -22,15 +22,22 @@ Get-GRRLabel [-Credential] <PSCredential> [-ShowJSON] [<CommonParameters>]
 
 ### Example 1
 ```
-PS C:\> {{ Add example code here }}
+PS C:\> Get-GRRLabel -Credential $creds
 ```
 
-{{ Add example description here }}
+Return every label which is available in GRR.
+
+### Example 2
+```
+PS C:\> Get-GRRLabel -Credential $creds | sls osx
+```
+
+Return every available label which contains "osx".
 
 ## PARAMETERS
 
 ### -Credential
-{{Fill Credential Description}}
+GRR credentials.
 
 ```yaml
 Type: PSCredential

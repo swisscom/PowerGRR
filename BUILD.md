@@ -49,7 +49,9 @@ Import-Module .\PowerGRR.psd1 -Force
 New-MarkdownHelp -Module PowerGRR -OutputFolder .\docs\ -WithModulePage -Force -HelpVersion "1.0.0.0"
 ```
 
-3. or create a markdown file for a specific cmdlet
+3. or create a markdown file for a specific cmdlet. When doing this it's
+   possible to add the online URL to the help. This allows using "-Online"
+   with the help command to display the online help.
 ``` powershell
 New-MarkdownHelp -Command Get-GRRLabel -OutputFolder .\docs\ -OnlineVersionUrl "https://github.com/swisscom/powergrr/docs/Get-GRRLabel.md" 
 ```

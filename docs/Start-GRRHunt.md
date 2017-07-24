@@ -23,10 +23,10 @@ Start-GRRHunt [[-HuntId] <String>] [-Credential] <PSCredential> [-ShowJSON] [-Wh
 
 ### Example 1
 ```
-PS C:\> {{ Add example code here }}
+PS C:\> Start-GRRHunt -Credential $cred -HuntId H:AAAAAAAA
 ```
 
-{{ Add example description here }}
+Start the specific hunt. Approval must be granted before.
 
 ## PARAMETERS
 

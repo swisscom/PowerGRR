@@ -23,10 +23,14 @@ Get-GRRComputerNameFromClientId [[-ClientId] <String[]>] [-Credential] <PSCreden
 
 ### Example 1
 ```
-PS C:\> {{ Add example code here }}
+PS C:\> Get-GRRComputerNameFromClientId -Credential $creds -ClientId c.1111111111111111
+PS C:\> Get-GRRComputerNameFromClientId -Credential $creds -ClientId c.1111111111111111, c.2222222222222222
+PS C:\> c.1111111111111111 | Get-GRRComputerNameFromClientId -Credential $cred
+PS C:\> c.1111111111111111,c.2222222222222222 | Get-GRRComputerNameFromClientId -Credential $cred
 ```
 
-{{ Add example description here }}
+Returns the host name for one or multiple client ids. Use the parameter
+ClientId or the pipeline as input.
 
 ## PARAMETERS
 
@@ -46,7 +50,7 @@ Accept wildcard characters: False
 ```
 
 ### -Credential
-{{Fill Credential Description}}
+GRR credentials.
 
 ```yaml
 Type: PSCredential

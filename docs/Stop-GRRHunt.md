@@ -23,10 +23,10 @@ Stop-GRRHunt [[-HuntId] <String>] [-Credential] <PSCredential> [-ShowJSON] [-Wha
 
 ### Example 1
 ```
-PS C:\> {{ Add example code here }}
+PS C:\> Stop-GRRHunt -Credential $cred -HuntId H:7D5E2318
 ```
 
-{{ Add example description here }}
+Stop the specific hunt.
 
 ## PARAMETERS
 
@@ -61,7 +61,7 @@ Accept wildcard characters: False
 ```
 
 ### -HuntId
-{{Fill HuntId Description}}
+Hunt id which should be stopped.
 
 ```yaml
 Type: String

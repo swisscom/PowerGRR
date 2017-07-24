@@ -23,10 +23,11 @@ Get-GRRFlowResult [-ComputerName] <String> [-Credential] <PSCredential> [-FlowId
 
 ### Example 1
 ```
-PS C:\> {{ Add example code here }}
+PS C:\> $res = Get-GRRFlowResult -Credential $cred -ComputerName u261354 -FlowId "F:11111111"
+PS C:\> $res.items.payload | ConvertFrom-Base64
 ```
 
-{{ Add example description here }}
+Get the flow results and decode the base64 encoded payload.
 
 ## PARAMETERS
 

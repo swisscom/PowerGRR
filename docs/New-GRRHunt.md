@@ -24,10 +24,10 @@ New-GRRHunt [[-HuntDescription] <String>] [-Flow] <String> [[-MatchMode] <String
 
 ### Example 1
 ```
-PS C:\> {{ Add example code here }}
+PS C:\> New-GRRHunt -Credential $cred -HuntDescription "Hunting for malicious launch agent" -Flow FileFinder -EmailAddress emailadress@for-notifications.tld -MatchMode MATCH_ALL -OnlyUrl -RuleType label -Label label1 -path "/Users/knockknock/Library/LaunchAgents/apple.evil.plist" -actiontype hash
 ```
 
-{{ Add example description here }}
+Create a new hunt and show only the URL after creating the hunt.
 
 ## PARAMETERS
 
@@ -47,7 +47,7 @@ Accept wildcard characters: False
 ```
 
 ### -Credential
-{{Fill Credential Description}}
+GRR credentials.
 
 ```yaml
 Type: PSCredential
@@ -62,7 +62,7 @@ Accept wildcard characters: False
 ```
 
 ### -EmailAddress
-{{Fill EmailAddress Description}}
+Email address for the notification after the first result.
 
 ```yaml
 Type: String
@@ -77,7 +77,7 @@ Accept wildcard characters: False
 ```
 
 ### -Flow
-{{Fill Flow Description}}
+Flow type for the hunt.
 
 ```yaml
 Type: String
@@ -93,7 +93,7 @@ Accept wildcard characters: False
 ```
 
 ### -HuntDescription
-{{Fill HuntDescription Description}}
+Hunt description.
 
 ```yaml
 Type: String
@@ -108,7 +108,7 @@ Accept wildcard characters: False
 ```
 
 ### -Label
-{{Fill Label Description}}
+Label for which the hunt is created.
 
 ```yaml
 Type: String
@@ -123,7 +123,7 @@ Accept wildcard characters: False
 ```
 
 ### -MatchMode
-{{Fill MatchMode Description}}
+Match mode for the rules.
 
 ```yaml
 Type: String
@@ -139,7 +139,7 @@ Accept wildcard characters: False
 ```
 
 ### -OnlyUrl
-{{Fill OnlyUrl Description}}
+Return only the url to the web ui.
 
 ```yaml
 Type: SwitchParameter
@@ -154,7 +154,7 @@ Accept wildcard characters: False
 ```
 
 ### -RuleType
-{{Fill RuleType Description}}
+Rule type for the hunt.
 
 ```yaml
 Type: String

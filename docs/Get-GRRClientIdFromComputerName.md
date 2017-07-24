@@ -23,10 +23,39 @@ Get-GRRClientIdFromComputerName [[-ComputerName] <String[]>] [-Credential] <PSCr
 
 ### Example 1
 ```
-PS C:\> {{ Add example code here }}
+PS C:\> Get-GRRClientIdFromComputerName -ComputerName host1,host2 -Credential $creds
+
+Node    ClientId           LastSeenAt          OSVersion
+----    --------           ----------          ---------
+host1   C.1111111111111111 18.05.2017 15:48:17 10.0.10586
+host1   C.2222222222222222 03.04.2017 14:55:37 6.1.7601
+host2   C.3333333333333333 26.06.2017 09:31:32 6.1.7601
 ```
 
-{{ Add example description here }}
+Search for the client ids for the two hosts.
+
+### Example 2
+```
+PS C:\> Get-GRRClientIdFromComputerName -ComputerName host1,host2 -Credential $creds -OnlyLastSeen
+
+Node    ClientId           LastSeenAt          OSVersion
+----    --------           ----------          ---------
+host1   C.1111111111111111 18.05.2017 15:48:17 10.0.10586
+host2   C.3333333333333333 26.06.2017 09:31:32 6.1.7601
+```
+
+Search for the client ids for the two hosts. If multiple client ids are
+found, the parameter "OnlyLastSeen" reduce the output to last seen one per
+each host. Compare the output to EXAMPLE 1.
+
+### Example 3
+```
+PS C:\> (Get-GRRClientIdFromComputerName -ComputerName host1,host2  -Credential $creds -OnlyLastSeen).clientid
+C.1111111111111111
+C.2222222222222222
+```
+
+Search for the client id for the two hosts and return only the client id.
 
 ## PARAMETERS
 
@@ -46,7 +75,7 @@ Accept wildcard characters: False
 ```
 
 ### -Credential
-{{Fill Credential Description}}
+GRR credentials.
 
 ```yaml
 Type: PSCredential

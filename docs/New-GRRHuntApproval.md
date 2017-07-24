@@ -23,10 +23,10 @@ New-GRRHuntApproval [-HuntId] <String> [-Credential] <PSCredential> [-NotifiedUs
 
 ### Example 1
 ```
-PS C:\> {{ Add example code here }}
+PS C:\> New-GRRHuntApproval -Credential $cred -HuntId H:AAAAAAAA -NotifiedUsers username -Reason "Hunt for malicious files" -OnlyId
 ```
 
-{{ Add example description here }}
+Create a new hunt approval.
 
 ## PARAMETERS
 
@@ -46,7 +46,7 @@ Accept wildcard characters: False
 ```
 
 ### -Credential
-{{Fill Credential Description}}
+GRR credentials.
 
 ```yaml
 Type: PSCredential
@@ -61,7 +61,7 @@ Accept wildcard characters: False
 ```
 
 ### -HuntId
-{{Fill HuntId Description}}
+Hunt id for which an approval is created.
 
 ```yaml
 Type: String
@@ -76,7 +76,7 @@ Accept wildcard characters: False
 ```
 
 ### -NotifiedUsers
-{{Fill NotifiedUsers Description}}
+The users which have to give the approval.
 
 ```yaml
 Type: String[]
@@ -91,7 +91,7 @@ Accept wildcard characters: False
 ```
 
 ### -OnlyId
-{{Fill OnlyId Description}}
+Display only the approval id after creating the approval.
 
 ```yaml
 Type: SwitchParameter
@@ -106,7 +106,7 @@ Accept wildcard characters: False
 ```
 
 ### -Reason
-{{Fill Reason Description}}
+Reason for the approval.
 
 ```yaml
 Type: String

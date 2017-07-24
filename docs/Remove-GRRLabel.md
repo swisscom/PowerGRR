@@ -23,10 +23,20 @@ Remove-GRRLabel [[-ComputerName] <String[]>] [[-Label] <String[]>] [-Credential]
 
 ### Example 1
 ```
-PS C:\> {{ Add example code here }}
+PS C:\> Remove-GRRLabel -ComputerName host1, host2 -Label label1 -Credential $creds
+PS C:\> "host1", "host2" | Remove-GRRLabel -Label label1 -Credential $creds
 ```
 
-{{ Add example description here }}
+Remove the label "label1" to both hosts. It's possible to use pipeline to remove the
+labels.
+
+### Example 2
+```
+PS C:\> Remove-GRRLabel -ComputerName (Find-GRRClient -SearchString keyword -Credential $cred -OnlyNode) -Label test5,test3 -Credential $creds
+```
+
+Use the GRR search to find specific clients on which both labels should be
+removed.
 
 ## PARAMETERS
 

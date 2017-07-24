@@ -17,16 +17,17 @@ Invoke-GRRFlow [-ComputerName] <String[]> [-Credential] <PSCredential> [-Flow] <
 ```
 
 ## DESCRIPTION
-{{Fill in the Description}}
+Invoke a flow on one or multiple clients. The dynamic parameter "Flow" allows
+using dedicated parameters for each flow type.
 
 ## EXAMPLES
 
 ### Example 1
 ```
-PS C:\> {{ Add example code here }}
+PS C:\> Invoke-GRRFlow -ComputerName host1 -Credential $cred -Flow FileFinder -path "C:\test.exe" -actiontype hash
 ```
 
-{{ Add example description here }}
+Start a new file finder flow.
 
 ## PARAMETERS
 

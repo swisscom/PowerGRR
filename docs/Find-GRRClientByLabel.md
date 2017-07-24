@@ -23,10 +23,17 @@ Find-GRRClientByLabel [[-SearchString] <String>] [-Credential] <PSCredential> [-
 
 ### Example 1
 ```
-PS C:\> {{ Add example code here }}
+PS C:\> Find-GRRClientByLabel -Credential $creds -SearchString keyword
 ```
 
-{{ Add example description here }}
+Search for clients with a specific label.
+
+### Example 2
+```
+PS C:\> Find-GRRClientByLabel -Credential $creds -SearchString keyword -OnlyNode
+```
+
+Search for clients with a specific label and show only the host names.
 
 ## PARAMETERS
 

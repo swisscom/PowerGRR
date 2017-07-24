@@ -749,6 +749,8 @@ function Stop-GRRHunt()
 } #Stop-GRRHunt
 
 
+# todo remove duplicate flow code (see Invoke-GRRFlow)
+
 function New-GRRHunt()
 {
     [CmdletBinding(SupportsShouldProcess=$True)]

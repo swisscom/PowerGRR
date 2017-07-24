@@ -128,10 +128,27 @@ get-command -Module PowerGRR | sls flow
 Use `help <command>` to get the help for a command.
 
 ```powershell
-help Get-GRRHuntInfo
+PS> help Get-GRRHuntInfo
 ...
 SYNTAX
     Get-GRRHuntInfo [[-HuntId] <string>] [-Credential] <pscredential> [[-cert] <string>] [-WhatIf] ...
+...
+```
+
+Use `help <command> -Examples` to get examples for a command.
+
+```powershell
+PS> help Get-GRRHuntInfo -Examples
+
+NAME
+    Get-GRRHuntInfo
+
+OVERVIEW
+    Get hunt info for a specific hunt.
+
+    Example 1
+
+    PS C:\> Get-GRRHuntInfo "H:AAAAAAAA" -Credential $cred
 ...
 ```
 
@@ -203,6 +220,13 @@ Get-GRRHuntResult -Credential $cred -HuntId "H:AAAAAAAA"
 # Remove the label if you don't use it anymore
 $clients | Remove-GRRLabel -SearchString INC01 -$Credential $creds
 ```
+
+## Limitations
+
+Currently, only pre-defined flows are available. See [command
+help](https://github.com/swisscom/PowerGRR/blob/master/docs/Invoke-GRRFlow.md#-flow)
+for the available flow types. Furthermore, only hunts based on labels are
+possible.
 
 ## Contribution
 

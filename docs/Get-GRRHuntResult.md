@@ -22,10 +22,13 @@ Get-GRRHuntResult [[-HuntId] <String>] [-Credential] <PSCredential> [-ShowJSON] 
 
 ### Example 1
 ```
-PS C:\> {{ Add example code here }}
+PS C:\> $res = Get-GRRHuntResult -HuntId H:AAAAAAAA -Credential $creds
+PS C:\> ($res.items.payload.stat_entry.aff4path).substring(31) | sort -u
+PS C:\> $res.items.client_id | sort -u
 ```
 
-{{ Add example description here }}
+Get hunt results based on a hunt id. Display all the unique file paths which
+were found with a file finder hunt. Only display the unique GRR client id's.
 
 ## PARAMETERS
 

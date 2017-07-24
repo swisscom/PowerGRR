@@ -165,8 +165,14 @@
 </maml:alert>
 </maml:alertSet>
 <command:examples><command:example><maml:title>Example 1</maml:title>
-<dev:code>PS C:\&gt; {{ Add example code here }}</dev:code>
-<dev:remarks><maml:para>{{ Add example description here }}
+<dev:code>PS C:\&gt; Find-GRRClient -SearchString keyword -Credential $cred</dev:code>
+<dev:remarks><maml:para>Find GRR clients based on keywords. Use the available prefixes, e.g. "label:" or "host:" to limit the search results.
+</maml:para>
+</dev:remarks>
+</command:example>
+<command:example><maml:title>Example 2</maml:title>
+<dev:code>PS C:\&gt; Find-GRRClient -SearchString keyword -Credential $cred -OnlyNode</dev:code>
+<dev:remarks><maml:para>Find GRR clients based on keywords. Use the available prefixes, e.g. "label:" or "host:" to limit the search results. Use `OnlyNode` to only display the host names.
 </maml:para>
 </dev:remarks>
 </command:example>
@@ -277,8 +283,14 @@
 </maml:alert>
 </maml:alertSet>
 <command:examples><command:example><maml:title>Example 1</maml:title>
-<dev:code>PS C:\&gt; {{ Add example code here }}</dev:code>
-<dev:remarks><maml:para>{{ Add example description here }}
+<dev:code>PS C:\&gt; Find-GRRClientByLabel -Credential $creds -SearchString keyword</dev:code>
+<dev:remarks><maml:para>Search for clients with a specific label.
+</maml:para>
+</dev:remarks>
+</command:example>
+<command:example><maml:title>Example 2</maml:title>
+<dev:code>PS C:\&gt; Find-GRRClientByLabel -Credential $creds -SearchString keyword -OnlyNode</dev:code>
+<dev:remarks><maml:para>Search for clients with a specific label and show only the host names.
 </maml:para>
 </dev:remarks>
 </command:example>
@@ -307,7 +319,7 @@
 <dev:defaultValue>None</dev:defaultValue>
 </command:parameter>
 <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none"><maml:name>Credential</maml:name>
-<maml:Description><maml:para>{{Fill Credential Description}}
+<maml:Description><maml:para>GRR credentials.
 </maml:para>
 </maml:Description>
 <command:parameterValue required="true" variableLength="false">PSCredential</command:parameterValue>
@@ -343,7 +355,7 @@
 <dev:defaultValue>None</dev:defaultValue>
 </command:parameter>
 <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none"><maml:name>Credential</maml:name>
-<maml:Description><maml:para>{{Fill Credential Description}}
+<maml:Description><maml:para>GRR credentials.
 </maml:para>
 </maml:Description>
 <command:parameterValue required="true" variableLength="false">PSCredential</command:parameterValue>
@@ -389,8 +401,33 @@
 </maml:alert>
 </maml:alertSet>
 <command:examples><command:example><maml:title>Example 1</maml:title>
-<dev:code>PS C:\&gt; {{ Add example code here }}</dev:code>
-<dev:remarks><maml:para>{{ Add example description here }}
+<dev:code>PS C:\&gt; Get-GRRClientIdFromComputerName -ComputerName host1,host2 -Credential $creds
+
+Node    ClientId           LastSeenAt          OSVersion
+----    --------           ----------          ---------
+host1   C.1111111111111111 18.05.2017 15:48:17 10.0.10586
+host1   C.2222222222222222 03.04.2017 14:55:37 6.1.7601
+host2   C.3333333333333333 26.06.2017 09:31:32 6.1.7601</dev:code>
+<dev:remarks><maml:para>Search for the client ids for the two hosts.
+</maml:para>
+</dev:remarks>
+</command:example>
+<command:example><maml:title>Example 2</maml:title>
+<dev:code>PS C:\&gt; Get-GRRClientIdFromComputerName -ComputerName host1,host2 -Credential $creds -OnlyLastSeen
+
+Node    ClientId           LastSeenAt          OSVersion
+----    --------           ----------          ---------
+host1   C.1111111111111111 18.05.2017 15:48:17 10.0.10586
+host2   C.3333333333333333 26.06.2017 09:31:32 6.1.7601</dev:code>
+<dev:remarks><maml:para>Search for the client ids for the two hosts. If multiple client ids are found, the parameter "OnlyLastSeen" reduce the output to last seen one per each host. Compare the output to EXAMPLE 1.
+</maml:para>
+</dev:remarks>
+</command:example>
+<command:example><maml:title>Example 3</maml:title>
+<dev:code>PS C:\&gt; (Get-GRRClientIdFromComputerName -ComputerName host1,host2  -Credential $creds -OnlyLastSeen).clientid
+C.1111111111111111
+C.2222222222222222</dev:code>
+<dev:remarks><maml:para>Search for the client id for the two hosts and return only the client id.
 </maml:para>
 </dev:remarks>
 </command:example>
@@ -419,7 +456,7 @@
 <dev:defaultValue>None</dev:defaultValue>
 </command:parameter>
 <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none"><maml:name>Credential</maml:name>
-<maml:Description><maml:para>{{Fill Credential Description}}
+<maml:Description><maml:para>GRR credentials.
 </maml:para>
 </maml:Description>
 <command:parameterValue required="true" variableLength="false">PSCredential</command:parameterValue>
@@ -447,7 +484,7 @@
 <dev:defaultValue>None</dev:defaultValue>
 </command:parameter>
 <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none"><maml:name>Credential</maml:name>
-<maml:Description><maml:para>{{Fill Credential Description}}
+<maml:Description><maml:para>GRR credentials.
 </maml:para>
 </maml:Description>
 <command:parameterValue required="true" variableLength="false">PSCredential</command:parameterValue>
@@ -484,8 +521,11 @@
 </maml:alert>
 </maml:alertSet>
 <command:examples><command:example><maml:title>Example 1</maml:title>
-<dev:code>PS C:\&gt; {{ Add example code here }}</dev:code>
-<dev:remarks><maml:para>{{ Add example description here }}
+<dev:code>PS C:\&gt; Get-GRRComputerNameFromClientId -Credential $creds -ClientId c.1111111111111111
+PS C:\&gt; Get-GRRComputerNameFromClientId -Credential $creds -ClientId c.1111111111111111, c.2222222222222222
+PS C:\&gt; c.1111111111111111 | Get-GRRComputerNameFromClientId -Credential $cred
+PS C:\&gt; c.1111111111111111,c.2222222222222222 | Get-GRRComputerNameFromClientId -Credential $cred</dev:code>
+<dev:remarks><maml:para>Returns the host name for one or multiple client ids. Use the parameter ClientId or the pipeline as input.
 </maml:para>
 </dev:remarks>
 </command:example>
@@ -614,8 +654,9 @@
 </maml:alert>
 </maml:alertSet>
 <command:examples><command:example><maml:title>Example 1</maml:title>
-<dev:code>PS C:\&gt; {{ Add example code here }}</dev:code>
-<dev:remarks><maml:para>{{ Add example description here }}
+<dev:code>PS C:\&gt; $res = Get-GRRFlowResult -Credential $cred -ComputerName u261354 -FlowId "F:11111111"
+PS C:\&gt; $res.items.payload | ConvertFrom-Base64</dev:code>
+<dev:remarks><maml:para>Get the flow results and decode the base64 encoded payload.
 </maml:para>
 </dev:remarks>
 </command:example>
@@ -635,7 +676,7 @@
 </maml:description>
 <command:syntax><command:syntaxItem><maml:name>Get-GRRHunt</maml:name>
 <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none"><maml:name>Credential</maml:name>
-<maml:Description><maml:para>{{Fill Credential Description}}
+<maml:Description><maml:para>GRR credentials.
 </maml:para>
 </maml:Description>
 <command:parameterValue required="true" variableLength="false">PSCredential</command:parameterValue>
@@ -653,7 +694,7 @@
 <dev:defaultValue>None</dev:defaultValue>
 </command:parameter>
 <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>CreatedBy</maml:name>
-<maml:Description><maml:para>{{Fill CreatedBy Description}}
+<maml:Description><maml:para>Author of a hunt.
 </maml:para>
 </maml:Description>
 <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
@@ -662,7 +703,7 @@
 <dev:defaultValue>None</dev:defaultValue>
 </command:parameter>
 <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>ShowJSON</maml:name>
-<maml:Description><maml:para>{{Fill ShowJSON Description}}
+<maml:Description><maml:para>Return plain JSON instead of converted JSON.
 </maml:para>
 </maml:Description>
 <dev:type><maml:name>SwitchParameter</maml:name>
@@ -672,7 +713,7 @@
 </command:syntaxItem>
 <command:syntaxItem><maml:name>Get-GRRHunt</maml:name>
 <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none"><maml:name>Credential</maml:name>
-<maml:Description><maml:para>{{Fill Credential Description}}
+<maml:Description><maml:para>GRR credentials.
 </maml:para>
 </maml:Description>
 <command:parameterValue required="true" variableLength="false">PSCredential</command:parameterValue>
@@ -690,7 +731,7 @@
 <dev:defaultValue>None</dev:defaultValue>
 </command:parameter>
 <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>DescriptionContains</maml:name>
-<maml:Description><maml:para>{{Fill DescriptionContains Description}}
+<maml:Description><maml:para>Text which is contains within the hunt description.
 </maml:para>
 </maml:Description>
 <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
@@ -699,7 +740,7 @@
 <dev:defaultValue>None</dev:defaultValue>
 </command:parameter>
 <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>ShowJSON</maml:name>
-<maml:Description><maml:para>{{Fill ShowJSON Description}}
+<maml:Description><maml:para>Return plain JSON instead of converted JSON.
 </maml:para>
 </maml:Description>
 <dev:type><maml:name>SwitchParameter</maml:name>
@@ -709,7 +750,7 @@
 </command:syntaxItem>
 <command:syntaxItem><maml:name>Get-GRRHunt</maml:name>
 <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none"><maml:name>Credential</maml:name>
-<maml:Description><maml:para>{{Fill Credential Description}}
+<maml:Description><maml:para>GRR credentials.
 </maml:para>
 </maml:Description>
 <command:parameterValue required="true" variableLength="false">PSCredential</command:parameterValue>
@@ -718,7 +759,7 @@
 <dev:defaultValue>None</dev:defaultValue>
 </command:parameter>
 <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>Count</maml:name>
-<maml:Description><maml:para>{{Fill Count Description}}
+<maml:Description><maml:para>The amount of returned hunts.
 </maml:para>
 </maml:Description>
 <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
@@ -727,7 +768,7 @@
 <dev:defaultValue>None</dev:defaultValue>
 </command:parameter>
 <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>Offset</maml:name>
-<maml:Description><maml:para>{{Fill Offset Description}}
+<maml:Description><maml:para>Offset for the search.
 </maml:para>
 </maml:Description>
 <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
@@ -736,7 +777,7 @@
 <dev:defaultValue>None</dev:defaultValue>
 </command:parameter>
 <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>ShowJSON</maml:name>
-<maml:Description><maml:para>{{Fill ShowJSON Description}}
+<maml:Description><maml:para>Return plain JSON instead of converted JSON.
 </maml:para>
 </maml:Description>
 <dev:type><maml:name>SwitchParameter</maml:name>
@@ -746,7 +787,7 @@
 </command:syntaxItem>
 </command:syntax>
 <command:parameters><command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none"><maml:name>Credential</maml:name>
-<maml:Description><maml:para>{{Fill Credential Description}}
+<maml:Description><maml:para>GRR credentials.
 </maml:para>
 </maml:Description>
 <command:parameterValue required="true" variableLength="false">PSCredential</command:parameterValue>
@@ -764,7 +805,7 @@
 <dev:defaultValue>None</dev:defaultValue>
 </command:parameter>
 <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>Count</maml:name>
-<maml:Description><maml:para>{{Fill Count Description}}
+<maml:Description><maml:para>The amount of returned hunts.
 </maml:para>
 </maml:Description>
 <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
@@ -773,7 +814,7 @@
 <dev:defaultValue>None</dev:defaultValue>
 </command:parameter>
 <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>CreatedBy</maml:name>
-<maml:Description><maml:para>{{Fill CreatedBy Description}}
+<maml:Description><maml:para>Author of a hunt.
 </maml:para>
 </maml:Description>
 <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
@@ -782,7 +823,7 @@
 <dev:defaultValue>None</dev:defaultValue>
 </command:parameter>
 <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>DescriptionContains</maml:name>
-<maml:Description><maml:para>{{Fill DescriptionContains Description}}
+<maml:Description><maml:para>Text which is contains within the hunt description.
 </maml:para>
 </maml:Description>
 <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
@@ -791,7 +832,7 @@
 <dev:defaultValue>None</dev:defaultValue>
 </command:parameter>
 <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>Offset</maml:name>
-<maml:Description><maml:para>{{Fill Offset Description}}
+<maml:Description><maml:para>Offset for the search.
 </maml:para>
 </maml:Description>
 <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
@@ -800,7 +841,7 @@
 <dev:defaultValue>None</dev:defaultValue>
 </command:parameter>
 <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>ShowJSON</maml:name>
-<maml:Description><maml:para>{{Fill ShowJSON Description}}
+<maml:Description><maml:para>Return plain JSON instead of converted JSON.
 </maml:para>
 </maml:Description>
 <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
@@ -828,8 +869,14 @@
 </maml:alert>
 </maml:alertSet>
 <command:examples><command:example><maml:title>Example 1</maml:title>
-<dev:code>PS C:\&gt; {{ Add example code here }}</dev:code>
-<dev:remarks><maml:para>{{ Add example description here }}
+<dev:code>PS C:\&gt; Get-GRRHunts -Credential $cred | select -First 1</dev:code>
+<dev:remarks><maml:para>Find last hunt id. You can use all the filtering from PowerShell. Each hunt is represented as an own PowerShell object. The disadvantage of this POST-filtering is that the command first returns every hunt. See next example to use a PRE-filtering.
+</maml:para>
+</dev:remarks>
+</command:example>
+<command:example><maml:title>Example 2</maml:title>
+<dev:code>PS C:\&gt; Get-GRRHunts -Credential $cred -Count 5</dev:code>
+<dev:remarks><maml:para>Find last 5 hunt id. You can use all the filtering from PowerShell. Each hunt is represented as an own PowerShell object. The advantage of this usage is that GRR server filters the hunts on the server before returning the response.
 </maml:para>
 </dev:remarks>
 </command:example>
@@ -941,8 +988,8 @@
 </maml:alert>
 </maml:alertSet>
 <command:examples><command:example><maml:title>Example 1</maml:title>
-<dev:code>PS C:\&gt; {{ Add example code here }}</dev:code>
-<dev:remarks><maml:para>{{ Add example description here }}
+<dev:code>PS C:\&gt; Get-GRRHuntInfo "H:AAAAAAAA" -Credential $cred</dev:code>
+<dev:remarks><maml:para>Read the hunt infos based on a hunt id.
 </maml:para>
 </dev:remarks>
 </command:example>
@@ -1036,8 +1083,10 @@
 </maml:alert>
 </maml:alertSet>
 <command:examples><command:example><maml:title>Example 1</maml:title>
-<dev:code>PS C:\&gt; {{ Add example code here }}</dev:code>
-<dev:remarks><maml:para>{{ Add example description here }}
+<dev:code>PS C:\&gt; $res = Get-GRRHuntResult -HuntId H:AAAAAAAA -Credential $creds
+PS C:\&gt; ($res.items.payload.stat_entry.aff4path).substring(31) | sort -u
+PS C:\&gt; $res.items.client_id | sort -u</dev:code>
+<dev:remarks><maml:para>Get hunt results based on a hunt id. Display all the unique file paths which were found with a file finder hunt. Only display the unique GRR client id's.
 </maml:para>
 </dev:remarks>
 </command:example>
@@ -1057,7 +1106,7 @@
 </maml:description>
 <command:syntax><command:syntaxItem><maml:name>Get-GRRLabel</maml:name>
 <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none"><maml:name>Credential</maml:name>
-<maml:Description><maml:para>{{Fill Credential Description}}
+<maml:Description><maml:para>GRR credentials.
 </maml:para>
 </maml:Description>
 <command:parameterValue required="true" variableLength="false">PSCredential</command:parameterValue>
@@ -1076,7 +1125,7 @@
 </command:syntaxItem>
 </command:syntax>
 <command:parameters><command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none"><maml:name>Credential</maml:name>
-<maml:Description><maml:para>{{Fill Credential Description}}
+<maml:Description><maml:para>GRR credentials.
 </maml:para>
 </maml:Description>
 <command:parameterValue required="true" variableLength="false">PSCredential</command:parameterValue>
@@ -1113,8 +1162,14 @@
 </maml:alert>
 </maml:alertSet>
 <command:examples><command:example><maml:title>Example 1</maml:title>
-<dev:code>PS C:\&gt; {{ Add example code here }}</dev:code>
-<dev:remarks><maml:para>{{ Add example description here }}
+<dev:code>PS C:\&gt; Get-GRRLabel -Credential $creds</dev:code>
+<dev:remarks><maml:para>Return every label which is available in GRR.
+</maml:para>
+</dev:remarks>
+</command:example>
+<command:example><maml:title>Example 2</maml:title>
+<dev:code>PS C:\&gt; Get-GRRLabel -Credential $creds | sls osx</dev:code>
+<dev:remarks><maml:para>Return every available label which contains "osx".
 </maml:para>
 </dev:remarks>
 </command:example>
@@ -1189,7 +1244,7 @@
 </maml:para>
 </maml:description>
 </command:details>
-<maml:description><maml:para>{{Fill in the Description}}
+<maml:description><maml:para>Invoke a flow on one or multiple clients. The dynamic parameter "Flow" allows using dedicated parameters for each flow type.
 </maml:para>
 </maml:description>
 <command:syntax><command:syntaxItem><maml:name>Invoke-GRRFlow</maml:name>
@@ -1344,8 +1399,8 @@
 </maml:alert>
 </maml:alertSet>
 <command:examples><command:example><maml:title>Example 1</maml:title>
-<dev:code>PS C:\&gt; {{ Add example code here }}</dev:code>
-<dev:remarks><maml:para>{{ Add example description here }}
+<dev:code>PS C:\&gt; Invoke-GRRFlow -ComputerName host1 -Credential $cred -Flow FileFinder -path "C:\test.exe" -actiontype hash</dev:code>
+<dev:remarks><maml:para>Start a new file finder flow.
 </maml:para>
 </dev:remarks>
 </command:example>
@@ -1714,7 +1769,7 @@
 </maml:description>
 <command:syntax><command:syntaxItem><maml:name>New-GRRHunt</maml:name>
 <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none"><maml:name>HuntDescription</maml:name>
-<maml:Description><maml:para>{{Fill HuntDescription Description}}
+<maml:Description><maml:para>Hunt description.
 </maml:para>
 </maml:Description>
 <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
@@ -1723,7 +1778,7 @@
 <dev:defaultValue>None</dev:defaultValue>
 </command:parameter>
 <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none"><maml:name>Flow</maml:name>
-<maml:Description><maml:para>{{Fill Flow Description}}
+<maml:Description><maml:para>Flow type for the hunt.
 </maml:para>
 </maml:Description>
 <command:parameterValueGroup><command:parameterValue required="false" variableLength="false">Netstat</command:parameterValue>
@@ -1738,7 +1793,7 @@
 <dev:defaultValue>None</dev:defaultValue>
 </command:parameter>
 <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="none"><maml:name>MatchMode</maml:name>
-<maml:Description><maml:para>{{Fill MatchMode Description}}
+<maml:Description><maml:para>Match mode for the rules.
 </maml:para>
 </maml:Description>
 <command:parameterValueGroup><command:parameterValue required="false" variableLength="false">MATCH_ALL</command:parameterValue>
@@ -1750,7 +1805,7 @@
 <dev:defaultValue>None</dev:defaultValue>
 </command:parameter>
 <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="3" aliases="none"><maml:name>RuleType</maml:name>
-<maml:Description><maml:para>{{Fill RuleType Description}}
+<maml:Description><maml:para>Rule type for the hunt.
 </maml:para>
 </maml:Description>
 <command:parameterValueGroup><command:parameterValue required="false" variableLength="false">Label</command:parameterValue>
@@ -1762,7 +1817,7 @@
 <dev:defaultValue>None</dev:defaultValue>
 </command:parameter>
 <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="4" aliases="none"><maml:name>Label</maml:name>
-<maml:Description><maml:para>{{Fill Label Description}}
+<maml:Description><maml:para>Label for which the hunt is created.
 </maml:para>
 </maml:Description>
 <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
@@ -1771,7 +1826,7 @@
 <dev:defaultValue>None</dev:defaultValue>
 </command:parameter>
 <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="5" aliases="none"><maml:name>EmailAddress</maml:name>
-<maml:Description><maml:para>{{Fill EmailAddress Description}}
+<maml:Description><maml:para>Email address for the notification after the first result.
 </maml:para>
 </maml:Description>
 <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
@@ -1780,7 +1835,7 @@
 <dev:defaultValue>None</dev:defaultValue>
 </command:parameter>
 <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="6" aliases="none"><maml:name>Credential</maml:name>
-<maml:Description><maml:para>{{Fill Credential Description}}
+<maml:Description><maml:para>GRR credentials.
 </maml:para>
 </maml:Description>
 <command:parameterValue required="true" variableLength="false">PSCredential</command:parameterValue>
@@ -1797,7 +1852,7 @@
 <dev:defaultValue>False</dev:defaultValue>
 </command:parameter>
 <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="benannt" aliases="none"><maml:name>OnlyUrl</maml:name>
-<maml:Description><maml:para>{{Fill OnlyUrl Description}}
+<maml:Description><maml:para>Return only the url to the web ui.
 </maml:para>
 </maml:Description>
 <dev:type><maml:name>SwitchParameter</maml:name>
@@ -1832,7 +1887,7 @@
 <dev:defaultValue>False</dev:defaultValue>
 </command:parameter>
 <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="6" aliases="none"><maml:name>Credential</maml:name>
-<maml:Description><maml:para>{{Fill Credential Description}}
+<maml:Description><maml:para>GRR credentials.
 </maml:para>
 </maml:Description>
 <command:parameterValue required="true" variableLength="false">PSCredential</command:parameterValue>
@@ -1841,7 +1896,7 @@
 <dev:defaultValue>None</dev:defaultValue>
 </command:parameter>
 <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="5" aliases="none"><maml:name>EmailAddress</maml:name>
-<maml:Description><maml:para>{{Fill EmailAddress Description}}
+<maml:Description><maml:para>Email address for the notification after the first result.
 </maml:para>
 </maml:Description>
 <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
@@ -1850,7 +1905,7 @@
 <dev:defaultValue>None</dev:defaultValue>
 </command:parameter>
 <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none"><maml:name>Flow</maml:name>
-<maml:Description><maml:para>{{Fill Flow Description}}
+<maml:Description><maml:para>Flow type for the hunt.
 </maml:para>
 </maml:Description>
 <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
@@ -1859,7 +1914,7 @@
 <dev:defaultValue>None</dev:defaultValue>
 </command:parameter>
 <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none"><maml:name>HuntDescription</maml:name>
-<maml:Description><maml:para>{{Fill HuntDescription Description}}
+<maml:Description><maml:para>Hunt description.
 </maml:para>
 </maml:Description>
 <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
@@ -1868,7 +1923,7 @@
 <dev:defaultValue>None</dev:defaultValue>
 </command:parameter>
 <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="4" aliases="none"><maml:name>Label</maml:name>
-<maml:Description><maml:para>{{Fill Label Description}}
+<maml:Description><maml:para>Label for which the hunt is created.
 </maml:para>
 </maml:Description>
 <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
@@ -1877,7 +1932,7 @@
 <dev:defaultValue>None</dev:defaultValue>
 </command:parameter>
 <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="none"><maml:name>MatchMode</maml:name>
-<maml:Description><maml:para>{{Fill MatchMode Description}}
+<maml:Description><maml:para>Match mode for the rules.
 </maml:para>
 </maml:Description>
 <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
@@ -1886,7 +1941,7 @@
 <dev:defaultValue>None</dev:defaultValue>
 </command:parameter>
 <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="benannt" aliases="none"><maml:name>OnlyUrl</maml:name>
-<maml:Description><maml:para>{{Fill OnlyUrl Description}}
+<maml:Description><maml:para>Return only the url to the web ui.
 </maml:para>
 </maml:Description>
 <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
@@ -1895,7 +1950,7 @@
 <dev:defaultValue>False</dev:defaultValue>
 </command:parameter>
 <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="3" aliases="none"><maml:name>RuleType</maml:name>
-<maml:Description><maml:para>{{Fill RuleType Description}}
+<maml:Description><maml:para>Rule type for the hunt.
 </maml:para>
 </maml:Description>
 <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
@@ -1941,8 +1996,8 @@
 </maml:alert>
 </maml:alertSet>
 <command:examples><command:example><maml:title>Example 1</maml:title>
-<dev:code>PS C:\&gt; {{ Add example code here }}</dev:code>
-<dev:remarks><maml:para>{{ Add example description here }}
+<dev:code>PS C:\&gt; New-GRRHunt -Credential $cred -HuntDescription "Hunting for malicious launch agent" -Flow FileFinder -EmailAddress emailadress@for-notifications.tld -MatchMode MATCH_ALL -OnlyUrl -RuleType label -Label label1 -path "/Users/knockknock/Library/LaunchAgents/apple.evil.plist" -actiontype hash</dev:code>
+<dev:remarks><maml:para>Create a new hunt and show only the URL after creating the hunt.
 </maml:para>
 </dev:remarks>
 </command:example>
@@ -1962,7 +2017,7 @@
 </maml:description>
 <command:syntax><command:syntaxItem><maml:name>New-GRRHuntApproval</maml:name>
 <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none"><maml:name>HuntId</maml:name>
-<maml:Description><maml:para>{{Fill HuntId Description}}
+<maml:Description><maml:para>Hunt id for which an approval is created.
 </maml:para>
 </maml:Description>
 <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
@@ -1971,7 +2026,7 @@
 <dev:defaultValue>None</dev:defaultValue>
 </command:parameter>
 <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none"><maml:name>Credential</maml:name>
-<maml:Description><maml:para>{{Fill Credential Description}}
+<maml:Description><maml:para>GRR credentials.
 </maml:para>
 </maml:Description>
 <command:parameterValue required="true" variableLength="false">PSCredential</command:parameterValue>
@@ -1980,7 +2035,7 @@
 <dev:defaultValue>None</dev:defaultValue>
 </command:parameter>
 <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="none"><maml:name>NotifiedUsers</maml:name>
-<maml:Description><maml:para>{{Fill NotifiedUsers Description}}
+<maml:Description><maml:para>The users which have to give the approval.
 </maml:para>
 </maml:Description>
 <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
@@ -1989,7 +2044,7 @@
 <dev:defaultValue>None</dev:defaultValue>
 </command:parameter>
 <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="3" aliases="none"><maml:name>Reason</maml:name>
-<maml:Description><maml:para>{{Fill Reason Description}}
+<maml:Description><maml:para>Reason for the approval.
 </maml:para>
 </maml:Description>
 <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
@@ -2006,7 +2061,7 @@
 <dev:defaultValue>False</dev:defaultValue>
 </command:parameter>
 <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="benannt" aliases="none"><maml:name>OnlyId</maml:name>
-<maml:Description><maml:para>{{Fill OnlyId Description}}
+<maml:Description><maml:para>Display only the approval id after creating the approval.
 </maml:para>
 </maml:Description>
 <dev:type><maml:name>SwitchParameter</maml:name>
@@ -2041,7 +2096,7 @@
 <dev:defaultValue>False</dev:defaultValue>
 </command:parameter>
 <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none"><maml:name>Credential</maml:name>
-<maml:Description><maml:para>{{Fill Credential Description}}
+<maml:Description><maml:para>GRR credentials.
 </maml:para>
 </maml:Description>
 <command:parameterValue required="true" variableLength="false">PSCredential</command:parameterValue>
@@ -2050,7 +2105,7 @@
 <dev:defaultValue>None</dev:defaultValue>
 </command:parameter>
 <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none"><maml:name>HuntId</maml:name>
-<maml:Description><maml:para>{{Fill HuntId Description}}
+<maml:Description><maml:para>Hunt id for which an approval is created.
 </maml:para>
 </maml:Description>
 <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
@@ -2059,7 +2114,7 @@
 <dev:defaultValue>None</dev:defaultValue>
 </command:parameter>
 <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="none"><maml:name>NotifiedUsers</maml:name>
-<maml:Description><maml:para>{{Fill NotifiedUsers Description}}
+<maml:Description><maml:para>The users which have to give the approval.
 </maml:para>
 </maml:Description>
 <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
@@ -2068,7 +2123,7 @@
 <dev:defaultValue>None</dev:defaultValue>
 </command:parameter>
 <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="benannt" aliases="none"><maml:name>OnlyId</maml:name>
-<maml:Description><maml:para>{{Fill OnlyId Description}}
+<maml:Description><maml:para>Display only the approval id after creating the approval.
 </maml:para>
 </maml:Description>
 <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
@@ -2077,7 +2132,7 @@
 <dev:defaultValue>False</dev:defaultValue>
 </command:parameter>
 <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="3" aliases="none"><maml:name>Reason</maml:name>
-<maml:Description><maml:para>{{Fill Reason Description}}
+<maml:Description><maml:para>Reason for the approval.
 </maml:para>
 </maml:Description>
 <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
@@ -2123,8 +2178,8 @@
 </maml:alert>
 </maml:alertSet>
 <command:examples><command:example><maml:title>Example 1</maml:title>
-<dev:code>PS C:\&gt; {{ Add example code here }}</dev:code>
-<dev:remarks><maml:para>{{ Add example description here }}
+<dev:code>PS C:\&gt; New-GRRHuntApproval -Credential $cred -HuntId H:AAAAAAAA -NotifiedUsers username -Reason "Hunt for malicious files" -OnlyId</dev:code>
+<dev:remarks><maml:para>Create a new hunt approval.
 </maml:para>
 </dev:remarks>
 </command:example>
@@ -2270,8 +2325,15 @@
 </maml:alert>
 </maml:alertSet>
 <command:examples><command:example><maml:title>Example 1</maml:title>
-<dev:code>PS C:\&gt; {{ Add example code here }}</dev:code>
-<dev:remarks><maml:para>{{ Add example description here }}
+<dev:code>PS C:\&gt; Remove-GRRLabel -ComputerName host1, host2 -Label label1 -Credential $creds
+PS C:\&gt; "host1", "host2" | Remove-GRRLabel -Label label1 -Credential $creds</dev:code>
+<dev:remarks><maml:para>Remove the label "label1" to both hosts. It's possible to use pipeline to remove the labels.
+</maml:para>
+</dev:remarks>
+</command:example>
+<command:example><maml:title>Example 2</maml:title>
+<dev:code>PS C:\&gt; Remove-GRRLabel -ComputerName (Find-GRRClient -SearchString keyword -Credential $cred -OnlyNode) -Label test5,test3 -Credential $creds</dev:code>
+<dev:remarks><maml:para>Use the GRR search to find specific clients on which both labels should be removed.
 </maml:para>
 </dev:remarks>
 </command:example>
@@ -2417,8 +2479,15 @@
 </maml:alert>
 </maml:alertSet>
 <command:examples><command:example><maml:title>Example 1</maml:title>
-<dev:code>PS C:\&gt; {{ Add example code here }}</dev:code>
-<dev:remarks><maml:para>{{ Add example description here }}
+<dev:code>PS C:\&gt; Set-GRRLabel -ComputerName host1, host2 -Label label1 -Credential $creds
+PS C:\&gt; "host1", "host2" | Set-GRRLabel -Label label1 -Credential $creds</dev:code>
+<dev:remarks><maml:para>Add the label "label1" to both hosts. It's possible to use pipeline to set the labels.
+</maml:para>
+</dev:remarks>
+</command:example>
+<command:example><maml:title>Example 2</maml:title>
+<dev:code>PS C:\&gt; Set-GRRLabel -ComputerName (Find-GRRClient -SearchString keyword -Credential $cred -OnlyNode) -Label test5,test3 -Credential $creds</dev:code>
+<dev:remarks><maml:para>Use the GRR search to find specific clients which should be labeled.
 </maml:para>
 </dev:remarks>
 </command:example>
@@ -2546,8 +2615,8 @@
 </maml:alert>
 </maml:alertSet>
 <command:examples><command:example><maml:title>Example 1</maml:title>
-<dev:code>PS C:\&gt; {{ Add example code here }}</dev:code>
-<dev:remarks><maml:para>{{ Add example description here }}
+<dev:code>PS C:\&gt; Start-GRRHunt -Credential $cred -HuntId H:AAAAAAAA</dev:code>
+<dev:remarks><maml:para>Start the specific hunt. Approval must be granted before.
 </maml:para>
 </dev:remarks>
 </command:example>
@@ -2567,7 +2636,7 @@
 </maml:description>
 <command:syntax><command:syntaxItem><maml:name>Stop-GRRHunt</maml:name>
 <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none"><maml:name>HuntId</maml:name>
-<maml:Description><maml:para>{{Fill HuntId Description}}
+<maml:Description><maml:para>Hunt id which should be stopped.
 </maml:para>
 </maml:Description>
 <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
@@ -2629,7 +2698,7 @@
 <dev:defaultValue>None</dev:defaultValue>
 </command:parameter>
 <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none"><maml:name>HuntId</maml:name>
-<maml:Description><maml:para>{{Fill HuntId Description}}
+<maml:Description><maml:para>Hunt id which should be stopped.
 </maml:para>
 </maml:Description>
 <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
@@ -2675,8 +2744,8 @@
 </maml:alert>
 </maml:alertSet>
 <command:examples><command:example><maml:title>Example 1</maml:title>
-<dev:code>PS C:\&gt; {{ Add example code here }}</dev:code>
-<dev:remarks><maml:para>{{ Add example description here }}
+<dev:code>PS C:\&gt; Stop-GRRHunt -Credential $cred -HuntId H:7D5E2318</dev:code>
+<dev:remarks><maml:para>Stop the specific hunt.
 </maml:para>
 </dev:remarks>
 </command:example>

@@ -24,10 +24,20 @@ Find-GRRClient [[-SearchString] <String>] [-Credential] <PSCredential> [-OnlyCom
 
 ### Example 1
 ```
-PS C:\> {{ Add example code here }}
+PS C:\> Find-GRRClient -SearchString keyword -Credential $cred
 ```
 
-{{ Add example description here }}
+Find GRR clients based on keywords. Use the available prefixes, e.g. "label:" or
+"host:" to limit the search results. 
+
+### Example 2
+```
+PS C:\> Find-GRRClient -SearchString keyword -Credential $cred -OnlyNode
+```
+
+Find GRR clients based on keywords. Use the available prefixes, e.g. "label:" or
+"host:" to limit the search results. Use `OnlyNode` to only display the host
+names.
 
 ## PARAMETERS
 

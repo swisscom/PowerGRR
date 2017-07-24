@@ -41,15 +41,27 @@ Get-GRRHunt [-Credential] <PSCredential> [-DescriptionContains <String>] -Active
 
 ### Example 1
 ```
-PS C:\> {{ Add example code here }}
+PS C:\> Get-GRRHunts -Credential $cred | select -First 1
 ```
 
-{{ Add example description here }}
+Find last hunt id. You can use all the filtering from PowerShell. Each hunt is
+represented as an own PowerShell object. The disadvantage of this
+POST-filtering is that the command first returns every hunt. See next example
+to use a PRE-filtering.
+
+### Example 2
+```
+PS C:\> Get-GRRHunts -Credential $cred -Count 5
+```
+
+Find last 5 hunt id. You can use all the filtering from PowerShell. Each hunt
+is represented as an own PowerShell object. The advantage of this usage is
+that GRR server filters the hunts on the server before returning the response.
 
 ## PARAMETERS
 
 ### -Credential
-{{Fill Credential Description}}
+GRR credentials.
 
 ```yaml
 Type: PSCredential
@@ -79,7 +91,7 @@ Accept wildcard characters: False
 ```
 
 ### -Count
-{{Fill Count Description}}
+The amount of returned hunts.
 
 ```yaml
 Type: Int32
@@ -94,7 +106,7 @@ Accept wildcard characters: False
 ```
 
 ### -CreatedBy
-{{Fill CreatedBy Description}}
+Author of a hunt.
 
 ```yaml
 Type: String
@@ -109,7 +121,7 @@ Accept wildcard characters: False
 ```
 
 ### -DescriptionContains
-{{Fill DescriptionContains Description}}
+Text which is contains within the hunt description.
 
 ```yaml
 Type: String
@@ -124,7 +136,7 @@ Accept wildcard characters: False
 ```
 
 ### -Offset
-{{Fill Offset Description}}
+Offset for the search.
 
 ```yaml
 Type: Int32
@@ -139,7 +151,7 @@ Accept wildcard characters: False
 ```
 
 ### -ShowJSON
-{{Fill ShowJSON Description}}
+Return plain JSON instead of converted JSON.
 
 ```yaml
 Type: SwitchParameter

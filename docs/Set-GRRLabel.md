@@ -23,10 +23,19 @@ Set a label on one or multiple clients. The function has pipeline support.
 
 ### Example 1
 ```
-PS C:\> {{ Add example code here }}
+PS C:\> Set-GRRLabel -ComputerName host1, host2 -Label label1 -Credential $creds
+PS C:\> "host1", "host2" | Set-GRRLabel -Label label1 -Credential $creds
 ```
 
-{{ Add example description here }}
+Add the label "label1" to both hosts. It's possible to use pipeline to set the
+labels.
+
+### Example 2
+```
+PS C:\> Set-GRRLabel -ComputerName (Find-GRRClient -SearchString keyword -Credential $cred -OnlyNode) -Label test5,test3 -Credential $creds
+```
+
+Use the GRR search to find specific clients which should be labeled.
 
 ## PARAMETERS
 

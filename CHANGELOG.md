@@ -6,6 +6,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased](https://github.com/swisscom/powergrr/compare/v0.1.0...HEAD)
 ### Added
+* Add examples to the markdown help files and PowerShell help
 
 ### Changed
 

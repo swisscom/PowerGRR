@@ -23,10 +23,10 @@ Get-GRRHuntInfo [[-HuntId] <String>] [-Credential] <PSCredential> [[-cert] <Stri
 
 ### Example 1
 ```
-PS C:\> {{ Add example code here }}
+PS C:\> Get-GRRHuntInfo "H:AAAAAAAA" -Credential $cred
 ```
 
-{{ Add example description here }}
+Read the hunt infos based on a hunt id.
 
 ## PARAMETERS
 

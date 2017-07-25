@@ -772,6 +772,10 @@ function New-GRRHunt()
         $RuleType,
 
         [string]
+        [ValidateSet("os_windows","os_darwin", "os_linux")]
+        $OS,
+
+        [string]
         $Label,
 
         [string]
@@ -832,14 +836,16 @@ function New-GRRHunt()
         $OutputPlugin = ""
         if ($EmailAddress)
         {
-            $OutputPlugin = '{"plugin_name":"EmailOutputPlugin","plugin_args":{"email_address":"'+$EmailAddress+'","emails_limit":1}}'
+            $OutputPlugin = '{"plugin_name":"EmailOutputPlugin","plugin_args":{"email_address":"'
+            $OutputPlugin += $EmailAddress+'","emails_limit":1}}'
         }
 
         $FlowArgs = "{}"
 
         if ($Flow -eq "FileFinder")
         {
-            $FlowArgs = '{"paths":["'+$($PSBoundParameters['Path']-join'","')+'"],"action":{"action_type":"'+($($PSBoundParameters['ActionType'])).toUpper()+'"}}'
+            $FlowArgs = '{"paths":["'+$($PSBoundParameters['Path']-join'","')+'"],'
+            $FlorArgs += '"action":{"action_type":"'+($($PSBoundParameters['ActionType'])).toUpper()+'"}}'
             $FlowArgs = $FlowArgs -replace "\\", "\\"
         }
         elseif ($Flow -eq "RegistryFinder")
@@ -859,41 +865,53 @@ function New-GRRHunt()
             $FlowArgs = '{"hack_name":"'+$($PSBoundParameters['HackName'])+'","py_args":{"cmd":"'+$HackArguments+'"}}'
         }
 
-        # todo rules with dedicated variable to allow other rule types (hostnames, OS, ...)
-        # this allow affects checks below (if label exists etc)
-        # [{"os": {"os_windows": true}}]
-
-        $Body = '{"flow_name":"'+$Flow+'","hunt_runner_args":{"output_plugins":['+$OutputPlugin+'],"client_rule_set":{"rules":[{"rule_type":"'+$RuleType.toUpper()+'","'+$RuleType.toLower()+'":{"match_mode":"'+$MatchMode+'","label_names":["'+$($PSBoundParameters['Label']-join'","')+'"]}}]},"description":"'+$HuntDescription+'"},"flow_args":'+$FlowArgs+'}'
-
-        $Labels = Get-GRRLabel -Credential $Credential
-
-        if ($Labels -and $Labels.contains($Label))
+        if ($RuleType -eq "Label")
         {
-            if ($pscmdlet.ShouldProcess("$Label", "Create new hunt with following arguments: $Body"))
+            $Labels = Get-GRRLabel -Credential $Credential
+
+            if ($Labels -and $Labels.contains($Label))
             {
-                $params = @{
-                    'Url' = "/hunts";
-                    'Credential' = $Credential;
-                    'Body' = $Body;
-                    'Headers' = $Headers;
-                    'Websession' = $Websession
-                }
-
-                $HuntReturnValue = Invoke-GRRRequest @params -ShowJSON:$PSBoundParameters.containskey('ShowJSON')
-                if ($HuntReturnValue -and $OnlyUrl -and !$PSBoundParameters.containskey('ShowJSON'))
-                {
-                    "$GRRUrl/#/hunts/$(($HuntReturnValue.urn).substring(12))"
-                }
-                else
-                {
-                    $HuntReturnValue
-                }
-            } # whatif
-        } # Label found
-        else
-        {
-            Write-Error "Label `"$Label`" does not exist. Set the label with Set-GRRLabel first."
+                $Rule = '"client_rule_set":{"rules":['
+                $Rule += '{"rule_type":"'+$RuleType.toUpper()+'",'
+                $Rule += '"'+$RuleType.toLower()+'":{"match_mode":"'+$MatchMode+'",'
+                $Rule += '"label_names":["'+$($PSBoundParameters['Label']-join'","')+'"]}}]}'
+            } # Label found
+            else
+            {
+                Write-Error "Label `"$Label`" does not exist. Set the label with Set-GRRLabel first."
+            }
         }
+        elseif ($RuleType -eq "OS")
+        {
+            # "client_rule_set":{"rules":[{"os":{"os_darwin":true}}]}
+            $Rule = '"client_rule_set":{"rules":[{"os":{"'+$($PSBoundParameters['OS'])+'":true}}]}'
+        }
+
+        $Body = '{"flow_name":"'+$Flow+'","hunt_runner_args":{"output_plugins":['+$OutputPlugin+'],'
+        $Body += $Rule+',"description":"'+$HuntDescription+'"},"flow_args":'+$FlowArgs+'}'
+
+        Write-Verbose "Create hunt with the following arguments: $Body"
+
+        if ($pscmdlet.ShouldProcess("$RuleType", "Create new hunt with following arguments: $Body"))
+        {
+            $params = @{
+                'Url' = "/hunts";
+                'Credential' = $Credential;
+                'Body' = $Body;
+                'Headers' = $Headers;
+                'Websession' = $Websession
+            }
+
+            $HuntReturnValue = Invoke-GRRRequest @params -ShowJSON:$PSBoundParameters.containskey('ShowJSON')
+            if ($HuntReturnValue -and $OnlyUrl -and !$PSBoundParameters.containskey('ShowJSON'))
+            {
+                "$GRRUrl/#/hunts/$(($HuntReturnValue.urn).substring(12))"
+            }
+            else
+            {
+                $HuntReturnValue
+            }
+        } # whatif
     } # process
 
     End {
@@ -970,14 +988,16 @@ function Invoke-GRRFlow()
         $OutputPlugin = ""
         if ($EmailAddress)
         {
-            $OutputPlugin = '{"plugin_name":"EmailOutputPlugin","plugin_args":{"email_address":"'+$EmailAddress+'","emails_limit":1}}'
+            $OutputPlugin = '{"plugin_name":"EmailOutputPlugin",'
+            $OutputPlugin += '"plugin_args":{"email_address":"'+$EmailAddress+'","emails_limit":1}}'
         }
 
         $PluginArguments = "{}"
 
         if ($Flow -eq "FileFinder")
         {
-            $PluginArguments = '{"paths":["'+$($PSBoundParameters['Path']-join'","')+'"],"action":{"action_type":"'+$($PSBoundParameters['ActionType'])+'"}}'
+            $PluginArguments = '{"paths":["'+$($PSBoundParameters['Path']-join'","')+'"],'
+            $PluginArguments += '"action":{"action_type":"'+$($PSBoundParameters['ActionType'])+'"}}'
             $PluginArguments = $PluginArguments -replace "\\", "\\"
         }
         elseif ($Flow -eq "RegistryFinder")
@@ -997,7 +1017,8 @@ function Invoke-GRRFlow()
             $PluginArguments = '{"hack_name":"'+$($PSBoundParameters['HackName'])+'","py_args":{"cmd":"'+$HackArguments+'"}}'
         }
 
-        $Body = '{"flow":{"runner_args":{"flow_name":"'+$Flow+'","output_plugins":['+$OutputPlugin+']},"args":'+$PluginArguments+'}}'
+        $Body = '{"flow":{"runner_args":{"flow_name":"'+$Flow+'",'
+        $Body += '"output_plugins":['+$OutputPlugin+']},"args":'+$PluginArguments+'}}'
 
         $ret = @()
 

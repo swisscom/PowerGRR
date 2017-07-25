@@ -35,7 +35,7 @@ Some of the use cases where PowerGRR could speed up the work:
     flows in one shot using multiple cmdlets inside a PowerShell script.
 
 The following plugins are available for hunts and flows and the target group
-is choosen based on labels.
+is chosen based on labels or the OS.
 * "Netstat","ListProcesses","FileFinder","RegistryFinder","ExecutePythonHack"
 
 ### Repo Structure
@@ -225,8 +225,7 @@ $clients | Remove-GRRLabel -SearchString INC01 -$Credential $creds
 
 Currently, only pre-defined flows are available. See [command
 help](https://github.com/swisscom/PowerGRR/blob/master/docs/Invoke-GRRFlow.md#-flow)
-for the available flow types. Furthermore, only hunts based on labels are
-possible.
+for the available flow types. 
 
 ## Contribution
 

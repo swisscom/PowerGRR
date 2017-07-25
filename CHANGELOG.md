@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 * Add examples to the markdown help files and PowerShell help. Use `help
     <command> -Examples` to show the example from the help.
 * Add rule type 'OS' to `New-GRRHunt`. Use os_windows, os_linux or os_darwin
-    as filter (#3).
+    as filter ([#3](https://github.com/swisscom/PowerGRR/issues/3)).
 
 ### Changed
 
@@ -18,7 +18,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Removed
 
 ### Fixed
-* Fix bug when GRRIgnoreCertificateErrors is not set in the config file (#1).
+* Fix bug when GRRIgnoreCertificateErrors is not set in the config file ([#1](https://github.com/swisscom/PowerGRR/issues/1)).
 
 ### Security
 

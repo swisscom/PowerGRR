@@ -9,8 +9,9 @@ Please see [Command Documentation](docs/PowerGRR.md) and
 
 ## What is PowerGRR?
 
-PowerGRR is a PowerShell module for working with the GRR API. It allows
-working with flows, hunts, labels and the GRR search feature. Furthermore, it
+PowerGRR is a PowerShell module for working with the [GRR](https://github.com/google/grr) 
+API. GRR Rapid Response is an incident response framework focused on remote live forensics.
+The module allows working with flows, hunts, labels and the search feature. Furthermore, it
 allows working with the computer names instead of the GRR internal client id.
 This makes handling and working with other tools more easy because often
 you just have the computer names. PowerGRR also enables you to easily
@@ -43,7 +44,7 @@ is chosen based on labels or the OS.
 | Name              | Description                                                        |
 | ----------------  | ------------------------------------------------------------------ |
 | docs\             | Markdown documentation                                             |
-| en-us\            | With playPS created PowerShell helpfile (use `help <command>`)   |
+| en-us\            | With playPS created PowerShell helpfile (use `help <command>`)     |
 | test\             | Pester tests (for using with Invoke-Pester)                        |
 | BUILD.md          | Build instructions for ctags, playPS and Pester                    |
 | CHANGELOG.md      | Changelog of the project                                           |

@@ -619,6 +619,8 @@ function New-GRRClientApproval()
             'Credential' = $Credential
         }
 
+        $ret = ""
+
         if ($pscmdlet.ShouldProcess($ComputerName, "Requesting a new client approval"))
         {
             $ret = Invoke-GRRRequest @params
@@ -772,7 +774,7 @@ function New-GRRHunt()
         $RuleType,
 
         [string]
-        [ValidateSet("os_windows","os_darwin", "os_linux")]
+        [ValidateSet("os_windows","os_darwin","os_linux")]
         $OS,
 
         [string]
@@ -870,9 +872,27 @@ function New-GRRHunt()
         }
         elseif ($Flow -eq "ArtifactCollectorFlow")
         {
-            #{"artifact_list":["WindowsAppInitDLLs","WindowsAutorun","WindowsDebugger"]}
-            # todo after getartifact cmdlet is implemented check artifacts first before running the flow
-            $FlowArgs = '{"artifact_list":["'+$($PSBoundParameters['ArtifactList'] -join "`",`"") + '"]}'
+            $AllArtifacts = Get-GRRArtifact -Credential $Credential | select -ExpandProperty name
+
+            $ValidatedArtifacts = @()
+
+            foreach ($Artifact in $PSBoundParameters['ArtifactList'])
+            {
+                if ($AllArtifacts.contains($Artifact))
+                {
+                    $ValidatedArtifacts += $Artifact
+                }
+                else
+                {
+                    write-warning "Skipping artifact `'$Artifact`' because it is not defined in GRR."
+                }
+            }
+
+            $ValidatedArtifacts = $ValidatedArtifacts | Get-Unique
+
+            $FlowArgs = '{"artifact_list":["'+ $($ValidatedArtifacts -join "`",`"") + '"]}'
+
+            Write-Verbose "FlowArgs for ArtifactCollectorFlow: $FlowArgs"
         }
 
         if ($RuleType -eq "Label")
@@ -1033,9 +1053,27 @@ function Invoke-GRRFlow()
         }
         elseif ($Flow -eq "ArtifactCollectorFlow")
         {
-            #{"artifact_list":["WindowsAppInitDLLs","WindowsAutorun","WindowsDebugger"]}
-            # todo after getartifact cmdlet is implemented check artifacts first before running the flow
-            $PluginArguments = '{"artifact_list":["'+$($PSBoundParameters['ArtifactList'] -join "`",`"") + '"]}'
+           $AllArtifacts = Get-GRRArtifact -Credential $Credential | select -ExpandProperty name
+
+            $ValidatedArtifacts = @()
+
+            foreach ($Artifact in $PSBoundParameters['ArtifactList'])
+            {
+                if ($AllArtifacts.contains($Artifact))
+                {
+                    $ValidatedArtifacts += $Artifact
+                }
+                else
+                {
+                    write-warning "Skipping artifact `'$Artifact`' because it is not defined in GRR."
+                }
+            }
+
+            $ValidatedArtifacts = $ValidatedArtifacts | Get-Unique
+
+            $PluginArguments = '{"artifact_list":["'+ $($ValidatedArtifacts -join "`",`"") + '"]}'
+
+            Write-Verbose "PluginArguments for ArtifactCollectorFlow: $PluginArguments"
         }
 
         $Body = '{"flow":{"runner_args":{"flow_name":"'+$Flow+'",'
@@ -1367,6 +1405,65 @@ function Get-GRRFlowDescriptor()
     if ($ret -and !$PSBoundParameters.containskey('ShowJSON') -and $ret.items)
     {
         $ret.items
+    }
+    else
+    {
+        $ret
+    }
+
+    Write-Verbose "$Function Leaving $Function"
+}
+
+
+function Get-GRRArtifact()
+{
+    [CmdletBinding()]
+    param(
+        [Parameter(Mandatory=$true)]
+        [System.Management.Automation.PSCredential]
+        [System.Management.Automation.Credential()]
+        $Credential,
+
+        [switch]
+        $ShowJSON
+    )
+
+    $Function = $MyInvocation.MyCommand
+
+    Write-Verbose "$Function Entering $Function"
+
+    Write-Progress -Activity "Running $Function"
+
+    $params = @{
+        'Url' = "/artifacts";
+        'Credential' = $Credential;
+        'ShowJSON' = $PSBoundParameters.containskey('ShowJSON');
+    }
+
+    $ret = Invoke-GRRRequest @params
+
+    $Artifacts = @()
+
+    if ($ret -and !$PSBoundParameters.containskey('ShowJSON') -and $ret.items)
+    {
+        # Build custom objects to only show relevant information
+        foreach ($item in $ret.items)
+        {
+            $info=[ordered]@{
+                Name=$item.artifact.name
+                Description=$item.artifact.doc
+                IsCustom=$item.is_custom
+                URLs=$(if (($item.artifact).psobject.properties.name -match "urls"){$item.artifact.urls})
+                Labels=$item.artifact.labels
+                SupportedOS=$item.artifact.supported_os
+                Type=$item.artifact.sources.type
+                Attributes=$item.artifact.sources.attributes
+            }
+
+            $Artifacts += New-Object PSObject -Property $info
+        }
+
+        $Artifacts
     }
     else
     {
@@ -1772,7 +1869,8 @@ Export-ModuleMember @(
     'Stop-GRRHunt',
     'New-GRRHuntApproval',
     'New-GRRClientApproval',
-    'Get-GRRFlowDescriptor'
+    'Get-GRRFlowDescriptor',
+    'Get-GRRArtifact'
 )
 
 #endregion

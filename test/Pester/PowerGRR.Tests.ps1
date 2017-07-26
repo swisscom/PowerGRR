@@ -51,6 +51,11 @@ $global:ValidFlowDescriptor = @"
 {`"items`": [{`"category`": `"Processes`", `"name`": `"ListProcesses`", `"doc`": `"List running processes on a system.\n\n  Call Spec:\n    flow.GRRFlow.StartFlow(client_id=client_id, flow_name=\`"ListProcesses\`", filename_regex=filename_regex, fetch_binaries=fetch_binaries, connection_states=connection_states)\n\n  Args:\n    connection_states\n      description: Network connection states to match. If a process has any network connections in any status listed here, it will be considered a match\n      type: \n      default: None\n\n    fetch_binaries\n      description: \n      type: RDFBool\n      default: 0\n\n    filename_regex\n      description: Regex used to filter the list of processes.\n      type: RegularExpression\n      default: .\n`", `"args_type`": `"ListProcessesArgs`", `"behaviours`": [`"ADVANCED`", `"BASIC`", `"Client Flow`"], `"default_args`": {}}]}
 "@
 
+$global:ValidArtifacts = @"
+)]}`'
+{`"items`": [{`"is_custom`": false, `"processors`": [{`"output_types`": [`"AttributedDict`"], `"name`": `"APTPackageSourceParser`", `"description`": `"Parser for APT source lists to extract URIs only.`"}], `"path_dependencies`": [], `"artifact_source`": `"{ \`"conditions\`": [],\n  \`"dependencies\`": [],\n  \`"doc\`": \`"APT package sources list\`",\n  \`"labels\`": [ \`"Configuration Files\`", \`"System\`"\n  ],\n  \`"name\`": \`"APTSources\`",\n  \`"provides\`": [],\n  \`"sources\`": [\n    { \`"attributes\`": { \`"paths\`": [\n          \`"/etc/apt/sources.list\`",\n          \`"/etc/apt/sources.list.d/*.list\`"\n        ]\n      },\n      \`"returned_types\`": [],\n      \`"type\`": \`"FILE\`"\n    }\n  ],\n  \`"supported_os\`": [ \`"Linux\`" ],\n  \`"urls\`": [ \`"http://manpages.ubuntu.com/manpages/trusty/en/man5/sources.list.5.html\`" ]\n}`", `"error_message`": `"`", `"artifact`": {`"urls`": [`"http://manpages.ubuntu.com/manpages/trusty/en/man5/sources.list.5.html`"], `"name`": `"APTSources`", `"doc`": `"APT package sources list`", `"labels`": [`"Configuration Files`", `"System`"], `"sources`": [{`"attributes`": {`"paths`": [`"/etc/apt/sources.list`", `"/etc/apt/sources.list.d/*.list`"]}, `"type`": `"FILE`", `"returned_types`": []}], `"supported_os`": [`"Linux`"], `"provides`": [], `"conditions`": []}, `"dependencies`": []}, {`"is_custom`": false, `"path_dependencies`": [], `"artifact_source`": `"{ \`"conditions\`": [],\n  \`"dependencies\`": [],\n  \`"doc\`": \`"APT trusted keys\`",\n  \`"labels\`": [ \`"Configuration Files\`", \`"System\`"\n  ],\n  \`"name\`": \`"APTTrustKeys\`",\n  \`"provides\`": [],\n  \`"sources\`": [\n    { \`"attributes\`": { \`"paths\`": [\n          \`"/etc/apt/trusted.gpg\`",\n          \`"/etc/apt/trusted.gpg.d/*.gpg\`",\n          \`"/etc/apt/trustdb.gpg\`",\n          \`"/usr/share/keyrings/*.gpg\`"\n        ]\n      },\n      \`"returned_types\`": [],\n      \`"type\`": \`"FILE\`"\n    }\n  ],\n  \`"supported_os\`": [ \`"Linux\`" ],\n  \`"urls\`": [ \`"https://wiki.debian.org/SecureApt\`" ]\n}`", `"error_message`": `"`", `"artifact`": {`"urls`": [`"https://wiki.debian.org/SecureApt`"], `"name`": `"APTTrustKeys`", `"doc`": `"APT trusted keys`", `"labels`": [`"Configuration Files`", `"System`"], `"sources`": [{`"attributes`": {`"paths`": [`"/etc/apt/trusted.gpg`", `"/etc/apt/trusted.gpg.d/*.gpg`", `"/etc/apt/trustdb.gpg`", `"/usr/share/keyrings/*.gpg`"]}, `"type`": `"FILE`", `"returned_types`": []}], `"supported_os`": [`"Linux`"], `"provides`": [], `"conditions`": []}, `"dependencies`": []}], `"total_count`": 422}
+"@
+
 # Pester tests
 
 Describe 'Get-GRRHuntResult' {
@@ -556,6 +561,43 @@ Describe 'Get-GRRFlowDescriptor' {
             $ret | Should Not BeNullOrEmpty
             $ret | select -expandproperty category | Should Be "Processes"
             $ret | select -expandproperty name | Should Be "ListProcesses"
+        }
+    }
+}
+
+Describe 'Get-GRRArtifact' {
+    Context 'when there are errors' {
+        It 'no web response' {
+            Mock Invoke-GRRRequest {} -ModuleName PowerGRR
+            $ret = Get-GRRArtifact -Credential $creds
+            $ret | should BeNullOrEmpty
+            {$ret.total_count} | should throw
+        }
+    }
+
+    Context 'with valid response' {
+        It 'valid but empty items' {
+            Mock Invoke-GRRRequest {
+                $EmptyItem.Substring(5) | ConvertFrom-Json
+            } -ModuleName PowerGRR
+            Mock Get-GRRSession {} -ModuleName PowerGRR
+
+            $ret = Get-GRRArtifact -Credential $creds
+            $ret | Should not BeNullOrEmpty
+            $ret.items | Should BeNullOrEmpty
+        }
+
+        It 'valid items' {
+            Mock Invoke-GRRRequest {
+                $ValidArtifacts.Substring(5) | ConvertFrom-Json
+            } -ModuleName PowerGRR
+            Mock Get-GRRSession {} -ModuleName PowerGRR
+
+            $ret = Get-GRRArtifact -Credential $creds
+            $ret | Should Not BeNullOrEmpty
+            $ret | measure | select -expandproperty count | should be 2
+            $ret | select -expandproperty name -first 1 | should be "APTSources"
+            $ret | select -expandproperty name -skip 1 | should be "APTTrustKeys"
         }
     }
 }

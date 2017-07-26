@@ -10,9 +10,16 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
     <command> -Examples` to show the example from the help.
 * Add rule type 'OS' to `New-GRRHunt`. Use os_windows, os_linux or os_darwin
     as filter ([#3](https://github.com/swisscom/PowerGRR/issues/3)).
-* Add new cmdlet for getting a list of all available flows
+* Add cmdlet for getting a list of all available flows
     (`Get-GRRFlowDescriptor`) and add corresponding Pester tests ([#4](https://github.com/swisscom/PowerGRR/issues/4)).
-* Add flow type **ArtifactCollectorFlow** in `Invoke-GRRFlow` and `New-GRRHunt` ([#2](https://github.com/swisscom/PowerGRR/issues/2))
+* Add flow type **ArtifactCollectorFlow** in `Invoke-GRRFlow` and 
+  `New-GRRHunt` ([#2](https://github.com/swisscom/PowerGRR/issues/2)). The
+  artifacts are checked against the available artifacts within GRR. If not
+  defined, the artifact is skipped.
+* Add cmdlet `Get-GRRArtifact` for getting a list of all available artifacts 
+  ([#5](https://github.com/swisscom/PowerGRR/issues/5)). Internally, this
+  function is used within `Invoke-GRRFlow` and `New-GRRHunt` to check if the
+  given artifacts for ArtifactCollectorFlow are defined within GRR.
 
 ### Changed
 
@@ -22,6 +29,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Fixed
 * Fix bug when GRRIgnoreCertificateErrors is not set in the config file ([#1](https://github.com/swisscom/PowerGRR/issues/1)).
+* Fix bug with uninitialized variable when using WhatIf in `Invoke-GRRFlow`
 
 ### Security
 

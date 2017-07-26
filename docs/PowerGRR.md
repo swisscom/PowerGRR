@@ -19,6 +19,9 @@ just have the computer names.
 ### [ConvertFrom-Base64](ConvertFrom-Base64.md)
 Decode a base64 encoded string.
 
+### [Get-GRRArtifact](Get-GRRArtifact.md)
+Get the list of available artifacts.
+
 ### [Find-GRRClient](Find-GRRClient.md)
 Use the GRR search function to search for clients. The function returns only
 the computername or the whole GRR object.

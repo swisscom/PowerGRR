@@ -8,8 +8,10 @@ Find-GRRClient	.\PowerGRR.psm1	/^Function Find-GRRClient()$/;"	m
 Find-GRRClientByLabel	.\PowerGRR.psm1	/^Function Find-GRRClientByLabel()$/;"	m
 Get-ClientCertificate	.\PowerGRR.psm1	/^Function Get-ClientCertificate()$/;"	m
 Get-EpocTimeFromUtc	.\PowerGRR.psm1	/^function Get-EpocTimeFromUtc ([long]$UnixTime)$/;"	m
+Get-GRRArtifact	.\PowerGRR.psm1	/^function Get-GRRArtifact()$/;"	m
 Get-GRRClientIdFromComputerName	.\PowerGRR.psm1	/^Function Get-GRRClientIdFromComputerName()$/;"	m
 Get-GRRComputerNameFromClientId	.\PowerGRR.psm1	/^Function Get-GRRComputerNameFromClientId()$/;"	m
+Get-GRRFlowDescriptor	.\PowerGRR.psm1	/^function Get-GRRFlowDescriptor()$/;"	m
 Get-GRRFlowResult	.\PowerGRR.psm1	/^function Get-GRRFlowResult()$/;"	m
 Get-GRRHunt	.\PowerGRR.psm1	/^Function Get-GRRHunt()$/;"	m
 Get-GRRHuntInfo	.\PowerGRR.psm1	/^Function Get-GRRHuntInfo()$/;"	m
@@ -25,5 +27,6 @@ New-GRRHunt	.\PowerGRR.psm1	/^function New-GRRHunt()$/;"	m
 New-GRRHuntApproval	.\PowerGRR.psm1	/^function New-GRRHuntApproval()$/;"	m
 Remove-GRRLabel	.\PowerGRR.psm1	/^function Remove-GRRLabel()$/;"	m
 Set-GRRLabel	.\PowerGRR.psm1	/^Function Set-GRRLabel()$/;"	m
-Set-NewVariables	.\PowerGRR.psm1	/^function Set-NewVariables()$/;"	m
+Set-NewVariable	.\PowerGRR.psm1	/^function Set-NewVariable()$/;"	m
 Start-GRRHunt	.\PowerGRR.psm1	/^function Start-GRRHunt()$/;"	m
+Stop-GRRHunt	.\PowerGRR.psm1	/^function Stop-GRRHunt()$/;"	m

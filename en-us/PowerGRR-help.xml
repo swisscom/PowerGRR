@@ -298,6 +298,99 @@
 <command:relatedLinks></command:relatedLinks>
 </command:command>
 <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+<command:details><command:name>Get-GRRArtifact</command:name>
+<command:verb>Get</command:verb>
+<command:noun>GRRArtifact</command:noun>
+<maml:description><maml:para>Get a list of all GRR artifacts.
+</maml:para>
+</maml:description>
+</command:details>
+<maml:description><maml:para>{{Fill in the Description}}
+</maml:para>
+</maml:description>
+<command:syntax><command:syntaxItem><maml:name>Get-GRRArtifact</maml:name>
+<command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none"><maml:name>Credential</maml:name>
+<maml:Description><maml:para>{{Fill Credential Description}}
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">PSCredential</command:parameterValue>
+<dev:type><maml:name>PSCredential</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue>None</dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="benannt" aliases="none"><maml:name>ShowJSON</maml:name>
+<maml:Description><maml:para>{{Fill ShowJSON Description}}
+</maml:para>
+</maml:Description>
+<dev:type><maml:name>SwitchParameter</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue>False</dev:defaultValue>
+</command:parameter>
+</command:syntaxItem>
+</command:syntax>
+<command:parameters><command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none"><maml:name>Credential</maml:name>
+<maml:Description><maml:para>{{Fill Credential Description}}
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">PSCredential</command:parameterValue>
+<dev:type><maml:name>PSCredential</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue>None</dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="benannt" aliases="none"><maml:name>ShowJSON</maml:name>
+<maml:Description><maml:para>{{Fill ShowJSON Description}}
+</maml:para>
+</maml:Description>
+<command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+<dev:type><maml:name>SwitchParameter</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue>False</dev:defaultValue>
+</command:parameter>
+</command:parameters>
+<command:inputTypes><command:inputType><dev:type><maml:name>Keine</maml:name>
+</dev:type>
+<maml:description><maml:para>
+</maml:para>
+</maml:description>
+</command:inputType>
+</command:inputTypes>
+<command:returnValues><command:returnValue><dev:type><maml:name>System.Object</maml:name>
+</dev:type>
+<maml:description><maml:para>
+</maml:para>
+</maml:description>
+</command:returnValue>
+</command:returnValues>
+<maml:alertSet><maml:alert><maml:para>
+</maml:para>
+</maml:alert>
+</maml:alertSet>
+<command:examples><command:example><maml:title>Example 1</maml:title>
+<dev:code>PS C:\&gt; Get-GRRArtifact -Credential $cred</dev:code>
+<dev:remarks><maml:para>List all artifacts.
+</maml:para>
+</dev:remarks>
+</command:example>
+<command:example><maml:title>Example 2</maml:title>
+<dev:code>PS C:\&gt; $osx = Get-GRRArtifact -Credential $cred | ? {$_.name -match "osx"} | select name, description, iscustom
+PS C:\&gt; $osx
+
+Name                  Description                                                      IsCustom
+----                  -----------                                                      --------
+OSXSPHardwareDataType Mac OS X system profiler.                                           False
+OSXServices           Running services from the Max OS X service management framework.    False
+OSXUsers              Users directories in /Users                                         False</dev:code>
+<dev:remarks><maml:para>List all artifacts which have "osx" in the name.
+</maml:para>
+</dev:remarks>
+</command:example>
+</command:examples>
+<command:relatedLinks><maml:navigationLink><maml:linkText>Online Version:</maml:linkText>
+<maml:uri>https://github.com/swisscom/powergrr/docs/Get-GRRArtifact.md</maml:uri>
+</maml:navigationLink>
+</command:relatedLinks>
+</command:command>
+<command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
 <command:details><command:name>Get-GRRClientIdFromComputerName</command:name>
 <command:verb>Get</command:verb>
 <command:noun>GRRClientIdFromComputerName</command:noun>
@@ -1868,7 +1961,7 @@ PS C:\&gt; $res.items.client_id | sort -u</dev:code>
 <command:details><command:name>New-GRRHunt</command:name>
 <command:verb>New</command:verb>
 <command:noun>GRRHunt</command:noun>
-<maml:description><maml:para>Create a new hunt.
+<maml:description><maml:para>{{Fill in the Synopsis}}
 </maml:para>
 </maml:description>
 </command:details>
@@ -1877,7 +1970,7 @@ PS C:\&gt; $res.items.client_id | sort -u</dev:code>
 </maml:description>
 <command:syntax><command:syntaxItem><maml:name>New-GRRHunt</maml:name>
 <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none"><maml:name>HuntDescription</maml:name>
-<maml:Description><maml:para>Hunt description.
+<maml:Description><maml:para>{{Fill HuntDescription Description}}
 </maml:para>
 </maml:Description>
 <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
@@ -1886,7 +1979,7 @@ PS C:\&gt; $res.items.client_id | sort -u</dev:code>
 <dev:defaultValue>None</dev:defaultValue>
 </command:parameter>
 <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none"><maml:name>Flow</maml:name>
-<maml:Description><maml:para>Flow type for the hunt.
+<maml:Description><maml:para>{{Fill Flow Description}}
 </maml:para>
 </maml:Description>
 <command:parameterValueGroup><command:parameterValue required="false" variableLength="false">Netstat</command:parameterValue>
@@ -1902,7 +1995,7 @@ PS C:\&gt; $res.items.client_id | sort -u</dev:code>
 <dev:defaultValue>None</dev:defaultValue>
 </command:parameter>
 <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="none"><maml:name>MatchMode</maml:name>
-<maml:Description><maml:para>Match mode for the rules.
+<maml:Description><maml:para>{{Fill MatchMode Description}}
 </maml:para>
 </maml:Description>
 <command:parameterValueGroup><command:parameterValue required="false" variableLength="false">MATCH_ALL</command:parameterValue>
@@ -1914,7 +2007,7 @@ PS C:\&gt; $res.items.client_id | sort -u</dev:code>
 <dev:defaultValue>None</dev:defaultValue>
 </command:parameter>
 <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="3" aliases="none"><maml:name>RuleType</maml:name>
-<maml:Description><maml:para>Rule type for the hunt.
+<maml:Description><maml:para>{{Fill RuleType Description}}
 </maml:para>
 </maml:Description>
 <command:parameterValueGroup><command:parameterValue required="false" variableLength="false">Label</command:parameterValue>
@@ -1925,8 +2018,21 @@ PS C:\&gt; $res.items.client_id | sort -u</dev:code>
 <maml:uri /></dev:type>
 <dev:defaultValue>None</dev:defaultValue>
 </command:parameter>
-<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="4" aliases="none"><maml:name>Label</maml:name>
-<maml:Description><maml:para>Label for which the hunt is created.
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="4" aliases="none"><maml:name>OS</maml:name>
+<maml:Description><maml:para>{{Fill OS Description}}
+</maml:para>
+</maml:Description>
+<command:parameterValueGroup><command:parameterValue required="false" variableLength="false">os_windows</command:parameterValue>
+<command:parameterValue required="false" variableLength="false">os_darwin</command:parameterValue>
+<command:parameterValue required="false" variableLength="false">os_linux</command:parameterValue>
+</command:parameterValueGroup>
+<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+<dev:type><maml:name>String</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue>None</dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="5" aliases="none"><maml:name>Label</maml:name>
+<maml:Description><maml:para>{{Fill Label Description}}
 </maml:para>
 </maml:Description>
 <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
@@ -1934,8 +2040,8 @@ PS C:\&gt; $res.items.client_id | sort -u</dev:code>
 <maml:uri /></dev:type>
 <dev:defaultValue>None</dev:defaultValue>
 </command:parameter>
-<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="5" aliases="none"><maml:name>EmailAddress</maml:name>
-<maml:Description><maml:para>Email address for the notification after the first result.
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="6" aliases="none"><maml:name>EmailAddress</maml:name>
+<maml:Description><maml:para>{{Fill EmailAddress Description}}
 </maml:para>
 </maml:Description>
 <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
@@ -1943,8 +2049,8 @@ PS C:\&gt; $res.items.client_id | sort -u</dev:code>
 <maml:uri /></dev:type>
 <dev:defaultValue>None</dev:defaultValue>
 </command:parameter>
-<command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="6" aliases="none"><maml:name>Credential</maml:name>
-<maml:Description><maml:para>GRR credentials.
+<command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="7" aliases="none"><maml:name>Credential</maml:name>
+<maml:Description><maml:para>{{Fill Credential Description}}
 </maml:para>
 </maml:Description>
 <command:parameterValue required="true" variableLength="false">PSCredential</command:parameterValue>
@@ -1961,7 +2067,7 @@ PS C:\&gt; $res.items.client_id | sort -u</dev:code>
 <dev:defaultValue>False</dev:defaultValue>
 </command:parameter>
 <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="benannt" aliases="none"><maml:name>OnlyUrl</maml:name>
-<maml:Description><maml:para>Return only the url to the web ui.
+<maml:Description><maml:para>{{Fill OnlyUrl Description}}
 </maml:para>
 </maml:Description>
 <dev:type><maml:name>SwitchParameter</maml:name>
@@ -1983,15 +2089,6 @@ PS C:\&gt; $res.items.client_id | sort -u</dev:code>
 <dev:type><maml:name>SwitchParameter</maml:name>
 <maml:uri /></dev:type>
 <dev:defaultValue>False</dev:defaultValue>
-</command:parameter>
-<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="os_windows, os_darwin, os_linux" position="named" aliases="none"><maml:name>OS</maml:name>
-<maml:Description><maml:para>OS filter for hunt.
-</maml:para>
-</maml:Description>
-<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
-<dev:type><maml:name>String</maml:name>
-<maml:uri /></dev:type>
-<dev:defaultValue>None</dev:defaultValue>
 </command:parameter>
 </command:syntaxItem>
 </command:syntax>
@@ -2004,8 +2101,8 @@ PS C:\&gt; $res.items.client_id | sort -u</dev:code>
 <maml:uri /></dev:type>
 <dev:defaultValue>False</dev:defaultValue>
 </command:parameter>
-<command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="6" aliases="none"><maml:name>Credential</maml:name>
-<maml:Description><maml:para>GRR credentials.
+<command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="7" aliases="none"><maml:name>Credential</maml:name>
+<maml:Description><maml:para>{{Fill Credential Description}}
 </maml:para>
 </maml:Description>
 <command:parameterValue required="true" variableLength="false">PSCredential</command:parameterValue>
@@ -2013,8 +2110,8 @@ PS C:\&gt; $res.items.client_id | sort -u</dev:code>
 <maml:uri /></dev:type>
 <dev:defaultValue>None</dev:defaultValue>
 </command:parameter>
-<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="5" aliases="none"><maml:name>EmailAddress</maml:name>
-<maml:Description><maml:para>Email address for the notification after the first result.
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="6" aliases="none"><maml:name>EmailAddress</maml:name>
+<maml:Description><maml:para>{{Fill EmailAddress Description}}
 </maml:para>
 </maml:Description>
 <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
@@ -2023,7 +2120,7 @@ PS C:\&gt; $res.items.client_id | sort -u</dev:code>
 <dev:defaultValue>None</dev:defaultValue>
 </command:parameter>
 <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none"><maml:name>Flow</maml:name>
-<maml:Description><maml:para>Flow type for the hunt.
+<maml:Description><maml:para>{{Fill Flow Description}}
 </maml:para>
 </maml:Description>
 <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
@@ -2032,7 +2129,7 @@ PS C:\&gt; $res.items.client_id | sort -u</dev:code>
 <dev:defaultValue>None</dev:defaultValue>
 </command:parameter>
 <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none"><maml:name>HuntDescription</maml:name>
-<maml:Description><maml:para>Hunt description.
+<maml:Description><maml:para>{{Fill HuntDescription Description}}
 </maml:para>
 </maml:Description>
 <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
@@ -2040,8 +2137,8 @@ PS C:\&gt; $res.items.client_id | sort -u</dev:code>
 <maml:uri /></dev:type>
 <dev:defaultValue>None</dev:defaultValue>
 </command:parameter>
-<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="4" aliases="none"><maml:name>Label</maml:name>
-<maml:Description><maml:para>Label for which the hunt is created.
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="5" aliases="none"><maml:name>Label</maml:name>
+<maml:Description><maml:para>{{Fill Label Description}}
 </maml:para>
 </maml:Description>
 <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
@@ -2050,7 +2147,16 @@ PS C:\&gt; $res.items.client_id | sort -u</dev:code>
 <dev:defaultValue>None</dev:defaultValue>
 </command:parameter>
 <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="none"><maml:name>MatchMode</maml:name>
-<maml:Description><maml:para>Match mode for the rules.
+<maml:Description><maml:para>{{Fill MatchMode Description}}
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+<dev:type><maml:name>String</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue>None</dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="4" aliases="none"><maml:name>OS</maml:name>
+<maml:Description><maml:para>{{Fill OS Description}}
 </maml:para>
 </maml:Description>
 <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
@@ -2059,7 +2165,7 @@ PS C:\&gt; $res.items.client_id | sort -u</dev:code>
 <dev:defaultValue>None</dev:defaultValue>
 </command:parameter>
 <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="benannt" aliases="none"><maml:name>OnlyUrl</maml:name>
-<maml:Description><maml:para>Return only the url to the web ui.
+<maml:Description><maml:para>{{Fill OnlyUrl Description}}
 </maml:para>
 </maml:Description>
 <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
@@ -2068,7 +2174,7 @@ PS C:\&gt; $res.items.client_id | sort -u</dev:code>
 <dev:defaultValue>False</dev:defaultValue>
 </command:parameter>
 <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="3" aliases="none"><maml:name>RuleType</maml:name>
-<maml:Description><maml:para>Rule type for the hunt.
+<maml:Description><maml:para>{{Fill RuleType Description}}
 </maml:para>
 </maml:Description>
 <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
@@ -2093,15 +2199,6 @@ PS C:\&gt; $res.items.client_id | sort -u</dev:code>
 <dev:type><maml:name>SwitchParameter</maml:name>
 <maml:uri /></dev:type>
 <dev:defaultValue>False</dev:defaultValue>
-</command:parameter>
-<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="os_windows, os_darwin, os_linux" position="named" aliases="none"><maml:name>OS</maml:name>
-<maml:Description><maml:para>OS filter for hunt.
-</maml:para>
-</maml:Description>
-<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
-<dev:type><maml:name>String</maml:name>
-<maml:uri /></dev:type>
-<dev:defaultValue>None</dev:defaultValue>
 </command:parameter>
 </command:parameters>
 <command:inputTypes><command:inputType><dev:type><maml:name>Keine</maml:name>
@@ -2123,13 +2220,16 @@ PS C:\&gt; $res.items.client_id | sort -u</dev:code>
 </maml:alert>
 </maml:alertSet>
 <command:examples><command:example><maml:title>Example 1</maml:title>
-<dev:code>PS C:\&gt; New-GRRHunt -Credential $cred -HuntDescription "Hunting for malicious launch agent" -Flow FileFinder -EmailAddress emailadress@for-notifications.tld -MatchMode MATCH_ALL -OnlyUrl -RuleType label -Label label1 -path "/Users/knockknock/Library/LaunchAgents/apple.evil.plist" -actiontype hash</dev:code>
-<dev:remarks><maml:para>Create a new hunt and show only the URL after creating the hunt.
+<dev:code>PS C:\&gt; {{ Add example code here }}</dev:code>
+<dev:remarks><maml:para>{{ Add example description here }}
 </maml:para>
 </dev:remarks>
 </command:example>
 </command:examples>
-<command:relatedLinks></command:relatedLinks>
+<command:relatedLinks><maml:navigationLink><maml:linkText>Online Version:</maml:linkText>
+<maml:uri>https://github.com/swisscom/powergrr/docs/New-GRRHunt.md</maml:uri>
+</maml:navigationLink>
+</command:relatedLinks>
 </command:command>
 <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
 <command:details><command:name>New-GRRHuntApproval</command:name>

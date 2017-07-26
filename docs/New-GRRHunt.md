@@ -13,8 +13,8 @@ Create a new hunt.
 
 ```
 New-GRRHunt [[-HuntDescription] <String>] [-Flow] <String> [[-MatchMode] <String>] [[-RuleType] <String>]
- [[-Label] <String>] [[-EmailAddress] <String>] [-OnlyUrl] [-Credential] <PSCredential> [-ShowJSON] [-WhatIf]
- [-Confirm] [<CommonParameters>]
+ [-OS <String>] [[-Label] <String>] [[-EmailAddress] <String>] [-OnlyUrl] [-Credential] <PSCredential>
+ [-ShowJSON] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -83,7 +83,7 @@ Flow type for the hunt.
 Type: String
 Parameter Sets: (All)
 Aliases: 
-Accepted values: Netstat, ListProcesses, FileFinder, RegistryFinder, ExecutePythonHack
+Accepted values: Netstat, ListProcesses, FileFinder, RegistryFinder, ExecutePythonHack, ArtifactCollectorFlow
 
 Required: True
 Position: 1
@@ -197,6 +197,21 @@ Required: False
 Position: Benannt
 Default value: None
 Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -OS
+OS filter for hunt.
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases: 
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: os_windows, os_darwin, os_linux
 Accept wildcard characters: False
 ```
 

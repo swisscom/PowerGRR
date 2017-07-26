@@ -98,7 +98,7 @@ Accept wildcard characters: False
 Type: String
 Parameter Sets: (All)
 Aliases: 
-Accepted values: Netstat, ListProcesses, FileFinder, RegistryFinder, ExecutePythonHack
+Accepted values: Netstat, ListProcesses, FileFinder, RegistryFinder, ExecutePythonHack, ArtifactCollectorFlow
 
 Required: True
 Position: 2

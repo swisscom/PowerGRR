@@ -12,12 +12,7 @@ afterwards with PowerShell.
 
 ## SYNTAX
 
-### count (Default)
-```
-Get-GRRHunt [-Credential] <PSCredential> [-ShowJSON] [<CommonParameters>]
-```
-
-### Count
+### Count (Default)
 ```
 Get-GRRHunt [-Credential] <PSCredential> [-Count <Int32>] [-Offset <Int32>] [-ShowJSON] [<CommonParameters>]
 ```

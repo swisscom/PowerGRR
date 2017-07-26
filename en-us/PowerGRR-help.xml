@@ -1382,6 +1382,7 @@ PS C:\&gt; $res.items.client_id | sort -u</dev:code>
 <command:parameterValue required="false" variableLength="false">FileFinder</command:parameterValue>
 <command:parameterValue required="false" variableLength="false">RegistryFinder</command:parameterValue>
 <command:parameterValue required="false" variableLength="false">ExecutePythonHack</command:parameterValue>
+<command:parameterValue required="false" variableLength="false">ArtifactCollectorFlow</command:parameterValue>
 </command:parameterValueGroup>
 <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
 <dev:type><maml:name>String</maml:name>
@@ -1893,6 +1894,7 @@ PS C:\&gt; $res.items.client_id | sort -u</dev:code>
 <command:parameterValue required="false" variableLength="false">FileFinder</command:parameterValue>
 <command:parameterValue required="false" variableLength="false">RegistryFinder</command:parameterValue>
 <command:parameterValue required="false" variableLength="false">ExecutePythonHack</command:parameterValue>
+<command:parameterValue required="false" variableLength="false">ArtifactCollectorFlow</command:parameterValue>
 </command:parameterValueGroup>
 <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
 <dev:type><maml:name>String</maml:name>
@@ -1981,6 +1983,15 @@ PS C:\&gt; $res.items.client_id | sort -u</dev:code>
 <dev:type><maml:name>SwitchParameter</maml:name>
 <maml:uri /></dev:type>
 <dev:defaultValue>False</dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="os_windows, os_darwin, os_linux" position="named" aliases="none"><maml:name>OS</maml:name>
+<maml:Description><maml:para>OS filter for hunt.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+<dev:type><maml:name>String</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue>None</dev:defaultValue>
 </command:parameter>
 </command:syntaxItem>
 </command:syntax>
@@ -2082,6 +2093,15 @@ PS C:\&gt; $res.items.client_id | sort -u</dev:code>
 <dev:type><maml:name>SwitchParameter</maml:name>
 <maml:uri /></dev:type>
 <dev:defaultValue>False</dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="os_windows, os_darwin, os_linux" position="named" aliases="none"><maml:name>OS</maml:name>
+<maml:Description><maml:para>OS filter for hunt.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+<dev:type><maml:name>String</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue>None</dev:defaultValue>
 </command:parameter>
 </command:parameters>
 <command:inputTypes><command:inputType><dev:type><maml:name>Keine</maml:name>

@@ -491,6 +491,7 @@ function Invoke-GRRHunt()
     #todo Use New-GRRHunt and then Start-GRRHunt
 }
 
+
 function New-GRRHuntApproval()
 {
     [CmdletBinding(SupportsShouldProcess=$True)]
@@ -750,7 +751,6 @@ function Stop-GRRHunt()
 
 
 # todo remove duplicate flow code (see Invoke-GRRFlow)
-
 function New-GRRHunt()
 {
     [CmdletBinding(SupportsShouldProcess=$True)]
@@ -759,7 +759,7 @@ function New-GRRHunt()
         $HuntDescription,
 
         [Parameter(Mandatory=$true)]
-        [ValidateSet("Netstat","ListProcesses","FileFinder","RegistryFinder","ExecutePythonHack")]
+        [ValidateSet("Netstat","ListProcesses","FileFinder","RegistryFinder","ExecutePythonHack","ArtifactCollectorFlow")]
         [string]
         $Flow,
 
@@ -817,6 +817,10 @@ function New-GRRHunt()
             New-DynamicParam -Name PyArgsName -mandatory -DPDictionary $Dictionary
             New-DynamicParam -Name PyArgsValue -mandatory -DPDictionary $Dictionary
         }
+        elseif ($PSBoundParameters.containskey('flow') -and $PSBoundParameters.Flow -eq "ArtifactCollectorFlow")
+        {
+            New-DynamicParam -Name ArtifactList -mandatory -DPDictionary $Dictionary -Type string[]
+        }
 
         $Dictionary
     }
@@ -863,6 +867,12 @@ function New-GRRHunt()
             $HackArguments = $HackArguments -replace '"', '\"'
 
             $FlowArgs = '{"hack_name":"'+$($PSBoundParameters['HackName'])+'","py_args":{"cmd":"'+$HackArguments+'"}}'
+        }
+        elseif ($Flow -eq "ArtifactCollectorFlow")
+        {
+            #{"artifact_list":["WindowsAppInitDLLs","WindowsAutorun","WindowsDebugger"]}
+            # todo after getartifact cmdlet is implemented check artifacts first before running the flow
+            $FlowArgs = '{"artifact_list":["'+$($PSBoundParameters['ArtifactList'] -join "`",`"") + '"]}'
         }
 
         if ($RuleType -eq "Label")
@@ -920,6 +930,7 @@ function New-GRRHunt()
 
 } # New-GRRHunt
 
+
 function Invoke-GRRFlow()
 {
     [CmdletBinding(SupportsShouldProcess=$True)]
@@ -934,7 +945,7 @@ function Invoke-GRRFlow()
         $Credential,
 
         [Parameter(Mandatory=$true)]
-        [ValidateSet("Netstat","ListProcesses","FileFinder","RegistryFinder","ExecutePythonHack")]
+        [ValidateSet("Netstat","ListProcesses","FileFinder","RegistryFinder","ExecutePythonHack","ArtifactCollectorFlow")]
         [string]
         $Flow,
 
@@ -968,6 +979,10 @@ function Invoke-GRRFlow()
             New-DynamicParam -Name HackName -mandatory -DPDictionary $Dictionary
             New-DynamicParam -Name PyArgsName -mandatory -DPDictionary $Dictionary
             New-DynamicParam -Name PyArgsValue -mandatory -DPDictionary $Dictionary
+        }
+        elseif ($PSBoundParameters.containskey('flow') -and $PSBoundParameters.Flow -eq "ArtifactCollectorFlow")
+        {
+            New-DynamicParam -Name ArtifactList -mandatory -DPDictionary $Dictionary -Type string[]
         }
 
         $Dictionary
@@ -1015,6 +1030,12 @@ function Invoke-GRRFlow()
             $HackArguments = $HackArguments -replace '"', '\"'
 
             $PluginArguments = '{"hack_name":"'+$($PSBoundParameters['HackName'])+'","py_args":{"cmd":"'+$HackArguments+'"}}'
+        }
+        elseif ($Flow -eq "ArtifactCollectorFlow")
+        {
+            #{"artifact_list":["WindowsAppInitDLLs","WindowsAutorun","WindowsDebugger"]}
+            # todo after getartifact cmdlet is implemented check artifacts first before running the flow
+            $PluginArguments = '{"artifact_list":["'+$($PSBoundParameters['ArtifactList'] -join "`",`"") + '"]}'
         }
 
         $Body = '{"flow":{"runner_args":{"flow_name":"'+$Flow+'",'
@@ -1203,7 +1224,7 @@ Function Get-GRRLabel()
 
 Function Get-GRRHunt()
 {
-    [CmdletBinding(DefaultParameterSetName="count")]
+    [CmdletBinding(DefaultParameterSetName="Count")]
     param(
         [Parameter(Mandatory=$true)]
         [System.Management.Automation.PSCredential]

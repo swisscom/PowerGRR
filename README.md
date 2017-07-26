@@ -37,7 +37,7 @@ Some of the use cases where PowerGRR could speed up the work:
 
 The following plugins are available for hunts and flows and the target group
 is chosen based on labels or the OS.
-* "Netstat","ListProcesses","FileFinder","RegistryFinder","ExecutePythonHack"
+* Netstat, ListProcesses, FileFinder, RegistryFinder, ExecutePythonHack, ArtifactCollectorFlow
 
 ### Repo Structure
 

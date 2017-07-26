@@ -56,7 +56,8 @@ New-MarkdownHelp -Module PowerGRR -OutputFolder .\docs\ -WithModulePage -Force -
 New-MarkdownHelp -Command Get-GRRLabel -OutputFolder .\docs\ -OnlineVersionUrl "https://github.com/swisscom/powergrr/docs/Get-GRRLabel.md" 
 ```
 
-For updating the markdown help use instead the following commands
+**Important:** After creating a new help file for one specific command it must 
+be added manually to the PowerGRR.md in /docs.
 
 ### Update Markdown Help
 

@@ -32,6 +32,9 @@ Convert a computername into the corresponding GRR client id.
 ### [Get-GRRComputerNameFromClientId](Get-GRRComputerNameFromClientId.md)
 Search for a specific client id and return the computername.
 
+### [Get-GRRFlowDescriptor](Get-GRRFlowDescriptor.md)
+Get a list of all available flows.
+
 ### [Get-GRRFlowResult](Get-GRRFlowResult.md)
 Get flow results for a specific client and a flow.
 

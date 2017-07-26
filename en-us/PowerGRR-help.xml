@@ -533,6 +533,113 @@ PS C:\&gt; c.1111111111111111,c.2222222222222222 | Get-GRRComputerNameFromClient
 <command:relatedLinks></command:relatedLinks>
 </command:command>
 <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+<command:details><command:name>Get-GRRFlowDescriptor</command:name>
+<command:verb>Get</command:verb>
+<command:noun>GRRFlowDescriptor</command:noun>
+<maml:description><maml:para>Get a list of all available flows.
+</maml:para>
+</maml:description>
+</command:details>
+<maml:description><maml:para>List all flows and allow filtering based on category, name and doc content.
+</maml:para>
+</maml:description>
+<command:syntax><command:syntaxItem><maml:name>Get-GRRFlowDescriptor</maml:name>
+<command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none"><maml:name>Credential</maml:name>
+<maml:Description><maml:para>GRR credentials.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">PSCredential</command:parameterValue>
+<dev:type><maml:name>PSCredential</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue>None</dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="benannt" aliases="none"><maml:name>ShowJSON</maml:name>
+<maml:Description><maml:para>Show plain JSON output.
+</maml:para>
+</maml:Description>
+<dev:type><maml:name>SwitchParameter</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue>False</dev:defaultValue>
+</command:parameter>
+</command:syntaxItem>
+</command:syntax>
+<command:parameters><command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none"><maml:name>Credential</maml:name>
+<maml:Description><maml:para>GRR credentials.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">PSCredential</command:parameterValue>
+<dev:type><maml:name>PSCredential</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue>None</dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="benannt" aliases="none"><maml:name>ShowJSON</maml:name>
+<maml:Description><maml:para>Show plain JSON output.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+<dev:type><maml:name>SwitchParameter</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue>False</dev:defaultValue>
+</command:parameter>
+</command:parameters>
+<command:inputTypes><command:inputType><dev:type><maml:name>Keine</maml:name>
+</dev:type>
+<maml:description><maml:para>
+</maml:para>
+</maml:description>
+</command:inputType>
+</command:inputTypes>
+<command:returnValues><command:returnValue><dev:type><maml:name>System.Object</maml:name>
+</dev:type>
+<maml:description><maml:para>
+</maml:para>
+</maml:description>
+</command:returnValue>
+</command:returnValues>
+<maml:alertSet><maml:alert><maml:para>
+</maml:para>
+</maml:alert>
+</maml:alertSet>
+<command:examples><command:example><maml:title>Example 1</maml:title>
+<dev:code>PS C:\&gt; Get-GRRFlowDescriptor -Credential $cred</dev:code>
+<dev:remarks><maml:para>List all available flows.
+</maml:para>
+</dev:remarks>
+</command:example>
+<command:example><maml:title>Example 2</maml:title>
+<dev:code>PS C:\&gt; $ret = Get-GRRFlowDescriptor -Credential $cred
+PS C:\&gt; $ret | select name</dev:code>
+<dev:remarks><maml:para>List all available flows and display all the flow names.
+</maml:para>
+</dev:remarks>
+</command:example>
+<command:example><maml:title>Example 3</maml:title>
+<dev:code>PS C:\&gt; $ret = Get-GRRFlowDescriptor -Credential $cred
+PS C:\&gt; $ret | where { $_.category -match "memory"}</dev:code>
+<dev:remarks><maml:para>List all available flows from the memory category.
+</maml:para>
+</dev:remarks>
+</command:example>
+<command:example><maml:title>Example 4</maml:title>
+<dev:code>PS C:\&gt; $ret = Get-GRRFlowDescriptor -Credential $cred
+PS C:\&gt; $ret | where { $_.category -match "file"} | select name</dev:code>
+<dev:remarks><maml:para>List all available flows from the file category and display only the flow names.
+</maml:para>
+</dev:remarks>
+</command:example>
+<command:example><maml:title>Example 5</maml:title>
+<dev:code>PS C:\&gt; Get-GRRFlowDescriptor -Credential $cred | ? { $_.name -match "proc" }</dev:code>
+<dev:remarks><maml:para>List all available flows where "proc" is in the flow name.
+</maml:para>
+</dev:remarks>
+</command:example>
+</command:examples>
+<command:relatedLinks><maml:navigationLink><maml:linkText>Online Version:</maml:linkText>
+<maml:uri>https://github.com/swisscom/powergrr/docs/Get-GRRFlowDescriptor.md</maml:uri>
+</maml:navigationLink>
+</command:relatedLinks>
+</command:command>
+<command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
 <command:details><command:name>Get-GRRFlowResult</command:name>
 <command:verb>Get</command:verb>
 <command:noun>GRRFlowResult</command:noun>

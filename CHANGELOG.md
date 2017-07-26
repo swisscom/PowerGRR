@@ -10,6 +10,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
     <command> -Examples` to show the example from the help.
 * Add rule type 'OS' to `New-GRRHunt`. Use os_windows, os_linux or os_darwin
     as filter ([#3](https://github.com/swisscom/PowerGRR/issues/3)).
+* Add new cmdlet for getting a list of all available flows
+    (`Get-GRRFlowDescriptor`) and add corresponding Pester tests.
 
 ### Changed
 

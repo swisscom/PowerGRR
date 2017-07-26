@@ -46,6 +46,11 @@ $global:ValidStartFlowReturnObject = @"
 {`"last_active_at`": 1497268188392255, `"name`": `"RegistryFinder`", `"creator`": `"john.doe`", `"urn`": `"aff4:/C.1234567890123456/flows/F:22222222`", `"args`": {`"keys_paths`": [`"HKEY_USERS/%%users.sid%%/Software/Microsoft/Windows/CurrentVersion/Run/*`"]}, `"state`": `"RUNNING`", `"started_at`": 1497268188370316}
 "@
 
+$global:ValidFlowDescriptor = @"
+)]}`'
+{`"items`": [{`"category`": `"Processes`", `"name`": `"ListProcesses`", `"doc`": `"List running processes on a system.\n\n  Call Spec:\n    flow.GRRFlow.StartFlow(client_id=client_id, flow_name=\`"ListProcesses\`", filename_regex=filename_regex, fetch_binaries=fetch_binaries, connection_states=connection_states)\n\n  Args:\n    connection_states\n      description: Network connection states to match. If a process has any network connections in any status listed here, it will be considered a match\n      type: \n      default: None\n\n    fetch_binaries\n      description: \n      type: RDFBool\n      default: 0\n\n    filename_regex\n      description: Regex used to filter the list of processes.\n      type: RegularExpression\n      default: .\n`", `"args_type`": `"ListProcessesArgs`", `"behaviours`": [`"ADVANCED`", `"BASIC`", `"Client Flow`"], `"default_args`": {}}]}
+"@
+
 # Pester tests
 
 Describe 'Get-GRRHuntResult' {
@@ -515,6 +520,42 @@ Describe 'Invoke-GRRRequest' {
             $ret = Invoke-GRRRequest @params
             $ret | should not BeNullOrEmpty
             ($ret.urn).Substring(31) | should be "F:22222222"
+        }
+    }
+}
+
+Describe 'Get-GRRFlowDescriptor' {
+    Context 'when there are errors' {
+        It 'no web response' {
+            Mock Invoke-GRRRequest {} -ModuleName PowerGRR
+            $ret = Get-GRRFlowDescriptor -Credential $creds
+            $ret | should BeNullOrEmpty
+            {$ret.total_count} | should throw
+        }
+    }
+
+    Context 'with valid response' {
+        It 'valid but empty items' {
+            Mock Invoke-GRRRequest {
+                $EmptyItem.Substring(5) | ConvertFrom-Json
+            } -ModuleName PowerGRR
+            Mock Get-GRRSession {} -ModuleName PowerGRR
+
+            $ret = Get-GRRFlowDescriptor -Credential $creds
+            $ret | Should not BeNullOrEmpty
+            $ret.items | Should BeNullOrEmpty
+        }
+
+        It 'valid items' {
+            Mock Invoke-GRRRequest {
+                $ValidFlowDescriptor.Substring(5) | ConvertFrom-Json
+            } -ModuleName PowerGRR
+            Mock Get-GRRSession {} -ModuleName PowerGRR
+
+            $ret = Get-GRRFlowDescriptor -Credential $creds
+            $ret | Should Not BeNullOrEmpty
+            $ret | select -expandproperty category | Should Be "Processes"
+            $ret | select -expandproperty name | Should Be "ListProcesses"
         }
     }
 }

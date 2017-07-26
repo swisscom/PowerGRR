@@ -1314,6 +1314,48 @@ Function Get-GRRHunt()
 } # Get-GRRHunt
 
 
+function Get-GRRFlowDescriptor()
+{
+    [CmdletBinding()]
+    param(
+        [Parameter(Mandatory=$true)]
+        [System.Management.Automation.PSCredential]
+        [System.Management.Automation.Credential()]
+        $Credential,
+
+        [switch]
+        $ShowJSON
+    )
+
+    $Function = $MyInvocation.MyCommand
+
+    Write-Verbose "$Function Entering $Function"
+
+    Write-Progress -Activity "Running $Function"
+
+    $params = @{
+        'Url' = "/flows/descriptors";
+        'Credential' = $Credential;
+        'ShowJSON' = $PSBoundParameters.containskey('ShowJSON');
+    }
+
+    Write-Verbose "URL: $($params.url)"
+
+    $ret = Invoke-GRRRequest @params
+
+    if ($ret -and !$PSBoundParameters.containskey('ShowJSON') -and $ret.items)
+    {
+        $ret.items
+    }
+    else
+    {
+        $ret
+    }
+
+    Write-Verbose "$Function Leaving $Function"
+}
+
+
 Function Get-ClientCertificate()
 {
     if (Get-Variable -Name GRRClientCertIssuer -ErrorAction SilentlyContinue)
@@ -1708,7 +1750,8 @@ Export-ModuleMember @(
     'Start-GRRHunt',
     'Stop-GRRHunt',
     'New-GRRHuntApproval',
-    'New-GRRClientApproval'
+    'New-GRRClientApproval',
+    'Get-GRRFlowDescriptor'
 )
 
 #endregion

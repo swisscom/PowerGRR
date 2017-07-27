@@ -41,9 +41,10 @@ check current cmdlets how to use supporting functions.
 1. Run the Pester tests. See [BUILD](BUILD.md). All should pass.
 1. Update CHANGELOG 
     * Update information according to the current release.
-    * Add new **Unreleased** section.
+    * Add new **Unreleased** section and update the link for comparison.
     * Add the new version number in the old unreleased section.
     * Add the version comparison link to the current release changelog section.
+    * Add the current date at the end of the new header row
 1. Update **ModuleVersion** in the module description file (.psd1).
 1. Set a tag for the new version (e.g. "vx.x.x").
 1. Push the tag and the changes to the repo.

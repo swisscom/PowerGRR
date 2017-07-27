@@ -4,7 +4,27 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) 
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## [Unreleased](https://github.com/swisscom/powergrr/compare/v0.1.0...HEAD)
+## [Unreleased](https://github.com/swisscom/powergrr/compare/v0.2.0...master)
+### Added
+
+### Changed
+
+### Deprecated
+
+### Removed
+
+### Fixed
+
+### Security
+
+## [v0.2.0](https://github.com/swisscom/powergrr/compare/v0.1.0...v0.2.0) - 2017-07-27
+
+This version introduces the **ArtifactCollectorFlow** and the handling of GRR
+artifacts and the possibiliy to use the **OS rule type** within flows and hunts.
+It's now possible with `Get-GRRArtifact` to **filter and search for specific
+artifacts**. The return object is a custom PowerShell objects with the most
+important fields.
+
 ### Added
 * Add examples to the markdown help files and PowerShell help. Use `help
     <command> -Examples` to show the example from the help.
@@ -21,18 +41,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
   function is used within `Invoke-GRRFlow` and `New-GRRHunt` to check if the
   given artifacts for ArtifactCollectorFlow are defined within GRR.
 
-### Changed
-
-### Deprecated
-
-### Removed
-
 ### Fixed
 * Fix bug when GRRIgnoreCertificateErrors is not set in the config file ([#1](https://github.com/swisscom/PowerGRR/issues/1)).
 * Fix bug with uninitialized variable when using WhatIf in `Invoke-GRRFlow`
-
-### Security
-
 
 ## [v0.1.0](https://github.com/swisscom/powergrr/tree/v0.1.0) - 2017-07-21
 

@@ -54,13 +54,24 @@ is chosen based on labels or the OS.
 
 ## Installation
 
-### Download
+* Install PowerGRR module from the [PowerShell Gallery](https://www.powershellgallery.com/packages/PowerGRR/):
+
+``` powershell
+# Inpsect
+Save-Module -Name PowerGRR -Path <path> 
+
+# Install
+Install-Module -Name PowerGRR -Scope CurrentUser
+```
+
+* Install PowerGRR from Github:
+
 Clone the repo into your module path folder, usually
 "~\Documents\WindowsPowerShell\modules" (see $env:PSModulePath) or clone
 the files to any other folder (could be a share or the local disk). The
 location changes how the module is imported.
 
-### Configuration
+## Configuration
 
 Create a Configuration.ps1 file in the root folder of the project. Set the
 following variables as needed:
@@ -76,9 +87,6 @@ $GRRClientCertIssuer = "issuer of the certificate"
 # GRR Url
 $GRRUrl = "https://grrserver.tld"
 ```
-
-You can also define the variables in the shell before importing the module
-without having the file Configuration.ps1.
 
 ## Usage
 
@@ -227,14 +235,3 @@ $clients | Remove-GRRLabel -SearchString INC01 -$Credential $creds
 Currently, only pre-defined flows are available. See [command
 help](https://github.com/swisscom/PowerGRR/blob/master/docs/Invoke-GRRFlow.md#-flow)
 for the available flow types. 
-
-## Contribution
-
-Please use the guidelines as references when implementing new functions.
-
-* [PowerShell scripting best practices](https://blogs.technet.microsoft.com/pstips/2014/06/17/powershell-scripting-best-practices/)
-* [Building-PowerShell-Functions-Best-Practices](http://ramblingcookiemonster.github.io/Building-PowerShell-Functions-Best-Practices/)
-* [Strongly Encouraged Development Guidelines](https://msdn.microsoft.com/en-us/library/dd878270(v=vs.85).aspx)
-* [Approved Verbs for Windows PowerShell Commands](https://msdn.microsoft.com/en-us/library/ms714428(v=vs.85).aspx)
-* [How to Write a PowerShell Module Manifest](https://msdn.microsoft.com/en-us/library/dd878337(v=vs.85).aspx)
-* [Windows PowerShell: Writing Cmdlets in Script](https://technet.microsoft.com/en-us/library/ff677563.aspx)

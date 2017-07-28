@@ -44,9 +44,6 @@ Function Get-GRRHuntInfo()
         [System.Management.Automation.Credential()]
         $Credential,
 
-        [string]
-        $cert,
-
         [switch]
         $ShowJSON
     )

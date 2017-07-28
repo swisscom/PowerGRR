@@ -88,6 +88,19 @@ $GRRClientCertIssuer = "issuer of the certificate"
 $GRRUrl = "https://grrserver.tld"
 ```
 
+If you want to get crazy you could even use a Configuration.ps1 file looking
+like this if you need to constantly change the GRR config otherwise. You only
+need to change the GRR URL.
+
+``` powershell
+#$GRRUrl = "https://main-grrserver.tld"
+$GRRUrl = "https://test-grrserver.tld"
+
+$GRRIgnoreCertificateErrors = $( if ($GRRUrl -match "test") { $true } else { $false } )
+
+$GRRClientCertIssuer = $( if ($GRRUrl -match "main") { "certificate issuer" } else {} )
+```
+
 ## Usage
 
 ### Importing the module
@@ -117,8 +130,9 @@ $creds = Microsoft.PowerShell.Security\get-credential
 Please see [docs](docs/PowerGRR.md) for further information and the list of
 all available commands.
 
-Use the common parameters like -WhatIf or -Verbose for troubleshooting and to
-see what the commands would do. WhatIf is only used for "destructive" cmdlets.
+Use the common parameters like _-WhatIf_ or _-Verbose_ for troubleshooting and to
+see what the commands would do. _WhatIf_ is implemented for every function which
+make any permanent change (e.g. start a flow, set a label, ...).
 
 List available PowerGRR commands.
 
@@ -138,9 +152,15 @@ Use `help <command>` to get the help for a command.
 
 ```powershell
 PS> help Get-GRRHuntInfo
-...
+
+NAME
+    Get-GRRHuntInfo
+
+OVERVIEW
+    Get hunt info for a specific hunt.
+
 SYNTAX
-    Get-GRRHuntInfo [[-HuntId] <string>] [-Credential] <pscredential> [[-cert] <string>] [-WhatIf] ...
+    Get-GRRHuntInfo [[-HuntId] <String>] [-Credential] <PSCredential> [-ShowJSON] [<CommonParameters>]
 ...
 ```
 
@@ -183,6 +203,7 @@ WIN-DESKTOP04   C.eeeeeeeeeeeeeeee 11.03.2017 10:23:51 10.0.10586
 # Set a label for multiple hosts during incident response with the parameter
 # __ComputerName__
 Set-GRRLabel -ComputerName WIN-DESKTOP01, WIN-DESKTOP03, WIN-DESKTOP04 -Label INC02_Windows -Credential $creds
+
 # or through the pipeline
 "MBP-LAPTOP02" | Set-GRRLabel -Label INC02_macOS -Credential $creds
 

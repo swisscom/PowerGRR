@@ -119,7 +119,7 @@ PrivateData = @{
     PSData = @{
 
         # Tags applied to this module. These help with module discovery in online galleries.
-        Tags = @('GRR','Security','IncidentResponse','Containment','Malware')
+        Tags = @('IncidentResponse','RemoteForensics','Forensics','GRR')
 
         # A URL to the license for this module.
         LicenseUri = 'https://github.com/swisscom/powergrr/LICENSE.md'
@@ -141,7 +141,7 @@ PrivateData = @{
  } # End of PrivateData hashtable
 
 # HelpInfo URI of this module
-# HelpInfoURI = 'https://github.com/swisscom/powergrr/docs'
+# HelpInfoURI = ''
 
 # Default prefix for commands exported from this module. Override the default prefix using Import-Module -Prefix.
 # DefaultCommandPrefix = ''

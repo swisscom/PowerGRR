@@ -10,6 +10,10 @@ $password = "bad"
 $secureStringPwd = $password | ConvertTo-SecureString -AsPlainText -Force 
 $creds = New-Object System.Management.Automation.PSCredential -ArgumentList "user", $secureStringPwd
 
+$global:NoItem = @"
+)]}`'
+{`"noitem`": []}
+"@
 
 $global:EmptyItem = @"
 )]}`'
@@ -54,6 +58,11 @@ $global:ValidFlowDescriptor = @"
 $global:ValidArtifacts = @"
 )]}`'
 {`"items`": [{`"is_custom`": false, `"processors`": [{`"output_types`": [`"AttributedDict`"], `"name`": `"APTPackageSourceParser`", `"description`": `"Parser for APT source lists to extract URIs only.`"}], `"path_dependencies`": [], `"artifact_source`": `"{ \`"conditions\`": [],\n  \`"dependencies\`": [],\n  \`"doc\`": \`"APT package sources list\`",\n  \`"labels\`": [ \`"Configuration Files\`", \`"System\`"\n  ],\n  \`"name\`": \`"APTSources\`",\n  \`"provides\`": [],\n  \`"sources\`": [\n    { \`"attributes\`": { \`"paths\`": [\n          \`"/etc/apt/sources.list\`",\n          \`"/etc/apt/sources.list.d/*.list\`"\n        ]\n      },\n      \`"returned_types\`": [],\n      \`"type\`": \`"FILE\`"\n    }\n  ],\n  \`"supported_os\`": [ \`"Linux\`" ],\n  \`"urls\`": [ \`"http://manpages.ubuntu.com/manpages/trusty/en/man5/sources.list.5.html\`" ]\n}`", `"error_message`": `"`", `"artifact`": {`"urls`": [`"http://manpages.ubuntu.com/manpages/trusty/en/man5/sources.list.5.html`"], `"name`": `"APTSources`", `"doc`": `"APT package sources list`", `"labels`": [`"Configuration Files`", `"System`"], `"sources`": [{`"attributes`": {`"paths`": [`"/etc/apt/sources.list`", `"/etc/apt/sources.list.d/*.list`"]}, `"type`": `"FILE`", `"returned_types`": []}], `"supported_os`": [`"Linux`"], `"provides`": [], `"conditions`": []}, `"dependencies`": []}, {`"is_custom`": false, `"path_dependencies`": [], `"artifact_source`": `"{ \`"conditions\`": [],\n  \`"dependencies\`": [],\n  \`"doc\`": \`"APT trusted keys\`",\n  \`"labels\`": [ \`"Configuration Files\`", \`"System\`"\n  ],\n  \`"name\`": \`"APTTrustKeys\`",\n  \`"provides\`": [],\n  \`"sources\`": [\n    { \`"attributes\`": { \`"paths\`": [\n          \`"/etc/apt/trusted.gpg\`",\n          \`"/etc/apt/trusted.gpg.d/*.gpg\`",\n          \`"/etc/apt/trustdb.gpg\`",\n          \`"/usr/share/keyrings/*.gpg\`"\n        ]\n      },\n      \`"returned_types\`": [],\n      \`"type\`": \`"FILE\`"\n    }\n  ],\n  \`"supported_os\`": [ \`"Linux\`" ],\n  \`"urls\`": [ \`"https://wiki.debian.org/SecureApt\`" ]\n}`", `"error_message`": `"`", `"artifact`": {`"urls`": [`"https://wiki.debian.org/SecureApt`"], `"name`": `"APTTrustKeys`", `"doc`": `"APT trusted keys`", `"labels`": [`"Configuration Files`", `"System`"], `"sources`": [{`"attributes`": {`"paths`": [`"/etc/apt/trusted.gpg`", `"/etc/apt/trusted.gpg.d/*.gpg`", `"/etc/apt/trustdb.gpg`", `"/usr/share/keyrings/*.gpg`"]}, `"type`": `"FILE`", `"returned_types`": []}], `"supported_os`": [`"Linux`"], `"provides`": [], `"conditions`": []}, `"dependencies`": []}], `"total_count`": 422}
+"@
+
+$global:ValidExecutePythonHackFlowRequest = @"
+)]}`'
+{`"last_active_at`": 1111111111111111, `"name`": `"ExecutePythonHack`", `"creator`": `"user`", `"urn`": `"aff4:/C.1111111111111111/flows/F:AAAAAAAA`", `"args`": {`"hack_name`": `"hack`", `"py_args`": {`"argname`": `"args`"}}, `"state`": `"RUNNING`", `"flow_id`": `"F:AAAAAAAA`", `"started_at`": 1111111111111111, `"runner_args`": {`"flow_name`": `"ExecutePythonHack`", `"client_id`": `"aff4:/C.1111111111111111`"}}
 "@
 
 # Pester tests
@@ -315,24 +324,35 @@ Describe 'Invoke-GRRFlow' {
     Context 'when there are errors.' {
         Mock Invoke-GRRRequest {} -ModuleName PowerGRR
 
-        It 'no web response' {
-            Mock Get-GRRSession {} -ModuleName PowerGRR
+        Mock Get-GRRSession {} -ModuleName PowerGRR
 
+        It 'no web response in RegistryFinder' {
             $ret = Invoke-GRRFlow -ComputerName XY -Flow "RegistryFinder" -Key "HKCM" -Credential $creds
             $ret | should BeNullOrEmpty
             {$ret.total_count} | should throw
 
+        }
+
+        It 'no web response in FileFinder' {
             $ret = Invoke-GRRFlow -ComputerName XY -Flow "FileFinder" -Path "C:\dummy" -Action Hash -Credential $creds
             $ret | should BeNullOrEmpty
             {$ret.total_count} | should throw
+        }
 
+        It 'no web response in ExecutePythonHack' {
             $ret = Invoke-GRRFlow -ComputerName XY -Flow "ExecutePythonHack" -HackName "powershell" -PyArgsName cmd -PyArgsValue "get-process" -Credential $creds
             $ret | should BeNullOrEmpty
             {$ret.total_count} | should throw
+        }
 
+        It 'no web response in ListProcesses' {
             $ret = Invoke-GRRFlow -ComputerName XY -Flow "ListProcesses" -FileNameRegex ".*shell.*" -Credential $creds
             $ret | should BeNullOrEmpty
             {$ret.total_count} | should throw
+        }
+
+        It 'no web response in ArtifactCollectorFlow' {
+            { Invoke-GRRFlow -ComputerName XY -Flow "ArtifactCollectorFlow" -Artifact "WindowsAutorun" -Credential $creds } | should throw
         }
 
         It 'has invalid flow name' {
@@ -347,18 +367,66 @@ Describe 'Invoke-GRRFlow' {
             $Headers, $Websession
         } -ModuleName PowerGRR
 
-        Mock Invoke-GRRRequest {
-            $ValidStartFlowReturnObject.Substring(5) | ConvertFrom-Json
-        } -ModuleName PowerGRR
 
         Mock Get-GRRClientIdFromComputerName {
             $json = '{"clientid":"C.1111111111111111"}'
             $json | ConvertFrom-Json
         } -ModuleName PowerGRR
 
-        It 'invoke a valid flow' {
-            $ret = Invoke-GRRFlow -ComputerName XY -Flow "ExecutePythonHack" -HackName "powershell" -PyArgsName cmd -PyArgsValue "get-process" -Credential $creds
+        Mock Invoke-GRRRequest {
+            $ValidStartFlowReturnObject.Substring(5) | ConvertFrom-Json
+        } -ModuleName PowerGRR
+
+        It 'invoke a valid RegistryFinder flow' {
+            $ret = Invoke-GRRFlow -ComputerName XY -Flow "RegistryFinder" -Key "Key" -Credential $creds
             $ret.flowid | Should Be F:22222222
+        }
+
+        Mock Invoke-GRRRequest {
+            $ValidExecutePythonHackFlowRequest.Substring(5) | ConvertFrom-Json
+        } -ModuleName PowerGRR
+
+        It 'invoke a valid ExecutePythonHack flow' {
+            $ret = Invoke-GRRFlow -ComputerName XY -Flow "ExecutePythonHack" -HackName "hack" -PyArgsName "argsname" -PyArgsValue "argsvalue" -Credential $creds
+            $ret.flowid | Should Be F:AAAAAAAA
+        }
+
+        Mock Invoke-GRRRequest {
+            $ValidExecutePythonHackFlowRequest.Substring(5) | ConvertFrom-Json
+        } -ModuleName PowerGRR
+
+        It 'invoke a valid FileFinder flow' {
+            $ret = Invoke-GRRFlow -ComputerName XY -Flow "FileFinder" -Path "C:\dummy" -Action Hash -Credential $creds
+            $ret.flowid | Should Be F:AAAAAAAA
+        }
+
+        It 'invoke a valid ListProcesses flow' {
+            $ret = Invoke-GRRFlow -ComputerName XY -Flow "ListProcesses" -FileNameRegex ".*shell.*" -Credential $creds
+            $ret.flowid | Should Be F:AAAAAAAA
+        }
+
+        It 'invoke a valid ArtifactCollector flow but without any artifacts available' {
+            Mock Get-GRRArtifact {} -ModuleName PowerGRR
+            { Invoke-GRRFlow -ComputerName XY -Flow "ArtifactCollectorFlow" -Artifact "WindowsAutorun" -Credential $creds } | Should throw
+        }
+
+        It 'invoke a valid ArtifactCollector flow with the correct artifacts available' {
+            Mock Get-GRRArtifact {
+                $info = @{}
+                $info.Name="WindowsAutorun"
+                New-Object PSObject -Property $info
+            } -ModuleName PowerGRR
+            $ret = Invoke-GRRFlow -ComputerName XY -Flow "ArtifactCollectorFlow" -Artifact "WindowsAutorun" -Credential $creds
+            $ret.flowid | Should Be F:AAAAAAAA
+        }
+
+        It 'invoke a valid ArtifactCollector flow but without the correct artifacts available' {
+            Mock Get-GRRArtifact {
+                $info = @{}
+                $info.Name="WindowsAutostart"
+                New-Object PSObject -Property $info
+            } -ModuleName PowerGRR
+            { Invoke-GRRFlow -ComputerName XY -Flow "ArtifactCollectorFlow" -Artifact "WindowsAutorun" -Credential $creds } | should throw
         }
     }
 }
@@ -377,7 +445,6 @@ Describe 'Get-GRRFlowResult' {
             Mock Invoke-GRRRequest {
                 $EmptyItem.Substring(5) | ConvertFrom-Json
             } -ModuleName PowerGRR
-            Mock Get-GRRSession {} -ModuleName PowerGRR
 
             $ret = Get-GRRFlowResult -ComputerName XY -FlowId "F:111111" -Credential $creds
             $ret | Should BeNullOrEmpty
@@ -576,22 +643,30 @@ Describe 'Get-GRRArtifact' {
     }
 
     Context 'with valid response' {
-        It 'valid but empty items' {
+        It 'when empty items' {
             Mock Invoke-GRRRequest {
                 $EmptyItem.Substring(5) | ConvertFrom-Json
             } -ModuleName PowerGRR
-            Mock Get-GRRSession {} -ModuleName PowerGRR
+
+            $ret = Get-GRRArtifact -Credential $creds
+            $ret | Should BeNullOrEmpty
+            { $ret.items } | Should Throw
+        }
+
+        It 'when no items' {
+            Mock Invoke-GRRRequest {
+                $NoItem.Substring(5) | ConvertFrom-Json
+            } -ModuleName PowerGRR
 
             $ret = Get-GRRArtifact -Credential $creds
             $ret | Should not BeNullOrEmpty
-            $ret.items | Should BeNullOrEmpty
+            { $ret.items } | Should Throw
         }
 
-        It 'valid items' {
+        It 'when valid items' {
             Mock Invoke-GRRRequest {
                 $ValidArtifacts.Substring(5) | ConvertFrom-Json
             } -ModuleName PowerGRR
-            Mock Get-GRRSession {} -ModuleName PowerGRR
 
             $ret = Get-GRRArtifact -Credential $creds
             $ret | Should Not BeNullOrEmpty

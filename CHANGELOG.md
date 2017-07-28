@@ -6,6 +6,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased](https://github.com/swisscom/powergrr/compare/v0.2.1...master)
 ### Added
+* Add and improve Pester tests in `Invoke-GRRFlow` and `Get-GRRArtifact`
+    * Add tests for _ArtifactCollectorFlow_ and _ExecutePythonHack_ flow
+    * Improve tests when no response was returned from `Invoke-GRRRequest`
 
 ### Changed
 
@@ -14,6 +17,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Removed
 
 ### Fixed
+* Improve error handling in `Invoke-GRRFlow` and `Get-GRRArtifact`
+    * when no artifacts were found
+    * when no available artifact matched with the given one in the parameters
+* Fix bug in `Get-GRRArtifact` when no items were returned
+  by `Invoke-GRRRequest`
 
 ### Security
 

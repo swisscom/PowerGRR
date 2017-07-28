@@ -868,13 +868,21 @@ function New-GRRHunt()
         }
         elseif ($Flow -eq "ArtifactCollectorFlow")
         {
-            $AllArtifacts = Get-GRRArtifact -Credential $Credential | select -ExpandProperty name
+            $AllArtifacts = Get-GRRArtifact -Credential $Credential
+            if ($AllArtifacts)
+            {
+                $AllArtifacts = $AllArtifacts | select -ExpandProperty name
+            }
+            else
+            {
+                Throw "No artifacts found in GRR"
+            }
 
             $ValidatedArtifacts = @()
 
             foreach ($Artifact in $PSBoundParameters['ArtifactList'])
             {
-                if ($AllArtifacts.contains($Artifact))
+                if ($AllArtifacts -and $AllArtifacts.contains($Artifact))
                 {
                     $ValidatedArtifacts += $Artifact
                 }
@@ -884,7 +892,14 @@ function New-GRRHunt()
                 }
             }
 
-            $ValidatedArtifacts = $ValidatedArtifacts | Get-Unique
+            if($ValidatedArtifacts)
+            {
+                $ValidatedArtifacts = $ValidatedArtifacts | Get-Unique
+            }
+            else
+            {
+                Throw "No artifacts found in GRR which match the command"
+            }
 
             $FlowArgs = '{"artifact_list":["'+ $($ValidatedArtifacts -join "`",`"") + '"]}'
 
@@ -1049,13 +1064,21 @@ function Invoke-GRRFlow()
         }
         elseif ($Flow -eq "ArtifactCollectorFlow")
         {
-           $AllArtifacts = Get-GRRArtifact -Credential $Credential | select -ExpandProperty name
+            $AllArtifacts = Get-GRRArtifact -Credential $Credential
+            if ($AllArtifacts)
+            {
+                $AllArtifacts = $AllArtifacts | select -ExpandProperty name
+            }
+            else
+            {
+                Throw "No artifacts found in GRR"
+            }
 
             $ValidatedArtifacts = @()
 
             foreach ($Artifact in $PSBoundParameters['ArtifactList'])
             {
-                if ($AllArtifacts.contains($Artifact))
+                if ($AllArtifacts -and $AllArtifacts.contains($Artifact))
                 {
                     $ValidatedArtifacts += $Artifact
                 }
@@ -1065,7 +1088,14 @@ function Invoke-GRRFlow()
                 }
             }
 
-            $ValidatedArtifacts = $ValidatedArtifacts | Get-Unique
+            if($ValidatedArtifacts)
+            {
+                $ValidatedArtifacts = $ValidatedArtifacts | Get-Unique
+            }
+            else
+            {
+                Throw "No artifacts found in GRR which match the command"
+            }
 
             $PluginArguments = '{"artifact_list":["'+ $($ValidatedArtifacts -join "`",`"") + '"]}'
 
@@ -1440,7 +1470,7 @@ function Get-GRRArtifact()
 
     $Artifacts = @()
 
-    if ($ret -and !$PSBoundParameters.containskey('ShowJSON') -and $ret.items)
+    if ($ret -and !$PSBoundParameters.containskey('ShowJSON') -and ($ret.PSobject.Properties.name -match "items"))
     {
         # Build custom objects to only show relevant information
         foreach ($item in $ret.items)

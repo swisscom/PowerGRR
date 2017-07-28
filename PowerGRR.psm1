@@ -28,8 +28,7 @@ Set-StrictMode -version latest
 
 #region CONSTANTS
 
-$ErrorMessageMissingConfiguration = "Please set the variable `$GRRUrl before you" +
-" use the commands or see Configuration.ps1. If needed set `$GRRClientCertIssuer."
+$ErrorMessageMissingConfiguration = "Create a Configuration.ps1 file and set the variable as needed. See README on Github for more information."
 
 #endregion
 
@@ -864,11 +863,11 @@ function New-GRRHunt()
         }
         elseif ($Flow -eq "ExecutePythonHack")
         {
-            $HackArguments = $($PSBoundParameters['PyArgs'])
+            $HackArguments = $($PSBoundParameters['PyArgsValue'])
             $HackArguments = $HackArguments -replace "\\", "\\"
             $HackArguments = $HackArguments -replace '"', '\"'
 
-            $FlowArgs = '{"hack_name":"'+$($PSBoundParameters['HackName'])+'","py_args":{"cmd":"'+$HackArguments+'"}}'
+            $FlowArgs = '{"hack_name":"'+$($PSBoundParameters['HackName'])+'","py_args":{"'+$($PSBoundParameters['PyArgsName'])+'":"'+$HackArguments+'"}}'
         }
         elseif ($Flow -eq "ArtifactCollectorFlow")
         {
@@ -1045,11 +1044,11 @@ function Invoke-GRRFlow()
         }
         elseif ($Flow -eq "ExecutePythonHack")
         {
-            $HackArguments = $($PSBoundParameters['PyArgs'])
+            $HackArguments = $($PSBoundParameters['PyArgsValue'])
             $HackArguments = $HackArguments -replace "\\", "\\"
             $HackArguments = $HackArguments -replace '"', '\"'
 
-            $PluginArguments = '{"hack_name":"'+$($PSBoundParameters['HackName'])+'","py_args":{"cmd":"'+$HackArguments+'"}}'
+            $PluginArguments = '{"hack_name":"'+$($PSBoundParameters['HackName'])+'","py_args":{"'+$($PSBoundParameters['PyArgsName'])+'":"'+$HackArguments+'"}}'
         }
         elseif ($Flow -eq "ArtifactCollectorFlow")
         {

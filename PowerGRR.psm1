@@ -1861,6 +1861,74 @@ Function New-DynamicParam ()
     }
 }
 
+Function Get-GRRConfig()
+{
+    $Config = New-Object PSObject
+
+    $Value = ""
+
+    $params = @{
+        'InputObject' = $Config;
+        'MemberType' = 'NoteProperty';
+        'Name' = "ConfigFile";
+        'Value' = $ConfigFile
+    }
+    add-member @params
+
+    if (get-variable -name GRRUrl -ErrorAction SilentlyContinue -scope 1 -valueonly)
+    {
+        $Value = $GRRUrl
+    }
+    else
+    {
+        $Value = "none"
+    }
+
+    $params = @{
+        'InputObject' = $Config;
+        'MemberType' = 'NoteProperty';
+        'Name' = "GRRUrl";
+        'Value' = $Value
+    }
+    add-member @params
+
+    if (get-variable -name GRRIgnoreCertificateErrors -ErrorAction SilentlyContinue -scope 1 -valueonly)
+    {
+        $Value = $GRRIgnoreCertificateErrors
+    }
+    else
+    {
+        $Value = "false (default)"
+    }
+
+    $params = @{
+        'InputObject' = $Config;
+        'MemberType' = 'NoteProperty';
+        'Name' = "GRRIgnoreCertificateErrors";
+        'Value' = $Value
+    }
+    add-member @params
+
+    if (get-variable -name GRRClientCertIssuer -ErrorAction SilentlyContinue -scope 1 -valueonly)
+    {
+        $Value = $GRRClientCertIssuer
+    }
+    else
+    {
+        $Value = "none (default)"
+    }
+
+    $params = @{
+        'InputObject' = $Config;
+        'MemberType' = 'NoteProperty';
+        'Name' = "GRRClientCertIssuer";
+        'Value' = $Value
+    }
+    add-member @params
+
+    $Config
+}
+
 #endregion
 
 #region INITIALIZATION
@@ -1928,7 +1996,8 @@ Export-ModuleMember @(
     'New-GRRHuntApproval',
     'New-GRRClientApproval',
     'Get-GRRFlowDescriptor',
-    'Get-GRRArtifact'
+    'Get-GRRArtifact',
+    'Get-GRRConfig'
 )
 
 #endregion

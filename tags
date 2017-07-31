@@ -11,6 +11,7 @@ Get-EpocTimeFromUtc	.\PowerGRR.psm1	/^function Get-EpocTimeFromUtc ([long]$UnixT
 Get-GRRArtifact	.\PowerGRR.psm1	/^function Get-GRRArtifact()$/;"	m
 Get-GRRClientIdFromComputerName	.\PowerGRR.psm1	/^Function Get-GRRClientIdFromComputerName()$/;"	m
 Get-GRRComputerNameFromClientId	.\PowerGRR.psm1	/^Function Get-GRRComputerNameFromClientId()$/;"	m
+Get-GRRConfig	.\PowerGRR.psm1	/^Function Get-GRRConfig()$/;"	m
 Get-GRRFlowDescriptor	.\PowerGRR.psm1	/^function Get-GRRFlowDescriptor()$/;"	m
 Get-GRRFlowResult	.\PowerGRR.psm1	/^function Get-GRRFlowResult()$/;"	m
 Get-GRRHunt	.\PowerGRR.psm1	/^Function Get-GRRHunt()$/;"	m

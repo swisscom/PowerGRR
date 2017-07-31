@@ -88,7 +88,8 @@ FunctionsToExport = @(
     'New-GRRHuntApproval',
     'New-GRRClientApproval',
     'Get-GRRFlowDescriptor',
-    'Get-GRRArtifact'
+    'Get-GRRArtifact',
+    'Get-GRRConfig'
     )
 
 # Cmdlets to export from this module

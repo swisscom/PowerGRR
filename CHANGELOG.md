@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 * Add and improve Pester tests in `Invoke-GRRFlow` and `Get-GRRArtifact`
     * Add tests for _ArtifactCollectorFlow_ and _ExecutePythonHack_ flow
     * Improve tests when no response was returned from `Invoke-GRRRequest`
+* Add function and corresponding help file for reading the current loaded
+  config (`Get-GRRConfig`).
 
 ### Changed
 

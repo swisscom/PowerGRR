@@ -17,6 +17,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Removed
 
 ### Fixed
+* Fix issue with dynamic parameter autocompletion in `Invoke-GRRFlow` and
+  `New-GRRHunt` [#6](https://github.com/swisscom/PowerGRR/issues/6). The
+  issue is known and was already reported on [Github in the PowerShell
+  project](https://github.com/PowerShell/PowerShell/issues/3984).
 * Improve error handling in `Invoke-GRRFlow` and `Get-GRRArtifact`
     * when no artifacts were found
     * when no available artifact matched with the given one in the parameters

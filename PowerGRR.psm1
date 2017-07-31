@@ -782,9 +782,10 @@ function New-GRRHunt()
         [switch]
         $OnlyUrl,
 
-        [Parameter(Mandatory=$true)]
-        [System.Management.Automation.PSCredential]
-        [System.Management.Automation.Credential()]
+        # Fix for dynamic parameter autocompletion issue: https://github.com/PowerShell/PowerShell/issues/3984
+        #[Parameter(Mandatory=$true)]
+        #[System.Management.Automation.PSCredential]
+        #[System.Management.Automation.Credential()]
         $Credential,
 
         [switch]
@@ -828,6 +829,21 @@ function New-GRRHunt()
         Write-Verbose "$Function Entering $Function"
 
         Set-NewVariable -Parameters $PSBoundParameters
+
+        # Fix for dynamic parameter autocompletion issue: https://github.com/PowerShell/PowerShell/issues/3984
+        if (!$Credential -or ($Credential.GetType()).name -ne "PSCredential")
+        {
+            Write-Debug "Credentials not supplied or of wrong type."
+            try
+            {
+                $Credential = Microsoft.PowerShell.Security\get-credential
+            }
+            catch
+            {
+                throw "Use the parameter '-Credential' and 'Microsoft.PowerShell.Security\get-credential' to supply your credentials."
+                break
+            }
+        }
     }
 
     Process {
@@ -970,9 +986,10 @@ function Invoke-GRRFlow()
         [string[]]
         $ComputerName,
 
-        [Parameter(Mandatory=$true)]
-        [System.Management.Automation.PSCredential]
-        [System.Management.Automation.Credential()]
+        # Fix for dynamic parameter autocompletion issue: https://github.com/PowerShell/PowerShell/issues/3984
+        #[Parameter(Mandatory=$true)]
+        #[System.Management.Automation.PSCredential]
+        #[System.Management.Automation.Credential()]
         $Credential,
 
         [Parameter(Mandatory=$true)]
@@ -1024,6 +1041,21 @@ function Invoke-GRRFlow()
         Write-Verbose "$Function Entering $Function"
 
         Set-NewVariable -Parameters $PSBoundParameters
+
+        # Fix for dynamic parameter autocompletion issue: https://github.com/PowerShell/PowerShell/issues/3984
+        if (!$Credential -or ($Credential.GetType()).name -ne "PSCredential")
+        {
+            Write-Debug "Credentials not supplied or of wrong type."
+            try
+            {
+                $Credential = Microsoft.PowerShell.Security\get-credential
+            }
+            catch
+            {
+                throw "Use the parameter '-Credential' and 'Microsoft.PowerShell.Security\get-credential' to supply your credentials."
+                break
+            }
+        }
     }
 
     Process {

@@ -30,6 +30,7 @@ check current cmdlets how to use supporting functions.
 1. Add relevant notes to the [CHANGELOG](CHANGELOG.md).
 1. Add a new markdown help file in /docs with examples. See [BUILD](BUILD.md)
    for information about generating the help file. 
+1. Add new markdown help file to the overview in /docs/PowerGRR.md.
 1. Update the external help file. See [BUILD](BUILD.md) for
    information about generating the help file. 
 1. Update README if needed (e.g. available flows).
@@ -38,7 +39,7 @@ check current cmdlets how to use supporting functions.
 
 ## Making a new Release
 
-1. Run the Pester tests. See [BUILD](BUILD.md). All should pass.
+1. Run the Pester tests. See [BUILD](BUILD.md). All must pass.
 1. Update CHANGELOG 
     * Update information according to the current release.
     * Add new **Unreleased** section and update the link for comparison.
@@ -47,16 +48,17 @@ check current cmdlets how to use supporting functions.
     * Add the current date at the end of the new header row
 1. Update **ModuleVersion** in the module description file (.psd1).
 1. Set a tag for the new version (e.g. "vx.x.x").
-1. Push the tag and the changes to the repo.
+1. Push the tag and the code changes to the repo.
+1. Add a new Github release and add release notes
 1. Publish the new module version to PowerShell gallery
     * Make a clean folder for PowerGRR in the module path.
     * Add the psm1, psd1 and the external help (en-us) to that PowerGRR module
         folder.
     * Run the following command to publish the module to the PowerShell gallery.
-
-``` powershell
-Publish-Module -Name PowerGRR -NuGetApiKey <apiKey> 
-```
+    ``` powershell
+    Publish-Module -Name PowerGRR -NuGetApiKey <apiKey> 
+    ```
+1. Update release notes in PowerShellGallery
 
 The module is currently located at https://www.powershellgallery.com/packages/PowerGRR.
 

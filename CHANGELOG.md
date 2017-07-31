@@ -4,7 +4,39 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) 
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## [Unreleased](https://github.com/swisscom/powergrr/compare/v0.2.1...master)
+## [Unreleased](https://github.com/swisscom/powergrr/compare/v0.3.0...master)
+
+### Added
+
+### Changed
+
+### Deprecated
+
+### Removed
+
+### Fixed
+
+### Security
+
+## [v0.3.0](https://github.com/swisscom/powergrr/compare/v0.2.1...v0.3.0) - 2017-07-31
+
+This version changed the config file handling. PowerGRR **supports now
+the user profile or the module root as locations for the config file**. This
+is useful when updating PowerGRR through with `Update-Module` because each
+version is stored in an own folder. Using the profile folder for the config
+prevents from constantly moving your config file. Beside the file name change
+different improvements were made in regards to config checks.
+
+The dynamic parameters which are used in `Invoke-GRRFlow` and `New-GRRHunt`
+are now autocompleted correctly. The change in the parameter handling
+mitigates a PowerShell bug, see details below.
+
+The dynamic parameters in `New-GRRHunt` were improved. The 'OS' and the
+'Label' parameter are now defined as dynamic parameters and are only shown
+based on the corresponding rule type. Furthermore, the label handling was
+improved to only run a hunt if at least one label was valid (that means found
+in GRR).
+
 ### Added
 * Add and improve Pester tests in `Invoke-GRRFlow` and `Get-GRRArtifact`
     * Add tests for _ArtifactCollectorFlow_ and _ExecutePythonHack_ flow
@@ -22,6 +54,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
    version is saved in a dedicated folder.
 * Improve dynamic parameter handling in `New-GRRHunt`. Add 'OS' and 'Label' as
     dynamic parameters.
+* Make the parameter _FileNameRegex_ as optional and use '.' as default value
+  in New-GRRHunt and in corresponding section in Invoke-GRRFlow.
 
 ### Deprecated
 * The configuration file name 'Configuration.ps1' was deprecated. The new name

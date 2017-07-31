@@ -1318,6 +1318,7 @@ function Get-GRRFlowResult()
 
 Function Get-GRRLabel()
 {
+    [OutputType([string[]])]
     param(
         [Parameter(Mandatory=$true)]
         [System.Management.Automation.PSCredential]
@@ -1330,7 +1331,7 @@ Function Get-GRRLabel()
 
     $Function = $MyInvocation.MyCommand
 
-    $ret = ""
+    $ret = @()
 
     Write-Verbose "$Function Entering $Function"
 
@@ -1844,7 +1845,7 @@ Function New-DynamicParam ()
     #Create attribute object, add attributes, add to collection   
     $ParamAttr = New-Object System.Management.Automation.ParameterAttribute
     $ParamAttr.ParameterSetName = $ParameterSetName
-    if($mandatory)
+    if($Mandatory)
     {
         $ParamAttr.Mandatory = $True
     }

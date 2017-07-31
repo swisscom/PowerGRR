@@ -62,14 +62,18 @@ Save-Module -Name PowerGRR -Path <path>
 
 # Install
 Install-Module -Name PowerGRR -Scope CurrentUser
+
+# Update
+Update-Module -Name PowerGRR
 ```
 
 * Install PowerGRR from Github:
 
-Clone the repo into your module path folder, usually
-"~\Documents\WindowsPowerShell\modules" (see $env:PSModulePath) or clone
-the files to any other folder (could be a share or the local disk). The
-location changes how the module is imported.
+    * Clone or download the repo into your module path folder, usually
+      "~\Documents\WindowsPowerShell\modules" (see $env:PSModulePath).
+    * Clone or download the files to any other folder (could also be a share).
+
+    The location changes how the module is imported.
 
 ## Configuration
 

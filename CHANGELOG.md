@@ -20,6 +20,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
    ([#7](https://github.com/swisscom/PowerGRR/issues/7)). This allows the use
    of  PowerShellGallery's _update-module_ function more easily because each
    version is saved in a dedicated folder.
+* Improve dynamic parameter handling in `New-GRRHunt`. Add 'OS' and 'Label' as
+    dynamic parameters.
 
 ### Deprecated
 * The configuration file name 'Configuration.ps1' was deprecated. The new name

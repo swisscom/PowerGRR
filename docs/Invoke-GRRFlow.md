@@ -12,8 +12,8 @@ Invoke a flow on one or multiple clients.
 ## SYNTAX
 
 ```
-Invoke-GRRFlow [-ComputerName] <String[]> [-Credential] <PSCredential> [-Flow] <String>
- [[-EmailAddress] <String>] [-ShowJSON] [-WhatIf] [-Confirm] [<CommonParameters>]
+Invoke-GRRFlow [-ComputerName] <String[]> [[-Credential] <Object>] [-Flow] <String> [[-EmailAddress] <String>]
+ [-ShowJSON] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -65,11 +65,11 @@ Accept wildcard characters: False
 {{Fill Credential Description}}
 
 ```yaml
-Type: PSCredential
+Type: Object
 Parameter Sets: (All)
 Aliases: 
 
-Required: True
+Required: False
 Position: 1
 Default value: None
 Accept pipeline input: False

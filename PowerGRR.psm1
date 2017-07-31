@@ -763,20 +763,13 @@ function New-GRRHunt()
         [string]
         $Flow,
 
-        [ValidateSet("MATCH_ALL","MATCH_ANY")]
-        [string]
-        $MatchMode,
+        #[ValidateSet("MATCH_ALL","MATCH_ANY")]
+        #[string]
+        #$MatchMode,
 
         [string]
         [ValidateSet("Label","OS")]
         $RuleType,
-
-        [string]
-        [ValidateSet("os_windows","os_darwin","os_linux")]
-        $OS,
-
-        [string]
-        $Label,
 
         [string]
         $EmailAddress,
@@ -810,7 +803,7 @@ function New-GRRHunt()
         }
         elseif ($PSBoundParameters.containskey('flow') -and $PSBoundParameters.Flow -eq "ListProcesses")
         {
-            New-DynamicParam -Name FileNameRegex -mandatory -DPDictionary $Dictionary
+            New-DynamicParam -Name FileNameRegex -DPDictionary $Dictionary
         }
         elseif ($PSBoundParameters.containskey('flow') -and $PSBoundParameters.Flow -eq "ExecutePythonHack")
         {
@@ -821,6 +814,15 @@ function New-GRRHunt()
         elseif ($PSBoundParameters.containskey('flow') -and $PSBoundParameters.Flow -eq "ArtifactCollectorFlow")
         {
             New-DynamicParam -Name ArtifactList -mandatory -DPDictionary $Dictionary -Type string[]
+        }
+
+        if ($PSBoundParameters.containskey('RuleType') -and $PSBoundParameters.RuleType -eq "OS")
+        {
+            New-DynamicParam -Name OS -mandatory -DPDictionary $Dictionary -Type string -ValidateSet @("os_windows","os_darwin","os_linux")
+        }
+        elseif ($PSBoundParameters.containskey('RuleType') -and $PSBoundParameters.RuleType -eq "Label")
+        {
+            New-DynamicParam -Name "Label" -mandatory -DPDictionary $Dictionary -Type string[]
         }
 
         $Dictionary
@@ -874,7 +876,14 @@ function New-GRRHunt()
         }
         elseif ($Flow -eq "ListProcesses")
         {
-            $FlowArgs = '{"filename_regex":"'+$PSBoundParameters['FileNameRegex']+'"}'
+            if ($PSBoundParameters['FileNameRegex'])
+            {
+                $FlowArgs = '{"filename_regex":"'+$PSBoundParameters['FileNameRegex']+'"}'
+            }
+            else
+            {
+                $FlowArgs = '{"filename_regex":"."}'
+            }
         }
         elseif ($Flow -eq "ExecutePythonHack")
         {
@@ -926,19 +935,34 @@ function New-GRRHunt()
 
         if ($RuleType -eq "Label")
         {
-            $Labels = Get-GRRLabel -Credential $Credential
+            $AllLabels = Get-GRRLabel -Credential $Credential
+            $Labels = $PSBoundParameters['Label']
+            $ValidatedLabels = @()
 
-            if ($Labels -and $Labels.contains($Label))
+            foreach ($Label in $Labels)
             {
-                $Rule = '"client_rule_set":{"rules":['
-                $Rule += '{"rule_type":"'+$RuleType.toUpper()+'",'
-                $Rule += '"'+$RuleType.toLower()+'":{"match_mode":"'+$MatchMode+'",'
-                $Rule += '"label_names":["'+$($PSBoundParameters['Label']-join'","')+'"]}}]}'
-            } # Label found
+                if ($AllLabels.contains($Label))
+                {
+                    $ValidatedLabels += $Label
+                }
+                else
+                {
+                    write-warning "Skipping label `"$Label`" because it does not exist. Set the label with Set-GRRLabel first."
+                }
+            }
+            if($ValidatedLabels)
+            {
+                $ValidatedLabels = $ValidatedLabels | Get-Unique
+            }
             else
             {
-                Write-Error "Label `"$Label`" does not exist. Set the label with Set-GRRLabel first."
+                Throw "No valid labels found."
             }
+
+            $Rule = '"client_rule_set":{"rules":['
+            $Rule += '{"rule_type":"'+$RuleType.toUpper()+'",'
+            $Rule += '"'+$RuleType.toLower()+'":{"match_mode":"'+"MATCH_ANY"+'",'
+            $Rule += '"label_names":["'+$($ValidatedLabels-join'","')+'"]}}]}'
         }
         elseif ($RuleType -eq "OS")
         {
@@ -1022,7 +1046,7 @@ function Invoke-GRRFlow()
         }
         elseif ($PSBoundParameters.containskey('flow') -and $PSBoundParameters.Flow -eq "ListProcesses")
         {
-            New-DynamicParam -Name FileNameRegex -mandatory -DPDictionary $Dictionary
+            New-DynamicParam -Name FileNameRegex -DPDictionary $Dictionary
         }
         elseif ($PSBoundParameters.containskey('flow') -and $PSBoundParameters.Flow -eq "ExecutePythonHack")
         {
@@ -1086,7 +1110,14 @@ function Invoke-GRRFlow()
         }
         elseif ($Flow -eq "ListProcesses")
         {
-            $PluginArguments = '{"filename_regex":"'+$PSBoundParameters['FileNameRegex']+'"}'
+            if ($PSBoundParameters['FileNameRegex'])
+            {
+                $PluginArguments = '{"filename_regex":"'+$PSBoundParameters['FileNameRegex']+'"}'
+            }
+            else
+            {
+                $PluginArguments = '{"filename_regex":"."}'
+            }
         }
         elseif ($Flow -eq "ExecutePythonHack")
         {

@@ -12,9 +12,8 @@ Create a new hunt.
 ## SYNTAX
 
 ```
-New-GRRHunt [[-HuntDescription] <String>] [-Flow] <String> [[-MatchMode] <String>] [[-RuleType] <String>]
- [[-OS] <String>] [[-Label] <String>] [[-EmailAddress] <String>] [-OnlyUrl] [-Credential] <PSCredential>
- [-ShowJSON] [-WhatIf] [-Confirm]
+New-GRRHunt [[-HuntDescription] <String>] [-Flow] <String> [[-RuleType] <String>] [[-EmailAddress] <String>]
+ [-OnlyUrl] [[-Credential] <Object>] [-ShowJSON] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -50,11 +49,11 @@ Accept wildcard characters: False
 GRR credentials.
 
 ```yaml
-Type: PSCredential
+Type: Object
 Parameter Sets: (All)
 Aliases: 
 
-Required: True
+Required: False
 Position: 7
 Default value: None
 Accept pipeline input: False
@@ -102,53 +101,6 @@ Aliases:
 
 Required: False
 Position: 0
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -Label
-Label for which the hunt is created.
-
-```yaml
-Type: String
-Parameter Sets: (All)
-Aliases: 
-
-Required: False
-Position: 5
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -MatchMode
-Match mode for the rules.
-
-```yaml
-Type: String
-Parameter Sets: (All)
-Aliases: 
-Accepted values: MATCH_ALL, MATCH_ANY
-
-Required: False
-Position: 2
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -OS
-OS filter for hunt.
-
-```yaml
-Type: String
-Parameter Sets: (All)
-Aliases: 
-Accepted values: os_windows, os_darwin, os_linux
-
-Required: False
-Position: 4
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -216,10 +168,12 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
+### CommonParameters
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
+
 ## INPUTS
 
 ### Keine
-
 
 ## OUTPUTS
 

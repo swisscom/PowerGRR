@@ -13,23 +13,33 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
   config (`Get-GRRConfig`).
 
 ### Changed
+* Change the name of the configuration file from
+   'Configuration.ps1' to 'powergrr-config.ps1'. PowerGRR supports now having
+   the config file also in the profile folder (`$env:userprofile`) and not only
+   within the root of the module
+   ([#7](https://github.com/swisscom/PowerGRR/issues/7)). This allows the use
+   of  PowerShellGallery's _update-module_ function more easily because each
+   version is saved in a dedicated folder.
 
 ### Deprecated
-
-### Removed
+* The configuration file name 'Configuration.ps1' was deprecated. The new name
+    is 'powergrr-config.ps1'. This change was introduced to make things ready
+    for storing the config file within the user profile.
 
 ### Fixed
 * Fix issue with dynamic parameter autocompletion in `Invoke-GRRFlow` and
-  `New-GRRHunt` [#6](https://github.com/swisscom/PowerGRR/issues/6). The
-  issue is known and was already reported on [Github in the PowerShell
-  project](https://github.com/PowerShell/PowerShell/issues/3984).
+  `New-GRRHunt` ([#6](https://github.com/swisscom/PowerGRR/issues/6)). After
+  using a parameter of type `PSCredential` within a PowerShell command, the
+  dynamic parameters were not autocompleted anymore. The
+  [issue](https://github.com/PowerShell/PowerShell/issues/3984) is known and
+  was already reported the PowerShell team. PowerGRR doesn't use the
+  _PSCredential_ parameter anymore for the mentioned functions but checks the
+  credentials in the code.
 * Improve error handling in `Invoke-GRRFlow` and `Get-GRRArtifact`
     * when no artifacts were found
     * when no available artifact matched with the given one in the parameters
 * Fix bug in `Get-GRRArtifact` when no items were returned
   by `Invoke-GRRRequest`
-
-### Security
 
 ## [v0.2.1](https://github.com/swisscom/powergrr/compare/v0.2.0...v0.2.1) - 2017-07-28
 

@@ -28,7 +28,9 @@ Set-StrictMode -version latest
 
 #region CONSTANTS
 
-$ErrorMessageMissingConfiguration = "Create a Configuration.ps1 file and set the variable as needed. See README on Github for more information."
+$ConfigFileName = "powergrr-config.ps1"
+
+$ErrorMessageMissingConfiguration = "No configuration file was found. Create a '$ConfigFileName' ('Configuration.ps1' is deprecated) within the profile folder ($env:USERPROFILE) or in the root of the module ($PSScriptRoot). At least set the variable `$GRRUrl to your GRR server's URL. See README on Github for more information."
 
 #endregion
 
@@ -1534,7 +1536,7 @@ function Get-GRRArtifact()
 
 Function Get-ClientCertificate()
 {
-    if (Get-Variable -Name GRRClientCertIssuer -ErrorAction SilentlyContinue)
+    if (Get-Variable -Name GRRClientCertIssuer  -Scope 1 -ErrorAction SilentlyContinue -valueonly)
     {
         $Cert = Get-ChildItem Cert:\CurrentUser\My | Where-Object {$_.Issuer -match $GRRClientCertIssuer }
 
@@ -1568,7 +1570,7 @@ function Get-GRRSession ()
 
     Write-Progress -Activity "Running $Function"
 
-    if (Get-Variable -Name GRRUrl -ErrorAction SilentlyContinue)
+    if (Get-Variable -Name GRRUrl -ErrorAction SilentlyContinue -valueonly)
     {
         $GRRUrl = $GRRUrl.trim('/')
 
@@ -1656,7 +1658,7 @@ function Invoke-GRRRequest ()
     else { $Url += "?" }
     $Url += "strip_type_info=1"
 
-    if (Get-Variable -Name GRRUrl -ErrorAction SilentlyContinue)
+    if (Get-Variable -Name GRRUrl -ErrorAction SilentlyContinue -valueonly)
     {
         $GRRUrl = $GRRUrl.trim('/')
 
@@ -1758,7 +1760,7 @@ function Set-NewVariable()
     $BoundKeys = $Parameters.keys | Where-Object { (get-command _temp | select-object -ExpandProperty parameters).Keys -notcontains $_}
     foreach($param in $BoundKeys)
     {
-        if (-not ( Get-Variable -name $param -scope 1 -ErrorAction SilentlyContinue ) )
+        if (!( Get-Variable -name $param -scope 1 -ErrorAction SilentlyContinue -valueonly) )
         {
             New-Variable -Name $Param -Value $Parameters.$param
             Write-Verbose "Adding variable for dynamic parameter '$param' with value '$($Parameters.$param)'"
@@ -1936,21 +1938,35 @@ Function Get-GRRConfig()
 # Module path for all functions
 $ModuleRoot = $PSScriptRoot
 
-# Load configuration file (URLs, ...)
-if (Test-Path "$ModuleRoot\Configuration.ps1")
-{
-    Remove-Variable GRRClientCertIssuer -ErrorAction SilentlyContinue
-    Remove-Variable GRRIgnoreCertificateErrors -ErrorAction SilentlyContinue
-    Remove-Variable GRRUrl -ErrorAction SilentlyContinue
+Remove-Variable GRRClientCertIssuer -ErrorAction SilentlyContinue
+Remove-Variable GRRIgnoreCertificateErrors -ErrorAction SilentlyContinue
+Remove-Variable GRRUrl -ErrorAction SilentlyContinue
 
-    . "$ModuleRoot\Configuration.ps1"
+# Read config from file and set variables as needed
+$ConfigFile = ""
+if (Test-Path "$ModuleRoot\$ConfigFileName")
+{
+    $ConfigFile = "$ModuleRoot\$ConfigFileName"
+    . $ConfigFile
+}
+elseif (Test-Path "$env:USERPROFILE\$ConfigFileName")
+{
+    $ConfigFile = "$env:USERPROFILE\$ConfigFileName"
+    . $ConfigFile
 }
 else
 {
-    Write-Error $ErrorMessageMissingConfiguration
+    throw $ErrorMessageMissingConfiguration
 }
 
-# Ignore certificate warnings
+if (!(get-variable -name GRRUrl -scope 0 -ErrorAction SilentlyContinue -valueonly))
+{
+    throw "Set `$GRRUrl within the config file: $ConfigFile."
+}
+
+write-host "Using $($GRRUrl) for the GRR URL."
+
+# Add type for ignoring certificate warnings
 add-type @"
     using System.Net;
     using System.Security.Cryptography.X509Certificates;

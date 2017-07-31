@@ -73,22 +73,23 @@ location changes how the module is imported.
 
 ## Configuration
 
-Create a Configuration.ps1 file in the root folder of the project. Set the
-following variables as needed:
+Create a 'powergrr-config.ps1' in the profile folder (`$env:USERPROFILE`) or in the root folder of
+the module. Set the following variables as needed. At least set the variable $GRRUrl to your GRR server's URL'.
+
 
 ``` PowerShell
+# GRR Url
+$GRRUrl = "https://grrserver.tld"
+
 # Ignore certificates - if set to $true certificate errors are ignored
 $GRRIgnoreCertificateErrors = $false
 
 # Client certificate issuer - if not set no client certificates are used.
 # Otherwise the client certificate from the given issuer is used.
 $GRRClientCertIssuer = "issuer of the certificate"
-
-# GRR Url
-$GRRUrl = "https://grrserver.tld"
 ```
 
-If you want to get crazy you could even use a Configuration.ps1 file looking
+If you want to get crazy you could even use a config file file looking
 like this if you need to constantly change the GRR config otherwise. You only
 need to change the GRR URL.
 

@@ -2,3 +2,4 @@
 *.swp
 !.gitignore
 /Configuration.ps1
+/powergrr-config.ps1

@@ -30,7 +30,7 @@ Set-StrictMode -version latest
 
 $ConfigFileName = "powergrr-config.ps1"
 
-$ErrorMessageMissingConfiguration = "No configuration file was found. Create a '$ConfigFileName' ('Configuration.ps1' is deprecated) within the profile folder ($env:USERPROFILE) or in the root of the module ($PSScriptRoot). At least set the variable `$GRRUrl to your GRR server's URL. See README on Github for more information."
+$ErrorMessageMissingConfiguration = "No configuration file was found. Create a '$ConfigFileName' ('Configuration.ps1' is deprecated) within the profile folder ($(if($env:USERPROFILE){$env:USERPROFILE}else{$env:HOME})) or in the root of the module ($PSScriptRoot). At least set the variable `$GRRUrl to your GRR server's URL. See README on Github for more information."
 
 #endregion
 
@@ -1622,6 +1622,13 @@ function Get-GRRSession ()
             }
         }
 
+        if ($PSVersionTable.Contains("platform") -and ($PSVersionTable.Platform -match "Unix") -and (Get-Variable -Name GRRIgnoreCertificateErrors -ErrorAction SilentlyContinue -valueonly))
+        {
+            $params += @{
+                'SkipCertificateCheck' = $true;
+            }
+        }
+
         $Web = Invoke-WebRequest @params
 
         $csrftoken = (($web.Headers.'Set-Cookie') -split ";" -split "=")[1]
@@ -1730,6 +1737,13 @@ function Invoke-GRRRequest ()
                 'Body' = $Body;
                 'Websession' = $Websession;
                 'Headers' = $Headers;
+            }
+        }
+
+        if ($PSVersionTable.Contains("platform") -and ($PSVersionTable.Platform -match "Unix") -and (Get-Variable -Name GRRIgnoreCertificateErrors -ErrorAction SilentlyContinue -valueonly))
+        {
+            $params += @{
+                'SkipCertificateCheck' = $true;
             }
         }
 
@@ -1981,6 +1995,11 @@ if (Test-Path "$ModuleRoot\$ConfigFileName")
     $ConfigFile = "$ModuleRoot\$ConfigFileName"
     . $ConfigFile
 }
+elseif ($PSVersionTable.Contains("platform") -and ($PSVersionTable.Platform -match "Unix") -and (Test-Path "$env:HOME\$ConfigFileName"))
+{
+    $ConfigFile = "$env:HOME\$ConfigFileName"
+    . $ConfigFile
+}
 elseif (Test-Path "$env:USERPROFILE\$ConfigFileName")
 {
     $ConfigFile = "$env:USERPROFILE\$ConfigFileName"
@@ -1998,7 +2017,12 @@ if (!(get-variable -name GRRUrl -scope 0 -ErrorAction SilentlyContinue -valueonl
 
 write-host "Using $($GRRUrl) for the GRR URL."
 
-# Add type for ignoring certificate warnings
+# Add type for ignoring certificate warnings for Windows
+# This is not available in macOS or Linux
+# Use switch param "-SkipCertificateCheck" in Invoke-WebRequest and Invoke-RestMethod
+# See https://github.com/PowerShell/PowerShell/issues/1945
+if (($PSVersionTable.PSVersion.Major -lt 6) -or ($PSVersionTable.Contains("platform") -and ($PSVersionTable.Platform -notmatch "Unix")))
+{
 add-type @"
     using System.Net;
     using System.Security.Cryptography.X509Certificates;
@@ -2011,14 +2035,15 @@ add-type @"
     }
 "@
 
-if (Get-Variable -Name GRRIgnoreCertificateErrors -ErrorAction SilentlyContinue)
-{
-	[System.Net.ServicePointManager]::CertificatePolicy = New-Object TrustAllCertsPolicy
-}
+    if (Get-Variable -Name GRRIgnoreCertificateErrors -ErrorAction SilentlyContinue -valueonly)
+    {
+        [System.Net.ServicePointManager]::CertificatePolicy = New-Object TrustAllCertsPolicy
+    }
 
-# Adjust the protocols, otherwise the API will reject connections
-$AllProtocols = [System.Net.SecurityProtocolType]'Ssl3,Tls,Tls11,Tls12'
-[System.Net.ServicePointManager]::SecurityProtocol = $AllProtocols
+    # Adjust the protocols, otherwise the API will reject connections
+    $AllProtocols = [System.Net.SecurityProtocolType]'Ssl3,Tls,Tls11,Tls12'
+    [System.Net.ServicePointManager]::SecurityProtocol = $AllProtocols
+}
 
 #endregion
 

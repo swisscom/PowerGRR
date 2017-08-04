@@ -10,12 +10,13 @@ Please see [Command Documentation](docs/PowerGRR.md) and
 ## What is PowerGRR?
 
 PowerGRR is a PowerShell module for working with the [GRR](https://github.com/google/grr) 
-API. GRR Rapid Response is an incident response framework focused on remote live forensics.
-The module allows working with flows, hunts, labels and the search feature. Furthermore, it
-allows working with the computer names instead of the GRR internal client id.
-This makes handling and working with other tools more easy because often
-you just have the computer names. PowerGRR also enables you to easily
-document your work in text form which is then directly reusable by others.
+API working on Windows, macOS and Linux. GRR Rapid Response is an
+incident response framework focused on remote live forensics. The module
+allows working with flows, hunts, labels and the search feature. Furthermore,
+it allows working with the computer names instead of the GRR internal client
+id. This makes handling and working with other tools more easy because often
+you just have the computer names. PowerGRR also enables you to easily document
+your work in text form which is then directly reusable by others.
 
 PowerGRR creates a comfortable, cli-based workflow for incident response.
 PowerShell is installed on every Windows workstation and working directly with
@@ -52,6 +53,14 @@ is chosen based on labels or the OS.
 | PowerGRR.psm1     | PowerGRR module file                                               |
 | tags              | ctags file for PowerGRR                                            |
 
+## Requirements
+
+PowerShell is required in order to run PowerGRR. Windows has PowerShell
+installed by default. For macOS and Linux see [PowerShell Package installation
+instructions](https://github.com/PowerShell/PowerShell/blob/master/docs/installation/linux.md)
+for more information. Installation is fast and for most OSes there are
+packages and ready to use installation commands.
+
 ## Installation
 
 * Install PowerGRR module from the [PowerShell Gallery](https://www.powershellgallery.com/packages/PowerGRR/):
@@ -70,15 +79,18 @@ Update-Module -Name PowerGRR
 * Install PowerGRR from Github:
 
     * Clone or download the repo into your module path folder, usually
-      "~\Documents\WindowsPowerShell\modules" (see $env:PSModulePath).
+      "~\Documents\WindowsPowerShell\modules" on Windows or
+      "~/.local/share/powershell/Modules/" on macOS (see _$env:PSModulePath_ or
+      output of `Install-Module`).
     * Clone or download the files to any other folder (could also be a share).
 
     The location changes how the module is imported.
 
 ## Configuration
 
-Create a 'powergrr-config.ps1' in the profile folder (`$env:USERPROFILE`) or in the root folder of
-the module. Set the following variables as needed. At least set the variable $GRRUrl to your GRR server's URL'.
+Create a 'powergrr-config.ps1' in the profile folder (`$env:USERPROFILE` or
+`$env:HOME`) or in the root folder of the module. Set the following variables
+as needed. At least set the variable _$GRRUrl_ to your GRR server's URL'.
 
 
 ``` PowerShell
@@ -207,7 +219,8 @@ WIN-DESKTOP04   C.eeeeeeeeeeeeeeee 11.03.2017 10:23:51 10.0.10586
 
 # Set a label for multiple hosts during incident response with the parameter
 # __ComputerName__
-Set-GRRLabel -ComputerName WIN-DESKTOP01, WIN-DESKTOP03, WIN-DESKTOP04 -Label INC02_Windows -Credential $creds
+Set-GRRLabel -ComputerName WIN-DESKTOP01, WIN-DESKTOP03, WIN-DESKTOP04 -Label INC02_Windows `
+             -Credential $creds
 
 # or through the pipeline
 "MBP-LAPTOP02" | Set-GRRLabel -Label INC02_macOS -Credential $creds
@@ -247,17 +260,49 @@ New-GRRHunt -HuntDescription "Search for notepad.exe" `
             -OnlyUrl `
             -Verbose
 
+# If needed request an approval
+New-GRRHuntApproval -Credential $cred -HuntId H:AAAAAAAA -NotifiedUsers user1 `
+                    -Reason "Hunting for notepad.exe - INC01" -OnlyId
+
+# Start the hunt
 Start-GRRHunt -Credential $creds -HuntId H:AAAAAAAA
 
 # Read hunt restuls
-Get-GRRHuntResult -Credential $cred -HuntId "H:AAAAAAAA"
+$ret = Get-GRRHuntResult -Credential $cred -HuntId "H:AAAAAAAA"
+
+# Inspect results
+$ret
+
+# Filter results as needed - e.g. see unique clients which were affected 
+$res.items.client_id | get-unique
+
+# Or getting all the computer names for the client ids
+$res.items.client_id | Get-GRRComputerNameFromClientId -Credential $cred | get-unique
+($res.items.payload.stat_entry.aff4path).substring(31) | sort -u
 
 # Remove the label if you don't use it anymore
 $clients | Remove-GRRLabel -SearchString INC01 -$Credential $creds
 ```
+
+## Contributing
+
+See [CONTRIBUTING](CONTRIBUTING.md) for general guidelines and some inner
+workings of PowerGRR.
 
 ## Limitations
 
 Currently, only pre-defined flows are available. See [command
 help](https://github.com/swisscom/PowerGRR/blob/master/docs/Invoke-GRRFlow.md#-flow)
 for the available flow types. 
+
+Furthermore, despite most commands are tested on all of the mentioned
+supported OSes (Windows, Linux, macOS), some minor issues exist. For example,
+the PowerShell help examples are not shown on non-Windows OSes (`help <command>
+-Examples`). If you run into troubles on non-Windows platforms, please file an
+issue.
+
+The supported GRR version is mostly the HEAD version of GRR on Github.
+However, most API calls were also available in the last release (3.1.0.2) and
+thus are working with PowerGRR the same way. Some API calls, like starting a
+hunt, are only available in newer versions of GRR compared to the latest
+release (3.1.0.2).

@@ -6,7 +6,18 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased](https://github.com/swisscom/powergrr/compare/v0.3.0...master)
 
+:tada: **Add support for macOS and Linux** :tada:
+
+In general, the open source implementation of PowerShell for non-Windows platforms
+is mostly working in the exact same way as on Windows. However, some minor
+issues have been fixed in order to support :apple: and :penguin: - a slightly
+different certificate error handling was implemented and the user profile
+environment variable changed...easy, isn't it?
+
 ### Added
+* Add support for macOS and Linux. Some OS checks were added 
+    and a slightly different certificate error handling was implemented.
+* Add correct userprofile config location for macOS and Linux.
 
 ### Changed
 

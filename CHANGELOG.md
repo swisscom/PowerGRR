@@ -18,14 +18,20 @@ environment variable changed...easy, isn't it?
 * Add support for macOS and Linux. Some OS checks were added 
     and a slightly different certificate error handling was implemented.
 * Add correct userprofile config location for macOS and Linux.
+* Add new parameters _ClientRate_ and _ClientLimit_ to `New-GRRHunt`. By
+  default client rate is set to 20 and client limit is set to 100.
 
 ### Changed
+* Make parameters _HuntDescription_ and _RuleType_ mandatory in `New-GRRHunt`.
 
 ### Deprecated
 
 ### Removed
 
 ### Fixed
+* Improve error handling when the server returns no items in
+  `New-GRRClientApproval` and when no labels were found in `New-GRRHunt` when
+  using RuleType _Label_.
 
 ### Security
 

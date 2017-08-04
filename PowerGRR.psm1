@@ -609,28 +609,37 @@ function New-GRRClientApproval()
         }
         $ClientId = Get-GRRClientIdFromComputerName @paramsComputerName
 
-        $params =  @{
-            'Url' = "/users/me/approvals/client/$($ClientId.ClientId)";
-            'Body' = $Body;
-            'Headers' = $Headers;
-            'Websession' = $Websession;
-            'Credential' = $Credential
-        }
-
-        $ret = ""
-
-        if ($pscmdlet.ShouldProcess($ComputerName, "Requesting a new client approval"))
+        if ($ClientId -and ($ClientId.PSobject.Properties.name -match "ClientId"))
         {
-            $ret = Invoke-GRRRequest @params
-        }
+            $ClientId = $ClientId.ClientId
 
-        if ($ret -and $OnlyId)
-        {
-            $ret.id
+            $params =  @{
+                'Url' = "/users/me/approvals/client/$ClientId";
+                'Body' = $Body;
+                'Headers' = $Headers;
+                'Websession' = $Websession;
+                'Credential' = $Credential
+            }
+
+            $ret = ""
+
+            if ($pscmdlet.ShouldProcess($ComputerName, "Requesting a new client approval"))
+            {
+                $ret = Invoke-GRRRequest @params
+            }
+
+            if ($ret -and $OnlyId)
+            {
+                $ret.id
+            }
+            else
+            {
+                $ret
+            }
         }
         else
         {
-            $ret
+           write-warning "No GRR client id found for $ComputerName"
         }
     } # process
 
@@ -755,6 +764,7 @@ function New-GRRHunt()
 {
     [CmdletBinding(SupportsShouldProcess=$True)]
     param(
+        [Parameter(Mandatory=$true)]
         [string]
         $HuntDescription,
 
@@ -767,9 +777,16 @@ function New-GRRHunt()
         #[string]
         #$MatchMode,
 
+        [Parameter(Mandatory=$true)]
         [string]
         [ValidateSet("Label","OS")]
         $RuleType,
+
+        [int]
+        $ClientRate,
+
+        [int]
+        $ClientLimit,
 
         [string]
         $EmailAddress,
@@ -939,6 +956,11 @@ function New-GRRHunt()
             $Labels = $PSBoundParameters['Label']
             $ValidatedLabels = @()
 
+            if(!$AllLabels)
+            {
+                Throw "No labels found."
+            }
+
             foreach ($Label in $Labels)
             {
                 if ($AllLabels.contains($Label))
@@ -970,8 +992,18 @@ function New-GRRHunt()
             $Rule = '"client_rule_set":{"rules":[{"os":{"'+$($PSBoundParameters['OS'])+'":true}}]}'
         }
 
+        if(!$ClientLimit)
+        {
+            $ClientLimit = 100
+        }
+
+        if(!$ClientRate)
+        {
+            $ClientRate = 20
+        }
+
         $Body = '{"flow_name":"'+$Flow+'","hunt_runner_args":{"output_plugins":['+$OutputPlugin+'],'
-        $Body += $Rule+',"description":"'+$HuntDescription+'"},"flow_args":'+$FlowArgs+'}'
+        $Body += $Rule+',"description":"'+$HuntDescription+'","client_limit":'+$ClientLimit+',"client_rate":'+$ClientRate+'},"flow_args":'+$FlowArgs+'}'
 
         Write-Verbose "Create hunt with the following arguments: $Body"
 
@@ -1181,17 +1213,11 @@ function Invoke-GRRFlow()
             }
 
             $ClientId = Get-GRRClientIdFromComputerName @params
-            if ($ClientId)
+
+            if ($ClientId -and ($ClientId.PSobject.Properties.name -match "ClientId"))
             {
                 $ClientId = $ClientId.ClientId
-            }
 
-            if (!$ClientId)
-            {
-                Write-Verbose "No GRR client id found for $client"
-            }
-            else
-            {
                 if ($pscmdlet.ShouldProcess($client, "Invoking $Flow with following arguments: $Body"))
                 {
                     $params = @{
@@ -1224,6 +1250,10 @@ function Invoke-GRRFlow()
                     }
                 } # whatif
             } # client id is available
+            else
+            {
+                Write-warning "No GRR client id found for $client"
+            }
         } # foreach computername
     } # process
 
@@ -1287,7 +1317,7 @@ function Get-GRRFlowResult()
         }
         else
         {
-            Write-Verbose "No ClientId found for $ComputerName"
+            Write-warning "No ClientId found for $ComputerName"
         }
     } # process
 

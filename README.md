@@ -79,9 +79,8 @@ Update-Module -Name PowerGRR
 * Install PowerGRR from Github:
 
     * Clone or download the repo into your module path folder, usually
-      "~\Documents\WindowsPowerShell\modules" on Windows or
-      "~/.local/share/powershell/Modules/" on macOS (see _$env:PSModulePath_ or
-      output of `Install-Module`).
+      _~\Documents\WindowsPowerShell\modules_ on Windows or
+      _~/.local/share/powershell/Modules/_ on macOS (see _$env:PSModulePath_).
     * Clone or download the files to any other folder (could also be a share).
 
     The location changes how the module is imported.
@@ -238,7 +237,7 @@ $clients | Invoke-GRRFlow -flow RegistryFinder `
 # Get flow results - see output of specific flow ids. Using
 # -OnlyPayload navigates directly to the payload section of the results
 # within the returned GRR object
-$res = Get-GRRFlowResult -Credential $cred -ComputerName WIN-DESKTOP01 -FlowId "F:11111111" -OnlyPayload
+$ret = Get-GRRFlowResult -Credential $cred -ComputerName WIN-DESKTOP01 -FlowId "F:11111111" -OnlyPayload
 
 # Show only the registry paths from the returned GRR object. Sometimes the
 # output is base64 encoded. Get-GRRFlowResult decodes the string if
@@ -271,14 +270,16 @@ Start-GRRHunt -Credential $creds -HuntId H:AAAAAAAA
 $ret = Get-GRRHuntResult -Credential $cred -HuntId "H:AAAAAAAA"
 
 # Inspect results
-$ret
+$ret.items
 
 # Filter results as needed - e.g. see unique clients which were affected 
-$res.items.client_id | get-unique
+$ret.items.client_id | get-unique
 
-# Or getting all the computer names for the client ids
-$res.items.client_id | Get-GRRComputerNameFromClientId -Credential $cred | get-unique
-($res.items.payload.stat_entry.aff4path).substring(31) | sort -u
+# Get unique computer names based on the list of client ids
+$ret.items.client_id | Get-GRRComputerNameFromClientId -Credential $cred | get-unique
+
+# Get unique file paths from a file finder hunt
+($ret.items.payload.stat_entry.aff4path).substring(31) | sort -u
 
 # Remove the label if you don't use it anymore
 $clients | Remove-GRRLabel -SearchString INC01 -$Credential $creds

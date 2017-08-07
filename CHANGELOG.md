@@ -4,7 +4,21 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) 
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## [Unreleased](https://github.com/swisscom/powergrr/compare/v0.3.0...master)
+## [Unreleased](https://github.com/swisscom/powergrr/compare/v0.4.0...master)
+
+### Added
+
+### Changed
+
+### Deprecated
+
+### Removed
+
+### Fixed
+
+### Security
+
+## [v0.4.0](https://github.com/swisscom/powergrr/compare/v0.3.0...v0.4.0) - 2017-08-07
 
 :tada: **Add support for macOS and Linux** :tada:
 
@@ -22,18 +36,13 @@ environment variable changed...easy, isn't it?
   default client rate is set to 20 and client limit is set to 100.
 
 ### Changed
-* Make parameters _HuntDescription_ and _RuleType_ mandatory in `New-GRRHunt`.
-
-### Deprecated
-
-### Removed
+* Set parameters _HuntDescription_ and _RuleType_ to mandatory in `New-GRRHunt`.
 
 ### Fixed
 * Improve error handling when the server returns no items in
   `New-GRRClientApproval` and when no labels were found in `New-GRRHunt` when
   using RuleType _Label_.
-
-### Security
+* Fix error handling in `Get-GRRSession` when web request fails.
 
 ## [v0.3.0](https://github.com/swisscom/powergrr/compare/v0.2.1...v0.3.0) - 2017-07-31
 

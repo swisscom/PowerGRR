@@ -2019,7 +2019,7 @@ PS C:\&gt; $res.items.client_id | sort -u</dev:code>
 </maml:para>
 </maml:description>
 <command:syntax><command:syntaxItem><maml:name>New-GRRHunt</maml:name>
-<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none"><maml:name>HuntDescription</maml:name>
+<command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none"><maml:name>HuntDescription</maml:name>
 <maml:Description><maml:para>Hunt description.
 </maml:para>
 </maml:Description>
@@ -2044,7 +2044,7 @@ PS C:\&gt; $res.items.client_id | sort -u</dev:code>
 <maml:uri /></dev:type>
 <dev:defaultValue>None</dev:defaultValue>
 </command:parameter>
-<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="3" aliases="none"><maml:name>RuleType</maml:name>
+<command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="3" aliases="none"><maml:name>RuleType</maml:name>
 <maml:Description><maml:para>Rule type for the hunt.
 </maml:para>
 </maml:Description>
@@ -2106,6 +2106,24 @@ PS C:\&gt; $res.items.client_id | sort -u</dev:code>
 <maml:uri /></dev:type>
 <dev:defaultValue>False</dev:defaultValue>
 </command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>ClientLimit</maml:name>
+<maml:Description><maml:para>{{Fill ClientLimit Description}}
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
+<dev:type><maml:name>Int32</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue>None</dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>ClientRate</maml:name>
+<maml:Description><maml:para>{{Fill ClientRate Description}}
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
+<dev:type><maml:name>Int32</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue>None</dev:defaultValue>
+</command:parameter>
 </command:syntaxItem>
 </command:syntax>
 <command:parameters><command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="benannt" aliases="cf"><maml:name>Confirm</maml:name>
@@ -2144,7 +2162,7 @@ PS C:\&gt; $res.items.client_id | sort -u</dev:code>
 <maml:uri /></dev:type>
 <dev:defaultValue>None</dev:defaultValue>
 </command:parameter>
-<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none"><maml:name>HuntDescription</maml:name>
+<command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none"><maml:name>HuntDescription</maml:name>
 <maml:Description><maml:para>Hunt description.
 </maml:para>
 </maml:Description>
@@ -2162,7 +2180,7 @@ PS C:\&gt; $res.items.client_id | sort -u</dev:code>
 <maml:uri /></dev:type>
 <dev:defaultValue>False</dev:defaultValue>
 </command:parameter>
-<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="3" aliases="none"><maml:name>RuleType</maml:name>
+<command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="3" aliases="none"><maml:name>RuleType</maml:name>
 <maml:Description><maml:para>Rule type for the hunt.
 </maml:para>
 </maml:Description>
@@ -2188,6 +2206,24 @@ PS C:\&gt; $res.items.client_id | sort -u</dev:code>
 <dev:type><maml:name>SwitchParameter</maml:name>
 <maml:uri /></dev:type>
 <dev:defaultValue>False</dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>ClientLimit</maml:name>
+<maml:Description><maml:para>{{Fill ClientLimit Description}}
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
+<dev:type><maml:name>Int32</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue>None</dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>ClientRate</maml:name>
+<maml:Description><maml:para>{{Fill ClientRate Description}}
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
+<dev:type><maml:name>Int32</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue>None</dev:defaultValue>
 </command:parameter>
 </command:parameters>
 <command:inputTypes><command:inputType><dev:type><maml:name>Keine</maml:name>

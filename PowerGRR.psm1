@@ -1661,10 +1661,13 @@ function Get-GRRSession ()
 
         $Web = Invoke-WebRequest @params
 
-        $csrftoken = (($web.Headers.'Set-Cookie') -split ";" -split "=")[1]
-        $Headers = @{"x-csrftoken" = $($csrftoken)}
+        if ($Web)
+        {
+            $csrftoken = (($Web.Headers.'Set-Cookie') -split ";" -split "=")[1]
+            $Headers = @{"x-csrftoken" = $($csrftoken)}
 
-        return $Headers,$Websession
+            return $Headers,$Websession
+        }
     } # Variable $GRRUrl set
     else
     {

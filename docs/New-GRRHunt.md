@@ -12,8 +12,9 @@ Create a new hunt.
 ## SYNTAX
 
 ```
-New-GRRHunt [[-HuntDescription] <String>] [-Flow] <String> [[-RuleType] <String>] [[-EmailAddress] <String>]
- [-OnlyUrl] [[-Credential] <Object>] [-ShowJSON] [-WhatIf] [-Confirm] [<CommonParameters>]
+New-GRRHunt [-HuntDescription] <String> [-Flow] <String> [-RuleType] <String> [-ClientRate <Int32>]
+ [-ClientLimit <Int32>] [[-EmailAddress] <String>] [-OnlyUrl] [[-Credential] <Object>] [-ShowJSON] [-WhatIf]
+ [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -99,7 +100,7 @@ Type: String
 Parameter Sets: (All)
 Aliases: 
 
-Required: False
+Required: True
 Position: 0
 Default value: None
 Accept pipeline input: False
@@ -130,7 +131,7 @@ Parameter Sets: (All)
 Aliases: 
 Accepted values: Label, OS
 
-Required: False
+Required: True
 Position: 3
 Default value: None
 Accept pipeline input: False
@@ -163,6 +164,36 @@ Aliases: wi
 
 Required: False
 Position: Benannt
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ClientLimit
+{{Fill ClientLimit Description}}
+
+```yaml
+Type: Int32
+Parameter Sets: (All)
+Aliases: 
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ClientRate
+{{Fill ClientRate Description}}
+
+```yaml
+Type: Int32
+Parameter Sets: (All)
+Aliases: 
+
+Required: False
+Position: Named
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False

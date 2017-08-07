@@ -12,7 +12,7 @@
 RootModule = 'PowerGRR.psm1'
 
 # Version number of this module.
-ModuleVersion = '0.3.0'
+ModuleVersion = '0.4.0'
 
 # ID used to uniquely identify this module
 GUID = '5bdf023f-fe8a-4748-bd73-43a449791ba8'
@@ -27,7 +27,7 @@ CompanyName = 'Swisscom (Schweiz) AG'
 Copyright = '(c) 2017 Swisscom (Schweiz) AG'
 
 # Description of the functionality provided by this module
-Description = 'The module allows the use of the GRR API from within PowerShell.'
+Description = 'The module allows the use of the GRR API from within PowerShell on Windows, macOS and Linux.'
 
 # Minimum version of the Windows PowerShell engine required by this module
 PowerShellVersion = '3.0'

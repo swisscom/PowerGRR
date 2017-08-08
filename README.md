@@ -2,19 +2,38 @@
 
 # PowerGRR - PowerShell Module for GRR API
 
+PowerGRR is a PowerShell module for working with the GRR API working on Windows, macOS and Linux. 
+
 Please see [Command Documentation](docs/PowerGRR.md) and
 [CHANGELOG](CHANGELOG.md).
 
 ***
+<!-- vim-markdown-toc GFM -->
+* [What is PowerGRR?](#what-is-powergrr)
+    * [Repo Structure](#repo-structure)
+* [Requirements](#requirements)
+* [Installation](#installation)
+* [Configuration](#configuration)
+* [Usage](#usage)
+    * [Importing the module](#importing-the-module)
+    * [Authentication](#authentication)
+    * [Cmdlets](#cmdlets)
+    * [Help](#help)
+    * [Example](#example)
+* [Contributing](#contributing)
+* [Limitations](#limitations)
+
+<!-- vim-markdown-toc -->
+***
 
 ## What is PowerGRR?
 
-PowerGRR is a PowerShell module for working with the [GRR](https://github.com/google/grr) 
-API working on Windows, macOS and Linux. GRR Rapid Response is an
+PowerGRR is a **PowerShell module for working with the [GRR](https://github.com/google/grr) 
+API working on Windows, macOS and Linux**. GRR Rapid Response is an
 incident response framework focused on remote live forensics. The module
 allows working with flows, hunts, labels and the search feature. Furthermore,
-it allows working with the computer names instead of the GRR internal client
-id. This makes handling and working with other tools more easy because often
+it allows **working with the computer names instead of the GRR internal client
+id**. This makes handling and working with other tools more easy because often
 you just have the computer names. PowerGRR also enables you to easily document
 your work in text form which is then directly reusable by others.
 
@@ -200,8 +219,8 @@ OVERVIEW
 ### Example
 
 The following examples shows how you could combine the different PowerGRR functions
-to quickly label some clients, start a flow against them (yes, you could also
-build a hunt based on a label) and read the results.
+to quickly label some clients, start a flow against them or a hunt based on a label
+and read the results.
 
 ```powershell
 # Read the client information to check LastSeenAt and the OSVersion

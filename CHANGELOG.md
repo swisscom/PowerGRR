@@ -15,6 +15,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Removed
 
 ### Fixed
+* Fix typo in variable name in `Invoke-GRRFlow` for flow type _FileFinder_.
 
 ### Security
 

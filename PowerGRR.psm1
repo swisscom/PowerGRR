@@ -884,7 +884,7 @@ function New-GRRHunt()
         if ($Flow -eq "FileFinder")
         {
             $FlowArgs = '{"paths":["'+$($PSBoundParameters['Path']-join'","')+'"],'
-            $FlorArgs += '"action":{"action_type":"'+($($PSBoundParameters['ActionType'])).toUpper()+'"}}'
+            $FlowArgs += '"action":{"action_type":"'+($($PSBoundParameters['ActionType'])).toUpper()+'"}}'
             $FlowArgs = $FlowArgs -replace "\\", "\\"
         }
         elseif ($Flow -eq "RegistryFinder")

@@ -12,7 +12,7 @@
 RootModule = 'PowerGRR.psm1'
 
 # Version number of this module.
-ModuleVersion = '0.4.0'
+ModuleVersion = '0.4.1'
 
 # ID used to uniquely identify this module
 GUID = '5bdf023f-fe8a-4748-bd73-43a449791ba8'

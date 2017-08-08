@@ -179,12 +179,12 @@ Describe 'Get-GRRComputerNameFromClientId' {
 
         It 'convert clientid to hostname' {
             $ret = Get-GRRComputerNameFromClientId -clientid "C.1111222233334444" -Credential $creds
-            $ret | should be "AABBCCDD"
+            $ret | should be @("AABBCCDD","AABBCCDD")
         }
 
         It 'Convert clientid with aff4 prefix to hostname' {
             $ret = Get-GRRComputerNameFromClientId -clientid "aff4:/C.1111222233334444" -Credential $creds
-            $ret | should be "AABBCCDD"
+            $ret | should be @("AABBCCDD","AABBCCDD")
         }
     }
 }
@@ -207,7 +207,7 @@ Describe 'Get-GRRClientIdFromComputerName' {
 
         It 'Get clientid from computername' {
             $ret = Get-GRRClientIdFromComputerName -computername "hostname-aabbcc" -Credential $creds
-            $ret | select -expandproperty clientid | should be "C.1234567890123456"
+            $ret | select -expandproperty clientid | should be @("C.1234567890123456","C.1234567890123456")
             ($ret | measure).count | Should Be 2
         }
 
@@ -237,7 +237,13 @@ Describe 'Find-GRRClient' {
 
         It 'find specific client and show only hostname' {
             $ret = Find-GRRClient -SearchString "hostname-aabbcc" -Credential $creds -OnlyComputerName
-            $ret | should be "AABBCCDD"
+            $ret | should be @("AABBCCDD","AABBCCDD")
+            ($ret | measure).count | Should Be 2
+        }
+
+        It 'find specific client and show only last seen hostname' {
+            $ret = Find-GRRClient -SearchString "hostname-aabbcc" -Credential $creds -OnlyComputerName
+            $ret | should be @("AABBCCDD","AABBCCDD")
             ($ret | measure).count | Should Be 2
         }
 
@@ -269,7 +275,7 @@ Describe 'Find-GRRClientByLabel' {
 
         It 'use valid client search' {
             $ret = Find-GRRClientByLabel -SearchString "LabelX" -Credential $creds -OnlyComputerName
-            $ret | should be "AABBCCDD"
+            $ret | should be @("AABBCCDD","AABBCCDD")
         }
     }
 }

@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) 
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## [Unreleased](https://github.com/swisscom/powergrr/compare/v0.4.0...master)
+## [Unreleased](https://github.com/swisscom/powergrr/compare/v0.4.1...master)
 
 ### Added
 
@@ -15,9 +15,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Removed
 
 ### Fixed
-* Fix typo in variable name in `Invoke-GRRFlow` for flow type _FileFinder_.
 
 ### Security
+
+## [v0.4.1](https://github.com/swisscom/powergrr/compare/v0.4.0...v0.4.1) - 2017-08-08
+
+Fix typo in variable name in `Invoke-GRRFlow` for flow type _FileFinder_.
 
 ## [v0.4.0](https://github.com/swisscom/powergrr/compare/v0.3.0...v0.4.0) - 2017-08-07
 

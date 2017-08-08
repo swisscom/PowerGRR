@@ -1598,14 +1598,18 @@ function Get-GRRArtifact()
 
 Function Get-ClientCertificate()
 {
-    if (Get-Variable -Name GRRClientCertIssuer  -Scope 1 -ErrorAction SilentlyContinue -valueonly)
+    if (Get-Variable -Name GRRClientCertIssuer -ErrorAction SilentlyContinue -valueonly)
     {
         $Cert = Get-ChildItem Cert:\CurrentUser\My | Where-Object {$_.Issuer -match $GRRClientCertIssuer }
 
-        if ($Cert)
+        if ($Cert -and (($Cert | measure).count -eq 1))
         {
             $Cert.Thumbprint
         }
+    }
+    else
+    {
+        Write-Verbose "No GRRClientCertIssuer variable is set in the config."
     }
 } # Get-ClientCertificate
 
@@ -1645,6 +1649,9 @@ function Get-GRRSession ()
         }
 
         $ClientCertificate = Get-ClientCertificate
+
+        Write-Verbose "Certificate '$ClientCertificate' will be used."
+
         if ($ClientCertificate)
         {
             $params +=  @{

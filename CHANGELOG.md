@@ -15,6 +15,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Removed
 
 ### Fixed
+* Fix bug in `Get-ClientCertificate` when using `Get-Variable`
 
 ### Security
 

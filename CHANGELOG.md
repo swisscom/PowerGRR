@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) 
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## [Unreleased](https://github.com/swisscom/powergrr/compare/v0.4.1...master)
+## [Unreleased](https://github.com/swisscom/powergrr/compare/v0.4.2...master)
 
 ### Added
 
@@ -15,9 +15,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Removed
 
 ### Fixed
-* Fix bug in `Get-ClientCertificate` when using `Get-Variable`
 
 ### Security
+
+## [v0.4.2](https://github.com/swisscom/powergrr/compare/v0.4.1...v0.4.2) - 2017-08-08
+
+Fix bug in `Get-ClientCertificate` when using `Get-Variable`. Make the
+certificate authentication working again.
 
 ## [v0.4.1](https://github.com/swisscom/powergrr/compare/v0.4.0...v0.4.1) - 2017-08-08
 

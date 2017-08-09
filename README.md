@@ -12,6 +12,9 @@ Please see [Command Documentation](docs/PowerGRR.md) and
 * [What is PowerGRR?](#what-is-powergrr)
     * [Repo Structure](#repo-structure)
 * [Requirements](#requirements)
+    * [GRR server](#grr-server)
+    * [PowerShell](#powershell)
+    * [Known Issues on non-Windows platforms](#known-issues-on-non-windows-platforms)
 * [Installation](#installation)
 * [Configuration](#configuration)
 * [Usage](#usage)
@@ -21,8 +24,6 @@ Please see [Command Documentation](docs/PowerGRR.md) and
     * [Help](#help)
     * [Example](#example)
 * [Contributing](#contributing)
-* [Limitations](#limitations)
-
 <!-- vim-markdown-toc -->
 ***
 
@@ -55,8 +56,10 @@ Some of the use cases where PowerGRR could speed up the work:
 * Build IR scripts for common forensic workflows and start multiple hunts or
     flows in one shot using multiple cmdlets inside a PowerShell script.
 
-The following plugins are available for hunts and flows and the target group
-is chosen based on labels or the OS.
+The following flow types are available for hunts and flows and the target group
+is chosen based on labels or the OS. See also [command
+help](https://github.com/swisscom/PowerGRR/blob/master/docs/Invoke-GRRFlow.md#-flow)
+for the available flow types.
 * Netstat, ListProcesses, FileFinder, RegistryFinder, ExecutePythonHack, ArtifactCollectorFlow
 
 ### Repo Structure
@@ -74,11 +77,39 @@ is chosen based on labels or the OS.
 
 ## Requirements
 
-PowerShell is required in order to run PowerGRR. Windows has PowerShell
-installed by default. For macOS and Linux see [PowerShell Package installation
-instructions](https://github.com/PowerShell/PowerShell/blob/master/docs/installation/linux.md)
-for more information. Installation is fast and for most OSes there are
-packages and ready to use installation commands.
+### GRR server
+
+To be able to use all PowerGRR commands, one must use the current version of GRR.
+Some API calls, like starting a hunt, are only available in newer versions of GRR
+and not in the latest release (3.1.0.2). However, most API calls were already 
+available in the latest release (3.1.0.2) and thus are working with PowerGRR too.
+
+### PowerShell
+
+PowerShell is required in order to run PowerGRR.
+
+Windows has PowerShell installed by default - so nothing to do here. 
+
+For **macOS and Linux see [PowerShell Package installation instructions](https://github.com/PowerShell/PowerShell/blob/master/docs/installation/linux.md)**
+for information about how to get PowerShell installed. The installation is fast
+and for most OSes there are ready to use packages and available installation commands.
+
+### Known Issues on non-Windows platforms
+
+Despite GRR related commands were tested on all of the mentioned
+supported OSes (Windows, Linux, macOS), some issues exist on non-Windows 
+platforms. _If you run into other troubles on non-Windows platforms, 
+please file an issue._
+
+**PowerShell help**
+
+The PowerShell help examples are not shown (`help <command> -Examples`).
+See [#9](https://github.com/swisscom/PowerGRR/issues/9).
+
+**Client certificate authentication**
+
+The client certificate authentication is not working on non-Windows.
+See [#8](https://github.com/swisscom/PowerGRR/issues/8).
 
 ## Installation
 
@@ -106,33 +137,30 @@ Update-Module -Name PowerGRR
 
 ## Configuration
 
-Create a 'powergrr-config.ps1' in the profile folder (`$env:USERPROFILE` or
-`$env:HOME`) or in the root folder of the module. Set the following variables
-as needed. At least set the variable _$GRRUrl_ to your GRR server's URL'.
+1. Create a 'powergrr-config.ps1' in the profile folder (`$env:USERPROFILE` or
+`$env:HOME`) or in the root folder of the module.
+1. Set the config variables as needed. 
+   * **[MUST]** _$GRRUrl_: GRR server's URL.
+   * **[OPTIONAL]** _$GRRIgnoreCertificateErrors_: If set to $true certificate errors are ignored.
+   * **[OPTIONAL]** _GRRClientCertIssuer_:  If set the client certificate for the given issuer is used.
+     For non-Windows users, see [Known Issues on non-Windows platforms](#known-issues-on-non-windows-platforms).
 
+**Example Config**
 
 ``` PowerShell
-# GRR Url
 $GRRUrl = "https://grrserver.tld"
-
-# Ignore certificates - if set to $true certificate errors are ignored
 $GRRIgnoreCertificateErrors = $false
-
-# Client certificate issuer - if not set no client certificates are used.
-# Otherwise the client certificate from the given issuer is used.
 $GRRClientCertIssuer = "issuer of the certificate"
 ```
 
 If you want to get crazy you could even use a config file file looking
 like this if you need to constantly change the GRR config otherwise. You only
-need to change the GRR URL.
+need to change the comment for the GRRUrl.
 
 ``` powershell
 #$GRRUrl = "https://main-grrserver.tld"
 $GRRUrl = "https://test-grrserver.tld"
-
 $GRRIgnoreCertificateErrors = $( if ($GRRUrl -match "test") { $true } else { $false } )
-
 $GRRClientCertIssuer = $( if ($GRRUrl -match "main") { "certificate issuer" } else {} )
 ```
 
@@ -153,12 +181,18 @@ Import-Module <path to module>\PowerGRR.psd1 -force
 
 ### Authentication
 
-Store your GRR credentials for any subsequent PowerGRR command or otherwise
+1. Store your GRR credentials for any subsequent PowerGRR command or otherwise
 you will be prompted when running the commands.
 
 ```powershell
 $creds = Microsoft.PowerShell.Security\get-credential
 ```
+
+2. If you use client certificate authentication set the corresponding config
+variable as described in [Configuration](#configuration) above. _This is not 
+supported on non-Windows platforms due to an issue in the
+certificate handling and the available PowerShell commands - sad, sad._
+See [Known Issues on non-Windows platforms](#known-issues-on-non-windows-platforms).
 
 ### Cmdlets
 
@@ -308,21 +342,3 @@ $clients | Remove-GRRLabel -SearchString INC01 -$Credential $creds
 
 See [CONTRIBUTING](CONTRIBUTING.md) for general guidelines and some inner
 workings of PowerGRR.
-
-## Limitations
-
-Currently, only pre-defined flows are available. See [command
-help](https://github.com/swisscom/PowerGRR/blob/master/docs/Invoke-GRRFlow.md#-flow)
-for the available flow types. 
-
-Furthermore, despite most commands are tested on all of the mentioned
-supported OSes (Windows, Linux, macOS), some minor issues exist on non-Windows 
-platforms. For example, the _PowerShell help examples are not shown_ 
-(`help <command> -Examples`) and the _client certificate authentication is not 
-working_. If you run into troubles on non-Windows platforms, please file an issue.
-
-The supported GRR version is mostly the HEAD version of GRR on Github.
-However, most API calls were also available in the last release (3.1.0.2) and
-thus are working with PowerGRR the same way. Some API calls, like starting a
-hunt, are only available in newer versions of GRR compared to the latest
-release (3.1.0.2).

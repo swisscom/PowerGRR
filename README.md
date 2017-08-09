@@ -316,10 +316,10 @@ help](https://github.com/swisscom/PowerGRR/blob/master/docs/Invoke-GRRFlow.md#-f
 for the available flow types. 
 
 Furthermore, despite most commands are tested on all of the mentioned
-supported OSes (Windows, Linux, macOS), some minor issues exist. For example,
-the PowerShell help examples are not shown on non-Windows OSes (`help <command>
--Examples`). If you run into troubles on non-Windows platforms, please file an
-issue.
+supported OSes (Windows, Linux, macOS), some minor issues exist on non-Windows 
+platforms. For example, the _PowerShell help examples are not shown_ 
+(`help <command> -Examples`) and the _client certificate authentication is not 
+working_. If you run into troubles on non-Windows platforms, please file an issue.
 
 The supported GRR version is mostly the HEAD version of GRR on Github.
 However, most API calls were also available in the last release (3.1.0.2) and

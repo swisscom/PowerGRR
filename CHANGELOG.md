@@ -6,7 +6,20 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased](https://github.com/swisscom/powergrr/compare/v0.4.2...master)
 
+Add support for certificate authentication for PowerShell 6.0 and non-Windows
+platforms. Allow the use of certificate files instead of only the Windows
+certificate store. Add new config option for the certificate path.
+
 ### Added
+
+* **Add support for certificate authentication on non-Windows platforms**
+  which was broken due to missing cert store on Linux and the use of the
+  special "Cert:" PSDrive. The new certificate handling requires the
+  PowerShell patch from @markekraus until the patch is included in the
+  PowerShell main project. See issue #8 and
+  [REQUIREMENTS](README.md#Requirements) in the readme.
+* Add **new config option for the client certificate path** to handle
+  certificate handling based on files (_GRRClientCertFilePath_).
 
 ### Changed
 

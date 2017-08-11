@@ -688,6 +688,7 @@ Describe "internal functions" {
         Context 'Testing Get-ClientCertificate' {
             It 'no client cert' {
                 Mock Get-ChildItem {} -ModuleName PowerGRR
+                Mock Get-PfxCertificate {} -ModuleName PowerGRR
                 $ret = Get-ClientCertificate
                 $ret | should BeNullOrEmpty
                 {$ret.total_count} | should throw

@@ -1600,16 +1600,40 @@ Function Get-ClientCertificate()
 {
     if (Get-Variable -Name GRRClientCertIssuer -ErrorAction SilentlyContinue -valueonly)
     {
-        $Cert = Get-ChildItem Cert:\CurrentUser\My | Where-Object {$_.Issuer -match $GRRClientCertIssuer }
+        if ($PSVersionTable.Contains("platform") -and ($PSVersionTable.Platform -match "Unix"))
+        {
+            $ErrorMessageUnix = "It's not possible to use a cert issuer for reading "
+            $ErrorMessageUnix += "the certificate on a non-Windows platform."
+            Throw $ErrorMessageUnix
+        }
+
+        $Cert = Get-ChildItem Cert:\CurrentUser\My | Where-Object `
+                {$_.Issuer -match $GRRClientCertIssuer }
 
         if ($Cert -and (($Cert | measure).count -eq 1))
         {
             $Cert.Thumbprint
         }
+        else
+        {
+            Throw "No certificate found matching the given issuer. Please check the config setting."
+        }
+    }
+    elseif (Get-Variable -Name GRRClientCertFilePath -ErrorAction SilentlyContinue -valueonly)
+    {
+        if (Test-Path $GRRClientCertFilePath)
+        {
+            Get-PfxCertificate($GRRClientCertFilePath)
+        }
+        else
+        {
+            Throw "Certificate file not found. Please check the config setting."
+        }
+
     }
     else
     {
-        Write-Verbose "No GRRClientCertIssuer variable is set in the config."
+        Write-verbose "No GRRClientCertIssuer or GRRClientCertFilePath variable is set in the config."
     }
 } # Get-ClientCertificate
 
@@ -1648,25 +1672,42 @@ function Get-GRRSession ()
             'ContentType' = "application/x-www-form-urlencoded"
         }
 
-        $ClientCertificate = Get-ClientCertificate
-
-        Write-Verbose "Certificate '$ClientCertificate' will be used."
-
-        if ($ClientCertificate)
-        {
-            $params +=  @{
-                'CertificateThumbprint' = $ClientCertificate;
-            }
-        }
-
-        if ($PSVersionTable.Contains("platform") -and ($PSVersionTable.Platform -match "Unix") -and (Get-Variable -Name GRRIgnoreCertificateErrors -ErrorAction SilentlyContinue -valueonly))
+        if (($PSVersionTable.PSVersion.Major -ge 6) -and (Get-Variable -Name GRRIgnoreCertificateErrors -ErrorAction SilentlyContinue -valueonly))
         {
             $params += @{
                 'SkipCertificateCheck' = $true;
             }
         }
 
-        $Web = Invoke-WebRequest @params
+        if ($ClientCertificate)
+        {
+            if ($PSVersionTable.Contains("platform") -and ($PSVersionTable.Platform -match "Unix"))
+            {
+                Write-Verbose "Using client cert from file"
+                $params += @{
+                    'Certificate' = $ClientCertificate
+                }
+            }
+            else
+            {
+                if (Get-Variable -Name GRRClientCertIssuer -ErrorAction SilentlyContinue -valueonly)
+                {
+                    Write-Verbose "Using client cert from cert store."
+                    $params +=  @{
+                        'CertificateThumbprint' = $ClientCertificate;
+                    }
+                }
+                else
+                {
+                    Write-Verbose "Using client cert from file."
+                    $params +=  @{
+                        'Certificate' = $ClientCertificate;
+                    }
+                }
+            }
+        }
+
+        $Web = Invoke-WebRequest @params -ea stop
 
         if ($Web)
         {
@@ -1722,9 +1763,11 @@ function Invoke-GRRRequest ()
     )
 
     $Function = $MyInvocation.MyCommand
+
     Write-Verbose "$Function Entering $Function"
 
-    Write-Progress -Activity "Running $Function" -Status "Running API call from $(((Get-PSCallStack)[1]).Command)"
+    Write-Progress -Activity "Running $Function" `
+                   -Status "Running API call from $(((Get-PSCallStack)[1]).Command)"
 
     $ret = ""
 
@@ -1747,17 +1790,44 @@ function Invoke-GRRRequest ()
             'TimeoutSec' = 600
         }
 
-        $ClientCertificate = Get-ClientCertificate
-        if ($ClientCertificate)
+        if (($PSVersionTable.PSVersion.Major -ge 6) -and (Get-Variable -Name GRRIgnoreCertificateErrors -ErrorAction SilentlyContinue -valueonly))
         {
-            $params +=  @{
-                'CertificateThumbprint' = $ClientCertificate;
+            $params += @{
+                'SkipCertificateCheck' = $true;
             }
         }
 
+        if ($PSVersionTable.Contains("platform") -and ($PSVersionTable.Platform -match "Unix"))
+        {
+            if ($ClientCertificate)
+            {
+                $params += @{
+                    'Certificate' = $ClientCertificate
+                }
+            }
+        }
+        else
+        {
+            if ($ClientCertificate)
+            {
+                if (Get-Variable -Name GRRClientCertIssuer -ErrorAction SilentlyContinue -valueonly)
+                {
+                    $params +=  @{
+                        'CertificateThumbprint' = $ClientCertificate;
+                    }
+                }
+                else
+                {
+                    $params +=  @{
+                        'Certificate' = $ClientCertificate;
+                    }
+                }
+            }
+        }
+
+        #Add further parameters if its a POST or PATCH request
         if ($Body)
         {
-            #POST request
             if ($Method -match "PATCH")
             {
                 $params += @{
@@ -1776,14 +1846,6 @@ function Invoke-GRRRequest ()
             $params += @{
                 'Body' = $Body;
                 'Websession' = $Websession;
-                'Headers' = $Headers;
-            }
-        }
-
-        if ($PSVersionTable.Contains("platform") -and ($PSVersionTable.Platform -match "Unix") -and (Get-Variable -Name GRRIgnoreCertificateErrors -ErrorAction SilentlyContinue -valueonly))
-        {
-            $params += @{
-                'SkipCertificateCheck' = $true;
             }
         }
 
@@ -2014,6 +2076,23 @@ Function Get-GRRConfig()
     }
     add-member @params
 
+    if (get-variable -name GRRClientCertFilePath -ErrorAction SilentlyContinue -scope 1 -valueonly)
+    {
+        $Value = $GRRClientCertFilePath
+    }
+    else
+    {
+        $Value = "none (default)"
+    }
+
+    $params = @{
+        'InputObject' = $Config;
+        'MemberType' = 'NoteProperty';
+        'Name' = "GRRClientCertFilePath";
+        'Value' = $Value
+    }
+    add-member @params
+
     $Config
 }
 
@@ -2025,6 +2104,7 @@ Function Get-GRRConfig()
 $ModuleRoot = $PSScriptRoot
 
 Remove-Variable GRRClientCertIssuer -ErrorAction SilentlyContinue
+Remove-Variable GRRClientCertFilePath -ErrorAction SilentlyContinue
 Remove-Variable GRRIgnoreCertificateErrors -ErrorAction SilentlyContinue
 Remove-Variable GRRUrl -ErrorAction SilentlyContinue
 
@@ -2055,13 +2135,17 @@ if (!(get-variable -name GRRUrl -scope 0 -ErrorAction SilentlyContinue -valueonl
     throw "Set `$GRRUrl within the config file: $ConfigFile."
 }
 
+# read certificate based on config
+$ClientCertificate = Get-ClientCertificate
+
+write-host ""
 write-host "Using $($GRRUrl) for the GRR URL."
 
 # Add type for ignoring certificate warnings for Windows
 # This is not available in macOS or Linux
 # Use switch param "-SkipCertificateCheck" in Invoke-WebRequest and Invoke-RestMethod
 # See https://github.com/PowerShell/PowerShell/issues/1945
-if (($PSVersionTable.PSVersion.Major -lt 6) -or ($PSVersionTable.Contains("platform") -and ($PSVersionTable.Platform -notmatch "Unix")))
+if ($PSVersionTable.PSVersion.Major -lt 6)
 {
 add-type @"
     using System.Net;

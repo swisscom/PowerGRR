@@ -24,6 +24,7 @@ Please see [Command Documentation](docs/PowerGRR.md) and
     * [Help](#help)
     * [Example](#example)
 * [Contributing](#contributing)
+
 <!-- vim-markdown-toc -->
 ***
 
@@ -94,6 +95,16 @@ For **macOS and Linux see [PowerShell Package installation instructions](https:/
 for information about how to get PowerShell installed. The installation is fast
 and for most OSes there are ready to use packages and available installation commands.
 
+If you are using client certificate authentication on non-Windows platforms,
+you have to install a custom PowerShell build with the patch mentioned by
+@markekraus, see Mark's comments on
+[#4544](https://github.com/PowerShell/PowerShell/issues/4544) for the commands
+to build PowerShell from scratch (~20min). You need to first install a version
+from the PowerShell repository (links to the installation guide above) and
+after that you can build the custom PowerShell version on the target machine.
+The certificate handling was tested on Windows and Ubuntu 16.04 with
+PowerShell 6.0 and @markekraus' fork.
+
 ### Known Issues on non-Windows platforms
 
 Despite GRR related commands were tested on all of the mentioned
@@ -108,8 +119,19 @@ See [#9](https://github.com/swisscom/PowerGRR/issues/9).
 
 **Client certificate authentication**
 
-The client certificate authentication is not working on non-Windows.
-See [#8](https://github.com/swisscom/PowerGRR/issues/8).
+The client certificate authentication is currently missing on non-Windows
+platforms when using the available PowerShell 6.0 packages from Github
+(see [#8](https://github.com/swisscom/PowerGRR/issues/8)). This is a known issue
+in PowerShell and is tracked in the following [PowerShell project PR
+4546](https://github.com/PowerShell/PowerShell/pull/4546) and issue
+[#4544](https://github.com/PowerShell/PowerShell/issues/4544). PowerGRR's
+implementation of the certificate authentication for non-Windows platforms is
+currently only supported when using a custom PowerShell build with the patch
+mentioned by @markekraus, see Mark's comments on
+[#4544](https://github.com/PowerShell/PowerShell/issues/4544) for the commands
+to build PowerShell from scratch (~20min). The certificate handling was tested
+on Windows with native PowerShell v5 and on Windows and Ubuntu 16.04 with
+PowerShell 6.0 and @markekraus' fork.
 
 ## Installation
 
@@ -142,14 +164,20 @@ Update-Module -Name PowerGRR
 1. Set the config variables as needed. 
    * **[MUST]** _$GRRUrl_: GRR server's URL.
    * **[OPTIONAL]** _$GRRIgnoreCertificateErrors_: If set to $true certificate errors are ignored.
-   * **[OPTIONAL]** _GRRClientCertIssuer_:  If set the client certificate for the given issuer is used.
-     For non-Windows users, see [Known Issues on non-Windows platforms](#known-issues-on-non-windows-platforms).
+   * **[OPTIONAL]** _$GRRClientCertIssuer_:  If set, the client certificate
+                    from the Windows cert store signed by the given issuer is used.
+   * **[OPTIONAL]** _$GRRClientCertFilePath_: If set, the client certificate
+                   file is used for the authentication. _This is currently
+                   only supported on non-Windows platforms when using
+                   PowerShell with the patch mentioned by @markekraus on the
+                   corresponding issue #8. The certificate handling was tested
+                   on Windows with native PowerShell v5 and on Windows and
+                   Ubuntu 16.04 with PowerShell 6.0 and @markekraus' fork._
 
 **Example Config**
 
 ``` PowerShell
 $GRRUrl = "https://grrserver.tld"
-$GRRIgnoreCertificateErrors = $false
 $GRRClientCertIssuer = "issuer of the certificate"
 ```
 
@@ -160,8 +188,8 @@ need to change the comment for the GRRUrl.
 ``` powershell
 #$GRRUrl = "https://main-grrserver.tld"
 $GRRUrl = "https://test-grrserver.tld"
-$GRRIgnoreCertificateErrors = $( if ($GRRUrl -match "test") { $true } else { $false } )
-$GRRClientCertIssuer = $( if ($GRRUrl -match "main") { "certificate issuer" } else {} )
+$GRRIgnoreCertificateErrors = $( if ($GRRUrl -match "test") { $true } } )
+$GRRClientCertIssuer = $( if ($GRRUrl -match "main") { "certificate issuer" } )
 ```
 
 ## Usage
@@ -189,10 +217,11 @@ $creds = Microsoft.PowerShell.Security\get-credential
 ```
 
 2. If you use client certificate authentication set the corresponding config
-variable as described in [Configuration](#configuration) above. _This is not 
-supported on non-Windows platforms due to an issue in the
-certificate handling and the available PowerShell commands - sad, sad._
-See [Known Issues on non-Windows platforms](#known-issues-on-non-windows-platforms).
+variable as described in [Configuration](#configuration) above. _This is
+currently only supported on non-Windows platforms when using PowerShell with
+the patch mentioned by @markekraus on the corresponding issue #8. The
+certificate handling was tested on Windows with native PowerShell v5 and on
+Windows and Ubuntu 16.04 with PowerShell 6.0 and @markekraus' fork._
 
 ### Cmdlets
 

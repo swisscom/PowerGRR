@@ -20,6 +20,8 @@ certificate store. Add new config option for the certificate path.
   [REQUIREMENTS](README.md#Requirements) in the readme.
 * Add **new config option for the client certificate path** to handle
   certificate handling based on files (_GRRClientCertFilePath_).
+* Add new supporting function for base64 encoding. This is used for the basic
+    auth.
 
 ### Changed
 
@@ -28,6 +30,15 @@ certificate store. Add new config option for the certificate path.
 ### Removed
 
 ### Fixed
+* **Fix an issue in the basic auth when using PowerShell 6**. The credential
+  parameter in the WebCmdlets in the OpenSource implementation of PowerShell
+  does not support basic auth implicitly. See PowerShell core issue
+  [#4274](https://github.com/PowerShell/PowerShell/issues/4274). The
+  credential handling was changed to explicitly use basic auth headers in the
+  web requests instead of the generic "credential" parameter. This allows
+  using the same mechanism on Windows and on non-Windows platforms. The
+  authentication was tested on Windows with PowerShell v5, Windows with
+  PowerShell v6 and Ubuntu with PowerShell v6.
 
 ### Security
 

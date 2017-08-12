@@ -1603,7 +1603,7 @@ Function Get-ClientCertificate()
         if ($PSVersionTable.Contains("platform") -and ($PSVersionTable.Platform -match "Unix"))
         {
             $ErrorMessageUnix = "It's not possible to use a cert issuer for reading "
-            $ErrorMessageUnix += "the certificate on a non-Windows platform."
+            $ErrorMessageUnix += "the certificate on a non-Windows platform. See CONFIGURATION section on Github."
             Throw $ErrorMessageUnix
         }
 
@@ -1616,18 +1616,19 @@ Function Get-ClientCertificate()
         }
         else
         {
-            Throw "No certificate found matching the given issuer. Please check the config setting."
+            Throw "No certificate found matching the given issuer ('$GRRClientCertIssuer'). Please check the config setting."
         }
     }
     elseif (Get-Variable -Name GRRClientCertFilePath -ErrorAction SilentlyContinue -valueonly)
     {
         if (Test-Path $GRRClientCertFilePath)
         {
+            write-host "Reading client certificate..."
             Get-PfxCertificate($GRRClientCertFilePath)
         }
         else
         {
-            Throw "Certificate file not found. Please check the config setting."
+            Throw "Certificate file not found ('$GRRClientCertFilePath'). Please check the config setting."
         }
 
     }
@@ -1664,9 +1665,19 @@ function Get-GRRSession ()
     {
         $GRRUrl = $GRRUrl.trim('/')
 
-        $params =  @{
+        # Todo Change back to the -Credential parameter after issue in PowerShell
+        # core has been fixed: https://github.com/PowerShell/PowerShell/issues/4274.
+        $userpassB64 = "$($Credential.GetNetworkCredential().UserName):"
+        $userpassB64 += "$($Credential.GetNetworkCredential().Password)"
+        $userpassB64 = $userpassB64 | ConvertTo-Base64
+        $HeadersAuth = @{Authorization = "Basic $userpassB64"}
+        $params += @{
+            'Headers' = $HeadersAuth;
+        }
+
+        $params +=  @{
             'Uri' = $GRRUrl;
-            'Credential' = $Credential;
+            #'Credential' = $Credential;
             'Method' = "get";
             'SessionVariable' = "Websession";
             'ContentType' = "application/x-www-form-urlencoded"
@@ -1712,7 +1723,7 @@ function Get-GRRSession ()
         if ($Web)
         {
             $csrftoken = (($Web.Headers.'Set-Cookie') -split ";" -split "=")[1]
-            $Headers = @{"x-csrftoken" = $($csrftoken)}
+            $Headers += @{"x-csrftoken" = $($csrftoken)}
 
             return $Headers,$Websession
         }
@@ -1784,9 +1795,20 @@ function Invoke-GRRRequest ()
     {
         $GRRUrl = $GRRUrl.trim('/')
 
-        $params = @{
+        # Todo Change back to the -Credential parameter after issue in PowerShell
+        # core has been fixed: https://github.com/PowerShell/PowerShell/issues/4274.
+        $userpassB64 = "$($Credential.GetNetworkCredential().UserName):"
+        $userpassB64 += "$($Credential.GetNetworkCredential().Password)"
+        $userpassB64 = $userpassB64 | ConvertTo-Base64
+        $HeadersAuth = @{Authorization = "Basic $userpassB64"}
+        $Headers += $HeadersAuth
+
+        $params += @{
+            'Headers' = $Headers;
+        }
+        $params += @{
             'Uri' = "$($GRRUrl)/api/$Url";
-            'Credential' = $Credential;
+            #'Credential' = $Credential;
             'TimeoutSec' = 600
         }
 
@@ -1879,6 +1901,35 @@ function Invoke-GRRRequest ()
 
     Write-Verbose "$Function Leaving $Function"
 } # Invoke-GRRRequest
+
+
+function ConvertTo-Base64 ()
+{
+    [CmdletBinding()]
+    param(
+        [Parameter(Mandatory=$true,ValueFromPipeline=$true)]
+        [AllowNull()]
+        [AllowEmptyString()]
+        [string[]]
+        $Value,
+
+        [Text.Encoding]
+        $Encoding = ([Text.Encoding]::ASCII)
+    )
+
+    process
+    {
+        $Value | ForEach-Object {
+            if( $_ -eq $null )
+            {
+                return $null
+            }
+
+            $bytes = $Encoding.GetBytes($_)
+            [Convert]::ToBase64String($bytes)
+        }
+    }
+}
 
 
 function ConvertFrom-Base64 ()
@@ -2194,7 +2245,8 @@ Export-ModuleMember @(
     'New-GRRClientApproval',
     'Get-GRRFlowDescriptor',
     'Get-GRRArtifact',
-    'Get-GRRConfig'
+    'Get-GRRConfig',
+    'ConvertTo-Base64'
 )
 
 #endregion

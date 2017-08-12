@@ -274,7 +274,7 @@ Function Find-GRRClient()
 
         if ($OnlyComputerName -and !$PSBoundParameters.containskey('ShowJSON'))
         {
-            if ($ret -and $ret.items)
+            if ($ret -and ($ret.PSobject.Properties.name -match "items") -and $ret.items)
             {
                 $ret.items.os_info.node
             }

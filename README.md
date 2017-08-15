@@ -51,11 +51,11 @@ Some of the use cases where PowerGRR could speed up the work:
 * Start a flow on one or multiple clients and get flow results as PowerShell
     object for easier filtering.
 * Create and start a new hunt and get the hunt info or results as PowerShell
-    objects
-* Create a hunt or a client approval.
+    objects.
+* Create a hunt or a client approval request.
 * Add or remove a label on one or multiple clients based on a list of computer
     names.
-* Add or remove artifacts in the GRR artifact repository.
+* Add artifacts to or remove artifacts from the GRR artifact repository.
 * List hunts, artifacts, labels or clients and filter them in different ways.
 * Build IR scripts for common forensic workflows and start multiple hunts or
     flows in one shot using multiple cmdlets inside a PowerShell script.
@@ -84,9 +84,9 @@ for the available flow types.
 ### GRR server
 
 To be able to use all PowerGRR commands, one must use the current version of GRR.
-Some API calls, like starting a hunt or uploading an artifact, are only
+Some API calls, like starting a hunt or uploading or removing an artifact, are only
 working with current versions of GRR and not with the latest release (3.1.0.2).
-However, most API calls were already available 3.1.0.2 and thus are working
+However, most API calls were already available in 3.1.0.2 and thus are working
 with PowerGRR too.
 
 ### PowerShell
@@ -94,7 +94,7 @@ with PowerGRR too.
 Windows PowerShell or [PowerShell
 Core](https://github.com/PowerShell/powershell) is required in order to run
 PowerGRR. See [PowerShell](https://msdn.microsoft.com/en-us/powershell) for
-more information.
+more information about PowerShell itself.
 
 Windows has Windows PowerShell installed by default - so nothing to do here. 
 
@@ -113,8 +113,8 @@ convert your existing certificate with the following openssl command:
 openssl pkcs12 -export -in example.crt -inkey example.key -out certificate.p12
 ```
 
-If you are using _certificate authentication with PowerShell Core (macOS,
-Linux, ...), please see paragraph_ **Client certificate authentication using
+If you are using certificate authentication with PowerShell Core (macOS,
+Linux, ...), please see paragraph **Client certificate authentication using
 PowerShell Core** _in section [Known issues on non-Windows
 platforms](#known-issues-on-non-windows-platforms)_ below for further
 information.
@@ -123,7 +123,7 @@ information.
 
 Despite GRR related commands were tested on PowerShell Core on different OSes
 (Windows, Linux, macOS), some issues exist on non-Windows platforms. _If you
-run into other troubles with PowerShell Core or on non-Windows platforms,
+run into other troubles with PowerShell Core or with non-Windows platforms,
 please file an issue._
 
 **PowerShell help**
@@ -134,16 +134,14 @@ Ubuntu 16.04. See issue [#9](https://github.com/swisscom/PowerGRR/issues/9).
 **Client certificate authentication using PowerShell Core**
 
 The client certificate authentication is currently not supported in PowerShell
-Core 6.0.0-beta.5 release packages on Github (see issue
-[#8](https://github.com/swisscom/PowerGRR/issues/8)). _This is a known issue in
-PowerShell Core and is tracked in the following [issue #4544]
-(https://github.com/PowerShell/PowerShell/issues/4544) and corresponding
-[PowerShell Core pull request #4546]
-(https://github.com/PowerShell/PowerShell/pull/4546)_.
+Core 6.0.0-beta.5 release packages on Github (see issue [#8](https://github.com/swisscom/PowerGRR/issues/8)).
+_This is a known issue in PowerShell Core and is tracked in the following 
+[issue #4544](https://github.com/PowerShell/PowerShell/issues/4544) and corresponding
+[PowerShell Core pull request #4546](https://github.com/PowerShell/PowerShell/pull/4546)_.
 
 Certificate authentication is currently only supported when using a custom
-PowerShell Core build with the patch mentioned by @markekraus on [#4544]
-(https://github.com/PowerShell/PowerShell/issues/4544). See Mark's comments or
+PowerShell Core build with the patch mentioned by @markekraus 
+on [#4544](https://github.com/PowerShell/PowerShell/issues/4544). See Mark's comments or
 build commands below regarding the used commands to build PowerShell Core from
 scratch on your platform (no special environment is needed and reserve a
 20min-:coffee:-break).
@@ -167,7 +165,7 @@ in requirements above.
     }
     ```
 
-    Build the binaries from your clone for the platform your working on:
+    Build the binaries based on your clone for the platform your are currently running the commands on:
 
     ```
     powershell -noprofile -ExecutionPolicy bypass -command 'Import-Module ./build.psm1; Sync-PSTags; Start-PSBootstrap; Start-PSBuild'

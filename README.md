@@ -10,15 +10,15 @@ Please see [Command Documentation](docs/PowerGRR.md) and
 ***
 <!-- vim-markdown-toc GFM -->
 * [What is PowerGRR?](#what-is-powergrr)
-    * [Repo Structure](#repo-structure)
 * [Requirements](#requirements)
     * [GRR server](#grr-server)
     * [PowerShell](#powershell)
-    * [Known Issues on non-Windows platforms](#known-issues-on-non-windows-platforms)
+    * [Certificate authentication](#certificate-authentication)
+    * [Known issues on non-Windows platforms](#known-issues-on-non-windows-platforms)
 * [Installation](#installation)
 * [Configuration](#configuration)
 * [Usage](#usage)
-    * [Importing the module](#importing-the-module)
+    * [Import](#import)
     * [Authentication](#authentication)
     * [Cmdlets](#cmdlets)
     * [Help](#help)
@@ -28,16 +28,17 @@ Please see [Command Documentation](docs/PowerGRR.md) and
 <!-- vim-markdown-toc -->
 ***
 
-## What is PowerGRR?
+## What is PowerGRR? 
 
-PowerGRR is a **PowerShell module for working with the [GRR](https://github.com/google/grr) 
-API working on Windows, macOS and Linux**. GRR Rapid Response is an
-incident response framework focused on remote live forensics. The module
-allows working with flows, hunts, labels and the search feature. Furthermore,
-it allows **working with the computer names instead of the GRR internal client
-id**. This makes handling and working with other tools more easy because often
-you just have the computer names. PowerGRR also enables you to easily document
-your work in text form which is then directly reusable by others.
+PowerGRR is a **PowerShell module for working with the
+[GRR](https://github.com/google/grr) API working on Windows, macOS and
+Linux**. GRR Rapid Response is an incident response framework focused on
+remote live forensics. The module allows working with flows, hunts, labels and
+the search feature. Furthermore, it allows **working with the computer names
+instead of the GRR internal client id**. This makes handling and working with
+other tools more easy because often you just have the computer names. PowerGRR
+also enables you to easily document your work in text form which is then
+directly reusable by others.
 
 PowerGRR creates a comfortable, cli-based workflow for incident response.
 PowerShell is installed on every Windows workstation and working directly with
@@ -53,7 +54,8 @@ Some of the use cases where PowerGRR could speed up the work:
     objects
 * Add or remove a label on one or multiple clients based on a list of computer
     names.
-* List hunts, labels or clients and filter them in different ways.
+* List hunts, artifacts, labels or clients and filter them in different ways.
+* Create a hunt or a client approval.
 * Build IR scripts for common forensic workflows and start multiple hunts or
     flows in one shot using multiple cmdlets inside a PowerShell script.
 
@@ -63,7 +65,7 @@ help](https://github.com/swisscom/PowerGRR/blob/master/docs/Invoke-GRRFlow.md#-f
 for the available flow types.
 * Netstat, ListProcesses, FileFinder, RegistryFinder, ExecutePythonHack, ArtifactCollectorFlow
 
-### Repo Structure
+**Repo Structure**
 
 | Name              | Description                                                        |
 | ----------------  | ------------------------------------------------------------------ |
@@ -81,72 +83,121 @@ for the available flow types.
 ### GRR server
 
 To be able to use all PowerGRR commands, one must use the current version of GRR.
-Some API calls, like starting a hunt, are only available in newer versions of GRR
-and not in the latest release (3.1.0.2). However, most API calls were already 
-available in the latest release (3.1.0.2) and thus are working with PowerGRR too.
+Some API calls, like starting a hunt or uploading an artifact, are only
+working with current versions of GRR and not with the latest release (3.1.0.2).
+However, most API calls were already available 3.1.0.2 and thus are working
+with PowerGRR too.
 
 ### PowerShell
 
-PowerShell is required in order to run PowerGRR.
+Windows PowerShell or [PowerShell
+Core](https://github.com/PowerShell/powershell) is required in order to run
+PowerGRR. See [PowerShell](https://msdn.microsoft.com/en-us/powershell) for
+more information.
 
-Windows has PowerShell installed by default - so nothing to do here. 
+Windows has Windows PowerShell installed by default - so nothing to do here. 
 
-For **macOS and Linux see [PowerShell Package installation instructions](https://github.com/PowerShell/PowerShell/blob/master/docs/installation/linux.md)**
-for information about how to get PowerShell installed. The installation is fast
-and for most OSes there are ready to use packages and available installation commands.
+For **macOS and Linux see [PowerShell Package installation
+instructions](https://github.com/PowerShell/PowerShell/blob/master/docs/installation/linux.md)**
+for information about how to get PowerShell Core installed. The installation is
+fast and for most OSes there are ready to use packages and available
+installation commands.
 
-If you are using client certificate authentication on non-Windows platforms,
-you have to install a custom PowerShell build with the patch mentioned by
-@markekraus, see Mark's comments on
-[#4544](https://github.com/PowerShell/PowerShell/issues/4544) for the commands
-to build PowerShell from scratch (~20min). You need to first install a version
-from the PowerShell repository (links to the installation guide above) and
-after that you can build the custom PowerShell version on the target machine.
-The certificate handling was tested on Windows and Ubuntu 16.04 with
-PowerShell 6.0 and @markekraus' fork.
+### Certificate authentication
 
-### Known Issues on non-Windows platforms
+If you are using certificate authentication, a PKCS12 certificate is required. You can
+convert your existing certificate with the following openssl command:
 
-Despite GRR related commands were tested on all of the mentioned
-supported OSes (Windows, Linux, macOS), some issues exist on non-Windows 
-platforms. _If you run into other troubles on non-Windows platforms, 
+```
+openssl pkcs12 -export -in example.crt -inkey example.key -out certificate.p12
+```
+
+If you are using _certificate authentication with PowerShell Core (macOS,
+Linux, ...), please see paragraph_ **Client certificate authentication using
+PowerShell Core** _in section [Known issues on non-Windows
+platforms](#known-issues-on-non-windows-platforms)_ below for further
+information.
+
+### Known issues on non-Windows platforms
+
+Despite GRR related commands were tested on PowerShell Core on different OSes
+(Windows, Linux, macOS), some issues exist on non-Windows platforms. _If you
+run into other troubles with PowerShell Core or on non-Windows platforms,
 please file an issue._
 
 **PowerShell help**
 
-The PowerShell help examples are not shown (`help <command> -Examples`).
-See [#9](https://github.com/swisscom/PowerGRR/issues/9).
+The PowerShell help examples (`help <command> -Examples`) are not shown in
+Ubuntu 16.04. See issue [#9](https://github.com/swisscom/PowerGRR/issues/9).
 
-**Client certificate authentication**
+**Client certificate authentication using PowerShell Core**
 
-The client certificate authentication is currently missing on non-Windows
-platforms when using the available PowerShell 6.0 packages from Github
-(see [#8](https://github.com/swisscom/PowerGRR/issues/8)). This is a known issue
-in PowerShell and is tracked in the following [PowerShell project PR
-4546](https://github.com/PowerShell/PowerShell/pull/4546) and issue
-[#4544](https://github.com/PowerShell/PowerShell/issues/4544). PowerGRR's
-implementation of the certificate authentication for non-Windows platforms is
-currently only supported when using a custom PowerShell build with the patch
-mentioned by @markekraus, see Mark's comments on
-[#4544](https://github.com/PowerShell/PowerShell/issues/4544) for the commands
-to build PowerShell from scratch (~20min). The certificate handling was tested
-on Windows with native PowerShell v5 and on Windows and Ubuntu 16.04 with
-PowerShell 6.0 and @markekraus' fork.
+The client certificate authentication is currently not supported in PowerShell
+Core 6.0.0-beta.5 release packages on Github (see issue
+[#8](https://github.com/swisscom/PowerGRR/issues/8)). _This is a known issue in
+PowerShell Core and is tracked in the following [issue #4544]
+(https://github.com/PowerShell/PowerShell/issues/4544) and corresponding
+[PowerShell Core pull request #4546]
+(https://github.com/PowerShell/PowerShell/pull/4546)_.
+
+Certificate authentication is currently only supported when using a custom
+PowerShell Core build with the patch mentioned by @markekraus on [#4544]
+(https://github.com/PowerShell/PowerShell/issues/4544). See Mark's comments or
+build commands below regarding the used commands to build PowerShell Core from
+scratch on your platform (no special environment is needed and reserve a
+20min-:coffee:-break).
+
+The certificate handling was tested on Windows with
+PowerShell v5 and on Windows and Ubuntu 16.04 with PowerShell Core
+6.0.0-beta.5 with the needed code changes.
+
+You can build your own PowerShell Core binaries _after_ you installed 
+an available PowerShell version first, see section [PowerShell](#PowerShell) 
+in requirements above.
+
+1. Fix the code in the file
+   _PowerShell/src/Microsoft.PowerShell.Commands.Utility/commands/utility/WebCmdlet/CoreCLR/WebRequestPSCmdlet.CoreClr.cs_
+   in your PowerShell Core clone on line 167 to this lines:
+ 
+    ```
+    if (null != WebSession.Certificates)
+    {
+        handler.ClientCertificates.AddRange(WebSession.Certificates);
+    }
+    ```
+
+    Build the binaries from your clone for the platform your working on:
+
+    ```
+    powershell -noprofile -ExecutionPolicy bypass -command 'Import-Module ./build.psm1; Sync-PSTags; Start-PSBootstrap; Start-PSBuild'
+    ```
+
+2. Build PowerShell Core based on Mark's fork:
+
+    ```
+    mkdir ~/gittest
+    cd ~/gittest/
+    git clone --recursive https://github.com/markekraus/PowerShell.git
+    cd PowerShell/
+    git checkout WebClientCerts
+    git remote add upstream https://github.com/powershell/powershell.git
+    powershell -noprofile -ExecutionPolicy bypass -command 'Import-Module ./build.psm1; Sync-PSTags; Start-PSBootstrap; Start-PSBuild'
+    ```
 
 ## Installation
 
-* Install PowerGRR module from the [PowerShell Gallery](https://www.powershellgallery.com/packages/PowerGRR/):
+* Install PowerGRR from [PowerShell Gallery](https://www.powershellgallery.com/packages/PowerGRR/) (only released versions, see [CHANGELOG](CHANGELOG.md)):
 
-``` powershell
-# Inpsect
-Save-Module -Name PowerGRR -Path <path> 
+    ``` powershell
+    # Inpsect
+    Save-Module -Name PowerGRR -Path <path> 
 
-# Install
-Install-Module -Name PowerGRR -Scope CurrentUser
+    # Install
+    Install-Module -Name PowerGRR -Scope CurrentUser
 
-# Update
-Update-Module -Name PowerGRR
-```
+    # Update
+    Update-Module -Name PowerGRR
+    ```
 
 * Install PowerGRR from Github:
 
@@ -167,12 +218,10 @@ Update-Module -Name PowerGRR
    * **[OPTIONAL]** _$GRRClientCertIssuer_:  If set, the client certificate
                     from the Windows cert store signed by the given issuer is used.
    * **[OPTIONAL]** _$GRRClientCertFilePath_: If set, the client certificate
-                   file is used for the authentication. _This is currently
-                   only supported on non-Windows platforms when using
-                   PowerShell with the patch mentioned by @markekraus on the
-                   corresponding issue #8. The certificate handling was tested
-                   on Windows with native PowerShell v5 and on Windows and
-                   Ubuntu 16.04 with PowerShell 6.0 and @markekraus' fork._
+                   file is used for the authentication. If you are using
+                   PowerShell Core see section [certificate
+                   authentication](#certificate-authentication) in
+                   requirements above.
 
 **Example Config**
 
@@ -194,7 +243,7 @@ $GRRClientCertIssuer = $( if ($GRRUrl -match "main") { "certificate issuer" } )
 
 ## Usage
 
-### Importing the module
+### Import
 
 If PowerGRR was saved inside the module path run the following command:
 ```
@@ -217,11 +266,9 @@ $creds = Microsoft.PowerShell.Security\get-credential
 ```
 
 2. If you use client certificate authentication set the corresponding config
-variable as described in [Configuration](#configuration) above. _This is
-currently only supported on non-Windows platforms when using PowerShell with
-the patch mentioned by @markekraus on the corresponding issue #8. The
-certificate handling was tested on Windows with native PowerShell v5 and on
-Windows and Ubuntu 16.04 with PowerShell 6.0 and @markekraus' fork._
+variable as described in [Configuration](#configuration) above. If you are
+using PowerShell Core see section [certificate
+authentication](#certificate-authentication) in requirements above.
 
 ### Cmdlets
 

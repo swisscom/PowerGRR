@@ -5,9 +5,9 @@ Great, you decided to contribute! That's awesome!
 Please file an [issue](https://github.com/swisscom/PowerGRR/issues) if you
 need a new feature or found an inconvenient "situation" (bug) or get the code
 form Github, make a new branch, extend the functionality as its needed and
-make a [pull request](https://github.com/swisscom/PowerGRR/pulls). See
-section [repo structure](https://github.com/swisscom/PowerGRR#repo-structure)
-for an overview about the main files.
+make a [pull request](https://github.com/swisscom/PowerGRR/pulls). See section
+[What is PowerGRR?](README.md#what-is-powergrr) for an overview about repo
+structure.
 
 Please use the guidelines as references when implementing new functions and
 check current cmdlets how to use supporting functions.

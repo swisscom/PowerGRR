@@ -12,6 +12,12 @@ can use this function to run the needed request.
 
 ## SYNTAX
 
+### FILE
+```
+Invoke-GRRRequest [-Url] <String> -File <FileInfo> [-Headers] <Hashtable> [-Websession] <WebRequestSession>
+ [-Method <String>] [-Credential] <PSCredential> [-ShowJSON] [<CommonParameters>]
+```
+
 ### POST
 ```
 Invoke-GRRRequest [-Url] <String> [-Body] <String> [-Headers] <Hashtable> [-Websession] <WebRequestSession>
@@ -73,7 +79,7 @@ Accept wildcard characters: False
 
 ```yaml
 Type: Hashtable
-Parameter Sets: POST
+Parameter Sets: FILE, POST
 Aliases: 
 
 Required: True
@@ -88,7 +94,19 @@ Accept wildcard characters: False
 
 ```yaml
 Type: SwitchParameter
-Parameter Sets: (All)
+Parameter Sets: FILE
+Aliases: 
+
+Required: True
+Position: Benannt
+Default value: False
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: POST, GET
 Aliases: 
 
 Required: False
@@ -118,7 +136,7 @@ Accept wildcard characters: False
 
 ```yaml
 Type: WebRequestSession
-Parameter Sets: POST
+Parameter Sets: FILE, POST
 Aliases: 
 
 Required: True
@@ -137,6 +155,21 @@ Parameter Sets: (All)
 Aliases: 
 
 Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -File
+{{Fill File Description}}
+
+```yaml
+Type: FileInfo
+Parameter Sets: FILE
+Aliases: 
+
+Required: True
 Position: Named
 Default value: None
 Accept pipeline input: False

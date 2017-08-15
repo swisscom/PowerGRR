@@ -16,6 +16,9 @@ makes the handling and working with other tools more easy because often you
 just have the computer names.
 
 ## PowerGRR Cmdlets
+### [Add-GRRArtifact](Add-GRRArtifact.md)
+Upload artifact to GRR.
+
 ### [ConvertFrom-Base64](ConvertFrom-Base64.md)
 Decode a base64 encoded string.
 

@@ -6,22 +6,26 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased](https://github.com/swisscom/powergrr/compare/v0.4.2...master)
 
-Add support for certificate authentication for PowerShell 6.0 and non-Windows
-platforms. Allow the use of certificate files instead of only the Windows
-certificate store. Add new config option for the certificate path.
+Add support for certificate authentication based on certificate files. This
+allows using certificate authentication with PowerShell Core and especially on
+non-Windows platforms. Furthermore, add command for uploading artifacts to GRR.
 
 ### Added
 
-* **Add support for certificate authentication on non-Windows platforms**
-  which was broken due to missing cert store on Linux and the use of the
-  special "Cert:" PSDrive. The new certificate handling requires the
-  PowerShell patch from @markekraus until the patch is included in the
-  PowerShell main project. See issue #8 and
-  [REQUIREMENTS](README.md#Requirements) in the readme.
-* Add **new config option for the client certificate path** to handle
-  certificate handling based on files (_GRRClientCertFilePath_).
-* Add new supporting function for base64 encoding. This is used for the basic
-    auth.
+* **Add support for certificate authentication when using PowerShell Core**.
+  Certificate authentication was broken due to the (not surprisingly)
+  missing cert store and the missing special "Cert:" PSDrive on *nix OSes.
+  Besides using the Windows cert store it's now possible to use certificate
+  files for the authentication. See section
+  [requirements](README.md#requirements) and
+  [configuration](README.md#configuration) in the readme.
+* Add **config option for the client certificate path** to handle
+  certificate authentication based on files (_GRRClientCertFilePath_).
+* Add `Add-GRRArtifact` for **uploading new artifacts to GRR**. Tested with
+  Windows PowerShell v5 and PowerShell Core 6.0.0-beta.5 on Windows.
+* Add base64 encoding function (`ConvertTo-Base64`) which is used for
+  manual basic authentication which mitigates missing basic authentication in
+  PowerShell Core cmdlets.
 
 ### Changed
 
@@ -30,15 +34,16 @@ certificate store. Add new config option for the certificate path.
 ### Removed
 
 ### Fixed
-* **Fix an issue in the basic auth when using PowerShell 6**. The credential
-  parameter in the WebCmdlets in the OpenSource implementation of PowerShell
-  does not support basic auth implicitly. See PowerShell core issue
-  [#4274](https://github.com/PowerShell/PowerShell/issues/4274). The
-  credential handling was changed to explicitly use basic auth headers in the
-  web requests instead of the generic "credential" parameter. This allows
-  using the same mechanism on Windows and on non-Windows platforms. The
-  authentication was tested on Windows with PowerShell v5, Windows with
-  PowerShell v6 and Ubuntu with PowerShell v6.
+* **Fix an issue in the basic authentication when using PowerShell Core**. The
+  credential parameter for the WebCmdlets (`Invoke-RestMethod` and
+  `Invoke-WebRequest`) in PowerShell Core does not support basic
+  authentication. See PowerShell Core issue
+  [#4274](https://github.com/PowerShell/PowerShell/issues/4274). The credential
+  handling was changed to explicitly use basic authentication headers in web
+  requests instead of using the _-Credential_ parameter. The change allows
+  using the same authentication code on Windows and on non-Windows platforms.
+  The authentication was tested on Windows with PowerShell v5, Windows with
+  PowerShell Core and Ubuntu with PowerShell Core.
 
 ### Security
 

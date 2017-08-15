@@ -4,10 +4,13 @@
 !_TAG_PROGRAM_NAME	Exuberant Ctags	//
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
 !_TAG_PROGRAM_VERSION	5.8	//
+Add-GRRArtifact	.\PowerGRR.Tests.ps1	/^Describe 'Add-GRRArtifact' {$/;"	m
 Find-GRRClient	.\PowerGRR.Tests.ps1	/^Describe 'Find-GRRClient' {$/;"	m
 Find-GRRClientByLabel	.\PowerGRR.Tests.ps1	/^Describe 'Find-GRRClientByLabel' {$/;"	m
+Get-GRRArtifact	.\PowerGRR.Tests.ps1	/^Describe 'Get-GRRArtifact' {$/;"	m
 Get-GRRClientIdFromComputerName	.\PowerGRR.Tests.ps1	/^Describe 'Get-GRRClientIdFromComputerName' {$/;"	m
 Get-GRRComputerNameFromClientId	.\PowerGRR.Tests.ps1	/^Describe 'Get-GRRComputerNameFromClientId' {$/;"	m
+Get-GRRFlowDescriptor	.\PowerGRR.Tests.ps1	/^Describe 'Get-GRRFlowDescriptor' {$/;"	m
 Get-GRRFlowResult	.\PowerGRR.Tests.ps1	/^Describe 'Get-GRRFlowResult' {$/;"	m
 Get-GRRHunt	.\PowerGRR.Tests.ps1	/^Describe 'Get-GRRHunt' {$/;"	m
 Get-GRRHuntInfo	.\PowerGRR.Tests.ps1	/^Describe 'Get-GRRHuntInfo' {$/;"	m

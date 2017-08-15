@@ -90,7 +90,8 @@ FunctionsToExport = @(
     'Get-GRRFlowDescriptor',
     'Get-GRRArtifact',
     'Get-GRRConfig',
-    'ConvertTo-Base64'
+    'ConvertTo-Base64',
+    'Add-GRRArtifact'
     )
 
 # Cmdlets to export from this module

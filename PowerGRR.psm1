@@ -1537,6 +1537,63 @@ function Get-GRRFlowDescriptor()
 }
 
 
+function Add-GRRArtifact()
+{
+    [CmdletBinding(SupportsShouldProcess=$True)]
+    param(
+        [string]
+        $ArtifactFile,
+
+        [Parameter(Mandatory=$true)]
+        [System.Management.Automation.PSCredential]
+        [System.Management.Automation.Credential()]
+        $Credential,
+
+        [switch]
+        $ShowJSON
+    )
+
+    Begin {
+        $Function = $MyInvocation.MyCommand
+        Write-Verbose "$Function Entering $Function"
+    }
+
+    Process {
+        Write-Progress -Activity "Running $Function"
+
+        if (!(Test-Path $ArtifactFile))
+        {
+            throw "Artifact file not found."
+        }
+        else
+        {
+            $Headers,$Websession = Get-GRRSession -Credential $Credential
+
+            if ($pscmdlet.ShouldProcess($ArtifactFile, "Add artifact"))
+            {
+                if ($Headers -and $Websession)
+                {
+                    $params =  @{
+                        'Url' = "/artifacts";
+                        'Credential' = $Credential;
+                        'File' = $ArtifactFile;
+                        'Headers' = $Headers;
+                        'Websession' = $Websession
+                        'ShowJSON' = $PSBoundParameters.containskey('ShowJSON')
+                    }
+
+                    Invoke-GRRRequest @params
+                } # headers and websession set
+            } #whatif
+        } # Artifact file found
+    } # Process block
+
+    End {
+        Write-Verbose "$Function Leaving $Function"
+    }
+}
+
+
 function Get-GRRArtifact()
 {
     [CmdletBinding()]
@@ -1742,6 +1799,7 @@ function Invoke-GRRRequest ()
     param(
         [Parameter(ParameterSetName="GET", Mandatory=$true)]
         [Parameter(ParameterSetName="POST", Mandatory=$true)]
+        [Parameter(ParameterSetName="FILE", Mandatory=$true)]
         [string]
         $Url,
 
@@ -1749,11 +1807,17 @@ function Invoke-GRRRequest ()
         [string]
         $Body,
 
+        [Parameter(ParameterSetName="FILE", Mandatory=$true)]
+        [System.IO.FileInfo]
+        $File,
+
+        [Parameter(ParameterSetName="FILE", Mandatory=$true)]
         [Parameter(ParameterSetName="POST", Mandatory=$true)]
         [System.Collections.Hashtable]
         $Headers,
 
         [Parameter(ParameterSetName="POST", Mandatory=$true)]
+        [Parameter(ParameterSetName="FILE", Mandatory=$true)]
         [Microsoft.PowerShell.Commands.WebRequestSession]
         $Websession,
 
@@ -1763,12 +1827,14 @@ function Invoke-GRRRequest ()
 
         [Parameter(ParameterSetName="GET", Mandatory=$true)]
         [Parameter(ParameterSetName="POST", Mandatory=$true)]
+        [Parameter(ParameterSetName="FILE", Mandatory=$true)]
         [System.Management.Automation.PSCredential]
         [System.Management.Automation.Credential()]
         $Credential,
 
         [Parameter(ParameterSetName="GET", Mandatory=$false)]
         [Parameter(ParameterSetName="POST", Mandatory=$false)]
+        [Parameter(ParameterSetName="FILE", Mandatory=$true)]
         [switch]
         $ShowJSON
     )
@@ -1795,17 +1861,14 @@ function Invoke-GRRRequest ()
     {
         $GRRUrl = $GRRUrl.trim('/')
 
-        # Todo Change back to the -Credential parameter after issue in PowerShell
-        # core has been fixed: https://github.com/PowerShell/PowerShell/issues/4274.
+        # XXX PowerShell Core issue - change back to the -Credential parameter after 
+        # issue in PowerShell Core has been fixed: https://github.com/PowerShell/PowerShell/issues/4274.
         $userpassB64 = "$($Credential.GetNetworkCredential().UserName):"
         $userpassB64 += "$($Credential.GetNetworkCredential().Password)"
         $userpassB64 = $userpassB64 | ConvertTo-Base64
         $HeadersAuth = @{Authorization = "Basic $userpassB64"}
         $Headers += $HeadersAuth
 
-        $params += @{
-            'Headers' = $Headers;
-        }
         $params += @{
             'Uri' = "$($GRRUrl)/api/$Url";
             #'Credential' = $Credential;
@@ -1848,7 +1911,44 @@ function Invoke-GRRRequest ()
         }
 
         #Add further parameters if its a POST or PATCH request
-        if ($Body)
+        if ($File)
+        {
+            $Boundary = ([guid]::NewGuid()).guid
+            $FileContent = get-content $File -enc byte -raw
+            $Enc = [System.Text.Encoding]::GetEncoding('utf-8')
+            $FileBodyTemplate = $Enc.GetString($FileContent)
+            [System.Text.StringBuilder]$contents = New-Object System.Text.StringBuilder
+            [void]$contents.AppendLine("--$Boundary")
+            [void]$contents.AppendLine("Content-Disposition: form-data; name=""_params_""")
+            [void]$contents.AppendLine()
+            [void]$contents.AppendLine("{}")
+            [void]$contents.AppendLine("--$Boundary")
+            [void]$contents.AppendLine("Content-Disposition: form-data; name=""artifact""; filename=""$($File.Name)""")
+            [void]$contents.AppendLine("Content-Type: application/octet-stream")
+            [void]$contents.AppendLine()
+            [void]$contents.AppendLine($FileBodyTemplate)
+            [void]$contents.AppendLine("--$Boundary--")
+            $Body = $contents.ToString()
+
+            # XXX PowerShell Core issues
+            # 1. multipart upload not possible
+            #   - https://github.com/PowerShell/PowerShell/issues/2112
+            # 2. Content-Type multipart is invalid
+            #   - https://github.com/dotnet/corefx/issues/16290
+            #   - https://msdn.microsoft.com/en-us/library/hh875107(v=vs.118).aspx
+            $HeaderCT = @{"Content-Type" = "multipart/form-data;boundary=$Boundary"}
+            $Headers += $HeaderCT
+
+            $params += @{
+                'Method' = "POST"
+                'Websession' = $Websession;
+                # XXX PowerShell Core issue
+                #'ContentType' = "multipart/form-data;boundary=$Boundary";
+                'Body' = $Body;
+            }
+
+        }
+        elseif ($Body)
         {
             if ($Method -match "PATCH")
             {
@@ -1871,13 +1971,17 @@ function Invoke-GRRRequest ()
             }
         }
 
+
+        $params += @{
+            'Headers' = $Headers;
+        }
+
         try
         {
             $ret = Invoke-RestMethod @params
         }
         catch
         {
-            # todo display error message
             $ErrorMessage = $_.Exception.Message
             Write-Error $ErrorMessage
         }
@@ -2246,7 +2350,8 @@ Export-ModuleMember @(
     'Get-GRRFlowDescriptor',
     'Get-GRRArtifact',
     'Get-GRRConfig',
-    'ConvertTo-Base64'
+    'ConvertTo-Base64',
+    'Add-GRRArtifact'
 )
 
 #endregion

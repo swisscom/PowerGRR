@@ -20,6 +20,11 @@ $global:EmptyItem = @"
 {`"items`": []}
 "@
 
+$global:StatusOK = @"
+)]}`'
+{`"Status`": `"OK`"}
+"@
+
 $global:EmptyReturnObject = @"
 )]}`'
 {`"items`": [], `"total_count`": 0}
@@ -637,6 +642,46 @@ Describe 'Get-GRRFlowDescriptor' {
         }
     }
 }
+
+
+Describe 'Add-GRRArtifact' {
+    Context 'when there are errors' {
+        Mock Invoke-GRRRequest {} -ModuleName PowerGRR
+        Mock Get-GRRSession {} -ModuleName PowerGRR
+
+        $path = "TestDrive:\test.txt"
+        Set-Content $path -value "artifact"
+
+        It 'no web response' {
+            $ret = Add-GRRArtifact -Credential $creds -ArtifactFile $path
+            $ret | should BeNullOrEmpty
+            {$ret.total_count} | should throw
+        }
+
+        It 'file not found' {
+             { Add-GRRArtifact -Credential $creds -ArtifactFile C:\non-existing-path\test.yaml } | should throw "Artifact file not found."
+        }
+    }
+
+    Context 'with valid response' {
+        Mock Get-GRRSession {
+            $Headers = @{test="test"}
+            $Websession = new-object -type Microsoft.PowerShell.Commands.WebRequestSession
+            $Headers, $Websession
+        } -ModuleName PowerGRR
+
+        Mock Invoke-GRRRequest {
+            $StatusOK.Substring(5) | ConvertFrom-Json
+        } -ModuleName PowerGRR
+
+        It 'upload ok' {
+            $ret = Add-GRRArtifact -Credential $creds -ArtifactFile $path
+            $ret | should not BeNullOrEmpty
+            $ret.status | should be "OK"
+        }
+    }
+}
+
 
 Describe 'Get-GRRArtifact' {
     Context 'when there are errors' {

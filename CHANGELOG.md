@@ -18,7 +18,7 @@ GRR and removing them from GRR were added.
   missing cert store and the missing special "Cert:" PSDrive on *nix OSes.
   Besides using the Windows cert store it's now possible to use certificate
   files for the authentication. See section
-  [requirements](README.md#requirements) and
+  [certificate authentication](README.md#certificate-authentication) and
   [configuration](README.md#configuration) in the readme.
 * Add **config option for the client certificate path** to handle
   certificate authentication based on files (_GRRClientCertFilePath_).
@@ -26,8 +26,8 @@ GRR and removing them from GRR were added.
   Windows PowerShell v5 and PowerShell Core 6.0.0-beta.5 on Windows.
 * Add `Remove-GRRArtifact` for **removing one or multiple artifacts from GRR**.
 * Add base64 encoding function (`ConvertTo-Base64`) which is used for
-  manual basic authentication which mitigates missing basic authentication in
-  PowerShell Core cmdlets.
+  manual basic authentication to mitigate missing basic authentication in
+  PowerShell Core cmdlets, see section fixed below.
 
 ### Changed
 
@@ -36,8 +36,8 @@ GRR and removing them from GRR were added.
 ### Removed
 
 ### Fixed
-* **Fix an issue in the basic authentication when using PowerShell Core**. The
-  credential parameter for the WebCmdlets (`Invoke-RestMethod` and
+* **Fix an issue in the basic authentication when using PowerShell Core** ([#11](https://github.com/swisscom/PowerGRR/issues/11)).
+  The credential parameter for the WebCmdlets (`Invoke-RestMethod` and
   `Invoke-WebRequest`) in PowerShell Core does not support basic
   authentication. See PowerShell Core issue
   [#4274](https://github.com/PowerShell/PowerShell/issues/4274). The credential

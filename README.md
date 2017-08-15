@@ -151,7 +151,7 @@ PowerShell v5 and on Windows and Ubuntu 16.04 with PowerShell Core
 6.0.0-beta.5 with the needed code changes.
 
 You can build your own PowerShell Core binaries _after_ you installed 
-an available PowerShell version first, see section [PowerShell](#PowerShell) 
+an available PowerShell version first, see section [PowerShell](#powershell) 
 in requirements above.
 
 1. Fix the code in the file

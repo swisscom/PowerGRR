@@ -8,7 +8,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 Add support for certificate authentication based on certificate files. This
 allows using certificate authentication with PowerShell Core and especially on
-non-Windows platforms. Furthermore, add command for uploading artifacts to GRR.
+non-Windows platforms. Furthermore, commands for uploading artifacts to
+GRR and removing them from GRR were added.
 
 ### Added
 
@@ -23,6 +24,7 @@ non-Windows platforms. Furthermore, add command for uploading artifacts to GRR.
   certificate authentication based on files (_GRRClientCertFilePath_).
 * Add `Add-GRRArtifact` for **uploading new artifacts to GRR**. Tested with
   Windows PowerShell v5 and PowerShell Core 6.0.0-beta.5 on Windows.
+* Add `Remove-GRRArtifact` for **removing one or multiple artifacts from GRR**.
 * Add base64 encoding function (`ConvertTo-Base64`) which is used for
   manual basic authentication which mitigates missing basic authentication in
   PowerShell Core cmdlets.

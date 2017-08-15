@@ -91,7 +91,8 @@ FunctionsToExport = @(
     'Get-GRRArtifact',
     'Get-GRRConfig',
     'ConvertTo-Base64',
-    'Add-GRRArtifact'
+    'Add-GRRArtifact',
+    'Remove-GRRArtifact'
     )
 
 # Cmdlets to export from this module

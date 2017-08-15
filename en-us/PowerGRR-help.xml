@@ -694,7 +694,7 @@
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
           <maml:name>Credential</maml:name>
           <maml:Description>
-            <maml:para>{{Fill Credential Description}}</maml:para>
+            <maml:para>GRR credentials.</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">PSCredential</command:parameterValue>
           <dev:type>
@@ -720,7 +720,7 @@
       <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
         <maml:name>Credential</maml:name>
         <maml:Description>
-          <maml:para>{{Fill Credential Description}}</maml:para>
+          <maml:para>GRR credentials.</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">PSCredential</command:parameterValue>
         <dev:type>
@@ -795,10 +795,6 @@ OSXUsers              Users directories in /Users                               
 
 Name        : WindowsDNSNameServer
 Description : Windows DNS and DHCP Server Registry Keys.
-
-              Typical location for hijacking the DNS or DHCP servers of a client.
-              Used by banking trojans for persistence.
-
 IsCustom    : True
 URLs        : https://technet.microsoft.com/en-us/library/dd197418(v=ws.10).aspx
 Labels      : {System, Network}
@@ -806,7 +802,23 @@ SupportedOS : {Windows}
 Type        : REGISTRY_VALUE
 Attributes  : @{key_value_pairs=System.Object[]}</dev:code>
         <dev:remarks>
-          <maml:para>List all Windows artifacts which have "dns" in the name.</maml:para>
+          <maml:para></maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>Example 4</maml:title>
+        <dev:code>PS C:\&gt; Get-GRRArtifact -Credential $cred | ? {$_iscustom -eq $true}
+
+Name        : WindowsDNSNameServer
+Description : Windows DNS and DHCP Server Registry Keys.
+IsCustom    : True
+URLs        : https://technet.microsoft.com/en-us/library/dd197418(v=ws.10).aspx
+Labels      : {System, Network}
+SupportedOS : {Windows}
+Type        : REGISTRY_VALUE
+Attributes  : @{key_value_pairs=System.Object[]}</dev:code>
+        <dev:remarks>
+          <maml:para>List all custom artifacts.</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
@@ -3647,6 +3659,199 @@ PS C:\&gt; $res.items.client_id | sort -u</dev:code>
       </command:example>
     </command:examples>
     <command:relatedLinks />
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
+      <command:name>Remove-GRRArtifact</command:name>
+      <command:verb>Remove</command:verb>
+      <command:noun>GRRArtifact</command:noun>
+      <maml:description>
+        <maml:para>Delete artifacts in GRR.</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>Delete artifacts in GRR.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>Remove-GRRArtifact</maml:name>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
+          <maml:name>Artifact</maml:name>
+          <maml:Description>
+            <maml:para>Name of artifact to delete.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
+          <dev:type>
+            <maml:name>String[]</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
+          <maml:name>Credential</maml:name>
+          <maml:Description>
+            <maml:para>GRR credential.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">PSCredential</command:parameterValue>
+          <dev:type>
+            <maml:name>PSCredential</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="benannt" aliases="cf">
+          <maml:name>Confirm</maml:name>
+          <maml:Description>
+            <maml:para>Prompts you for confirmation before running the cmdlet.</maml:para>
+          </maml:Description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="benannt" aliases="none">
+          <maml:name>ShowJSON</maml:name>
+          <maml:Description>
+            <maml:para>{{Fill ShowJSON Description}}</maml:para>
+          </maml:Description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="benannt" aliases="wi">
+          <maml:name>WhatIf</maml:name>
+          <maml:Description>
+            <maml:para>Shows what would happen if the cmdlet runs. The cmdlet is not run.</maml:para>
+          </maml:Description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
+        <maml:name>Artifact</maml:name>
+        <maml:Description>
+          <maml:para>Name of artifact to delete.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
+        <dev:type>
+          <maml:name>String[]</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="benannt" aliases="cf">
+        <maml:name>Confirm</maml:name>
+        <maml:Description>
+          <maml:para>Prompts you for confirmation before running the cmdlet.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
+        <maml:name>Credential</maml:name>
+        <maml:Description>
+          <maml:para>GRR credential.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">PSCredential</command:parameterValue>
+        <dev:type>
+          <maml:name>PSCredential</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="benannt" aliases="none">
+        <maml:name>ShowJSON</maml:name>
+        <maml:Description>
+          <maml:para>{{Fill ShowJSON Description}}</maml:para>
+        </maml:Description>
+        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="benannt" aliases="wi">
+        <maml:name>WhatIf</maml:name>
+        <maml:Description>
+          <maml:para>Shows what would happen if the cmdlet runs. The cmdlet is not run.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>Keine</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>System.Object</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para></maml:para>
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>Example 1</maml:title>
+        <dev:code>PS C:\&gt; Remove-GRRArtifact -Credential $cred -Artifact WindowsDNSNameServer
+
+status
+------
+OK</dev:code>
+        <dev:remarks>
+          <maml:para>Delete WindowsDNSNameServer artifact in GRR.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>Example 2</maml:title>
+        <dev:code>PS&gt; Remove-GRRArtifact -Credential $cred -Artifact WindowsDNSNameServer,WindowsDNSNameServer2v
+WARNUNG: Skipping artifact 'WindowsDNSNameServer2v' because it is not defined in GRR.
+
+status
+------
+OK</dev:code>
+        <dev:remarks>
+          <maml:para>Delete WindowsDNSNameServer and WindowsDNSNameServer2v artifacts in GRR. A warning is returned because one of the given artifacts was not found in GRR.</maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://github.com/swisscom/powergrr/docs/Remove-GRRArtifact.md</maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>

@@ -643,7 +643,6 @@ Describe 'Get-GRRFlowDescriptor' {
     }
 }
 
-
 Describe 'Add-GRRArtifact' {
     Context 'when there are errors' {
         Mock Invoke-GRRRequest {} -ModuleName PowerGRR
@@ -682,6 +681,108 @@ Describe 'Add-GRRArtifact' {
     }
 }
 
+Describe 'Get-ValidatedGRRArtifact' {
+    InModuleScope PowerGRR {
+        Context 'when there are errors' {
+            Mock Invoke-GRRRequest {} -ModuleName PowerGRR
+            Mock Get-GRRSession {} -ModuleName PowerGRR
+            It 'no web response' {
+                { Get-ValidatedGRRArtifact -Credential $cred -Artifacts TestArtifact } | should throw "No artifacts found in GRR"
+            }
+        }
+
+        Context 'with valid response' {
+            Mock Get-GRRSession {
+                $Headers = @{test="test"}
+                $Websession = new-object -type Microsoft.PowerShell.Commands.WebRequestSession
+                $Headers, $Websession
+            } -ModuleName PowerGRR
+
+            Mock Get-GRRArtifact {
+                $properties = @{'Name'="TestArtifact";
+                                'Description'="Test"}
+                New-Object -TypeName PSObject -Prop $properties
+            } -ModuleName PowerGRR
+
+            It 'when one artifact found' {
+                $ret = Get-ValidatedGRRArtifact -Credential $cred -Artifact TestArtifact
+                $ret | should be "TestArtifact"
+            }
+
+            Mock Get-GRRArtifact {
+                $ret = @()
+                $info = @{
+                    Name="TestArtifact"
+                    Description="Test"
+                }
+                $ret += New-Object PSObject -Prop $info
+                $ret += New-Object PSObject -Prop $info
+                $ret
+            } -ModuleName PowerGRR
+
+            It 'when multiple artifact with same name found' {
+                $ret = Get-ValidatedGRRArtifact -Credential $cred -Artifact TestArtifact
+                $ret | should be "TestArtifact"
+            }
+
+            Mock Get-GRRArtifact {
+                $object = @()
+                $properties = @{'Name'="TestArtifact";
+                                'Description'="Test"}
+                $object += New-Object -TypeName PSObject -Prop $properties
+                $properties = @{'Name'="TestArtifact2";
+                                'Description'="Test"}
+                $object += New-Object -TypeName PSObject -Prop $properties
+                $object
+            } -ModuleName PowerGRR
+
+            It 'when multiple artifact with different names found and searching for one' {
+                $ret = Get-ValidatedGRRArtifact -Credential $cred -Artifact TestArtifact
+                $ret | should be "TestArtifact"
+            }
+
+            It 'when multiple artifact with different names found and searching for two' {
+                $ret = Get-ValidatedGRRArtifact -Credential $cred -Artifact TestArtifact, TestArtifact2
+                $ret | should be @("TestArtifact","TestArtifact2")
+            }
+        }
+    }
+}
+
+Describe 'Remove-GRRArtifact' {
+    Context 'when there are errors' {
+        Mock Invoke-GRRRequest {} -ModuleName PowerGRR
+        Mock Get-GRRSession {} -ModuleName PowerGRR
+
+        It 'no web response' {
+            $ret = Remove-GRRArtifact -Credential $creds -Artifact TestArtifact
+            $ret | should BeNullOrEmpty
+            {$ret.total_count} | should throw
+        }
+    }
+
+    Context 'with valid response' {
+        Mock Get-GRRSession {
+            $Headers = @{test="test"}
+            $Websession = new-object -type Microsoft.PowerShell.Commands.WebRequestSession
+            $Headers, $Websession
+        } -ModuleName PowerGRR
+
+        Mock Get-ValidatedGRRArtifact {
+            "TestArtifact"
+        } -ModuleName PowerGRR
+
+        Mock Invoke-GRRRequest {
+            $StatusOK.Substring(5) | ConvertFrom-Json
+        } -ModuleName PowerGRR
+
+        It 'artifact removal ok' {
+            $ret = Remove-GRRArtifact -Credential $creds -Artifact TestArtifact
+            $ret | should not BeNullOrEmpty
+            $ret.status | should be "OK"
+        }
+    }
+}
 
 Describe 'Get-GRRArtifact' {
     Context 'when there are errors' {

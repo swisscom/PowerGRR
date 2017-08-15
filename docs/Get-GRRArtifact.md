@@ -46,10 +46,6 @@ PS C:\> Get-GRRArtifact -Credential $cred | ?{ $_.SupportedOS -match "windows" -
 
 Name        : WindowsDNSNameServer
 Description : Windows DNS and DHCP Server Registry Keys.
-
-              Typical location for hijacking the DNS or DHCP servers of a client.
-              Used by banking trojans for persistence.
-
 IsCustom    : True
 URLs        : https://technet.microsoft.com/en-us/library/dd197418(v=ws.10).aspx
 Labels      : {System, Network}
@@ -58,12 +54,26 @@ Type        : REGISTRY_VALUE
 Attributes  : @{key_value_pairs=System.Object[]}
 ```
 
-List all Windows artifacts which have "dns" in the name.
+### Example 4
+```
+PS C:\> Get-GRRArtifact -Credential $cred | ? {$_iscustom -eq $true}
+
+Name        : WindowsDNSNameServer
+Description : Windows DNS and DHCP Server Registry Keys.
+IsCustom    : True
+URLs        : https://technet.microsoft.com/en-us/library/dd197418(v=ws.10).aspx
+Labels      : {System, Network}
+SupportedOS : {Windows}
+Type        : REGISTRY_VALUE
+Attributes  : @{key_value_pairs=System.Object[]}
+```
+
+List all custom artifacts.
 
 ## PARAMETERS
 
 ### -Credential
-{{Fill Credential Description}}
+GRR credentials.
 
 ```yaml
 Type: PSCredential

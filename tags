@@ -20,6 +20,7 @@ Get-GRRHuntInfo	.\PowerGRR.psm1	/^Function Get-GRRHuntInfo()$/;"	m
 Get-GRRHuntResult	.\PowerGRR.psm1	/^Function Get-GRRHuntResult()$/;"	m
 Get-GRRLabel	.\PowerGRR.psm1	/^Function Get-GRRLabel()$/;"	m
 Get-GRRSession	.\PowerGRR.psm1	/^function Get-GRRSession ()$/;"	m
+Get-ValidatedGRRArtifact	.\PowerGRR.psm1	/^function Get-ValidatedGRRArtifact()$/;"	m
 Invoke-GRRFlow	.\PowerGRR.psm1	/^function Invoke-GRRFlow()$/;"	m
 Invoke-GRRHunt	.\PowerGRR.psm1	/^function Invoke-GRRHunt()$/;"	m
 Invoke-GRRRequest	.\PowerGRR.psm1	/^function Invoke-GRRRequest ()$/;"	m
@@ -27,6 +28,7 @@ New-DynamicParam	.\PowerGRR.psm1	/^Function New-DynamicParam ()$/;"	m
 New-GRRClientApproval	.\PowerGRR.psm1	/^function New-GRRClientApproval()$/;"	m
 New-GRRHunt	.\PowerGRR.psm1	/^function New-GRRHunt()$/;"	m
 New-GRRHuntApproval	.\PowerGRR.psm1	/^function New-GRRHuntApproval()$/;"	m
+Remove-GRRArtifact	.\PowerGRR.psm1	/^function Remove-GRRArtifact()$/;"	m
 Remove-GRRLabel	.\PowerGRR.psm1	/^function Remove-GRRLabel()$/;"	m
 Set-GRRLabel	.\PowerGRR.psm1	/^Function Set-GRRLabel()$/;"	m
 Set-NewVariable	.\PowerGRR.psm1	/^function Set-NewVariable()$/;"	m

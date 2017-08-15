@@ -79,6 +79,9 @@ Create a new hunt.
 ### [New-GRRHuntApproval](New-GRRHuntApproval.md)
 Create a new hunt approval.
 
+### [Remove-GRRArtifact](Remove-GRRArtifact.md)
+Remove artifact in GRR.
+
 ### [Remove-GRRLabel](Remove-GRRLabel.md)
 Remove a label on a range of clients.
 

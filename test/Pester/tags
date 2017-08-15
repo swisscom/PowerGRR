@@ -17,7 +17,9 @@ Get-GRRHuntInfo	.\PowerGRR.Tests.ps1	/^Describe 'Get-GRRHuntInfo' {$/;"	m
 Get-GRRHuntResult	.\PowerGRR.Tests.ps1	/^Describe 'Get-GRRHuntResult' {$/;"	m
 Get-GRRLabel	.\PowerGRR.Tests.ps1	/^Describe 'Get-GRRLabel' {$/;"	m
 Get-GRRSession	.\PowerGRR.Tests.ps1	/^Describe 'Get-GRRSession' {$/;"	m
+Get-ValidatedGRRArtifact	.\PowerGRR.Tests.ps1	/^Describe 'Get-ValidatedGRRArtifact' {$/;"	m
 Invoke-GRRFlow	.\PowerGRR.Tests.ps1	/^Describe 'Invoke-GRRFlow' {$/;"	m
 Invoke-GRRRequest	.\PowerGRR.Tests.ps1	/^Describe 'Invoke-GRRRequest' {$/;"	m
+Remove-GRRArtifact	.\PowerGRR.Tests.ps1	/^Describe 'Remove-GRRArtifact' {$/;"	m
 Remove-GRRLabel	.\PowerGRR.Tests.ps1	/^Describe 'Remove-GRRLabel' {$/;"	m
 Set-GRRLabel	.\PowerGRR.Tests.ps1	/^Describe 'Set-GRRLabel' {$/;"	m

@@ -913,8 +913,7 @@ function New-GRRHunt()
         elseif ($Flow -eq "ArtifactCollectorFlow")
         {
             $AllArtifacts = Get-GRRArtifact -Credential $Credential
-            if ($AllArtifacts)
-            {
+            if ($AllArtifacts) {
                 $AllArtifacts = $AllArtifacts | select -ExpandProperty name
             }
             else
@@ -1537,6 +1536,117 @@ function Get-GRRFlowDescriptor()
 }
 
 
+function Remove-GRRArtifact()
+{
+    [CmdletBinding(SupportsShouldProcess=$True)]
+    param(
+        [Parameter(Mandatory=$true)]
+        [string[]]
+        $Artifact,
+
+        [Parameter(Mandatory=$true)]
+        [System.Management.Automation.PSCredential]
+        [System.Management.Automation.Credential()]
+        $Credential,
+
+        [switch]
+        $ShowJSON
+    )
+
+    Begin {
+        $Function = $MyInvocation.MyCommand
+        Write-Verbose "$Function Entering $Function"
+    }
+
+    Process {
+        Write-Progress -Activity "Running $Function"
+
+        $Headers,$Websession = Get-GRRSession -Credential $Credential
+
+        if ($pscmdlet.ShouldProcess($Artifact, "Remove artifact"))
+        {
+            if ($Headers -and $Websession)
+            {
+                $ValidatedArtifacts = Get-ValidatedGRRArtifact -Credential $Credential -Artifacts $Artifact
+
+                if ($ValidatedArtifacts)
+                {
+                    $Body = '{"names":["'+ $($ValidatedArtifacts -join "`",`"") + '"]}'
+
+                    $params =  @{
+                        'Url' = "/artifacts";
+                        'Credential' = $Credential;
+                        'Body' = $Body;
+                        'Method' = "Delete";
+                        'Headers' = $Headers;
+                        'Websession' = $Websession
+                        'ShowJSON' = $PSBoundParameters.containskey('ShowJSON')
+                    }
+
+                    Invoke-GRRRequest @params
+                }
+                else
+                {
+                    Write-Error "No artifact found in GRR with the supplied names."
+                }
+            } # headers and websession set
+        } #whatif
+    } # Process block
+
+    End {
+        Write-Verbose "$Function Leaving $Function"
+    }
+}
+
+
+function Get-ValidatedGRRArtifact()
+{
+    param(
+        [Parameter(Mandatory=$true)]
+        [string[]]
+        $Artifacts,
+
+        [Parameter(Mandatory=$true)]
+        [System.Management.Automation.PSCredential]
+        [System.Management.Automation.Credential()]
+        $Credential
+    )
+
+    $Function = $MyInvocation.MyCommand
+    Write-Verbose "$Function Entering $Function"
+
+    $AllArtifacts = Get-GRRArtifact -Credential $Credential
+
+    if ($AllArtifacts) {
+        $AllArtifacts = $AllArtifacts | select -ExpandProperty name | Get-Unique
+    }
+    else
+    {
+        Throw "No artifacts found in GRR"
+    }
+
+    $ValidatedArtifacts = @()
+
+    $Artifacts = $Artifacts | Get-Unique
+
+    foreach ($Artifact in $Artifacts)
+    {
+        if ($AllArtifacts.contains($Artifact))
+        {
+            $ValidatedArtifacts += $Artifact
+        }
+        else
+        {
+            write-warning "Skipping artifact `'$Artifact`' because it is not defined in GRR."
+        }
+    }
+
+    $ValidatedArtifacts
+
+    Write-Verbose "$Function Leaving $Function"
+}
+
+
 function Add-GRRArtifact()
 {
     [CmdletBinding(SupportsShouldProcess=$True)]
@@ -1822,7 +1932,7 @@ function Invoke-GRRRequest ()
         $Websession,
 
         [string]
-        [ValidateSet("POST","GET", "PATCH")]
+        [ValidateSet("POST","GET", "PATCH", "DELETE")]
         $Method,
 
         [Parameter(ParameterSetName="GET", Mandatory=$true)]
@@ -1954,6 +2064,13 @@ function Invoke-GRRRequest ()
             {
                 $params += @{
                     'Method' = "PATCH"
+                    'ContentType' = "application/json"
+                }
+            }
+            elseif ($Method -match "DELETE")
+            {
+                $params += @{
+                    'Method' = "DELETE"
                     'ContentType' = "application/json"
                 }
             }
@@ -2351,7 +2468,8 @@ Export-ModuleMember @(
     'Get-GRRArtifact',
     'Get-GRRConfig',
     'ConvertTo-Base64',
-    'Add-GRRArtifact'
+    'Add-GRRArtifact',
+    'Remove-GRRArtifact'
 )
 
 #endregion

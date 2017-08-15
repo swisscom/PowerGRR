@@ -52,10 +52,11 @@ Some of the use cases where PowerGRR could speed up the work:
     object for easier filtering.
 * Create and start a new hunt and get the hunt info or results as PowerShell
     objects
+* Create a hunt or a client approval.
 * Add or remove a label on one or multiple clients based on a list of computer
     names.
+* Add or remove artifacts in the GRR artifact repository.
 * List hunts, artifacts, labels or clients and filter them in different ways.
-* Create a hunt or a client approval.
 * Build IR scripts for common forensic workflows and start multiple hunts or
     flows in one shot using multiple cmdlets inside a PowerShell script.
 

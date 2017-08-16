@@ -4,12 +4,29 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) 
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## [Unreleased](https://github.com/swisscom/powergrr/compare/v0.4.2...master)
+## [Unreleased](https://github.com/swisscom/powergrr/compare/v0.5.0...master)
+
+<!--
+### Added
+
+### Changed
+
+### Deprecated
+
+### Removed
+
+### Fixed
+
+### Security
+-->
+
+## [v0.5.0](https://github.com/swisscom/powergrr/compare/v0.4.2...v0.5.0) - 2017-08-16
 
 Add support for certificate authentication based on certificate files. This
 allows using certificate authentication with PowerShell Core and especially on
-non-Windows platforms. Furthermore, commands for uploading artifacts to
-GRR and removing them from GRR were added.
+non-Windows platforms. Use the new config option to set the certificate file path.
+Furthermore, commands for uploading artifacts to GRR and removing them from
+GRR were added.
 
 ### Added
 
@@ -29,12 +46,9 @@ GRR and removing them from GRR were added.
 * Add base64 encoding function (`ConvertTo-Base64`) which is used for
   manual basic authentication to mitigate missing basic authentication in
   PowerShell Core cmdlets, see section fixed below.
-
-### Changed
-
-### Deprecated
-
-### Removed
+* Add supporting function `Get-ValidatedGRRArtifact` and use the function
+  inside of `Invoke-GRRRequest` and `Remove-GRRArtifact` to verify given
+  artifacts against the artifact repository in GRR.
 
 ### Fixed
 * **Fix an issue in the basic authentication when using PowerShell Core** ([#11](https://github.com/swisscom/PowerGRR/issues/11)).
@@ -47,8 +61,6 @@ GRR and removing them from GRR were added.
   using the same authentication code on Windows and on non-Windows platforms.
   The authentication was tested on Windows with PowerShell v5, Windows with
   PowerShell Core and Ubuntu with PowerShell Core.
-
-### Security
 
 ## [v0.4.2](https://github.com/swisscom/powergrr/compare/v0.4.1...v0.4.2) - 2017-08-08
 

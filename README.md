@@ -133,20 +133,25 @@ Ubuntu 16.04. See issue [#9](https://github.com/swisscom/PowerGRR/issues/9).
 
 **Client certificate authentication using PowerShell Core**
 
-The client certificate authentication is currently not supported in PowerShell
-Core 6.0.0-beta.5 release packages on Github (see issue [#8](https://github.com/swisscom/PowerGRR/issues/8)).
+The client certificate authentication using certificate files without the Windows certificate 
+store is currently not supported in PowerShell Core 6.0.0-beta.5 release packages on 
+Github (see issue [#8](https://github.com/swisscom/PowerGRR/issues/8)). Only certificate authentication
+using the Windows certificate store is supported as of PowerShell Core 6.0.0-beta.5.
 _This is a known issue in PowerShell Core and is tracked in the following 
 [issue #4544](https://github.com/PowerShell/PowerShell/issues/4544) and corresponding
 [PowerShell Core pull request #4546](https://github.com/PowerShell/PowerShell/pull/4546)_.
+In combination with the missing certificate store support on non-Windows platforms, as
+tracked in [#1865](https://github.com/PowerShell/PowerShell/issues/1865), certificate authentication
+is not possible on non-Windows platforms.
 
-Certificate authentication is currently only supported when using a custom
-PowerShell Core build with the patch mentioned by @markekraus 
+Certificate authentication based on certificate files is currently only supported when using 
+a custom PowerShell Core build with the patch mentioned by @markekraus 
 on [#4544](https://github.com/PowerShell/PowerShell/issues/4544). See Mark's comments or
 build commands below regarding the used commands to build PowerShell Core from
 scratch on your platform (no special environment is needed and reserve a
 20min-:coffee:-break).
 
-The certificate handling was tested on Windows with
+The authentication based on certificate files was tested on Windows with
 PowerShell v5 and on Windows and Ubuntu 16.04 with PowerShell Core
 6.0.0-beta.5 with the needed code changes.
 
@@ -154,7 +159,7 @@ You can build your own PowerShell Core binaries _after_ you installed
 an available PowerShell version first, see section [PowerShell](#powershell) 
 in requirements above.
 
-1. Fix the code in the file
+* **Fix the code in the file** 
    _PowerShell/src/Microsoft.PowerShell.Commands.Utility/commands/utility/WebCmdlet/CoreCLR/WebRequestPSCmdlet.CoreClr.cs_
    in your PowerShell Core clone on line 167 to this lines:
  
@@ -168,10 +173,11 @@ in requirements above.
     Build the binaries based on your clone for the platform your are currently running the commands on:
 
     ```
-    powershell -noprofile -ExecutionPolicy bypass -command 'Import-Module ./build.psm1; Sync-PSTags; Start-PSBootstrap; Start-PSBuild'
+    $ cd <folder-of-your-PowerShell-clone>
+    $ powershell -noprofile -ExecutionPolicy bypass -command 'Import-Module ./build.psm1; Sync-PSTags; Start-PSBootstrap; Start-PSBuild'
     ```
 
-2. Build PowerShell Core based on Mark's fork:
+* **Build PowerShell Core based on Mark's fork**:
 
     ```
     mkdir ~/gittest

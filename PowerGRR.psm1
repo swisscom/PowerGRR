@@ -1160,42 +1160,17 @@ function Invoke-GRRFlow()
         }
         elseif ($Flow -eq "ArtifactCollectorFlow")
         {
-            $AllArtifacts = Get-GRRArtifact -Credential $Credential
-            if ($AllArtifacts)
+            $ValidatedArtifacts = Get-ValidatedGRRArtifact -Credential $Credential -Artifacts $PSBoundParameters['ArtifactList']
+
+            if ($ValidatedArtifacts)
             {
-                $AllArtifacts = $AllArtifacts | select -ExpandProperty name
+                $PluginArguments = '{"artifact_list":["'+ $($ValidatedArtifacts -join "`",`"") + '"]}'
+                Write-Verbose "PluginArguments for ArtifactCollectorFlow: $PluginArguments"
             }
             else
             {
-                Throw "No artifacts found in GRR"
+                Throw "No artifacts found in GRR which match the given artifacts."
             }
-
-            $ValidatedArtifacts = @()
-
-            foreach ($Artifact in $PSBoundParameters['ArtifactList'])
-            {
-                if ($AllArtifacts -and $AllArtifacts.contains($Artifact))
-                {
-                    $ValidatedArtifacts += $Artifact
-                }
-                else
-                {
-                    write-warning "Skipping artifact `'$Artifact`' because it is not defined in GRR."
-                }
-            }
-
-            if($ValidatedArtifacts)
-            {
-                $ValidatedArtifacts = $ValidatedArtifacts | Get-Unique
-            }
-            else
-            {
-                Throw "No artifacts found in GRR which match the command"
-            }
-
-            $PluginArguments = '{"artifact_list":["'+ $($ValidatedArtifacts -join "`",`"") + '"]}'
-
-            Write-Verbose "PluginArguments for ArtifactCollectorFlow: $PluginArguments"
         }
 
         $Body = '{"flow":{"runner_args":{"flow_name":"'+$Flow+'",'

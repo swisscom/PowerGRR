@@ -23,7 +23,8 @@ GRR and removing them from GRR were added.
 * Add **config option for the client certificate path** to handle
   certificate authentication based on files (_GRRClientCertFilePath_).
 * Add `Add-GRRArtifact` for **uploading new artifacts to GRR**. Tested with
-  Windows PowerShell v5 and PowerShell Core 6.0.0-beta.5 on Windows.
+  Windows PowerShell v5 and PowerShell Core 6.0.0-beta.5 on Windows and PowerShell
+  Core 6.0.0-beta.5 on macOS.
 * Add `Remove-GRRArtifact` for **removing one or multiple artifacts from GRR**.
 * Add base64 encoding function (`ConvertTo-Base64`) which is used for
   manual basic authentication to mitigate missing basic authentication in

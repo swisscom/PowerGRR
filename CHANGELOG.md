@@ -6,9 +6,17 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased](https://github.com/swisscom/powergrr/compare/v0.5.0...master)
 
-<!--
 ### Added
+* **Add functions `Get-GRRClientApproval` and `Get-GRRHuntApproval` for getting
+  requested client or hunt approvals**. Filter them in different ways with the
+  given parameters or get a list of all approvals and use PowerShell for
+  filtering. **Tip:** Use the switch _-OnlyState_ to only show the state of the
+  given approvals. This allows using a loop until the approval is valid and
+  lets you continue with the desired actions directly as soon as the approval
+  was made. What was the Splunk slogan again..."PowerGRR, because Ninjas are
+  too busy." See example in the help for the available filter parameters.
 
+<!--
 ### Changed
 
 ### Deprecated

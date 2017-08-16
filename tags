@@ -10,12 +10,14 @@ Find-GRRClientByLabel	.\PowerGRR.psm1	/^Function Find-GRRClientByLabel()$/;"	m
 Get-ClientCertificate	.\PowerGRR.psm1	/^Function Get-ClientCertificate()$/;"	m
 Get-EpocTimeFromUtc	.\PowerGRR.psm1	/^function Get-EpocTimeFromUtc ([long]$UnixTime)$/;"	m
 Get-GRRArtifact	.\PowerGRR.psm1	/^function Get-GRRArtifact()$/;"	m
+Get-GRRClientApproval	.\PowerGRR.psm1	/^function Get-GRRClientApproval()$/;"	m
 Get-GRRClientIdFromComputerName	.\PowerGRR.psm1	/^Function Get-GRRClientIdFromComputerName()$/;"	m
 Get-GRRComputerNameFromClientId	.\PowerGRR.psm1	/^Function Get-GRRComputerNameFromClientId()$/;"	m
 Get-GRRConfig	.\PowerGRR.psm1	/^Function Get-GRRConfig()$/;"	m
 Get-GRRFlowDescriptor	.\PowerGRR.psm1	/^function Get-GRRFlowDescriptor()$/;"	m
 Get-GRRFlowResult	.\PowerGRR.psm1	/^function Get-GRRFlowResult()$/;"	m
 Get-GRRHunt	.\PowerGRR.psm1	/^Function Get-GRRHunt()$/;"	m
+Get-GRRHuntApproval	.\PowerGRR.psm1	/^function Get-GRRHuntApproval()$/;"	m
 Get-GRRHuntInfo	.\PowerGRR.psm1	/^Function Get-GRRHuntInfo()$/;"	m
 Get-GRRHuntResult	.\PowerGRR.psm1	/^Function Get-GRRHuntResult()$/;"	m
 Get-GRRLabel	.\PowerGRR.psm1	/^Function Get-GRRLabel()$/;"	m

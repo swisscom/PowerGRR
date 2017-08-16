@@ -490,6 +490,256 @@ function Invoke-GRRHunt()
 }
 
 
+function Get-GRRHuntApproval()
+{
+    [CmdletBinding(DefaultParameterSetName="ByUser")]
+    param(
+        [Parameter(Mandatory=$true)]
+        [System.Management.Automation.PSCredential]
+        [System.Management.Automation.Credential()]
+        $Credential,
+
+        [Parameter(ParameterSetName="ByApproval",Mandatory=$true)]
+        [string]
+        $HuntId,
+
+        [Parameter(ParameterSetName="ByApproval",Mandatory=$true)]
+        [string]
+        $ApprovalId,
+
+        [Parameter(ParameterSetName="ByApproval",Mandatory=$false)]
+        [switch]
+        $OnlyState,
+
+        [Parameter(ParameterSetName="ByUser",Mandatory=$false)]
+        [int]
+        $Offset,
+
+        [Parameter(ParameterSetName="ByUser",Mandatory=$false)]
+        [int]
+        $Count,
+
+        [switch]
+        $ShowJSON
+    )
+
+    $Function = $MyInvocation.MyCommand
+
+    Write-Verbose "$Function Entering $Function"
+
+    Write-Progress -Activity "Running $Function"
+
+    $params = @{
+        'Credential' = $Credential;
+        'ShowJSON' = $PSBoundParameters.containskey('ShowJSON');
+    }
+
+    if (!$HuntId -and !$ApprovalId)
+    {
+        $Url = "/users/me/approvals/hunt"
+
+        if ($PSBoundParameters.containskey('Count'))
+        {
+            if ($Url -match "\?") { $Url += "&" }
+            else { $Url += "?" }
+            $Url += "count=$Count"
+        }
+        if ($PSBoundParameters.containskey('Offset'))
+        {
+            if ($Url -match "\?") { $Url += "&" }
+            else { $Url += "?" }
+            $Url += "offset=$Offset"
+        }
+    }
+    else
+    {
+        $Url = "/users/$($Credential.UserName)/approvals/hunt/$HuntId/$ApprovalId"
+    }
+
+    Write-Verbose "URL: $Url"
+
+    $params += @{
+        'Url' = $Url;
+    }
+
+    $ret = Invoke-GRRRequest @params
+
+    if ($ret -and !$PSBoundParameters.containskey('ShowJSON'))
+    {
+        if ($OnlyState)
+        {
+            if ($ret.PSobject.Properties.name -match "is_valid")
+            {
+                $ret.is_valid
+            }
+            else
+            {
+                $ret
+            }
+        }
+        else
+        {
+            if ($ret.PSobject.Properties.name -match "items")
+            {
+                $ret.items
+            }
+            else
+            {
+                $ret
+            }
+        }
+    }
+    else
+    {
+        $ret
+    }
+
+    Write-Verbose "$Function Leaving $Function"
+}
+
+
+function Get-GRRClientApproval()
+{
+    [CmdletBinding(DefaultParameterSetName="ByUser")]
+    param(
+        [Parameter(Mandatory=$true)]
+        [System.Management.Automation.PSCredential]
+        [System.Management.Automation.Credential()]
+        $Credential,
+
+        [Parameter(ParameterSetName="ByApproval",Mandatory=$true)]
+        [Parameter(ParameterSetName="ByUser",Mandatory=$false)]
+        [string]
+        $ComputerName,
+
+        [Parameter(ParameterSetName="ByApproval",Mandatory=$true)]
+        [string]
+        $ApprovalId,
+
+        [Parameter(ParameterSetName="ByApproval",Mandatory=$false)]
+        [switch]
+        $OnlyState,
+
+        [Parameter(ParameterSetName="ByUser",Mandatory=$false)]
+        [int]
+        $Offset,
+
+        [Parameter(ParameterSetName="ByUser",Mandatory=$false)]
+        [int]
+        $Count,
+
+        [Parameter(ParameterSetName="ByUser",Mandatory=$false)]
+        [ValidateSet("ANY","VALID", "INVALID")]
+        [string]
+        $State,
+
+        [switch]
+        $ShowJSON
+    )
+
+    $Function = $MyInvocation.MyCommand
+
+    Write-Verbose "$Function Entering $Function"
+
+    Write-Progress -Activity "Running $Function"
+
+    $params = @{
+        'Credential' = $Credential;
+        'ShowJSON' = $PSBoundParameters.containskey('ShowJSON');
+    }
+
+    if (!$ApprovalId)
+    {
+        $Url = "/users/me/approvals/client"
+
+        if ($PSBoundParameters.containskey('Count'))
+        {
+            if ($Url -match "\?") { $Url += "&" }
+            else { $Url += "?" }
+            $Url += "count=$Count"
+        }
+        if ($PSBoundParameters.containskey('Offset'))
+        {
+            if ($Url -match "\?") { $Url += "&" }
+            else { $Url += "?" }
+            $Url += "offset=$Offset"
+        }
+        if ($PSBoundParameters.containskey('ComputerName'))
+        {
+            if ($Url -match "\?") { $Url += "&" }
+            else { $Url += "?" }
+            $ClientId = Get-GRRClientIdFromComputerName -Credential $Credential -ComputerName $ComputerName
+            if ($ClientId)
+            {
+                $Url += "client_id=$($ClientId.ClientId)"
+            }
+            else
+            {
+                write-warning "Skipping filter '$ComputerName' because no client id found in GRR."
+            }
+        }
+        if ($PSBoundParameters.containskey('State'))
+        {
+            if ($Url -match "\?") { $Url += "&" }
+            else { $Url += "?" }
+            $Url += "state=$State"
+        }
+    }
+    else
+    {
+        $ClientId = Get-GRRClientIdFromComputerName -Credential $Credential -ComputerName $ComputerName
+        if ($ClientId)
+        {
+            $Url = "/users/$($Credential.UserName)/approvals/client/$($ClientId.ClientId)/$ApprovalId"
+        }
+        else
+        {
+            throw "No client id found matching filter '$ComputerName'."
+        }
+    }
+
+    Write-Verbose "URL: $Url"
+
+    $params += @{
+        'Url' = $Url;
+    }
+
+    $ret = Invoke-GRRRequest @params
+
+    if ($ret -and !$PSBoundParameters.containskey('ShowJSON'))
+    {
+        if ($OnlyState)
+        {
+            if ($ret.PSobject.Properties.name -match "is_valid")
+            {
+                $ret.is_valid
+            }
+            else
+            {
+                $ret
+            }
+        }
+        else
+        {
+            if ($ret.PSobject.Properties.name -match "items")
+            {
+                $ret.items
+            }
+            else
+            {
+                $ret
+            }
+        }
+    }
+    else
+    {
+        $ret
+    }
+
+    Write-Verbose "$Function Leaving $Function"
+}
+
+
 function New-GRRHuntApproval()
 {
     [CmdletBinding(SupportsShouldProcess=$True)]
@@ -2444,7 +2694,9 @@ Export-ModuleMember @(
     'Get-GRRConfig',
     'ConvertTo-Base64',
     'Add-GRRArtifact',
-    'Remove-GRRArtifact'
+    'Remove-GRRArtifact',
+    'Get-GRRHuntApproval',
+    'Get-GRRClientApproval'
 )
 
 #endregion

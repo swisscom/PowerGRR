@@ -32,6 +32,9 @@ the computername or the whole GRR object.
 ### [Find-GRRClientByLabel](Find-GRRClientByLabel.md)
 Search for clients with a given label.
 
+### [Get-GRRClientApproval](Get-GRRClientApproval.md)
+Get client approvals identified by the given filters. 
+
 ### [Get-GRRClientIdFromComputerName](Get-GRRClientIdFromComputerName.md)
 Convert a computername into the corresponding GRR client id.
 
@@ -50,6 +53,9 @@ Get flow results for a specific client and a flow.
 ### [Get-GRRHunt](Get-GRRHunt.md)
 Get a list of available hunts. Filter the list with the parameter or
 afterwards with PowerShell.
+
+### [Get-GRRHuntApproval](Get-GRRHuntApproval.md)
+Get hunt approvals identified by the given filters. 
 
 ### [Get-GRRHuntInfo](Get-GRRHuntInfo.md)
 Get hunt info for a specific hunt.

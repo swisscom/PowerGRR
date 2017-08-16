@@ -33,12 +33,12 @@ Please see [Command Documentation](docs/PowerGRR.md) and
 PowerGRR is a **PowerShell module for working with the
 [GRR](https://github.com/google/grr) API working on Windows, macOS and
 Linux**. GRR Rapid Response is an incident response framework focused on
-remote live forensics. The module allows working with flows, hunts, labels and
-the search feature. Furthermore, it allows **working with the computer names
-instead of the GRR internal client id**. This makes handling and working with
-other tools more easy because often you just have the computer names. PowerGRR
-also enables you to easily document your work in text form which is then
-directly reusable by others.
+remote live forensics. The module allows working with flows, hunts, labels,
+artifacts, approvals and the search feature. Furthermore, it allows **working
+with the computer names instead of the GRR internal client id**. This makes
+handling and working with other tools more easy because often you just have
+the computer names. PowerGRR also enables you to easily document your work in
+text form which is then directly reusable by others.
 
 PowerGRR creates a comfortable, cli-based workflow for incident response.
 PowerShell is installed on every Windows workstation and working directly with
@@ -56,7 +56,8 @@ Some of the use cases where PowerGRR could speed up the work:
 * Add or remove a label on one or multiple clients based on a list of computer
     names.
 * Add artifacts to or remove artifacts from the GRR artifact repository.
-* List hunts, artifacts, labels or clients and filter them in different ways.
+* List hunts, artifacts, client or hunt approvals, labels and clients and
+  filter them in different ways.
 * Build IR scripts for common forensic workflows and start multiple hunts or
     flows in one shot using multiple cmdlets inside a PowerShell script.
 

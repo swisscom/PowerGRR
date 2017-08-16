@@ -92,7 +92,9 @@ FunctionsToExport = @(
     'Get-GRRConfig',
     'ConvertTo-Base64',
     'Add-GRRArtifact',
-    'Remove-GRRArtifact'
+    'Remove-GRRArtifact',
+    'Get-GRRHuntApproval',
+    'Get-GRRClientApproval'
     )
 
 # Cmdlets to export from this module

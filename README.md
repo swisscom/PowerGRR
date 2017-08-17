@@ -4,7 +4,7 @@
 
 PowerGRR is a PowerShell module for working with the GRR API working on Windows, macOS and Linux. 
 
-Please see [Command Documentation](docs/PowerGRR.md) and
+Please see [Command Documentation](docs/PowerGRR.md), [Wiki](https://github.com/swisscom/PowerGRR/wiki) and
 [CHANGELOG](CHANGELOG.md).
 
 ***
@@ -278,8 +278,9 @@ authentication](#certificate-authentication) in requirements above.
 
 ### Cmdlets
 
-Please see [docs](docs/PowerGRR.md) for further information and the list of
-all available commands.
+Please see [docs](docs/PowerGRR.md) for the list of all available commands and the
+[wiki](https://github.com/swisscom/PowerGRR/wiki) for further information how
+you could use and combine the different PowerGRR commands.
 
 Use the common parameters like _-WhatIf_ or _-Verbose_ for troubleshooting and to
 see what the commands would do. _WhatIf_ is implemented for every function which
@@ -336,7 +337,9 @@ OVERVIEW
 
 The following examples shows how you could combine the different PowerGRR functions
 to quickly label some clients, start a flow against them or a hunt based on a label
-and read the results.
+and read the results. You can find more code snippets and ideas in the
+[wiki](https://github.com/swisscom/PowerGRR/wiki) and see section
+[help](#help) above how to use the help system in PowerShell.
 
 ```powershell
 # Read the client information to check LastSeenAt and the OSVersion

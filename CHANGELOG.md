@@ -15,6 +15,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
   lets you continue with the desired actions directly as soon as the approval
   was made. What was the Splunk slogan again..."PowerGRR, because Ninjas are
   too busy." See example in the help for the available filter parameters.
+* Add parameter _-OnlyId_ in `New-GRRHunt` for returning only the hunt id.
 
 <!--
 ### Changed

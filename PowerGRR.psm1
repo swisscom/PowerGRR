@@ -1042,6 +1042,9 @@ function New-GRRHunt()
         $EmailAddress,
 
         [switch]
+        $OnlyId,
+
+        [switch]
         $OnlyUrl,
 
         # Fix for dynamic parameter autocompletion issue: https://github.com/PowerShell/PowerShell/issues/3984
@@ -1267,7 +1270,11 @@ function New-GRRHunt()
             }
 
             $HuntReturnValue = Invoke-GRRRequest @params -ShowJSON:$PSBoundParameters.containskey('ShowJSON')
-            if ($HuntReturnValue -and $OnlyUrl -and !$PSBoundParameters.containskey('ShowJSON'))
+            if ($HuntReturnValue -and $OnlyId -and !$PSBoundParameters.containskey('ShowJSON'))
+            {
+                $(($HuntReturnValue.urn).substring(12))
+            }
+            elseif ($HuntReturnValue -and $OnlyUrl -and !$PSBoundParameters.containskey('ShowJSON'))
             {
                 "$GRRUrl/#/hunts/$(($HuntReturnValue.urn).substring(12))"
             }

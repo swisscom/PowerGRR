@@ -668,7 +668,7 @@ function Get-GRRClientApproval()
         {
             if ($Url -match "\?") { $Url += "&" }
             else { $Url += "?" }
-            $ClientId = Get-GRRClientIdFromComputerName -Credential $Credential -ComputerName $ComputerName
+            $ClientId = Get-GRRClientIdFromComputerName -Credential $Credential -ComputerName $ComputerName -OnlyLastSeen
             if ($ClientId)
             {
                 $Url += "client_id=$($ClientId.ClientId)"
@@ -687,7 +687,7 @@ function Get-GRRClientApproval()
     }
     else
     {
-        $ClientId = Get-GRRClientIdFromComputerName -Credential $Credential -ComputerName $ComputerName
+        $ClientId = Get-GRRClientIdFromComputerName -Credential $Credential -ComputerName $ComputerName -OnlyLastSeen
         if ($ClientId)
         {
             $Url = "/users/$($Credential.UserName)/approvals/client/$($ClientId.ClientId)/$ApprovalId"

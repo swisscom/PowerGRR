@@ -192,7 +192,7 @@ in requirements above.
 
 ## Installation
 
-* Install PowerGRR from [PowerShell Gallery](https://www.powershellgallery.com/packages/PowerGRR/) (only released versions, see [CHANGELOG](CHANGELOG.md)):
+* Install PowerGRR from [PowerShell Gallery](https://www.powershellgallery.com/packages/PowerGRR/). [PowerShellGet](https://github.com/powerShell/powershellget) is required which is installed in PowerShell Core and since Windows PowerShell v5 by default. Only released versions are available there, see [CHANGELOG](CHANGELOG.md).
 
     ``` powershell
     # Inpsect
@@ -204,7 +204,13 @@ in requirements above.
     # Update
     Update-Module -Name PowerGRR
     ```
-
+   
+   If you get an error, try using the following command to set PowerShell Gallery as one of your repositories:
+   
+   ``` powershell
+   Register-PSRepository -Default
+   ```
+   
 * Install PowerGRR from Github:
 
     * Clone or download the repo into your module path folder, usually

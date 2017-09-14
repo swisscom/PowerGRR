@@ -8,7 +8,7 @@ Import-Module -Force $BasePath\PowerGRR.psm1
 
 $password = "bad"
 $secureStringPwd = $password | ConvertTo-SecureString -AsPlainText -Force 
-$creds = New-Object System.Management.Automation.PSCredential -ArgumentList "user", $secureStringPwd
+$global:PesterTestCredentials = New-Object System.Management.Automation.PSCredential -ArgumentList "user", $secureStringPwd
 
 $global:NoItem = @"
 )]}`'
@@ -105,7 +105,7 @@ $global:ClientApprovalInvalid = @"
 Describe 'Get-GRRHuntResult' {
     Context 'when there are errors.' {
         It 'has no hunt id' {
-            { Get-GRRHuntResult -Credential $creds } | should Throw "Provide a hunt id with -HuntId"
+            { Get-GRRHuntResult -Credential $PesterTestCredentials } | should Throw "Provide a hunt id with -HuntId"
         }
 
         It 'has no web response' {
@@ -154,7 +154,7 @@ Describe 'Get-GRRHuntInfo' {
     Context 'when there are errors.' {
         It 'has no hunt id' {
             Mock Invoke-GRRRequest {} -ModuleName PowerGRR
-            { Get-GRRHuntInfo -Credential $creds } | should Throw "Provide a hunt id with -HuntId"
+            { Get-GRRHuntInfo -Credential $PesterTestCredentials } | should Throw "Provide a hunt id with -HuntId"
         }
 
         It 'has no web response' {
@@ -187,7 +187,7 @@ Describe 'Get-GRRHuntInfo' {
                 $ValidHuntResults.substring(5) | ConvertFrom-Json
             } -ModuleName PowerGRR
 
-            $json = Get-GRRHuntInfo -HuntId "H:11111111" -Credential $creds -ShowJSON
+            $json = Get-GRRHuntInfo -HuntId "H:11111111" -Credential $PesterTestCredentials -ShowJSON
             $json | should not BeNullOrEmpty
             $ret = $json | ConvertFrom-Json
             $ret.description | should be "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
@@ -247,7 +247,7 @@ Describe 'Get-GRRClientIdFromComputerName' {
         }
 
         It 'Get clientid from computername and show only last seen' {
-            $ret = Get-GRRClientIdFromComputerName -computername "hostname-aabbcc" -Credential $creds -OnlyLastSeen
+            $ret = Get-GRRClientIdFromComputerName -computername "hostname-aabbcc" -Credential $PesterTestCredentials -OnlyLastSeen
             $ret | select -expandproperty clientid |  should be "C.1234567890123456"
             ($ret | measure).count | Should Be 1
         }
@@ -271,13 +271,13 @@ Describe 'Find-GRRClient' {
         } -ModuleName PowerGRR
 
         It 'find specific client and show only hostname' {
-            $ret = Find-GRRClient -SearchString "hostname-aabbcc" -Credential $creds -OnlyComputerName
+            $ret = Find-GRRClient -SearchString "hostname-aabbcc" -Credential $PesterTestCredentials -OnlyComputerName
             $ret | should be @("AABBCCDD","AABBCCDD")
             ($ret | measure).count | Should Be 2
         }
 
         It 'find specific client and show only last seen hostname' {
-            $ret = Find-GRRClient -SearchString "hostname-aabbcc" -Credential $creds -OnlyComputerName
+            $ret = Find-GRRClient -SearchString "hostname-aabbcc" -Credential $PesterTestCredentials -OnlyComputerName
             $ret | should be @("AABBCCDD","AABBCCDD")
             ($ret | measure).count | Should Be 2
         }
@@ -299,7 +299,7 @@ Describe 'Find-GRRClientByLabel' {
             $ret | should BeNullOrEmpty
             {$ret.total_count} | should throw
 
-            { Find-GRRClientByLabel -Credential $creds } | should throw
+            { Find-GRRClientByLabel -Credential $PesterTestCredentials } | should throw
         }
     }
 
@@ -309,7 +309,7 @@ Describe 'Find-GRRClientByLabel' {
         } -ModuleName PowerGRR
 
         It 'use valid client search' {
-            $ret = Find-GRRClientByLabel -SearchString "LabelX" -Credential $creds -OnlyComputerName
+            $ret = Find-GRRClientByLabel -SearchString "LabelX" -Credential $PesterTestCredentials -OnlyComputerName
             $ret | should be @("AABBCCDD","AABBCCDD")
         }
     }
@@ -393,11 +393,11 @@ Describe 'Invoke-GRRFlow' {
         }
 
         It 'no web response in ArtifactCollectorFlow' {
-            { Invoke-GRRFlow -ComputerName XY -Flow "ArtifactCollectorFlow" -Artifact "WindowsAutorun" -Credential $creds } | should throw
+            { Invoke-GRRFlow -ComputerName XY -Flow "ArtifactCollectorFlow" -Artifact "WindowsAutorun" -Credential $PesterTestCredentials } | should throw
         }
 
         It 'has invalid flow name' {
-            { Invoke-GRRFlow -Flow "InvalidFlow" -Key "HKCM" -Credential $creds } | Should Throw
+            { Invoke-GRRFlow -Flow "InvalidFlow" -Key "HKCM" -Credential $PesterTestCredentials } | Should Throw
         }
     }
 
@@ -448,7 +448,7 @@ Describe 'Invoke-GRRFlow' {
 
         It 'invoke a valid ArtifactCollector flow but without any artifacts available' {
             Mock Get-GRRArtifact {} -ModuleName PowerGRR
-            { Invoke-GRRFlow -ComputerName XY -Flow "ArtifactCollectorFlow" -Artifact "WindowsAutorun" -Credential $creds } | Should throw
+            { Invoke-GRRFlow -ComputerName XY -Flow "ArtifactCollectorFlow" -Artifact "WindowsAutorun" -Credential $PesterTestCredentials } | Should throw
         }
 
         It 'invoke a valid ArtifactCollector flow with the correct artifacts available' {
@@ -467,7 +467,7 @@ Describe 'Invoke-GRRFlow' {
                 $info.Name="WindowsAutostart"
                 New-Object PSObject -Property $info
             } -ModuleName PowerGRR
-            { Invoke-GRRFlow -ComputerName XY -Flow "ArtifactCollectorFlow" -Artifact "WindowsAutorun" -Credential $creds } | should throw
+            { Invoke-GRRFlow -ComputerName XY -Flow "ArtifactCollectorFlow" -Artifact "WindowsAutorun" -Credential $PesterTestCredentials } | should throw
         }
     }
 }
@@ -563,7 +563,7 @@ Describe 'Invoke-GRRRequest' {
         } -ModuleName PowerGRR
 
         It 'GET request' {
-            $ret = Invoke-GRRRequest -Url "/hunts/myurl" -Credential $creds -ShowJSON
+            $ret = Invoke-GRRRequest -Url "/hunts/myurl" -Credential $PesterTestCredentials -ShowJSON
             $ret | should BeNullOrEmpty
             { $ret.substring(5) } | should throw
         }
@@ -593,7 +593,7 @@ Describe 'Invoke-GRRRequest' {
         } -ModuleName PowerGRR
 
         It 'returning JSON' {
-            $ret = Invoke-GRRRequest -Url "/hunts/myurl" -Credential $creds -ShowJSON
+            $ret = Invoke-GRRRequest -Url "/hunts/myurl" -Credential $PesterTestCredentials -ShowJSON
             $ret | should not BeNullOrEmpty
             $ret | should be $EmptyReturnObject
         }
@@ -682,13 +682,13 @@ Describe 'Add-GRRArtifact' {
         Set-Content $path -value "artifact"
 
         It 'no web response' {
-            $ret = Add-GRRArtifact -Credential $creds -ArtifactFile $path
+            $ret = Add-GRRArtifact -Credential $PesterTestCredentials -ArtifactFile $path
             $ret | should BeNullOrEmpty
             {$ret.total_count} | should throw
         }
 
         It 'file not found' {
-             { Add-GRRArtifact -Credential $creds -ArtifactFile C:\non-existing-path\test.yaml } | should throw "Artifact file not found."
+             { Add-GRRArtifact -Credential $PesterTestCredentials -ArtifactFile C:\non-existing-path\test.yaml } | should throw "Artifact file not found."
         }
     }
 
@@ -704,7 +704,7 @@ Describe 'Add-GRRArtifact' {
         } -ModuleName PowerGRR
 
         It 'upload ok' {
-            $ret = Add-GRRArtifact -Credential $creds -ArtifactFile $path
+            $ret = Add-GRRArtifact -Credential $PesterTestCredentials -ArtifactFile $path
             $ret | should not BeNullOrEmpty
             $ret.status | should be "OK"
         }
@@ -717,7 +717,7 @@ Describe 'Get-ValidatedGRRArtifact' {
             Mock Invoke-GRRRequest {} -ModuleName PowerGRR
             Mock Get-GRRSession {} -ModuleName PowerGRR
             It 'no web response' {
-                { Get-ValidatedGRRArtifact -Credential $cred -Artifacts TestArtifact } | should throw "No artifacts found in GRR"
+                { Get-ValidatedGRRArtifact -Credential $PesterTestCredentials -Artifacts TestArtifact } | should throw "No artifacts found in GRR"
             }
         }
 
@@ -735,7 +735,7 @@ Describe 'Get-ValidatedGRRArtifact' {
             } -ModuleName PowerGRR
 
             It 'when one artifact found' {
-                $ret = Get-ValidatedGRRArtifact -Credential $cred -Artifact TestArtifact
+                $ret = Get-ValidatedGRRArtifact -Credential $PesterTestCredentials -Artifact TestArtifact
                 $ret | should be "TestArtifact"
             }
 
@@ -751,7 +751,7 @@ Describe 'Get-ValidatedGRRArtifact' {
             } -ModuleName PowerGRR
 
             It 'when multiple artifact with same name found' {
-                $ret = Get-ValidatedGRRArtifact -Credential $cred -Artifact TestArtifact
+                $ret = Get-ValidatedGRRArtifact -Credential $PesterTestCredentials -Artifact TestArtifact
                 $ret | should be "TestArtifact"
             }
 
@@ -767,12 +767,12 @@ Describe 'Get-ValidatedGRRArtifact' {
             } -ModuleName PowerGRR
 
             It 'when multiple artifact with different names found and searching for one' {
-                $ret = Get-ValidatedGRRArtifact -Credential $cred -Artifact TestArtifact
+                $ret = Get-ValidatedGRRArtifact -Credential $PesterTestCredentials -Artifact TestArtifact
                 $ret | should be "TestArtifact"
             }
 
             It 'when multiple artifact with different names found and searching for two' {
-                $ret = Get-ValidatedGRRArtifact -Credential $cred -Artifact TestArtifact, TestArtifact2
+                $ret = Get-ValidatedGRRArtifact -Credential $PesterTestCredentials -Artifact TestArtifact, TestArtifact2
                 $ret | should be @("TestArtifact","TestArtifact2")
             }
         }
@@ -785,7 +785,7 @@ Describe 'Remove-GRRArtifact' {
         Mock Get-GRRSession {} -ModuleName PowerGRR
 
         It 'no web response' {
-            $ret = Remove-GRRArtifact -Credential $creds -Artifact TestArtifact
+            $ret = Remove-GRRArtifact -Credential $PesterTestCredentials -Artifact TestArtifact
             $ret | should BeNullOrEmpty
             {$ret.total_count} | should throw
         }
@@ -807,7 +807,7 @@ Describe 'Remove-GRRArtifact' {
         } -ModuleName PowerGRR
 
         It 'artifact removal ok' {
-            $ret = Remove-GRRArtifact -Credential $creds -Artifact TestArtifact
+            $ret = Remove-GRRArtifact -Credential $PesterTestCredentials -Artifact TestArtifact
             $ret | should not BeNullOrEmpty
             $ret.status | should be "OK"
         }
@@ -918,7 +918,7 @@ Describe 'Get-GRRHuntApproval' {
                 $HuntApprovalValid.Substring(5) | ConvertFrom-Json
             } -ModuleName PowerGRR
 
-            $ret = Get-GRRHuntApproval -Credential $cred -HuntId H:AAAAAAAA -OnlyState -ApprovalId approval:BBBBBBBB
+            $ret = Get-GRRHuntApproval -Credential $PesterTestCredentials -HuntId H:AAAAAAAA -OnlyState -ApprovalId approval:BBBBBBBB
             $ret | Should not BeNullOrEmpty
             { $ret.items } | Should throw
             $ret | Should Be "True"
@@ -929,7 +929,7 @@ Describe 'Get-GRRHuntApproval' {
                 $HuntApprovalInvalid.Substring(5) | ConvertFrom-Json
             } -ModuleName PowerGRR
 
-            $ret = Get-GRRHuntApproval -Credential $cred -HuntId H:AAAAAAAA -OnlyState -ApprovalId approval:BBBBBBBB
+            $ret = Get-GRRHuntApproval -Credential $PesterTestCredentials -HuntId H:AAAAAAAA -OnlyState -ApprovalId approval:BBBBBBBB
             $ret | Should not BeNullOrEmpty
             $ret | Should Be "False"
         }
@@ -1036,3 +1036,4 @@ Remove-Variable -Scope global -name HuntApprovalInvalid
 Remove-Variable -Scope global -name HuntApprovalValid
 Remove-Variable -Scope global -name ClientApprovalInvalid
 Remove-Variable -Scope global -name ClientApprovalValid
+Remove-Variable -Scope global -name PesterTestCredentials

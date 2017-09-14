@@ -111,7 +111,7 @@ Describe 'Get-GRRHuntResult' {
         It 'has no web response' {
             Mock Invoke-GRRRequest {} -ModuleName PowerGRR
 
-            $ret = Get-GRRHuntResult -HuntId "H:aaaaaaaa" -Credential $creds
+            $ret = Get-GRRHuntResult -HuntId "H:aaaaaaaa" -Credential $PesterTestCredentials
             $ret | should BeNullOrEmpty
             {$ret.total_count} | should throw
         }
@@ -119,7 +119,7 @@ Describe 'Get-GRRHuntResult' {
         #It 'Read hunt results when with exception in web request' {
         #    Mock Invoke-GRRRequest {throw "pester test"} -ModuleName PowerGRR
 
-        #    $ret = Get-GRRHuntResult -HuntId "H:CA0E68E9" -Credential $creds
+        #    $ret = Get-GRRHuntResult -HuntId "H:CA0E68E9" -Credential $PesterTestCredentials
         #    $ret | should BeNullOrEmpty
         #    {$ret.total_count} | should throw
         #}
@@ -132,7 +132,7 @@ Describe 'Get-GRRHuntResult' {
                 ($EmptyReturnObject).Substring(5) | ConvertFrom-Json
             } -ModuleName PowerGRR
 
-            $ret = Get-GRRHuntResult -HuntId "H:aaaaaaaa" -Credential $creds
+            $ret = Get-GRRHuntResult -HuntId "H:aaaaaaaa" -Credential $PesterTestCredentials
             $ret | should not BeNullOrEmpty
             $ret.total_count | should be 0
         }
@@ -143,7 +143,7 @@ Describe 'Get-GRRHuntResult' {
                 $ValidHuntResults.substring(5) | ConvertFrom-Json
             } -ModuleName PowerGRR
 
-            $ret = Get-GRRHuntResult -HuntId "H:aaaaaaaa" -Credential $creds
+            $ret = Get-GRRHuntResult -HuntId "H:aaaaaaaa" -Credential $PesterTestCredentials
             $ret | should not BeNullOrEmpty
             $ret.total_count | should be 1
         }
@@ -160,7 +160,7 @@ Describe 'Get-GRRHuntInfo' {
         It 'has no web response' {
             Mock Invoke-GRRRequest {} -ModuleName PowerGRR
 
-            $ret = Get-GRRHuntInfo -HuntId "H:11111111" -Credential $creds
+            $ret = Get-GRRHuntInfo -HuntId "H:11111111" -Credential $PesterTestCredentials
             $ret | should BeNullOrEmpty
             {$ret.total_count} | should throw
         }
@@ -173,7 +173,7 @@ Describe 'Get-GRRHuntInfo' {
                 $ValidHuntInfo.substring(5) | ConvertFrom-Json
             } -ModuleName PowerGRR
 
-            $ret = Get-GRRHuntInfo -HuntId "H:11111111" -Credential $creds
+            $ret = Get-GRRHuntInfo -HuntId "H:11111111" -Credential $PesterTestCredentials
             $ret | should not BeNullOrEmpty
             $ret.description | should be "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
         }
@@ -201,7 +201,7 @@ Describe 'Get-GRRComputerNameFromClientId' {
         It 'no web response' {
             Mock Invoke-GRRRequest {} -ModuleName PowerGRR
 
-            $ret = Get-GRRComputerNameFromClientId -clientid "C.1111222233334444" -Credential $creds
+            $ret = Get-GRRComputerNameFromClientId -clientid "C.1111222233334444" -Credential $PesterTestCredentials
             $ret | should BeNullOrEmpty
             {$ret.total_count} | should throw
         }
@@ -213,12 +213,12 @@ Describe 'Get-GRRComputerNameFromClientId' {
         } -ModuleName PowerGRR
 
         It 'convert clientid to hostname' {
-            $ret = Get-GRRComputerNameFromClientId -clientid "C.1111222233334444" -Credential $creds
+            $ret = Get-GRRComputerNameFromClientId -clientid "C.1111222233334444" -Credential $PesterTestCredentials
             $ret | should be @("AABBCCDD","AABBCCDD")
         }
 
         It 'Convert clientid with aff4 prefix to hostname' {
-            $ret = Get-GRRComputerNameFromClientId -clientid "aff4:/C.1111222233334444" -Credential $creds
+            $ret = Get-GRRComputerNameFromClientId -clientid "aff4:/C.1111222233334444" -Credential $PesterTestCredentials
             $ret | should be @("AABBCCDD","AABBCCDD")
         }
     }
@@ -229,7 +229,7 @@ Describe 'Get-GRRClientIdFromComputerName' {
         It 'no web response' {
             Mock Invoke-GRRRequest {} -ModuleName PowerGRR
 
-            $ret = Get-GRRClientIdFromComputerName -computername "hostname-aabbcc" -Credential $creds
+            $ret = Get-GRRClientIdFromComputerName -computername "hostname-aabbcc" -Credential $PesterTestCredentials
             $ret | should BeNullOrEmpty
             {$ret.total_count} | should throw
         }
@@ -241,7 +241,7 @@ Describe 'Get-GRRClientIdFromComputerName' {
         } -ModuleName PowerGRR
 
         It 'Get clientid from computername' {
-            $ret = Get-GRRClientIdFromComputerName -computername "hostname-aabbcc" -Credential $creds
+            $ret = Get-GRRClientIdFromComputerName -computername "hostname-aabbcc" -Credential $PesterTestCredentials
             $ret | select -expandproperty clientid | should be @("C.1234567890123456","C.1234567890123456")
             ($ret | measure).count | Should Be 2
         }
@@ -259,7 +259,7 @@ Describe 'Find-GRRClient' {
         It 'no web response' {
             Mock Invoke-GRRRequest {} -ModuleName PowerGRR
 
-            $ret = Find-GRRClient -SearchString "hostname-aabbcc" -Credential $creds
+            $ret = Find-GRRClient -SearchString "hostname-aabbcc" -Credential $PesterTestCredentials
             $ret | should BeNullOrEmpty
             {$ret.total_count} | should throw
         }
@@ -283,7 +283,7 @@ Describe 'Find-GRRClient' {
         }
 
         It 'find specific client' {
-            $ret = Find-GRRClient -SearchString "hostname-aabbcc" -Credential $creds
+            $ret = Find-GRRClient -SearchString "hostname-aabbcc" -Credential $PesterTestCredentials
             $ret.items | should not BeNullOrEmpty
             ($ret | measure).count | Should Be 1
             ($ret.items | measure).count | Should Be 2
@@ -295,7 +295,7 @@ Describe 'Find-GRRClientByLabel' {
     Context 'when there are errors.' {
         It 'no web response' {
             Mock Invoke-GRRRequest {} -ModuleName PowerGRR
-            $ret = Find-GRRClientByLabel -SearchString "LabelX" -Credential $creds
+            $ret = Find-GRRClientByLabel -SearchString "LabelX" -Credential $PesterTestCredentials
             $ret | should BeNullOrEmpty
             {$ret.total_count} | should throw
 
@@ -320,7 +320,7 @@ Describe 'Set-GRRLabel' {
         It 'no web response' {
             Mock Invoke-GRRRequest {} -ModuleName PowerGRR
             Mock Get-GRRSession {} -ModuleName PowerGRR
-            $ret = Set-GRRLabel -ComputerName XY -Label "LabelX" -Credential $creds
+            $ret = Set-GRRLabel -ComputerName XY -Label "LabelX" -Credential $PesterTestCredentials
             $ret | should BeNullOrEmpty
             {$ret.total_count} | should throw
         }
@@ -332,7 +332,7 @@ Describe 'Set-GRRLabel' {
             } -ModuleName PowerGRR
             Mock Get-GRRSession {} -ModuleName PowerGRR
 
-            $ret = Set-GRRLabel -ComputerName XY -Label "LabelX" -Credential $creds
+            $ret = Set-GRRLabel -ComputerName XY -Label "LabelX" -Credential $PesterTestCredentials
             $ret | Should BeNullOrEmpty
         }
     }
@@ -343,7 +343,7 @@ Describe 'Remove-GRRLabel' {
         It 'No web response' {
             Mock Invoke-GRRRequest {} -ModuleName PowerGRR
             Mock Get-GRRSession {} -ModuleName PowerGRR
-            $ret = Remove-GRRLabel -ComputerName XY -Label "LabelX" -Credential $creds
+            $ret = Remove-GRRLabel -ComputerName XY -Label "LabelX" -Credential $PesterTestCredentials
             $ret | should BeNullOrEmpty
             {$ret.total_count} | should throw
         }
@@ -355,7 +355,7 @@ Describe 'Remove-GRRLabel' {
             } -ModuleName PowerGRR
             Mock Get-GRRSession {} -ModuleName PowerGRR
 
-            $ret = Remove-GRRLabel -ComputerName XY -Label "LabelX" -Credential $creds
+            $ret = Remove-GRRLabel -ComputerName XY -Label "LabelX" -Credential $PesterTestCredentials
             $ret | Should BeNullOrEmpty
         }
     }
@@ -368,26 +368,26 @@ Describe 'Invoke-GRRFlow' {
         Mock Get-GRRSession {} -ModuleName PowerGRR
 
         It 'no web response in RegistryFinder' {
-            $ret = Invoke-GRRFlow -ComputerName XY -Flow "RegistryFinder" -Key "HKCM" -Credential $creds
+            $ret = Invoke-GRRFlow -ComputerName XY -Flow "RegistryFinder" -Key "HKCM" -Credential $PesterTestCredentials
             $ret | should BeNullOrEmpty
             {$ret.total_count} | should throw
 
         }
 
         It 'no web response in FileFinder' {
-            $ret = Invoke-GRRFlow -ComputerName XY -Flow "FileFinder" -Path "C:\dummy" -Action Hash -Credential $creds
+            $ret = Invoke-GRRFlow -ComputerName XY -Flow "FileFinder" -Path "C:\dummy" -Action Hash -Credential $PesterTestCredentials
             $ret | should BeNullOrEmpty
             {$ret.total_count} | should throw
         }
 
         It 'no web response in ExecutePythonHack' {
-            $ret = Invoke-GRRFlow -ComputerName XY -Flow "ExecutePythonHack" -HackName "powershell" -PyArgsName cmd -PyArgsValue "get-process" -Credential $creds
+            $ret = Invoke-GRRFlow -ComputerName XY -Flow "ExecutePythonHack" -HackName "powershell" -PyArgsName cmd -PyArgsValue "get-process" -Credential $PesterTestCredentials
             $ret | should BeNullOrEmpty
             {$ret.total_count} | should throw
         }
 
         It 'no web response in ListProcesses' {
-            $ret = Invoke-GRRFlow -ComputerName XY -Flow "ListProcesses" -FileNameRegex ".*shell.*" -Credential $creds
+            $ret = Invoke-GRRFlow -ComputerName XY -Flow "ListProcesses" -FileNameRegex ".*shell.*" -Credential $PesterTestCredentials
             $ret | should BeNullOrEmpty
             {$ret.total_count} | should throw
         }
@@ -419,7 +419,7 @@ Describe 'Invoke-GRRFlow' {
         } -ModuleName PowerGRR
 
         It 'invoke a valid RegistryFinder flow' {
-            $ret = Invoke-GRRFlow -ComputerName XY -Flow "RegistryFinder" -Key "Key" -Credential $creds
+            $ret = Invoke-GRRFlow -ComputerName XY -Flow "RegistryFinder" -Key "Key" -Credential $PesterTestCredentials
             $ret.flowid | Should Be F:22222222
         }
 
@@ -428,7 +428,7 @@ Describe 'Invoke-GRRFlow' {
         } -ModuleName PowerGRR
 
         It 'invoke a valid ExecutePythonHack flow' {
-            $ret = Invoke-GRRFlow -ComputerName XY -Flow "ExecutePythonHack" -HackName "hack" -PyArgsName "argsname" -PyArgsValue "argsvalue" -Credential $creds
+            $ret = Invoke-GRRFlow -ComputerName XY -Flow "ExecutePythonHack" -HackName "hack" -PyArgsName "argsname" -PyArgsValue "argsvalue" -Credential $PesterTestCredentials
             $ret.flowid | Should Be F:AAAAAAAA
         }
 
@@ -437,12 +437,12 @@ Describe 'Invoke-GRRFlow' {
         } -ModuleName PowerGRR
 
         It 'invoke a valid FileFinder flow' {
-            $ret = Invoke-GRRFlow -ComputerName XY -Flow "FileFinder" -Path "C:\dummy" -Action Hash -Credential $creds
+            $ret = Invoke-GRRFlow -ComputerName XY -Flow "FileFinder" -Path "C:\dummy" -Action Hash -Credential $PesterTestCredentials
             $ret.flowid | Should Be F:AAAAAAAA
         }
 
         It 'invoke a valid ListProcesses flow' {
-            $ret = Invoke-GRRFlow -ComputerName XY -Flow "ListProcesses" -FileNameRegex ".*shell.*" -Credential $creds
+            $ret = Invoke-GRRFlow -ComputerName XY -Flow "ListProcesses" -FileNameRegex ".*shell.*" -Credential $PesterTestCredentials
             $ret.flowid | Should Be F:AAAAAAAA
         }
 
@@ -457,7 +457,7 @@ Describe 'Invoke-GRRFlow' {
                 $info.Name="WindowsAutorun"
                 New-Object PSObject -Property $info
             } -ModuleName PowerGRR
-            $ret = Invoke-GRRFlow -ComputerName XY -Flow "ArtifactCollectorFlow" -Artifact "WindowsAutorun" -Credential $creds
+            $ret = Invoke-GRRFlow -ComputerName XY -Flow "ArtifactCollectorFlow" -Artifact "WindowsAutorun" -Credential $PesterTestCredentials
             $ret.flowid | Should Be F:AAAAAAAA
         }
 
@@ -476,7 +476,7 @@ Describe 'Get-GRRFlowResult' {
     Context 'when there are errors.' {
         It 'no web response' {
             Mock Invoke-GRRRequest {} -ModuleName PowerGRR
-            $ret = Get-GRRFlowResult -ComputerName XY -FlowId "F:111111" -Credential $creds
+            $ret = Get-GRRFlowResult -ComputerName XY -FlowId "F:111111" -Credential $PesterTestCredentials
             $ret | should BeNullOrEmpty
             {$ret.total_count} | should throw
         }
@@ -487,7 +487,7 @@ Describe 'Get-GRRFlowResult' {
                 $EmptyItem.Substring(5) | ConvertFrom-Json
             } -ModuleName PowerGRR
 
-            $ret = Get-GRRFlowResult -ComputerName XY -FlowId "F:111111" -Credential $creds
+            $ret = Get-GRRFlowResult -ComputerName XY -FlowId "F:111111" -Credential $PesterTestCredentials
             $ret | Should BeNullOrEmpty
         }
     }
@@ -497,7 +497,7 @@ Describe 'Get-GRRLabel' {
     Context 'when there are errors.' {
         It 'no web response' {
             Mock Invoke-GRRRequest {} -ModuleName PowerGRR
-            $ret = Get-GRRLabel -Credential $creds
+            $ret = Get-GRRLabel -Credential $PesterTestCredentials
             $ret | should BeNullOrEmpty
             {$ret.total_count} | should throw
         }
@@ -509,7 +509,7 @@ Describe 'Get-GRRLabel' {
             } -ModuleName PowerGRR
             Mock Get-GRRSession {} -ModuleName PowerGRR
 
-            $ret = Get-GRRLabel -Credential $creds
+            $ret = Get-GRRLabel -Credential $PesterTestCredentials
             $ret | Should BeNullOrEmpty
         }
 
@@ -519,7 +519,7 @@ Describe 'Get-GRRLabel' {
             } -ModuleName PowerGRR
             Mock Get-GRRSession {} -ModuleName PowerGRR
 
-            $ret = Get-GRRLabel -Credential $creds
+            $ret = Get-GRRLabel -Credential $PesterTestCredentials
             $ret | Should Not BeNullOrEmpty
             $ret[0] | should be "label1"
         }
@@ -530,7 +530,7 @@ Describe 'Get-GRRHunt' {
     Context 'when there are errors.' {
         It 'no web response' {
             Mock Invoke-GRRRequest {} -ModuleName PowerGRR
-            $ret = Get-GRRHunt -Credential $creds
+            $ret = Get-GRRHunt -Credential $PesterTestCredentials
             $ret | should BeNullOrEmpty
             {$ret.total_count} | should throw
         }
@@ -542,7 +542,7 @@ Describe 'Get-GRRHunt' {
             } -ModuleName PowerGRR
             Mock Get-GRRSession {} -ModuleName PowerGRR
 
-            $ret = Get-GRRHunt -Credential $creds
+            $ret = Get-GRRHunt -Credential $PesterTestCredentials
             $ret | Should BeNullOrEmpty
         }
     }
@@ -574,7 +574,7 @@ Describe 'Invoke-GRRRequest' {
 
         $params = @{
             'Url' = "/clients/C.1111111111111111/flows";
-            'Credential' = $creds;
+            'Credential' = $PesterTestCredentials;
             'Body' = $Body;
             'Headers' = $Headers;
             'Websession' = $Websession
@@ -599,7 +599,7 @@ Describe 'Invoke-GRRRequest' {
         }
 
         It 'returning converted JSON object' {
-            $ret = Invoke-GRRRequest -Url "hunts/myurl" -Credential $creds
+            $ret = Invoke-GRRRequest -Url "hunts/myurl" -Credential $PesterTestCredentials
             $ret | should not BeNullOrEmpty
             $ret.total_count | should be 0
             $ret.items | should BeNullOrEmpty
@@ -613,7 +613,7 @@ Describe 'Invoke-GRRRequest' {
 
         $params = @{
             'Url' = "/clients/C.1111111111111111/flows";
-            'Credential' = $creds;
+            'Credential' = $PesterTestCredentials;
             'Body' = $Body;
             'Headers' = $Headers;
             'Websession' = $Websession
@@ -641,7 +641,7 @@ Describe 'Get-GRRFlowDescriptor' {
     Context 'when there are errors' {
         It 'no web response' {
             Mock Invoke-GRRRequest {} -ModuleName PowerGRR
-            $ret = Get-GRRFlowDescriptor -Credential $creds
+            $ret = Get-GRRFlowDescriptor -Credential $PesterTestCredentials
             $ret | should BeNullOrEmpty
             {$ret.total_count} | should throw
         }
@@ -654,7 +654,7 @@ Describe 'Get-GRRFlowDescriptor' {
             } -ModuleName PowerGRR
             Mock Get-GRRSession {} -ModuleName PowerGRR
 
-            $ret = Get-GRRFlowDescriptor -Credential $creds
+            $ret = Get-GRRFlowDescriptor -Credential $PesterTestCredentials
             $ret | Should not BeNullOrEmpty
             $ret.items | Should BeNullOrEmpty
         }
@@ -665,7 +665,7 @@ Describe 'Get-GRRFlowDescriptor' {
             } -ModuleName PowerGRR
             Mock Get-GRRSession {} -ModuleName PowerGRR
 
-            $ret = Get-GRRFlowDescriptor -Credential $creds
+            $ret = Get-GRRFlowDescriptor -Credential $PesterTestCredentials
             $ret | Should Not BeNullOrEmpty
             $ret | select -expandproperty category | Should Be "Processes"
             $ret | select -expandproperty name | Should Be "ListProcesses"
@@ -818,7 +818,7 @@ Describe 'Get-GRRArtifact' {
     Context 'when there are errors' {
         It 'no web response' {
             Mock Invoke-GRRRequest {} -ModuleName PowerGRR
-            $ret = Get-GRRArtifact -Credential $creds
+            $ret = Get-GRRArtifact -Credential $PesterTestCredentials
             $ret | should BeNullOrEmpty
             {$ret.total_count} | should throw
         }
@@ -830,7 +830,7 @@ Describe 'Get-GRRArtifact' {
                 $EmptyItem.Substring(5) | ConvertFrom-Json
             } -ModuleName PowerGRR
 
-            $ret = Get-GRRArtifact -Credential $creds
+            $ret = Get-GRRArtifact -Credential $PesterTestCredentials
             $ret | Should BeNullOrEmpty
             { $ret.items } | Should Throw
         }
@@ -840,7 +840,7 @@ Describe 'Get-GRRArtifact' {
                 $NoItem.Substring(5) | ConvertFrom-Json
             } -ModuleName PowerGRR
 
-            $ret = Get-GRRArtifact -Credential $creds
+            $ret = Get-GRRArtifact -Credential $PesterTestCredentials
             $ret | Should not BeNullOrEmpty
             { $ret.items } | Should Throw
         }
@@ -850,7 +850,7 @@ Describe 'Get-GRRArtifact' {
                 $ValidArtifacts.Substring(5) | ConvertFrom-Json
             } -ModuleName PowerGRR
 
-            $ret = Get-GRRArtifact -Credential $creds
+            $ret = Get-GRRArtifact -Credential $PesterTestCredentials
             $ret | Should Not BeNullOrEmpty
             $ret | measure | select -expandproperty count | should be 2
             $ret | select -expandproperty name -first 1 | should be "APTSources"
@@ -863,7 +863,7 @@ Describe 'Get-GRRHuntApproval' {
     Context 'when there are errors' {
         It 'no web response' {
             Mock Invoke-GRRRequest {} -ModuleName PowerGRR
-            $ret = Get-GRRHuntApproval -Credential $creds
+            $ret = Get-GRRHuntApproval -Credential $PesterTestCredentials
             $ret | should BeNullOrEmpty
             {$ret.total_count} | should throw
         }
@@ -874,7 +874,7 @@ Describe 'Get-GRRHuntApproval' {
                 $EmptyItem.Substring(5) | ConvertFrom-Json
             } -ModuleName PowerGRR
 
-            $ret = Get-GRRHuntApproval -Credential $creds
+            $ret = Get-GRRHuntApproval -Credential $PesterTestCredentials
             $ret | Should BeNullOrEmpty
             { $ret.items } | Should Throw
         }
@@ -884,7 +884,7 @@ Describe 'Get-GRRHuntApproval' {
                 $NoItem.Substring(5) | ConvertFrom-Json
             } -ModuleName PowerGRR
 
-            $ret = Get-GRRHuntApproval -Credential $creds
+            $ret = Get-GRRHuntApproval -Credential $PesterTestCredentials
             $ret | Should not BeNullOrEmpty
             { $ret.items } | Should Throw
         }
@@ -894,7 +894,7 @@ Describe 'Get-GRRHuntApproval' {
                 $HuntApprovalValid.Substring(5) | ConvertFrom-Json
             } -ModuleName PowerGRR
 
-            $ret = Get-GRRHuntApproval -Credential $creds
+            $ret = Get-GRRHuntApproval -Credential $PesterTestCredentials
             $ret | Should not BeNullOrEmpty
             { $ret.items } | Should Throw
             $ret.id | Should Be "approval:AAAAAAAA"
@@ -906,7 +906,7 @@ Describe 'Get-GRRHuntApproval' {
                 $HuntApprovalInvalid.Substring(5) | ConvertFrom-Json
             } -ModuleName PowerGRR
 
-            $ret = Get-GRRHuntApproval -Credential $creds
+            $ret = Get-GRRHuntApproval -Credential $PesterTestCredentials
             $ret | Should not BeNullOrEmpty
             { $ret.items } | Should Throw
             $ret.id | Should Be "approval:AAAAAAAA"
@@ -940,7 +940,7 @@ Describe 'Get-GRRClientApproval' {
     Context 'when there are errors' {
         It 'no web response' {
             Mock Invoke-GRRRequest {} -ModuleName PowerGRR
-            $ret = Get-GRRClientApproval -Credential $creds
+            $ret = Get-GRRClientApproval -Credential $PesterTestCredentials
             $ret | should BeNullOrEmpty
             {$ret.total_count} | should throw
         }
@@ -951,7 +951,7 @@ Describe 'Get-GRRClientApproval' {
                 $EmptyItem.Substring(5) | ConvertFrom-Json
             } -ModuleName PowerGRR
 
-            $ret = Get-GRRClientApproval -Credential $creds
+            $ret = Get-GRRClientApproval -Credential $PesterTestCredentials
             $ret | Should BeNullOrEmpty
             { $ret.items } | Should Throw
         }
@@ -961,7 +961,7 @@ Describe 'Get-GRRClientApproval' {
                 $NoItem.Substring(5) | ConvertFrom-Json
             } -ModuleName PowerGRR
 
-            $ret = Get-GRRClientApproval -Credential $creds
+            $ret = Get-GRRClientApproval -Credential $PesterTestCredentials
             $ret | Should not BeNullOrEmpty
             { $ret.items } | Should Throw
         }
@@ -971,7 +971,7 @@ Describe 'Get-GRRClientApproval' {
                 $ClientApprovalValid.Substring(5) | ConvertFrom-Json
             } -ModuleName PowerGRR
 
-            $ret = Get-GRRClientApproval -Credential $creds
+            $ret = Get-GRRClientApproval -Credential $PesterTestCredentials
             $ret | Should not BeNullOrEmpty
             { $ret.items } | Should Throw
             $ret.id | Should Be "approval:AAAAAAAA"
@@ -983,7 +983,7 @@ Describe 'Get-GRRClientApproval' {
                 $ClientApprovalInvalid.Substring(5) | ConvertFrom-Json
             } -ModuleName PowerGRR
 
-            $ret = Get-GRRClientApproval -Credential $creds
+            $ret = Get-GRRClientApproval -Credential $PesterTestCredentials
             $ret | Should not BeNullOrEmpty
             { $ret.items } | Should Throw
             $ret.id | Should Be "approval:AAAAAAAA"

@@ -39,7 +39,7 @@ check current cmdlets how to use supporting functions.
 
 ## Making a new Release
 
-1. Run the Pester tests. See [BUILD](BUILD.md). All must pass.
+1. Run the Pester tests. See [BUILD](BUILD.md). All tests must pass.
 1. Update CHANGELOG 
     * Update information according to the current release.
     * Add new **Unreleased** section and update the link for comparison.

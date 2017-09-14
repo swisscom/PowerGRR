@@ -70,6 +70,36 @@ $global:ValidExecutePythonHackFlowRequest = @"
 {`"last_active_at`": 1111111111111111, `"name`": `"ExecutePythonHack`", `"creator`": `"user`", `"urn`": `"aff4:/C.1111111111111111/flows/F:AAAAAAAA`", `"args`": {`"hack_name`": `"hack`", `"py_args`": {`"argname`": `"args`"}}, `"state`": `"RUNNING`", `"flow_id`": `"F:AAAAAAAA`", `"started_at`": 1111111111111111, `"runner_args`": {`"flow_name`": `"ExecutePythonHack`", `"client_id`": `"aff4:/C.1111111111111111`"}}
 "@
 
+$global:HuntApprovalInvalidWithinItems = @"
+)]}`'
+{`"items`": [{`"notified_users`": [`"user.name`"], `"is_valid_message`": `"Requires 2 approvers for access.`", `"reason`": `"Hunt approval request`", `"email_cc_addresses`": [`"email@domain.tld`"], `"is_valid`": false, `"approvers`": [`"requester`"], `"id`": `"approval:AAAAAAAA`", `"subject`": {`"name`": `"GenericHunt`", `"created`": 1505384999744562, `"urn`": `"aff4:/hunts/H:AAAAAAAA`", `"expires`": 1506594599000000, `"total_net_usage`": 0, `"is_robot`": false, `"state`": `"PAUSED`", `"client_rate`": 20.5, `"creator`": `"requester`", `"client_limit`": 100, `"total_cpu_usage`": 0, `"description`": `"Process listing for clients`"}}]}
+"@
+
+$global:HuntApprovalInvalid = @"
+)]}`'
+{`"notified_users`": [`"user.name`"], `"is_valid_message`": `"Requires 2 approvers for access.`", `"reason`": `"Hunt approval request`", `"email_cc_addresses`": [`"email@domain.tld`"], `"is_valid`": false, `"approvers`": [`"requester`"], `"id`": `"approval:AAAAAAAA`", `"subject`": {`"name`": `"GenericHunt`", `"created`": 1505384999744562, `"urn`": `"aff4:/hunts/H:AAAAAAAA`", `"expires`": 1506594599000000, `"total_net_usage`": 0, `"is_robot`": false, `"state`": `"PAUSED`", `"client_rate`": 20.5, `"creator`": `"requester`", `"client_limit`": 100, `"total_cpu_usage`": 0, `"description`": `"Process listing for clients`"}}
+"@
+
+$global:HuntApprovalValidWithinItems = @"
+)]}`'
+{`"items`": [{`"notified_users`": [`"user.name`"], `"reason`": `"Hunt approval request`", `"email_cc_addresses`": [`"email@domain.tld`"], `"is_valid`": true, `"approvers`": [`"approver1, approver2`"], `"id`": `"approval:AAAAAAAA`", `"subject`": {`"name`": `"GenericHunt`", `"created`": 1505384999744562, `"urn`": `"aff4:/hunts/H:AAAAAAAA`", `"expires`": 1506594599000000, `"total_net_usage`": 0, `"is_robot`": false, `"state`": `"PAUSED`", `"client_rate`": 20.5, `"creator`": `"requester`", `"client_limit`": 100, `"total_cpu_usage`": 0, `"description`": `"Process listing for clients`"}}]}
+"@
+
+$global:HuntApprovalValid = @"
+)]}`'
+{`"notified_users`": [`"user.name`"], `"reason`": `"Hunt approval request`", `"email_cc_addresses`": [`"email@domain.tld`"], `"is_valid`": true, `"approvers`": [`"approver1, approver2`"], `"id`": `"approval:AAAAAAAA`", `"subject`": {`"name`": `"GenericHunt`", `"created`": 1505384999744562, `"urn`": `"aff4:/hunts/H:AAAAAAAA`", `"expires`": 1506594599000000, `"total_net_usage`": 0, `"is_robot`": false, `"state`": `"PAUSED`", `"client_rate`": 20.5, `"creator`": `"requester`", `"client_limit`": 100, `"total_cpu_usage`": 0, `"description`": `"Process listing for clients`"}}
+"@
+
+$global:ClientApprovalValid = @"
+)]}`'
+{`"notified_users`": [`"user.name`"], `"reason`": `"Client approval request`", `"email_cc_addresses`": [`"email@domain.tld`"], `"is_valid`": true, `"approvers`": [`"approver1, approver2`"], `"id`": `"approval:AAAAAAAA`", `"subject`": {`"name`": `"subject text`"}}
+"@
+
+$global:ClientApprovalInvalid = @"
+)]}`'
+{`"notified_users`": [`"user.name`"], `"reason`": `"Client approval request`", `"email_cc_addresses`": [`"email@domain.tld`"], `"is_valid`": false, `"approvers`": [`"approver1, approver2`"], `"id`": `"approval:AAAAAAAA`", `"subject`": {`"name`": `"subject text`"}}
+"@
+
 # Pester tests
 
 Describe 'Get-GRRHuntResult' {
@@ -829,15 +859,146 @@ Describe 'Get-GRRArtifact' {
     }
 }
 
+Describe 'Get-GRRHuntApproval' {
+    Context 'when there are errors' {
+        It 'no web response' {
+            Mock Invoke-GRRRequest {} -ModuleName PowerGRR
+            $ret = Get-GRRHuntApproval -Credential $creds
+            $ret | should BeNullOrEmpty
+            {$ret.total_count} | should throw
+        }
+    }
+    Context 'with valid response' {
+        It 'when empty items' {
+            Mock Invoke-GRRRequest {
+                $EmptyItem.Substring(5) | ConvertFrom-Json
+            } -ModuleName PowerGRR
+
+            $ret = Get-GRRHuntApproval -Credential $creds
+            $ret | Should BeNullOrEmpty
+            { $ret.items } | Should Throw
+        }
+
+        It 'when no items' {
+            Mock Invoke-GRRRequest {
+                $NoItem.Substring(5) | ConvertFrom-Json
+            } -ModuleName PowerGRR
+
+            $ret = Get-GRRHuntApproval -Credential $creds
+            $ret | Should not BeNullOrEmpty
+            { $ret.items } | Should Throw
+        }
+
+        It 'when valid hunt approval is given' {
+            Mock Invoke-GRRRequest {
+                $HuntApprovalValid.Substring(5) | ConvertFrom-Json
+            } -ModuleName PowerGRR
+
+            $ret = Get-GRRHuntApproval -Credential $creds
+            $ret | Should not BeNullOrEmpty
+            { $ret.items } | Should Throw
+            $ret.id | Should Be "approval:AAAAAAAA"
+            $ret.is_valid | Should be "True"
+        }
+
+        It 'when invalid hunt approval is given' {
+            Mock Invoke-GRRRequest {
+                $HuntApprovalInvalid.Substring(5) | ConvertFrom-Json
+            } -ModuleName PowerGRR
+
+            $ret = Get-GRRHuntApproval -Credential $creds
+            $ret | Should not BeNullOrEmpty
+            { $ret.items } | Should Throw
+            $ret.id | Should Be "approval:AAAAAAAA"
+            $ret.is_valid | Should be "False"
+        }
+
+        It 'when valid hunt approval is given and flag -OnlyState is used.' {
+            Mock Invoke-GRRRequest {
+                $HuntApprovalValid.Substring(5) | ConvertFrom-Json
+            } -ModuleName PowerGRR
+
+            $ret = Get-GRRHuntApproval -Credential $cred -HuntId H:AAAAAAAA -OnlyState -ApprovalId approval:BBBBBBBB
+            $ret | Should not BeNullOrEmpty
+            { $ret.items } | Should throw
+            $ret | Should Be "True"
+        }
+
+        It 'when invalid hunt approval is given and flag -OnlyState is used.' {
+            Mock Invoke-GRRRequest {
+                $HuntApprovalInvalid.Substring(5) | ConvertFrom-Json
+            } -ModuleName PowerGRR
+
+            $ret = Get-GRRHuntApproval -Credential $cred -HuntId H:AAAAAAAA -OnlyState -ApprovalId approval:BBBBBBBB
+            $ret | Should not BeNullOrEmpty
+            $ret | Should Be "False"
+        }
+    }
+}
+
+Describe 'Get-GRRClientApproval' {
+    Context 'when there are errors' {
+        It 'no web response' {
+            Mock Invoke-GRRRequest {} -ModuleName PowerGRR
+            $ret = Get-GRRClientApproval -Credential $creds
+            $ret | should BeNullOrEmpty
+            {$ret.total_count} | should throw
+        }
+    }
+    Context 'with valid response' {
+        It 'when empty items' {
+            Mock Invoke-GRRRequest {
+                $EmptyItem.Substring(5) | ConvertFrom-Json
+            } -ModuleName PowerGRR
+
+            $ret = Get-GRRClientApproval -Credential $creds
+            $ret | Should BeNullOrEmpty
+            { $ret.items } | Should Throw
+        }
+
+        It 'when no items' {
+            Mock Invoke-GRRRequest {
+                $NoItem.Substring(5) | ConvertFrom-Json
+            } -ModuleName PowerGRR
+
+            $ret = Get-GRRClientApproval -Credential $creds
+            $ret | Should not BeNullOrEmpty
+            { $ret.items } | Should Throw
+        }
+
+        It 'when valid client approval is given' {
+            Mock Invoke-GRRRequest {
+                $ClientApprovalValid.Substring(5) | ConvertFrom-Json
+            } -ModuleName PowerGRR
+
+            $ret = Get-GRRClientApproval -Credential $creds
+            $ret | Should not BeNullOrEmpty
+            { $ret.items } | Should Throw
+            $ret.id | Should Be "approval:AAAAAAAA"
+            $ret.is_valid | Should be "True"
+        }
+
+        It 'when invalid client approval is given' {
+            Mock Invoke-GRRRequest {
+                $ClientApprovalInvalid.Substring(5) | ConvertFrom-Json
+            } -ModuleName PowerGRR
+
+            $ret = Get-GRRClientApproval -Credential $creds
+            $ret | Should not BeNullOrEmpty
+            { $ret.items } | Should Throw
+            $ret.id | Should Be "approval:AAAAAAAA"
+            $ret.is_valid | Should be "False"
+        }
+    }
+}
+
 Describe "internal functions" {
     InModuleScope PowerGRR {
         Context 'Testing Get-ClientCertificate' {
             It 'no client cert' {
                 Mock Get-ChildItem {} -ModuleName PowerGRR
                 Mock Get-PfxCertificate {} -ModuleName PowerGRR
-                $ret = Get-ClientCertificate
-                $ret | should BeNullOrEmpty
-                {$ret.total_count} | should throw
+                { Get-ClientCertificate } | should throw
             }
         }
 
@@ -859,9 +1020,19 @@ Describe "internal functions" {
 
 # Cleanup after all tests
 
+Remove-Variable -Scope global -name NoItem
 Remove-Variable -Scope global -name EmptyItem
+Remove-Variable -Scope global -name StatusOK
 Remove-Variable -Scope global -name EmptyReturnObject
+Remove-Variable -Scope global -name ValidLabels
 Remove-Variable -Scope global -name ValidClientItem
-Remove-Variable -Scope global -name ValidHuntResults
 Remove-Variable -Scope global -name ValidHuntInfo
+Remove-Variable -Scope global -name ValidHuntResults
 Remove-Variable -Scope global -name ValidStartFlowReturnObject
+Remove-Variable -Scope global -name ValidFlowDescriptor
+Remove-Variable -Scope global -name ValidArtifacts
+Remove-Variable -Scope global -name ValidExecutePythonHackFlowRequest
+Remove-Variable -Scope global -name HuntApprovalInvalid
+Remove-Variable -Scope global -name HuntApprovalValid
+Remove-Variable -Scope global -name ClientApprovalInvalid
+Remove-Variable -Scope global -name ClientApprovalValid

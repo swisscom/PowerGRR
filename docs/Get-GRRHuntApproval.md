@@ -14,12 +14,13 @@ Get hunt approval identified by the given filters.
 ### ByUser (Default)
 ```
 Get-GRRHuntApproval [-Credential] <PSCredential> [[-Offset] <Int32>] [[-Count] <Int32>] [-ShowJSON]
+ [<CommonParameters>]
 ```
 
 ### ByApproval
 ```
 Get-GRRHuntApproval [-Credential] <PSCredential> [-HuntId] <String> [-ApprovalId] <String> [-OnlyState]
- [-ShowJSON]
+ [-ShowJSON] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -175,7 +176,7 @@ Type: SwitchParameter
 Parameter Sets: ByApproval
 Aliases: 
 
-Required: True
+Required: False
 Position: Benannt
 Default value: None
 Accept pipeline input: False
@@ -197,10 +198,12 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
+### CommonParameters
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
+
 ## INPUTS
 
 ### Keine
-
 
 ## OUTPUTS
 

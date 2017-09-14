@@ -13,12 +13,12 @@ Create a new hunt.
 
 ```
 New-GRRHunt [-HuntDescription] <String> [-Flow] <String> [-RuleType] <String> [-ClientRate <Int32>]
- [-ClientLimit <Int32>] [[-EmailAddress] <String>] [-OnlyUrl] [[-Credential] <Object>] [-ShowJSON] [-WhatIf]
- [-Confirm] [<CommonParameters>]
+ [-ClientLimit <Int32>] [[-EmailAddress] <String>] [-OnlyId] [-OnlyUrl] [[-Credential] <Object>] [-ShowJSON]
+ [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-{{Fill in the Description}}
+Create a new hunt with the given flow properties.
 
 ## EXAMPLES
 
@@ -189,6 +189,22 @@ Accept wildcard characters: False
 
 ```yaml
 Type: Int32
+Parameter Sets: (All)
+Aliases: 
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -OnlyId
+Return only the hunt id for post-processing (e.g. create an approval based on
+this hunt id directly).
+
+```yaml
+Type: SwitchParameter
 Parameter Sets: (All)
 Aliases: 
 

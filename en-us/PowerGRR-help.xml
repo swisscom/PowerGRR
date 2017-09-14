@@ -881,7 +881,7 @@ Attributes  : @{key_value_pairs=System.Object[]}</dev:code>
           </dev:type>
           <dev:defaultValue>None</dev:defaultValue>
         </command:parameter>
-        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="benannt" aliases="none">
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="benannt" aliases="none">
           <maml:name>OnlyState</maml:name>
           <maml:Description>
             <maml:para>Return only the state of the approval. Useful for loops.</maml:para>
@@ -1045,7 +1045,7 @@ Attributes  : @{key_value_pairs=System.Object[]}</dev:code>
         </dev:type>
         <dev:defaultValue>None</dev:defaultValue>
       </command:parameter>
-      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="benannt" aliases="none">
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="benannt" aliases="none">
         <maml:name>OnlyState</maml:name>
         <maml:Description>
           <maml:para>Return only the state of the approval. Useful for loops.</maml:para>
@@ -2190,7 +2190,7 @@ PS C:\&gt; $res.items.payload | ConvertFrom-Base64</dev:code>
           </dev:type>
           <dev:defaultValue>None</dev:defaultValue>
         </command:parameter>
-        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="benannt" aliases="none">
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="benannt" aliases="none">
           <maml:name>OnlyState</maml:name>
           <maml:Description>
             <maml:para>Return only the state of the approval. Useful for loops.</maml:para>
@@ -2325,7 +2325,7 @@ PS C:\&gt; $res.items.payload | ConvertFrom-Base64</dev:code>
         </dev:type>
         <dev:defaultValue>None</dev:defaultValue>
       </command:parameter>
-      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="benannt" aliases="none">
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="benannt" aliases="none">
         <maml:name>OnlyState</maml:name>
         <maml:Description>
           <maml:para>Return only the state of the approval. Useful for loops.</maml:para>
@@ -3735,7 +3735,7 @@ PS C:\&gt; $res.items.client_id | sort -u</dev:code>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>{{Fill in the Description}}</maml:para>
+      <maml:para>Create a new hunt with the given flow properties.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -3880,6 +3880,17 @@ PS C:\&gt; $res.items.client_id | sort -u</dev:code>
           </dev:type>
           <dev:defaultValue>None</dev:defaultValue>
         </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>OnlyId</maml:name>
+          <maml:Description>
+            <maml:para>Return only the hunt id for post-processing (e.g. create an approval based on this hunt id directly).</maml:para>
+          </maml:Description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
       </command:syntaxItem>
     </command:syntax>
     <command:parameters>
@@ -4014,6 +4025,18 @@ PS C:\&gt; $res.items.client_id | sort -u</dev:code>
           <maml:uri />
         </dev:type>
         <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>OnlyId</maml:name>
+        <maml:Description>
+          <maml:para>Return only the hunt id for post-processing (e.g. create an approval based on this hunt id directly).</maml:para>
+        </maml:Description>
+        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
       </command:parameter>
     </command:parameters>
     <command:inputTypes>

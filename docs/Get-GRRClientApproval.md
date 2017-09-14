@@ -14,13 +14,13 @@ Get client approval identified by the given filters.
 ### ByUser (Default)
 ```
 Get-GRRClientApproval [-Credential] <PSCredential> [[-ComputerName] <String>] [[-Offset] <Int32>]
- [[-Count] <Int32>] [[-State] <String>] [-ShowJSON]
+ [[-Count] <Int32>] [[-State] <String>] [-ShowJSON] [<CommonParameters>]
 ```
 
 ### ByApproval
 ```
 Get-GRRClientApproval [-Credential] <PSCredential> [-ComputerName] <String> [-ApprovalId] <String> [-OnlyState]
- [-ShowJSON]
+ [-ShowJSON] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -49,7 +49,6 @@ subject            : @{...}
 
 Return the latest approval. Use " | select -expandproperty is_valid" after the command
 for only returning the state.
-
 
 ### Example 2
 ```
@@ -183,7 +182,7 @@ Type: SwitchParameter
 Parameter Sets: ByApproval
 Aliases: 
 
-Required: True
+Required: False
 Position: Benannt
 Default value: None
 Accept pipeline input: False
@@ -221,10 +220,12 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
+### CommonParameters
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
+
 ## INPUTS
 
 ### Keine
-
 
 ## OUTPUTS
 

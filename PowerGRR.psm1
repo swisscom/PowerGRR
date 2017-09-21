@@ -2385,7 +2385,7 @@ function ConvertTo-Base64 ()
 }
 
 
-function ConvertFrom-Base64 ()
+function ConvertFrom-Base64()
 {
     param(
         [Parameter(ValueFromPipeline=$True, Mandatory=$true)]
@@ -2394,10 +2394,19 @@ function ConvertFrom-Base64 ()
     )
 
     Process {
-        [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String($String))
+        [System.Text.Encoding]::Unicode.GetString([System.Convert]::FromBase64String($String))
     }
 } # ConvertFrom-Base64
 
+function ConvertTo-Hex()
+{
+    param(
+        [Parameter(ValueFromPipeline=$True, Mandatory=$true)]
+        [string]
+        $String
+    )
+    [System.BitConverter]::ToString([System.Text.Encoding]::Unicode.GetBytes($String)) -replace "-",""
+}
 
 function Set-NewVariable()
 {
@@ -2703,7 +2712,8 @@ Export-ModuleMember @(
     'Add-GRRArtifact',
     'Remove-GRRArtifact',
     'Get-GRRHuntApproval',
-    'Get-GRRClientApproval'
+    'Get-GRRClientApproval',
+    'ConvertTo-Hex'
 )
 
 #endregion

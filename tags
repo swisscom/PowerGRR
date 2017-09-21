@@ -5,6 +5,7 @@
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
 !_TAG_PROGRAM_VERSION	5.8	//
 Add-GRRArtifact	.\PowerGRR.psm1	/^function Add-GRRArtifact()$/;"	m
+ConvertTo-Hex	.\PowerGRR.psm1	/^function ConvertTo-Hex()$/;"	m
 Find-GRRClient	.\PowerGRR.psm1	/^Function Find-GRRClient()$/;"	m
 Find-GRRClientByLabel	.\PowerGRR.psm1	/^Function Find-GRRClientByLabel()$/;"	m
 Get-ClientCertificate	.\PowerGRR.psm1	/^Function Get-ClientCertificate()$/;"	m

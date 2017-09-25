@@ -20,6 +20,25 @@ Invoke-GRRFlow [-ComputerName] <String[]> [[-Credential] <Object>] [-Flow] <Stri
 Invoke a flow on one or multiple clients. The dynamic parameter "Flow" allows
 using dedicated parameters for each flow type.
 
+Use the following dynamic parameters for each flow type (-Flow) to specifcy the
+needed values. Mandatory parameters are attributed with (m). 
+- FileFinder: 
+   - Path (m), Type: String[]
+   - ActionType (m), ValidateSet: Hash, Download
+   - ConditionType, ValidateSet: Regex,Literal
+   - Mode, ValidateSet: All_HITS, FIRST_HIT
+   - SearchString, Type: String
+- RegistryFinder: 
+   - Key (m), Type: String[]
+- ListProcesses: 
+   - FileNameRegex, Type: string
+- ExecutePythonHack: 
+   - HackName (m), Type: string
+   - PyArgsName (m), Type: string
+   - PyArgsValue (m), Type: string
+- ArtifactCollectorFlow:
+   - ArtifactList (m), Type: String[]
+
 ## EXAMPLES
 
 ### Example 1
@@ -29,10 +48,25 @@ PS C:\> Invoke-GRRFlow -ComputerName host1 -Credential $cred -Flow FileFinder -p
 
 Start a new file finder flow.
 
+### Example 2
+```
+PS C:\> Invoke-GRRFlow -ComputerName host1 -Credential $cred -Flow FileFinder -path "C:\Files\*" -actiontype hash -ConditionType Literal -SearchString "GRR"
+```
+
+Start a new file finder flow and use the literal condition.
+
+### Example 3
+```
+PS C:\> Invoke-GRRFlow -ComputerName host1 -Credential $cred -Flow FileFinder -path "C:\Files\*" -actiontype hash -ConditionType Regex -SearchString ".*GRR.*"
+```
+
+Start a new file finder flow and use the regex condition.
+
 ## PARAMETERS
 
 ### -ComputerName
-{{Fill ComputerName Description}}
+ComputerName for the GRR flow. If multiple clients were found in GRR the last
+seen on client will be used for the flow.
 
 ```yaml
 Type: String[]
@@ -62,7 +96,7 @@ Accept wildcard characters: False
 ```
 
 ### -Credential
-{{Fill Credential Description}}
+GRR credentials.
 
 ```yaml
 Type: Object
@@ -77,7 +111,8 @@ Accept wildcard characters: False
 ```
 
 ### -EmailAddress
-{{Fill EmailAddress Description}}
+Email address for the output plugin. The count is set to 1 so your get en email
+if something is found.
 
 ```yaml
 Type: String
@@ -92,7 +127,8 @@ Accept wildcard characters: False
 ```
 
 ### -Flow
-{{Fill Flow Description}}
+Dynamic parameter "flow" allows specificing the desired flow type. Use the flow
+specific parameters to provide the needed information.
 
 ```yaml
 Type: String

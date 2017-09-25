@@ -1326,6 +1326,9 @@ function Invoke-GRRFlow()
         {
             New-DynamicParam -Name Path -mandatory -DPDictionary $Dictionary -Type String[]
             New-DynamicParam -Name ActionType -mandatory -ValidateSet Hash,Download -DPDictionary $Dictionary
+            New-DynamicParam -Name ConditionType -ValidateSet Regex,Literal -DPDictionary $Dictionary
+            New-DynamicParam -Name Mode -ValidateSet ALL_HITS,FIRST_HIT -DPDictionary $Dictionary
+            New-DynamicParam -Name SearchString -DPDictionary $Dictionary
 
         }
         elseif ($PSBoundParameters.containskey('flow') -and $PSBoundParameters.Flow -eq "RegistryFinder")
@@ -1389,7 +1392,36 @@ function Invoke-GRRFlow()
         if ($Flow -eq "FileFinder")
         {
             $PluginArguments = '{"paths":["'+$($PSBoundParameters['Path']-join'","')+'"],'
-            $PluginArguments += '"action":{"action_type":"'+$($PSBoundParameters['ActionType'])+'"}}'
+            $PluginArguments += '"action":{"action_type":"'+$($PSBoundParameters['ActionType'])+'"},'
+
+            if ($($PSBoundParameters['Mode']))
+            {
+                $RegexMode = $( $PSBoundParameters['Mode'])
+            }
+            else
+            {
+                $RegexMode = "All_HITS"
+            }
+
+            if ($PSBoundParameters['ConditionType'] -match "regex")
+            {
+                if (!$PSBoundParameters['SearchString'])
+                {
+                    throw "Please provide a regex search string with -SearchString."
+                }
+                $PluginArguments += '"conditions":[{"condition_type":"CONTENTS_REGEX_MATCH",'
+                $PluginArguments += '"contents_regex_match":{"mode":"'+$RegexMode+'","regex":"'+$($PSBoundParameters['SearchString'])+'"}}]}'
+            }
+            elseif ($PSBoundParameters['ConditionType'] -match "literal")
+            {
+                if (!$PSBoundParameters['SearchString'])
+                {
+                    throw "Please provide a literal search string with -SearchString."
+                }
+                $PluginArguments += '"conditions":[{"condition_type":"CONTENTS_LITERAL_MATCH",'
+                $PluginArguments += '"contents_literal_match":{"literal":"'+$( $PSBoundParameters['SearchString'] | ConvertTo-Base64 )+'"}}]}'
+            }
+
             $PluginArguments = $PluginArguments -replace "\\", "\\"
         }
         elseif ($Flow -eq "RegistryFinder")

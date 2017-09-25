@@ -1,6 +1,6 @@
 ---
 external help file: PowerGRR-help.xml
-online version: 
+online version: https://github.com/swisscom/powergrr/docs/ConvertFrom-Base64.md
 schema: 2.0.0
 ---
 
@@ -12,21 +12,34 @@ Decode a base64 encoded string.
 ## SYNTAX
 
 ```
-ConvertFrom-Base64 [-String] <String> [<CommonParameters>]
+ConvertFrom-Base64 [-String] <String> [-Encoding <String>]
 ```
 
 ## DESCRIPTION
-Some flows return an base64 encoded string in the payload. Use this function
-to convert it.
+Some flows return an base64 encoded string in the payload.
+Use this function to convert it.
 
 ## EXAMPLES
 
 ### Example 1
 ```
-PS C:\> {{ Add example code here }}
+PS C:\> $sha256_b64 = $_.payload.hash_entry.sha256; $hash = Convertfrom-Base64 $sha256_b64 -Encoding Unicode | ConvertTo-Hex
 ```
 
-{{ Add example description here }}
+Convert the collected sha256 hash (hash_entry e.g. from file finder flow) to
+the corresponding hex representation. The payload from GRR is base64 encoded,
+therefore Convertfrom-Base64 provides the needed step in between. For a hash
+conversion the use of "-Encoding Unicode" is needed.
+
+### Example 2
+```
+PS C:\> ConvertFrom-Base64 "R1JSIGlzIGF3ZXNvbWU="
+```
+
+Convert the collected sha256 hash (hash_entry e.g. from file finder flow) to
+the corresponding hex representation. The payload from GRR is base64 encoded,
+therefore Convertfrom-Base64 provides the needed step in between.
+
 
 ## PARAMETERS
 
@@ -45,8 +58,20 @@ Accept pipeline input: True (ByValue)
 Accept wildcard characters: False
 ```
 
-### CommonParameters
-This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
+### -Encoding
+Encoding to use. Unicode or UTF8.
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases: 
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
 
 ## INPUTS
 

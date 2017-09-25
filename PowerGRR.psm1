@@ -2422,11 +2422,15 @@ function ConvertFrom-Base64()
     param(
         [Parameter(ValueFromPipeline=$True, Mandatory=$true)]
         [string]
-        $String
+        $String,
+
+        [string]
+        [ValidateSet("UTF8","Unicode")]
+        $Encoding = "UTF8"
     )
 
     Process {
-        [System.Text.Encoding]::Unicode.GetString([System.Convert]::FromBase64String($String))
+        [System.Text.Encoding]::$($Encoding).GetString([System.Convert]::FromBase64String($String))
     }
 } # ConvertFrom-Base64
 

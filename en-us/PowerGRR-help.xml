@@ -204,6 +204,18 @@
           </dev:type>
           <dev:defaultValue>None</dev:defaultValue>
         </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Encoding</maml:name>
+          <maml:Description>
+            <maml:para>Encoding to use. Unicode or UTF8.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
       </command:syntaxItem>
     </command:syntax>
     <command:parameters>
@@ -211,6 +223,18 @@
         <maml:name>String</maml:name>
         <maml:Description>
           <maml:para>Base64 encoded string to decode.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>Encoding</maml:name>
+        <maml:Description>
+          <maml:para>Encoding to use. Unicode or UTF8.</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
@@ -248,13 +272,25 @@
     <command:examples>
       <command:example>
         <maml:title>Example 1</maml:title>
-        <dev:code>PS C:\&gt; {{ Add example code here }}</dev:code>
+        <dev:code>PS C:\&gt; $sha256_b64 = $_.payload.hash_entry.sha256; $hash = Convertfrom-Base64 $sha256_b64 -Encoding Unicode | ConvertTo-Hex</dev:code>
         <dev:remarks>
-          <maml:para>{{ Add example description here }}</maml:para>
+          <maml:para>Convert the collected sha256 hash (hash_entry e.g. from file finder flow) to the corresponding hex representation. The payload from GRR is base64 encoded, therefore Convertfrom-Base64 provides the needed step in between. For a hash conversion the use of "-Encoding Unicode" is needed.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>Example 2</maml:title>
+        <dev:code>PS C:\&gt; ConvertFrom-Base64 "R1JSIGlzIGF3ZXNvbWU="</dev:code>
+        <dev:remarks>
+          <maml:para>Convert the collected sha256 hash (hash_entry e.g. from file finder flow) to the corresponding hex representation. The payload from GRR is base64 encoded, therefore Convertfrom-Base64 provides the needed step in between.</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
-    <command:relatedLinks />
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://github.com/swisscom/powergrr/docs/ConvertFrom-Base64.md</maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
@@ -2895,6 +2931,7 @@ PS C:\&gt; $res.items.client_id | sort -u</dev:code>
     </command:details>
     <maml:description>
       <maml:para>Invoke a flow on one or multiple clients. The dynamic parameter "Flow" allows using dedicated parameters for each flow type.</maml:para>
+      <maml:para>Use the following dynamic parameters for each flow type (-Flow) to specifcy the needed values. Mandatory parameters are attributed with (m).  - FileFinder:     - Path (m), Type: String[]    - ActionType (m), ValidateSet: Hash, Download    - ConditionType, ValidateSet: Regex,Literal    - Mode, ValidateSet: All_HITS, FIRST_HIT    - SearchString, Type: String - RegistryFinder:     - Key (m), Type: String[] - ListProcesses:     - FileNameRegex, Type: string - ExecutePythonHack:     - HackName (m), Type: string    - PyArgsName (m), Type: string    - PyArgsValue (m), Type: string - ArtifactCollectorFlow:    - ArtifactList (m), Type: String[]</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -2902,7 +2939,7 @@ PS C:\&gt; $res.items.client_id | sort -u</dev:code>
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none">
           <maml:name>ComputerName</maml:name>
           <maml:Description>
-            <maml:para>{{Fill ComputerName Description}}</maml:para>
+            <maml:para>ComputerName for the GRR flow. If multiple clients were found in GRR the last seen on client will be used for the flow.</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
           <dev:type>
@@ -2914,7 +2951,7 @@ PS C:\&gt; $res.items.client_id | sort -u</dev:code>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
           <maml:name>Credential</maml:name>
           <maml:Description>
-            <maml:para>{{Fill Credential Description}}</maml:para>
+            <maml:para>GRR credentials.</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">Object</command:parameterValue>
           <dev:type>
@@ -2926,7 +2963,7 @@ PS C:\&gt; $res.items.client_id | sort -u</dev:code>
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="none">
           <maml:name>Flow</maml:name>
           <maml:Description>
-            <maml:para>{{Fill Flow Description}}</maml:para>
+            <maml:para>Dynamic parameter "flow" allows specificing the desired flow type. Use the flow specific parameters to provide the needed information.</maml:para>
           </maml:Description>
           <command:parameterValueGroup>
             <command:parameterValue required="false" command:variableLength="false">Netstat</command:parameterValue>
@@ -2946,7 +2983,7 @@ PS C:\&gt; $res.items.client_id | sort -u</dev:code>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="3" aliases="none">
           <maml:name>EmailAddress</maml:name>
           <maml:Description>
-            <maml:para>{{Fill EmailAddress Description}}</maml:para>
+            <maml:para>Email address for the output plugin. The count is set to 1 so your get en email if something is found.</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
@@ -2994,7 +3031,7 @@ PS C:\&gt; $res.items.client_id | sort -u</dev:code>
       <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none">
         <maml:name>ComputerName</maml:name>
         <maml:Description>
-          <maml:para>{{Fill ComputerName Description}}</maml:para>
+          <maml:para>ComputerName for the GRR flow. If multiple clients were found in GRR the last seen on client will be used for the flow.</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
         <dev:type>
@@ -3018,7 +3055,7 @@ PS C:\&gt; $res.items.client_id | sort -u</dev:code>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
         <maml:name>Credential</maml:name>
         <maml:Description>
-          <maml:para>{{Fill Credential Description}}</maml:para>
+          <maml:para>GRR credentials.</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">Object</command:parameterValue>
         <dev:type>
@@ -3030,7 +3067,7 @@ PS C:\&gt; $res.items.client_id | sort -u</dev:code>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="3" aliases="none">
         <maml:name>EmailAddress</maml:name>
         <maml:Description>
-          <maml:para>{{Fill EmailAddress Description}}</maml:para>
+          <maml:para>Email address for the output plugin. The count is set to 1 so your get en email if something is found.</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
@@ -3042,7 +3079,7 @@ PS C:\&gt; $res.items.client_id | sort -u</dev:code>
       <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="none">
         <maml:name>Flow</maml:name>
         <maml:Description>
-          <maml:para>{{Fill Flow Description}}</maml:para>
+          <maml:para>Dynamic parameter "flow" allows specificing the desired flow type. Use the flow specific parameters to provide the needed information.</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
@@ -3107,6 +3144,20 @@ PS C:\&gt; $res.items.client_id | sort -u</dev:code>
         <dev:code>PS C:\&gt; Invoke-GRRFlow -ComputerName host1 -Credential $cred -Flow FileFinder -path "C:\test.exe" -actiontype hash</dev:code>
         <dev:remarks>
           <maml:para>Start a new file finder flow.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>Example 2</maml:title>
+        <dev:code>PS C:\&gt; Invoke-GRRFlow -ComputerName host1 -Credential $cred -Flow FileFinder -path "C:\Files\*" -actiontype hash -ConditionType Literal -SearchString "GRR"</dev:code>
+        <dev:remarks>
+          <maml:para>Start a new file finder flow and use the literal condition.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>Example 3</maml:title>
+        <dev:code>PS C:\&gt; Invoke-GRRFlow -ComputerName host1 -Credential $cred -Flow FileFinder -path "C:\Files\*" -actiontype hash -ConditionType Regex -SearchString ".*GRR.*"</dev:code>
+        <dev:remarks>
+          <maml:para>Start a new file finder flow and use the regex condition.</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>

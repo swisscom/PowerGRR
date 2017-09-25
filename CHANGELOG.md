@@ -7,12 +7,16 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased](https://github.com/swisscom/powergrr/compare/v0.6.0...master)
 
 ### Added
-* Add support function `ConvertTo-Hex` for converting an input string into a
-    hex string. This is useful e.g. for hash_entry payloads where the hashes
-    must be converted first to base64 and then to hex.
-### Changed
-* Change encoding in `ConvertFrom-Base64` to unicode.
+* Add **support for converting an input string into a hex string**
+    (`ConvertTo-Hex`). This is useful e.g. for hash_entry payloads where the
+    hashes must be converted first to base64 and then to hex.
+* Add **support for file content conditions in FileFinder flow**. Add new dynamic
+    parameters for ConditionType, Mode and SearchString and allow the use of
+    regex or literal content searches.
+* Add support for UTF8 and Unicode encoding in `ConvertFrom-Base64`.
 <!--
+### Changed
+
 ### Deprecated
 
 ### Removed

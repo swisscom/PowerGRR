@@ -199,16 +199,23 @@ Function Get-GRRClientIdFromComputerName()
             $res = Invoke-GRRRequest -Url "/clients?query=$client" -Credential $Credential -ShowJSON:$PSBoundParameters.containskey('ShowJSON')
             if ($res -and !$PSBoundParameters.containskey('ShowJSON') -and ($res.PSobject.Properties.name -match "items"))
             {
-                foreach ($item in $res.items)
+                if ($res.items)
                 {
-                    $info=[ordered]@{
-                        ComputerName=$item.os_info.node
-                        ClientId=$item.urn.substring(6)
-                        LastSeenAt=$(Get-EpocTimeFromUtc ($item.last_seen_at).toString().Insert(10,"."))
-                        OSVersion=$item.os_info.kernel
-                    }
+                    foreach ($item in $res.items)
+                    {
+                        $info=[ordered]@{
+                            ComputerName=$item.os_info.node
+                            ClientId=$item.urn.substring(6)
+                            LastSeenAt=$(Get-EpocTimeFromUtc ($item.last_seen_at).toString().Insert(10,"."))
+                            OSVersion=$item.os_info.kernel
+                        }
 
-                    $ret += New-Object PSObject -Property $info
+                        $ret += New-Object PSObject -Property $info
+                    }
+                }
+                else
+                {
+                    write-warning "ComputerName $client not found in GRR."
                 }
             }
             elseif ($res)

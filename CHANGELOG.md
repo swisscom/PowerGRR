@@ -14,6 +14,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
     parameters for ConditionType, Mode and SearchString and allow the use of
     regex or literal content searches.
 * Add support for UTF8 and Unicode encoding in `ConvertFrom-Base64`.
+* Display hostnames which were not found in GRR in
+   `Get-GRRClientIdFromComputerName`
 <!--
 ### Changed
 

@@ -16,15 +16,25 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 * Add support for UTF8 and Unicode encoding in `ConvertFrom-Base64`.
 * Display hostnames which were not found in GRR in
    `Get-GRRClientIdFromComputerName`
+* Add new parameter `ShowResultCount` in `Get-GRRHuntInfo` to also query hunt
+    results and its property  "total_count" and add that value to the hunt
+    infos. See section removed below for further information.
 <!--
 ### Changed
-
 ### Deprecated
-
+-->
 ### Removed
-
+* Removed second GRR API call in `Get-GRRHuntInfo` for result
+   count by default because in newer versions of the GRR server the result
+   count is shown in the hunt overview with the added properties
+   `clients_with_results_count` and `results_count` (see
+   issue [#516](https://github.com/google/grr/issues/516) or corresponding
+   [commit](https://github.com/google/grr/commit/35797795b9088e3378c91c82a109651d8b8edb6e)).
+   The new count field only works for new hunt results. Old hunt results are not
+   covered with the new fields - use the added parameter `ShowResultCount` in
+   `Get-GRRHuntInfo` for these hunts.
+<!--
 ### Fixed
-
 ### Security
 -->
 

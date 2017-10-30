@@ -47,6 +47,9 @@ Function Get-GRRHuntInfo()
         $Credential,
 
         [switch]
+        $ShowResultCount,
+
+        [switch]
         $ShowJSON
     )
 
@@ -59,21 +62,24 @@ Function Get-GRRHuntInfo()
 
     if ($Info)
     {
-        $Results =  Get-GRRHuntResult $HuntId -Credential $Credential
-
-        if ($PSBoundParameters.containskey('ShowJSON'))
+        if ($ShowResultCount)
         {
-            $Info = $Info.substring(5) | ConvertFrom-Json
-        }
+            $Results =  Get-GRRHuntResult $HuntId -Credential $Credential
 
-        if ($Results -and $Results.PSobject.Properties.name -match "total_count")
-        {
-            add-member -InputObject $Info -MemberType NoteProperty -Name "total_results" -value $Results.total_count
-        }
+            if ($PSBoundParameters.containskey('ShowJSON'))
+            {
+                $Info = $Info.substring(5) | ConvertFrom-Json
+            }
 
-        if ($PSBoundParameters.containskey('ShowJSON'))
-        {
-            $Info = $Info | ConvertTo-Json
+            if ($Results -and $Results.PSobject.Properties.name -match "total_count")
+            {
+                add-member -InputObject $Info -MemberType NoteProperty -Name "total_results" -value $Results.total_count
+            }
+
+            if ($PSBoundParameters.containskey('ShowJSON'))
+            {
+                $Info = $Info | ConvertTo-Json
+            }
         }
 
         $Info

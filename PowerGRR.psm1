@@ -2111,6 +2111,7 @@ function Get-GRRSession ()
 
         # Todo Change back to the -Credential parameter after issue in PowerShell
         # core has been fixed: https://github.com/PowerShell/PowerShell/issues/4274.
+        # ===> PR merged: https://github.com/PowerShell/PowerShell/pull/5052
         $userpassB64 = "$($Credential.GetNetworkCredential().UserName):"
         $userpassB64 += "$($Credential.GetNetworkCredential().Password)"
         $userpassB64 = $userpassB64 | ConvertTo-Base64

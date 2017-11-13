@@ -25,7 +25,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 -->
 ### Removed
 * Removed second GRR API call in `Get-GRRHuntInfo` for result
-   count by default because in newer versions of the GRR server the result
+   count by default because in newer versions (3.2.x.x) of the GRR server the result
    count is shown in the hunt overview with the added properties
    `clients_with_results_count` and `results_count` (see
    issue [#516](https://github.com/google/grr/issues/516) or corresponding

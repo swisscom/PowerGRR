@@ -37,3 +37,5 @@ Set-GRRLabel	.\PowerGRR.psm1	/^Function Set-GRRLabel()$/;"	m
 Set-NewVariable	.\PowerGRR.psm1	/^function Set-NewVariable()$/;"	m
 Start-GRRHunt	.\PowerGRR.psm1	/^function Start-GRRHunt()$/;"	m
 Stop-GRRHunt	.\PowerGRR.psm1	/^function Stop-GRRHunt()$/;"	m
+Wait-GRRClientApproval	.\PowerGRR.psm1	/^function Wait-GRRClientApproval()$/;"	m
+Wait-GRRHuntApproval	.\PowerGRR.psm1	/^function Wait-GRRHuntApproval()$/;"	m

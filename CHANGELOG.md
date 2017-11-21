@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased](https://github.com/swisscom/powergrr/compare/v0.6.0...master)
 
+Improve payload conversions, add file content conditions for file finder and
+update result count functionality for hunt info according to added fields in
+overview. Extend existing approval state commands with new wait functions.
+
 ### Added
 * Add **support for converting an input string into a hex string**
     (`ConvertTo-Hex`). This is useful e.g. for hash_entry payloads where the
@@ -19,6 +23,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 * Add new parameter `ShowResultCount` in `Get-GRRHuntInfo` to also query hunt
     results and its property  "total_count" and add that value to the hunt
     infos. See section removed below for further information.
+* Add new wait commands (`Wait-GRRClientApproval` and `Wait-GRRHuntApproval`)
+    extending the existing approval commands introduced in version 0.6.0. Now
+    it's not needed anymore to use a custom while loop for waiting for the
+    approvals. Specify the timeout in minutes as needed.
+* Add _-Wait_ switch to `Start-GRRHunt` for waiting for the specified approval
+    before starting the hunt.
 <!--
 ### Changed
 ### Deprecated

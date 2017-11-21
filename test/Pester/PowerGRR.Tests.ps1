@@ -178,9 +178,9 @@ Describe 'Get-GRRHuntInfo' {
             $ret.description | should be "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
         }
 
-        It 'read valid hunt info with option showjson-option' {
+        It 'read valid hunt info with option showjson' {
             Mock Invoke-GRRRequest {
-                $ValidHuntInfo
+                $ValidHuntInfo.substring(5) | ConvertFrom-Json
             } -ModuleName PowerGRR
 
             Mock Get-GRRHuntResult {
@@ -988,6 +988,86 @@ Describe 'Get-GRRClientApproval' {
             { $ret.items } | Should Throw
             $ret.id | Should Be "approval:AAAAAAAA"
             $ret.is_valid | Should be "False"
+        }
+    }
+}
+
+Describe 'Wait-GRRHuntApproval' {
+    Context 'with valid response' {
+        It 'when GRR API requests returns nothing and using a 1 minute timeout' {
+            Mock Get-GRRHuntApproval {} -ModuleName PowerGRR
+
+            $start = get-date
+            $ret = Wait-GRRHuntApproval -Credential $PesterTestCredentials -HuntId "A:00000" -ApprovalId "approval:AAAAAAAA" -TimeoutInMinutes 1
+            $end = get-date
+            $ret | Should not BeNullOrEmpty
+            { $ret.items } | Should Throw
+            $diff = New-TimeSpan -Start $start -End $end
+            $diff.Minutes | Should Be 1
+        }
+
+        It 'when GRR API requests returns nothing and using a 5 minute timeout' {
+            Mock Get-GRRHuntApproval {} -ModuleName PowerGRR
+
+            $start = get-date
+            $ret = Wait-GRRHuntApproval -Credential $PesterTestCredentials -HuntId "A:00000" -ApprovalId "approval:AAAAAAAA" -TimeoutInMinutes 5
+            $end = get-date
+            $ret | Should not BeNullOrEmpty
+            { $ret.items } | Should Throw
+            $diff = New-TimeSpan -Start $start -End $end
+            $diff.Minutes | Should Be 5
+        }
+
+        It 'when GRR API requests returns true and using a 2 minute timeout' {
+            Mock Get-GRRHuntApproval {$true} -ModuleName PowerGRR
+
+            $start = get-date
+            $ret = Wait-GRRHuntApproval -Credential $PesterTestCredentials -HuntId "A:00000" -ApprovalId "approval:AAAAAAAA" -TimeoutInMinutes 2
+            $end = get-date
+            $ret | Should not BeNullOrEmpty
+            { $ret.items } | Should Throw
+            $ret | should be $true
+            $diff = New-TimeSpan -Start $start -End $end
+        }
+    }
+}
+
+Describe 'Wait-GRRClientApproval' {
+    Context 'with valid response' {
+        It 'when GRR API requests returns nothing and using a 1 minute timeout' {
+            Mock Get-GRRClientApproval {} -ModuleName PowerGRR
+
+            $start = get-date
+            $ret = Wait-GRRClientApproval -Credential $PesterTestCredentials -ComputerName "host1" -ApprovalId "approval:AAAAAAAA" -TimeoutInMinutes 1
+            $end = get-date
+            $ret | Should not BeNullOrEmpty
+            { $ret.items } | Should Throw
+            $diff = New-TimeSpan -Start $start -End $end
+            $diff.Minutes | Should Be 1
+        }
+
+        It 'when GRR API requests returns nothing and using a 5 minute timeout' {
+            Mock Get-GRRClientApproval {} -ModuleName PowerGRR
+
+            $start = get-date
+            $ret = Wait-GRRClientApproval -Credential $PesterTestCredentials -ComputerName "host1" -ApprovalId "approval:AAAAAAAA" -TimeoutInMinutes 5
+            $end = get-date
+            $ret | Should not BeNullOrEmpty
+            { $ret.items } | Should Throw
+            $diff = New-TimeSpan -Start $start -End $end
+            $diff.Minutes | Should Be 5
+        }
+
+        It 'when GRR API requests returns true and using a 2 minute timeout' {
+            Mock Get-GRRClientApproval {$true} -ModuleName PowerGRR
+
+            $start = get-date
+            $ret = Wait-GRRClientApproval -Credential $PesterTestCredentials -ComputerName "host1" -ApprovalId "approval:AAAAAAAA" -TimeoutInMinutes 2
+            $end = get-date
+            $ret | Should not BeNullOrEmpty
+            { $ret.items } | Should Throw
+            $ret | should be $true
+            $diff = New-TimeSpan -Start $start -End $end
         }
     }
 }

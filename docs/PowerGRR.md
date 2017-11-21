@@ -99,3 +99,9 @@ Start a GRR hunt based on the hunt id.
 
 ### [Stop-GRRHunt](Stop-GRRHunt.md)
 Stop a GRR hunt based on the hunt id.
+
+### [Wait-GRRClientApproval](Wait-GRRClientApproval.md)
+Wait for client approval.
+
+### [Wait-GRRHuntApproval](Wait-GRRHuntApproval.md)
+Wait for hunt approval.

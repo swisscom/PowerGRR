@@ -1,19 +1,19 @@
 ---
 external help file: PowerGRR-help.xml
-online version: 
+online version: https://github.com/swisscom/powergrr/docs/Wait-GRRClientApproval.md
 schema: 2.0.0
 ---
 
-# Start-GRRHunt
+# Wait-GRRClientApproval
 
 ## SYNOPSIS
-Start a GRR hunt based on the hunt id.
+{{Fill in the Synopsis}}
 
 ## SYNTAX
 
 ```
-Start-GRRHunt [[-HuntId] <String>] [-Credential] <PSCredential> [-ShowJSON] [-WhatIf] [-Confirm]
- [<CommonParameters>]
+Wait-GRRClientApproval [-ComputerName] <String> [-Credential] <PSCredential> [-ApprovalId] <String>
+ [[-TimeoutInMinutes] <Int32>] [[-Interval] <Int32>] [-ShowJSON] [-WhatIf] [-Confirm]
 ```
 
 ## DESCRIPTION
@@ -23,19 +23,42 @@ Start-GRRHunt [[-HuntId] <String>] [-Credential] <PSCredential> [-ShowJSON] [-Wh
 
 ### Example 1
 ```
-PS C:\> Start-GRRHunt -Credential $cred -HuntId H:AAAAAAAA
+PS C:\> {{ Add example code here }}
 ```
 
-Start the specific hunt. Approval must be granted before.
-
-### Example 2
-```
-Start-GRRHunt -HuntId $huntid -Credential $cred -Wait -ApprovalId $approval -TimeoutInMinutes 15 -Verbose
-```
-
-Start the specific hunt and wait until given approval gets valid.
+{{ Add example description here }}
 
 ## PARAMETERS
+
+### -ApprovalId
+{{Fill ApprovalId Description}}
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases: 
+
+Required: True
+Position: 2
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ComputerName
+{{Fill ComputerName Description}}
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases: 
+
+Required: True
+Position: 0
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
 
 ### -Confirm
 Prompts you for confirmation before running the cmdlet.
@@ -53,7 +76,7 @@ Accept wildcard characters: False
 ```
 
 ### -Credential
-GRR credentials.
+{{Fill Credential Description}}
 
 ```yaml
 Type: PSCredential
@@ -67,23 +90,23 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -HuntId
-HuntId of the hunt which should be started.
+### -Interval
+{{Fill Interval Description}}
 
 ```yaml
-Type: String
+Type: Int32
 Parameter Sets: (All)
 Aliases: 
 
 Required: False
-Position: 0
+Position: 4
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
 ### -ShowJSON
-Show plain JSON as output instead of the return object.
+{{Fill ShowJSON Description}}
 
 ```yaml
 Type: SwitchParameter
@@ -92,6 +115,21 @@ Aliases:
 
 Required: False
 Position: Benannt
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -TimeoutInMinutes
+{{Fill TimeoutInMinutes Description}}
+
+```yaml
+Type: Int32
+Parameter Sets: (All)
+Aliases: 
+
+Required: False
+Position: 3
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -113,12 +151,10 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### CommonParameters
-This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
-
 ## INPUTS
 
 ### Keine
+
 
 ## OUTPUTS
 

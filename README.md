@@ -52,7 +52,7 @@ Some of the use cases where PowerGRR could speed up the work:
     object for easier filtering.
 * Create and start a new hunt and get the hunt info or results as PowerShell
     objects.
-* Create a hunt or a client approval request.
+* Create a hunt or a client approval request and wait until they get valid.
 * Add or remove a label on one or multiple clients based on a list of computer
     names.
 * Add artifacts to or remove artifacts from the GRR artifact repository.
@@ -202,7 +202,7 @@ need to change the comment for the GRRUrl.
 ``` powershell
 #$GRRUrl = "https://main-grrserver.tld"
 $GRRUrl = "https://test-grrserver.tld"
-$GRRIgnoreCertificateErrors = $( if ($GRRUrl -match "test") { $true } } )
+$GRRIgnoreCertificateErrors = $( if ($GRRUrl -match "test") { $true } )
 $GRRClientCertIssuer = $( if ($GRRUrl -match "main") { "certificate issuer" } )
 ```
 
@@ -344,7 +344,7 @@ $ret.stat_entry.registry_data
 # Alternative you can start a hunt against that label. The EmailAddress
 # parameter is optional and notifies you about the first hit. The OnlyUrl
 # parameter shows only the URL to the hunt.
-New-GRRHunt -HuntDescription "Search for notepad.exe" `
+$HuntId = New-GRRHunt -HuntDescription "Search for notepad.exe" `
             -Flow FileFinder `
             -path "c:\notepad.exe" `
             -MatchMode MATCH_ALL `
@@ -357,14 +357,17 @@ New-GRRHunt -HuntDescription "Search for notepad.exe" `
             -Verbose
 
 # If needed request an approval
-New-GRRHuntApproval -Credential $cred -HuntId H:AAAAAAAA -NotifiedUsers user1 `
+$ApprovalId = New-GRRHuntApproval -Credential $cred -HuntId H:AAAAAAAA -NotifiedUsers user1 `
                     -Reason "Hunting for notepad.exe - INC01" -OnlyId
 
 # Start the hunt
-Start-GRRHunt -Credential $creds -HuntId H:AAAAAAAA
+Start-GRRHunt -Credential $creds -HuntId $HuntId
+
+# Start the hunt after approval got within the given timeout
+Start-GRRHunt -HuntId $HuntId -Credential $creds -Wait -ApprovalId $ApprovalId -TimeoutInMinutes 15
 
 # Read hunt restuls
-$ret = Get-GRRHuntResult -Credential $cred -HuntId "H:AAAAAAAA"
+$ret = Get-GRRHuntResult -Credential $cred -HuntId $HuntId
 
 # Inspect results
 $ret.items

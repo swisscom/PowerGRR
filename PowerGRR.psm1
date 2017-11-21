@@ -753,6 +753,133 @@ function Get-GRRClientApproval()
 }
 
 
+function Wait-GRRHuntApproval()
+{
+    [CmdletBinding(SupportsShouldProcess=$True)]
+    param(
+        [Parameter(Mandatory=$true)]
+        [System.Management.Automation.PSCredential]
+        [System.Management.Automation.Credential()]
+        $Credential,
+
+        [Parameter(Mandatory=$true)]
+        [string]
+        $HuntId,
+
+        [Parameter(Mandatory=$true)]
+        [string]
+        $ApprovalId,
+
+        [int]
+        $TimeoutInMinutes = 15,
+
+        [int]
+        $Interval = 30,
+
+        [switch]
+        $ShowJSON
+    )
+
+    $Function = $MyInvocation.MyCommand
+    Write-Verbose "$Function Entering $Function"
+
+    $TimeoutReached = $false
+    $Timeout = $TimeoutInMinutes * 60
+    $Count = 0
+
+    while (!(Get-GRRHuntApproval -Credential $Credential -HuntId $HuntId -ApprovalId $ApprovalId -OnlyState))
+    {
+        if ($Timeout -le $Count)
+        {
+            Write-Verbose "Timeout reached - break and stop execution."
+            $TimeoutReached = $true
+            Break
+        }
+        else
+        {
+            Write-Verbose "Waiting for $Interval seconds..."
+            $Count += $Interval
+            Sleep $Interval
+        }
+    }
+
+    if ($TimeoutReached)
+    {
+        $false
+    }
+    else
+    {
+        $true
+    }
+
+    Write-Verbose "$Function Leaving $Function"
+}
+
+
+function Wait-GRRClientApproval()
+{
+    [CmdletBinding(SupportsShouldProcess=$True)]
+    param(
+        [Parameter(Mandatory=$true)]
+        [string]
+        $ComputerName,
+
+        [Parameter(Mandatory=$true)]
+        [System.Management.Automation.PSCredential]
+        [System.Management.Automation.Credential()]
+        $Credential,
+
+        [Parameter(Mandatory=$true)]
+        [string]
+        $ApprovalId,
+
+        [int]
+        $TimeoutInMinutes = 15,
+
+        [int]
+        $Interval = 30,
+
+        [switch]
+        $ShowJSON
+    )
+
+    $Function = $MyInvocation.MyCommand
+    Write-Verbose "$Function Entering $Function"
+
+    $TimeoutReached = $false
+    $Timeout = $TimeoutInMinutes * 60
+    $Interval = 30
+    $Count = 0
+
+    while (!(Get-GRRClientApproval -Credential $Credential -ComputerName $ComputerName -ApprovalId $ApprovalId -OnlyState))
+    {
+        if ($Timeout -le $Count)
+        {
+            Write-Verbose "Timeout reached - break and stop execution."
+            $TimeoutReached = $true
+            Break
+        }
+        else
+        {
+            Write-Verbose "Waiting for $Interval seconds..."
+            $Count += $Interval
+            Sleep $Interval
+        }
+    }
+
+    if ($TimeoutReached)
+    {
+        $false
+    }
+    else
+    {
+        $true
+    }
+
+    Write-Verbose "$Function Leaving $Function"
+}
+
+
 function New-GRRHuntApproval()
 {
     [CmdletBinding(SupportsShouldProcess=$True)]
@@ -914,15 +1041,31 @@ function New-GRRClientApproval()
 
 function Start-GRRHunt()
 {
-    [CmdletBinding(SupportsShouldProcess=$True)]
+    [CmdletBinding(DefaultParameterSetName="Default", SupportsShouldProcess=$True)]
     param(
-        [string]
-        $HuntId,
-
         [Parameter(Mandatory=$true)]
         [System.Management.Automation.PSCredential]
         [System.Management.Automation.Credential()]
         $Credential,
+
+        [string]
+        $HuntId,
+
+        [Parameter(ParameterSetName="WaitForApproval",Mandatory=$true)]
+        [switch]
+        $Wait,
+
+        [Parameter(ParameterSetName="WaitForApproval",Mandatory=$true)]
+        [string]
+        $ApprovalId,
+
+        [Parameter(ParameterSetName="WaitForApproval",Mandatory=$false)]
+        [int]
+        $TimeoutInMinutes,
+
+        [Parameter(ParameterSetName="WaitForApproval",Mandatory=$false)]
+        [int]
+        $Interval,
 
         [switch]
         $ShowJSON
@@ -937,26 +1080,29 @@ function Start-GRRHunt()
     Process {
         Write-Progress -Activity "Running $Function"
 
-        $Headers,$Websession = Get-GRRSession -Credential $Credential
-
-        $params =  @{
-            'Url' = "/hunts/$HuntId";
-            'Body' = '{"state":"STARTED"}';
-            'Headers' = $Headers;
-            'Websession' = $Websession;
-            'Method' = "PATCH";
-            'Credential' = $Credential
-        }
-
-        # If 403 - it could be due to the missing approval
-        if ($pscmdlet.ShouldProcess($HuntId, "Starting hunt"))
+        if (!$Wait -or ($Wait -and (Wait-GRRHuntApproval -Credential $Credential -HuntId $HuntId -ApprovalId $ApprovalId -TimeoutInMinutes $TimeoutInMinutes)))
         {
-            $ret = Invoke-GRRRequest @params
-        }
+            $Headers,$Websession = Get-GRRSession -Credential $Credential
 
-        if ($ret)
-        {
-            $ret
+            $params =  @{
+                'Url' = "/hunts/$HuntId";
+                'Body' = '{"state":"STARTED"}';
+                'Headers' = $Headers;
+                'Websession' = $Websession;
+                'Method' = "PATCH";
+                'Credential' = $Credential
+            }
+
+            # If 403 - it could be due to the missing approval
+            if ($pscmdlet.ShouldProcess($HuntId, "Starting hunt"))
+            {
+                $ret = Invoke-GRRRequest @params
+            }
+
+            if ($ret)
+            {
+                $ret
+            }
         }
     } # process
 
@@ -2763,7 +2909,9 @@ Export-ModuleMember @(
     'Remove-GRRArtifact',
     'Get-GRRHuntApproval',
     'Get-GRRClientApproval',
-    'ConvertTo-Hex'
+    'ConvertTo-Hex',
+    'Wait-GRRHuntApproval',
+    'Wait-GRRClientApproval'
 )
 
 #endregion

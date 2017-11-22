@@ -1551,7 +1551,7 @@ function Invoke-GRRFlow()
         if ($Flow -eq "FileFinder")
         {
             $PluginArguments = '{"paths":["'+$($PSBoundParameters['Path']-join'","')+'"],'
-            $PluginArguments += '"action":{"action_type":"'+$($PSBoundParameters['ActionType'])+'"},'
+            $PluginArguments += '"action":{"action_type":"'+$($PSBoundParameters['ActionType'])+'"}'
 
             if ($($PSBoundParameters['Mode']))
             {
@@ -1568,7 +1568,7 @@ function Invoke-GRRFlow()
                 {
                     throw "Please provide a regex search string with -SearchString."
                 }
-                $PluginArguments += '"conditions":[{"condition_type":"CONTENTS_REGEX_MATCH",'
+                $PluginArguments += '",conditions":[{"condition_type":"CONTENTS_REGEX_MATCH",'
                 $PluginArguments += '"contents_regex_match":{"mode":"'+$RegexMode+'","regex":"'+$($PSBoundParameters['SearchString'])+'"}}]}'
             }
             elseif ($PSBoundParameters['ConditionType'] -match "literal")
@@ -1577,8 +1577,12 @@ function Invoke-GRRFlow()
                 {
                     throw "Please provide a literal search string with -SearchString."
                 }
-                $PluginArguments += '"conditions":[{"condition_type":"CONTENTS_LITERAL_MATCH",'
+                $PluginArguments += '",conditions":[{"condition_type":"CONTENTS_LITERAL_MATCH",'
                 $PluginArguments += '"contents_literal_match":{"literal":"'+$( $PSBoundParameters['SearchString'] | ConvertTo-Base64 )+'"}}]}'
+            }
+            else
+            {
+                $PluginArguments += '}'
             }
 
             $PluginArguments = $PluginArguments -replace "\\", "\\"

@@ -1061,11 +1061,7 @@ function Start-GRRHunt()
 
         [Parameter(ParameterSetName="WaitForApproval",Mandatory=$false)]
         [int]
-        $TimeoutInMinutes,
-
-        [Parameter(ParameterSetName="WaitForApproval",Mandatory=$false)]
-        [int]
-        $Interval,
+        $TimeoutInMinutes = 15,
 
         [switch]
         $ShowJSON

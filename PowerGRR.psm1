@@ -1039,6 +1039,147 @@ function New-GRRClientApproval()
 }
 
 
+function Get-FlowArgs()
+{
+    param(
+        [Parameter(Mandatory=$true)]
+        [System.Management.Automation.PSCredential]
+        [System.Management.Automation.Credential()]
+        $Credential,
+
+        [Parameter(Mandatory=$true)]
+        [string]
+        $Flow,
+
+        [Parameter(Mandatory=$true)]
+        [System.Collections.ICollection]
+        $Parameters
+    )
+
+    $PluginArguments = "{}"
+
+    if ($Flow -eq "FileFinder")
+    {
+        $PluginArguments = '{"paths":["'+$($Parameters['Path']-join'","')+'"]'
+
+        if ($($Parameters['Mode']))
+        {
+            $RegexMode = $( $Parameters['Mode'])
+        }
+        else
+        {
+            $RegexMode = "All_HITS"
+        }
+
+        if ($Parameters['ConditionType'] -match "regex")
+        {
+            if (!$Parameters['SearchString'])
+            {
+                throw "Please provide a regex search string with -SearchString."
+            }
+            $PluginArguments += ',"conditions":[{"condition_type":"CONTENTS_REGEX_MATCH",'
+            $PluginArguments += '"contents_regex_match":{"regex":"'+$($Parameters['SearchString'])+'","mode":"'+$RegexMode+'"}}]}'
+        }
+        elseif ($Parameters['ConditionType'] -match "literal")
+        {
+            if (!$Parameters['SearchString'])
+            {
+                throw "Please provide a literal search string with -SearchString."
+            }
+            $PluginArguments += ',"conditions":[{"condition_type":"CONTENTS_LITERAL_MATCH",'
+            $PluginArguments += '"contents_literal_match":{"literal":"'+$( $Parameters['SearchString'] | ConvertTo-Base64 )+'"}}]}'
+        }
+        else
+        {
+            $PluginArguments += ',"action":{"action_type":"'+$($Parameters['ActionType'])+'"}'
+            $PluginArguments += '}'
+        }
+
+        $PluginArguments = $PluginArguments -replace "\\", "\\"
+    }
+    elseif ($Flow -eq "RegistryFinder")
+    {
+        $PluginArguments = '{"keys_paths":["'+$($Parameters['Key']-join'","')+'"]}'
+    }
+    elseif ($Flow -eq "ListProcesses")
+    {
+        if ($Parameters['FileNameRegex'])
+        {
+            $PluginArguments = '{"filename_regex":"'+$Parameters['FileNameRegex']+'"}'
+        }
+        else
+        {
+            $PluginArguments = '{"filename_regex":"."}'
+        }
+    }
+    elseif ($Flow -eq "ExecutePythonHack")
+    {
+        $HackArguments = $($Parameters['PyArgsValue'])
+        $HackArguments = $HackArguments -replace "\\", "\\"
+        $HackArguments = $HackArguments -replace '"', '\"'
+
+        $PluginArguments = '{"hack_name":"'+$($Parameters['HackName'])+'","py_args":{"'+$($Parameters['PyArgsName'])+'":"'+$HackArguments+'"}}'
+    }
+    elseif ($Flow -eq "ArtifactCollectorFlow")
+    {
+        $ValidatedArtifacts = Get-ValidatedGRRArtifact -Credential $Credential -Artifacts $Parameters['ArtifactList']
+
+        if ($ValidatedArtifacts)
+        {
+            $PluginArguments = '{"artifact_list":["'+ $($ValidatedArtifacts -join "`",`"") + '"]}'
+            Write-Verbose "PluginArguments for ArtifactCollectorFlow: $PluginArguments"
+        }
+        else
+        {
+            Throw "No artifacts found in GRR which match the given artifacts."
+        }
+    }
+
+    $PluginArguments
+}
+
+
+function Get-DynamicFlowParam()
+{
+    param(
+        [Parameter(Mandatory=$true)]
+        [System.Collections.ICollection]
+        $Params
+    )
+
+    $Dictionary = New-Object System.Management.Automation.RuntimeDefinedParameterDictionary
+
+    if ($Params.containskey('flow') -and $Params.Flow -eq "FileFinder")
+    {
+        New-DynamicParam -Name Path -mandatory -DPDictionary $Dictionary -Type String[]
+        New-DynamicParam -Name ActionType -mandatory -ValidateSet Hash,Download -DPDictionary $Dictionary
+        New-DynamicParam -Name ConditionType -ValidateSet Regex,Literal -DPDictionary $Dictionary
+        New-DynamicParam -Name Mode -ValidateSet ALL_HITS,FIRST_HIT -DPDictionary $Dictionary
+        New-DynamicParam -Name SearchString -DPDictionary $Dictionary
+    }
+    elseif ($Params.containskey('flow') -and $Params.Flow -eq "RegistryFinder")
+    {
+        New-DynamicParam -Name Key -mandatory -DPDictionary $Dictionary -Type String[]
+    }
+    elseif ($Params.containskey('flow') -and $Params.Flow -eq "ListProcesses")
+    {
+        New-DynamicParam -Name FileNameRegex -DPDictionary $Dictionary
+    }
+    elseif ($Params.containskey('flow') -and $Params.Flow -eq "ExecutePythonHack")
+    {
+        New-DynamicParam -Name HackName -mandatory -DPDictionary $Dictionary
+        New-DynamicParam -Name PyArgsName -mandatory -DPDictionary $Dictionary
+        New-DynamicParam -Name PyArgsValue -mandatory -DPDictionary $Dictionary
+    }
+    elseif ($Params.containskey('flow') -and $Params.Flow -eq "ArtifactCollectorFlow")
+    {
+        New-DynamicParam -Name ArtifactList -mandatory -DPDictionary $Dictionary -Type string[]
+    }
+
+    $Dictionary
+}
+
+
 function Start-GRRHunt()
 {
     [CmdletBinding(DefaultParameterSetName="Default", SupportsShouldProcess=$True)]
@@ -1214,32 +1355,7 @@ function New-GRRHunt()
 
     DynamicParam
     {
-        $Dictionary = New-Object System.Management.Automation.RuntimeDefinedParameterDictionary
-
-        if ($PSBoundParameters.containskey('flow') -and $PSBoundParameters.Flow -eq "FileFinder")
-        {
-            New-DynamicParam -Name Path -mandatory -DPDictionary $Dictionary -Type String[]
-            New-DynamicParam -Name ActionType -mandatory -ValidateSet Hash,Download -DPDictionary $Dictionary
-
-        }
-        elseif ($PSBoundParameters.containskey('flow') -and $PSBoundParameters.Flow -eq "RegistryFinder")
-        {
-            New-DynamicParam -Name Key -mandatory -DPDictionary $Dictionary -Type String[]
-        }
-        elseif ($PSBoundParameters.containskey('flow') -and $PSBoundParameters.Flow -eq "ListProcesses")
-        {
-            New-DynamicParam -Name FileNameRegex -DPDictionary $Dictionary
-        }
-        elseif ($PSBoundParameters.containskey('flow') -and $PSBoundParameters.Flow -eq "ExecutePythonHack")
-        {
-            New-DynamicParam -Name HackName -mandatory -DPDictionary $Dictionary
-            New-DynamicParam -Name PyArgsName -mandatory -DPDictionary $Dictionary
-            New-DynamicParam -Name PyArgsValue -mandatory -DPDictionary $Dictionary
-        }
-        elseif ($PSBoundParameters.containskey('flow') -and $PSBoundParameters.Flow -eq "ArtifactCollectorFlow")
-        {
-            New-DynamicParam -Name ArtifactList -mandatory -DPDictionary $Dictionary -Type string[]
-        }
+        $Dictionary = Get-DynamicFlowParam -Params $PSBoundParameters
 
         if ($PSBoundParameters.containskey('RuleType') -and $PSBoundParameters.RuleType -eq "OS")
         {
@@ -1287,75 +1403,7 @@ function New-GRRHunt()
             $OutputPlugin += $EmailAddress+'","emails_limit":1}}'
         }
 
-        $FlowArgs = "{}"
-
-        if ($Flow -eq "FileFinder")
-        {
-            $FlowArgs = '{"paths":["'+$($PSBoundParameters['Path']-join'","')+'"],'
-            $FlowArgs += '"action":{"action_type":"'+($($PSBoundParameters['ActionType'])).toUpper()+'"}}'
-            $FlowArgs = $FlowArgs -replace "\\", "\\"
-        }
-        elseif ($Flow -eq "RegistryFinder")
-        {
-            $FlowArgs = '{"keys_paths":["'+$($PSBoundParameters['Key']-join'","')+'"]}'
-        }
-        elseif ($Flow -eq "ListProcesses")
-        {
-            if ($PSBoundParameters['FileNameRegex'])
-            {
-                $FlowArgs = '{"filename_regex":"'+$PSBoundParameters['FileNameRegex']+'"}'
-            }
-            else
-            {
-                $FlowArgs = '{"filename_regex":"."}'
-            }
-        }
-        elseif ($Flow -eq "ExecutePythonHack")
-        {
-            $HackArguments = $($PSBoundParameters['PyArgsValue'])
-            $HackArguments = $HackArguments -replace "\\", "\\"
-            $HackArguments = $HackArguments -replace '"', '\"'
-
-            $FlowArgs = '{"hack_name":"'+$($PSBoundParameters['HackName'])+'","py_args":{"'+$($PSBoundParameters['PyArgsName'])+'":"'+$HackArguments+'"}}'
-        }
-        elseif ($Flow -eq "ArtifactCollectorFlow")
-        {
-            $AllArtifacts = Get-GRRArtifact -Credential $Credential
-            if ($AllArtifacts) {
-                $AllArtifacts = $AllArtifacts | select -ExpandProperty name
-            }
-            else
-            {
-                Throw "No artifacts found in GRR"
-            }
-
-            $ValidatedArtifacts = @()
-
-            foreach ($Artifact in $PSBoundParameters['ArtifactList'])
-            {
-                if ($AllArtifacts -and $AllArtifacts.contains($Artifact))
-                {
-                    $ValidatedArtifacts += $Artifact
-                }
-                else
-                {
-                    write-warning "Skipping artifact `'$Artifact`' because it is not defined in GRR."
-                }
-            }
-
-            if($ValidatedArtifacts)
-            {
-                $ValidatedArtifacts = $ValidatedArtifacts | Get-Unique
-            }
-            else
-            {
-                Throw "No artifacts found in GRR which match the command"
-            }
-
-            $FlowArgs = '{"artifact_list":["'+ $($ValidatedArtifacts -join "`",`"") + '"]}'
-
-            Write-Verbose "FlowArgs for ArtifactCollectorFlow: $FlowArgs"
-        }
+        $FlowArgs = Get-FlowArgs -Credential $Credential -Flow $Flow -Parameters $PSBoundParameters
 
         if ($RuleType -eq "Label")
         {
@@ -1475,37 +1523,7 @@ function Invoke-GRRFlow()
 
     DynamicParam
     {
-        $Dictionary = New-Object System.Management.Automation.RuntimeDefinedParameterDictionary
-
-        if ($PSBoundParameters.containskey('flow') -and $PSBoundParameters.Flow -eq "FileFinder")
-        {
-            New-DynamicParam -Name Path -mandatory -DPDictionary $Dictionary -Type String[]
-            New-DynamicParam -Name ActionType -mandatory -ValidateSet Hash,Download -DPDictionary $Dictionary
-            New-DynamicParam -Name ConditionType -ValidateSet Regex,Literal -DPDictionary $Dictionary
-            New-DynamicParam -Name Mode -ValidateSet ALL_HITS,FIRST_HIT -DPDictionary $Dictionary
-            New-DynamicParam -Name SearchString -DPDictionary $Dictionary
-
-        }
-        elseif ($PSBoundParameters.containskey('flow') -and $PSBoundParameters.Flow -eq "RegistryFinder")
-        {
-            New-DynamicParam -Name Key -mandatory -DPDictionary $Dictionary -Type String[]
-        }
-        elseif ($PSBoundParameters.containskey('flow') -and $PSBoundParameters.Flow -eq "ListProcesses")
-        {
-            New-DynamicParam -Name FileNameRegex -DPDictionary $Dictionary
-        }
-        elseif ($PSBoundParameters.containskey('flow') -and $PSBoundParameters.Flow -eq "ExecutePythonHack")
-        {
-            New-DynamicParam -Name HackName -mandatory -DPDictionary $Dictionary
-            New-DynamicParam -Name PyArgsName -mandatory -DPDictionary $Dictionary
-            New-DynamicParam -Name PyArgsValue -mandatory -DPDictionary $Dictionary
-        }
-        elseif ($PSBoundParameters.containskey('flow') -and $PSBoundParameters.Flow -eq "ArtifactCollectorFlow")
-        {
-            New-DynamicParam -Name ArtifactList -mandatory -DPDictionary $Dictionary -Type string[]
-        }
-
-        $Dictionary
+        Get-DynamicFlowParam -Params $PSBoundParameters
     }
 
     Begin {
@@ -1542,84 +1560,7 @@ function Invoke-GRRFlow()
             $OutputPlugin += '"plugin_args":{"email_address":"'+$EmailAddress+'","emails_limit":1}}'
         }
 
-        $PluginArguments = "{}"
-
-        if ($Flow -eq "FileFinder")
-        {
-            $PluginArguments = '{"paths":["'+$($PSBoundParameters['Path']-join'","')+'"],'
-            $PluginArguments += '"action":{"action_type":"'+$($PSBoundParameters['ActionType'])+'"}'
-
-            if ($($PSBoundParameters['Mode']))
-            {
-                $RegexMode = $( $PSBoundParameters['Mode'])
-            }
-            else
-            {
-                $RegexMode = "All_HITS"
-            }
-
-            if ($PSBoundParameters['ConditionType'] -match "regex")
-            {
-                if (!$PSBoundParameters['SearchString'])
-                {
-                    throw "Please provide a regex search string with -SearchString."
-                }
-                $PluginArguments += '",conditions":[{"condition_type":"CONTENTS_REGEX_MATCH",'
-                $PluginArguments += '"contents_regex_match":{"mode":"'+$RegexMode+'","regex":"'+$($PSBoundParameters['SearchString'])+'"}}]}'
-            }
-            elseif ($PSBoundParameters['ConditionType'] -match "literal")
-            {
-                if (!$PSBoundParameters['SearchString'])
-                {
-                    throw "Please provide a literal search string with -SearchString."
-                }
-                $PluginArguments += '",conditions":[{"condition_type":"CONTENTS_LITERAL_MATCH",'
-                $PluginArguments += '"contents_literal_match":{"literal":"'+$( $PSBoundParameters['SearchString'] | ConvertTo-Base64 )+'"}}]}'
-            }
-            else
-            {
-                $PluginArguments += '}'
-            }
-
-            $PluginArguments = $PluginArguments -replace "\\", "\\"
-        }
-        elseif ($Flow -eq "RegistryFinder")
-        {
-            $PluginArguments = '{"keys_paths":["'+$($PSBoundParameters['Key']-join'","')+'"]}'
-        }
-        elseif ($Flow -eq "ListProcesses")
-        {
-            if ($PSBoundParameters['FileNameRegex'])
-            {
-                $PluginArguments = '{"filename_regex":"'+$PSBoundParameters['FileNameRegex']+'"}'
-            }
-            else
-            {
-                $PluginArguments = '{"filename_regex":"."}'
-            }
-        }
-        elseif ($Flow -eq "ExecutePythonHack")
-        {
-            $HackArguments = $($PSBoundParameters['PyArgsValue'])
-            $HackArguments = $HackArguments -replace "\\", "\\"
-            $HackArguments = $HackArguments -replace '"', '\"'
-
-            $PluginArguments = '{"hack_name":"'+$($PSBoundParameters['HackName'])+'","py_args":{"'+$($PSBoundParameters['PyArgsName'])+'":"'+$HackArguments+'"}}'
-        }
-        elseif ($Flow -eq "ArtifactCollectorFlow")
-        {
-            $ValidatedArtifacts = Get-ValidatedGRRArtifact -Credential $Credential -Artifacts $PSBoundParameters['ArtifactList']
-
-            if ($ValidatedArtifacts)
-            {
-                $PluginArguments = '{"artifact_list":["'+ $($ValidatedArtifacts -join "`",`"") + '"]}'
-                Write-Verbose "PluginArguments for ArtifactCollectorFlow: $PluginArguments"
-            }
-            else
-            {
-                Throw "No artifacts found in GRR which match the given artifacts."
-            }
-        }
+        $PluginArguments = Get-FlowArgs -Credential $Credential -Flow $Flow -Parameters $PSBoundParameters
 
         $Body = '{"flow":{"runner_args":{"flow_name":"'+$Flow+'",'
         $Body += '"output_plugins":['+$OutputPlugin+']},"args":'+$PluginArguments+'}}'

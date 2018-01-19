@@ -180,14 +180,14 @@ Describe 'Get-GRRHuntInfo' {
 
         It 'read valid hunt info with option showjson' {
             Mock Invoke-GRRRequest {
-                $ValidHuntInfo.substring(5) | ConvertFrom-Json
+                $ValidHuntInfo
             } -ModuleName PowerGRR
 
             Mock Get-GRRHuntResult {
                 $ValidHuntResults.substring(5) | ConvertFrom-Json
             } -ModuleName PowerGRR
 
-            $json = Get-GRRHuntInfo -HuntId "H:11111111" -Credential $PesterTestCredentials -ShowJSON
+            $json = Get-GRRHuntInfo -HuntId "H:11111111" -Credential $PesterTestCredentials -ShowJSON -ShowResultCount
             $json | should not BeNullOrEmpty
             $ret = $json | ConvertFrom-Json
             $ret.description | should be "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
@@ -1076,6 +1076,7 @@ Describe "internal functions" {
     InModuleScope PowerGRR {
         Context 'Testing Get-ClientCertificate' {
             It 'no client cert' {
+                $GRRClientCertIssuer = "not existing"
                 Mock Get-ChildItem {} -ModuleName PowerGRR
                 Mock Get-PfxCertificate {} -ModuleName PowerGRR
                 { Get-ClientCertificate } | should throw

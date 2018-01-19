@@ -47,6 +47,7 @@ check current cmdlets how to use supporting functions.
     * Add the version comparison link to the current release changelog section.
     * Add the current date at the end of the new header row
 1. Update **ModuleVersion** in the module description file (.psd1).
+1. Commit the changes
 1. Set a tag for the new version (e.g. "vx.x.x").
 1. Push the tag and the code changes to the repo.
 1. Add a new Github release and add release notes

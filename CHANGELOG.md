@@ -4,7 +4,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) 
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## [Unreleased](https://github.com/swisscom/powergrr/compare/v0.6.0...master)
+## [Unreleased](https://github.com/swisscom/powergrr/compare/v0.7.0...master)
+
+<!--
+### Added
+### Changed
+### Deprecated
+### Removed
+### Fixed
+### Security
+-->
+
+## [v0.7.0](https://github.com/swisscom/powergrr/compare/v0.6.0...v0.7.0)- 2018-01-19
 
 Improve payload conversions, add file content conditions for file finder and
 update result count functionality for hunt info according to added fields in
@@ -29,10 +40,10 @@ overview. Extend existing approval state commands with new wait functions.
     approvals. Specify the timeout in minutes as needed.
 * Add _-Wait_ switch to `Start-GRRHunt` for waiting for the specified approval
     before starting the hunt.
-<!--
-### Changed
-### Deprecated
--->
+* Add `Get-FlowArgs` for building flow arguments and `Get-DynamicFlowParam`
+  for generating the dynamic flow parameters and use these functions for
+  shared code in `Invoke-GRRFlow` and `New-GRRHunt`.
+
 ### Removed
 * Removed second GRR API call in `Get-GRRHuntInfo` for result
    count by default because in newer versions (3.2.x.x) of the GRR server the result
@@ -43,10 +54,6 @@ overview. Extend existing approval state commands with new wait functions.
    The new count field only works for new hunt results. Old hunt results are not
    covered with the new fields - use the added parameter `ShowResultCount` in
    `Get-GRRHuntInfo` for these hunts.
-<!--
-### Fixed
-### Security
--->
 
 ## [v0.6.0](https://github.com/swisscom/powergrr/compare/v0.5.0...v0.6.0)- 2017-09-14
 

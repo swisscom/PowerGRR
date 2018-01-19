@@ -2192,6 +2192,8 @@ function Get-GRRSession ()
 
     Write-Progress -Activity "Running $Function"
 
+    $params = @{}
+
     if (Get-Variable -Name GRRUrl -ErrorAction SilentlyContinue -valueonly)
     {
         $GRRUrl = $GRRUrl.trim('/')
@@ -2322,6 +2324,7 @@ function Invoke-GRRRequest ()
                    -Status "Running API call from $(((Get-PSCallStack)[1]).Command)"
 
     $ret = ""
+    $params = @{}
 
     if ($Url[0] -eq "/")
     {

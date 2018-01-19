@@ -12,7 +12,7 @@ Decode a base64 encoded string.
 ## SYNTAX
 
 ```
-ConvertFrom-Base64 [-String] <String> [-Encoding <String>]
+ConvertFrom-Base64 [-String] <String> [-Encoding <String>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -39,7 +39,6 @@ PS C:\> ConvertFrom-Base64 "R1JSIGlzIGF3ZXNvbWU="
 Convert the collected sha256 hash (hash_entry e.g. from file finder flow) to
 the corresponding hex representation. The payload from GRR is base64 encoded,
 therefore Convertfrom-Base64 provides the needed step in between.
-
 
 ## PARAMETERS
 
@@ -72,6 +71,9 @@ Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
+
+### CommonParameters
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 

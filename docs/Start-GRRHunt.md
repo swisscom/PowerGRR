@@ -11,9 +11,16 @@ Start a GRR hunt based on the hunt id.
 
 ## SYNTAX
 
+### Default (Default)
 ```
-Start-GRRHunt [[-HuntId] <String>] [-Credential] <PSCredential> [-ShowJSON] [-WhatIf] [-Confirm]
+Start-GRRHunt [-Credential] <PSCredential> [[-HuntId] <String>] [-ShowJSON] [-WhatIf] [-Confirm]
  [<CommonParameters>]
+```
+
+### WaitForApproval
+```
+Start-GRRHunt [-Credential] <PSCredential> [[-HuntId] <String>] [-Wait] -ApprovalId <String>
+ [-TimeoutInMinutes <Int32>] [-ShowJSON] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -108,6 +115,51 @@ Aliases: wi
 
 Required: False
 Position: Benannt
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ApprovalId
+{{Fill ApprovalId Description}}
+
+```yaml
+Type: String
+Parameter Sets: WaitForApproval
+Aliases: 
+
+Required: True
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -TimeoutInMinutes
+{{Fill TimeoutInMinutes Description}}
+
+```yaml
+Type: Int32
+Parameter Sets: WaitForApproval
+Aliases: 
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Wait
+{{Fill Wait Description}}
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: WaitForApproval
+Aliases: 
+
+Required: True
+Position: Named
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False

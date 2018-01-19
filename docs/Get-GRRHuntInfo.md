@@ -12,7 +12,8 @@ Get hunt info for a specific hunt.
 ## SYNTAX
 
 ```
-Get-GRRHuntInfo [[-HuntId] <String>] [-Credential] <PSCredential> [-ShowJSON] [<CommonParameters>]
+Get-GRRHuntInfo [[-HuntId] <String>] [-Credential] <PSCredential> [-ShowResultCount] [-ShowJSON]
+ [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -70,6 +71,21 @@ Aliases:
 Required: False
 Position: Named
 Default value: False
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ShowResultCount
+{{Fill ShowResultCount Description}}
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases: 
+
+Required: False
+Position: Named
+Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```

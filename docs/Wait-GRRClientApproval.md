@@ -13,7 +13,7 @@ schema: 2.0.0
 
 ```
 Wait-GRRClientApproval [-ComputerName] <String> [-Credential] <PSCredential> [-ApprovalId] <String>
- [[-TimeoutInMinutes] <Int32>] [[-Interval] <Int32>] [-ShowJSON] [-WhatIf] [-Confirm]
+ [[-TimeoutInMinutes] <Int32>] [[-Interval] <Int32>] [-ShowJSON] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -151,10 +151,12 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
+### CommonParameters
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
+
 ## INPUTS
 
 ### Keine
-
 
 ## OUTPUTS
 

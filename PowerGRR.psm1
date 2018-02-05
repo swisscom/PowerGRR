@@ -1100,6 +1100,8 @@ function Get-FlowArgs()
     elseif ($Flow -eq "RegistryFinder")
     {
         $PluginArguments = '{"keys_paths":["'+$($Parameters['Key']-join'","')+'"]}'
+
+        $PluginArguments = $PluginArguments -replace "\\", "\\"
     }
     elseif ($Flow -eq "ListProcesses")
     {

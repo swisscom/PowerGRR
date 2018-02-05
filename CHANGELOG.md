@@ -6,12 +6,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased](https://github.com/swisscom/powergrr/compare/v0.7.0...master)
 
+### Fixed
+* Fix uninitialized variables in `Get-GRRSession` and `Invoke-GRRRequest`
+* Fix issue with registry path definition in RegistryFinder flow
 <!--
 ### Added
 ### Changed
 ### Deprecated
 ### Removed
-### Fixed
 ### Security
 -->
 

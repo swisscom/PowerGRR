@@ -6,11 +6,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased](https://github.com/swisscom/powergrr/compare/v0.7.0...master)
 
+### Added
+* Add condition functionality to RegistryFinder flow
+
 ### Fixed
 * Fix uninitialized variables in `Get-GRRSession` and `Invoke-GRRRequest`
+    (Thanks to @Se1ecto).
 * Fix issue with registry path definition in RegistryFinder flow
+* Fix bug when client limit not getting set correctly 
 <!--
-### Added
 ### Changed
 ### Deprecated
 ### Removed

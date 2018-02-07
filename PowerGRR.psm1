@@ -1099,7 +1099,39 @@ function Get-FlowArgs()
     }
     elseif ($Flow -eq "RegistryFinder")
     {
-        $PluginArguments = '{"keys_paths":["'+$($Parameters['Key']-join'","')+'"]}'
+        $PluginArguments = '{"keys_paths":["'+$($Parameters['Key']-join'","')+'"]'
+
+        if ($($Parameters['Mode']))
+        {
+            $RegexMode = $( $Parameters['Mode'])
+        }
+        else
+        {
+            $RegexMode = "All_HITS"
+        }
+
+        if ($Parameters['ConditionType'] -match "regex")
+        {
+            if (!$Parameters['ConditionString'])
+            {
+                throw "Please provide a regex condition string with -ConditionString."
+            }
+            $PluginArguments += ',"conditions":[{"condition_type":"VALUE_REGEX_MATCH",'
+            $PluginArguments += '"value_regex_match":{"regex":"'+$($Parameters['ConditionString'])+'","mode":"'+$RegexMode+'"}}]}'
+        }
+        elseif ($Parameters['ConditionType'] -match "literal")
+        {
+            if (!$Parameters['ConditionString'])
+            {
+                throw "Please provide a literal search string with -ConditionString."
+            }
+            $PluginArguments += ',"conditions":[{"condition_type":"VALUE_LITERAL_MATCH",'
+            $PluginArguments += '"value_literal_match":{"literal":"'+$( $Parameters['ConditionString'] | ConvertTo-Base64 )+'"}}]}'
+        }
+        else
+        {
+            $PluginArguments += '}'
+        }
 
         $PluginArguments = $PluginArguments -replace "\\", "\\"
     }
@@ -1162,6 +1194,9 @@ function Get-DynamicFlowParam()
     elseif ($Params.containskey('flow') -and $Params.Flow -eq "RegistryFinder")
     {
         New-DynamicParam -Name Key -mandatory -DPDictionary $Dictionary -Type String[]
+        New-DynamicParam -Name ConditionType -ValidateSet Regex,Literal -DPDictionary $Dictionary
+        New-DynamicParam -Name Mode -ValidateSet ALL_HITS,FIRST_HIT -DPDictionary $Dictionary
+        New-DynamicParam -Name ConditionString -DPDictionary $Dictionary
     }
     elseif ($Params.containskey('flow') -and $Params.Flow -eq "ListProcesses")
     {

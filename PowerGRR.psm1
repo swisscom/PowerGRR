@@ -1449,7 +1449,7 @@ function New-GRRHunt()
             $Rule = '"client_rule_set":{"rules":[{"os":{"'+$($PSBoundParameters['OS'])+'":true}}]}'
         }
 
-        if(!$ClientLimit)
+        if(!$ClientLimit -and $ClientLimit -ne 0)
         {
             $ClientLimit = 100
         }

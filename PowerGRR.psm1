@@ -1565,9 +1565,14 @@ function Invoke-GRRFlow()
 
     Begin {
         $Function = $MyInvocation.MyCommand
+        Write-Progress -Activity "Running $Function"
         Write-Verbose "$Function Entering $Function"
 
         Set-NewVariable -Parameters $PSBoundParameters
+
+        $Headers,$Websession = Get-GRRSession -Credential $Credential
+
+        $ret = @()
 
         # Fix for dynamic parameter autocompletion issue: https://github.com/PowerShell/PowerShell/issues/3984
         if (!$Credential -or ($Credential.GetType()).name -ne "PSCredential")
@@ -1586,9 +1591,6 @@ function Invoke-GRRFlow()
     }
 
     Process {
-        Write-Progress -Activity "Running $Function"
-
-        $Headers,$Websession = Get-GRRSession -Credential $Credential
 
         $OutputPlugin = ""
         if ($EmailAddress)
@@ -1602,10 +1604,10 @@ function Invoke-GRRFlow()
         $Body = '{"flow":{"runner_args":{"flow_name":"'+$Flow+'",'
         $Body += '"output_plugins":['+$OutputPlugin+']},"args":'+$PluginArguments+'}}'
 
-        $ret = @()
-
         foreach ($client in $ComputerName)
         {
+            Write-Verbose "Check client '$client'"
+
             $params = @{
                 'ComputerName' = $client;
                 'Credential' = $Credential

@@ -11,9 +11,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Fixed
 * Fix uninitialized variables in `Get-GRRSession` and `Invoke-GRRRequest`
-    (Thanks to @Se1ecto).
+    (Thanks to @Se1ecto)
 * Fix issue with registry path definition in RegistryFinder flow
 * Fix bug when client limit not getting set correctly 
+* Fix output formatting issue when using the pipeline in `Invoke-GRRFlow`
 <!--
 ### Changed
 ### Deprecated

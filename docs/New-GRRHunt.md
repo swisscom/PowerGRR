@@ -9,6 +9,26 @@ schema: 2.0.0
 ## SYNOPSIS
 Create a new hunt.
 
+Flow types:
+- FileFinder: 
+   - Path (m), Type: String[]
+   - ActionType (m), ValidateSet: Hash, Download
+   - ConditionType, ValidateSet: Regex,Literal
+   - Mode, ValidateSet: All_HITS, FIRST_HIT
+   - SearchString, Type: String
+- RegistryFinder: 
+   - Key (m), Type: String[]
+- ListProcesses: 
+   - FileNameRegex, Type: string
+- ExecutePythonHack: 
+   - HackName (m), Type: string
+   - PyArgsName (m), Type: string
+   - PyArgsValue (m), Type: string
+- ArtifactCollectorFlow:
+   - ArtifactList (m), Type: String[]
+- YaraProcessScan:
+   - YaraSignatureFile (m), Type: string
+
 ## SYNTAX
 
 ```

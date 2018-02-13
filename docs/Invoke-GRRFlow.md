@@ -22,6 +22,7 @@ using dedicated parameters for each flow type.
 
 Use the following dynamic parameters for each flow type (-Flow) to specifcy the
 needed values. Mandatory parameters are attributed with (m). 
+- Netstat: 
 - FileFinder: 
    - Path (m), Type: String[]
    - ActionType (m), ValidateSet: Hash, Download
@@ -30,6 +31,9 @@ needed values. Mandatory parameters are attributed with (m).
    - SearchString, Type: String
 - RegistryFinder: 
    - Key (m), Type: String[]
+   - ConditionType, ValidateSet: Regex,Literal
+   - Mode, ValidateSet: All_HITS, FIRST_HIT
+   - ConditionValue, Type: String
 - ListProcesses: 
    - FileNameRegex, Type: string
 - ExecutePythonHack: 
@@ -38,6 +42,8 @@ needed values. Mandatory parameters are attributed with (m).
    - PyArgsValue (m), Type: string
 - ArtifactCollectorFlow:
    - ArtifactList (m), Type: String[]
+- YaraProcessScan:
+   - YaraSignatureFile (m), Type: string
 
 ## EXAMPLES
 
@@ -61,6 +67,14 @@ PS C:\> Invoke-GRRFlow -ComputerName host1 -Credential $cred -Flow FileFinder -p
 ```
 
 Start a new file finder flow and use the regex condition.
+
+### Example 4
+```
+Invoke-GRRFlow -Flow YaraProcessScan -ComputerName host1 -Credential $cred -YaraSignatureFile $FilePathToYaraRule
+```
+
+Start a Yara scan on the specific host with the provided Yara rule.
+
 
 ## PARAMETERS
 

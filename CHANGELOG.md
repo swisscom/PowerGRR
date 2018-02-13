@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Added
 * Add condition functionality to RegistryFinder flow
+* Add YaraProcessScan flow
 
 ### Fixed
 * Fix uninitialized variables in `Get-GRRSession` and `Invoke-GRRRequest`

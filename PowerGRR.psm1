@@ -1168,6 +1168,19 @@ function Get-FlowArgs()
             Throw "No artifacts found in GRR which match the given artifacts."
         }
     }
+    elseif ($Flow -eq "YaraProcessScan")
+    {
+        # Read signature file and escape quotes
+        $FilePath = $Parameters['YaraSignatureFile']
+        if (!(Test-Path $FilePath))
+        {
+            Throw "Yara file not found: $FilePath"
+        }
+
+        $YaraSignature = Get-content $FilePath
+        $YaraSignature = $YaraSignature -replace "`"", "\`""
+        $PluginArguments = '{"yara_signature":"'+$YaraSignature+'"}'
+    }
 
     $PluginArguments
 }
@@ -1211,6 +1224,10 @@ function Get-DynamicFlowParam()
     elseif ($Params.containskey('flow') -and $Params.Flow -eq "ArtifactCollectorFlow")
     {
         New-DynamicParam -Name ArtifactList -mandatory -DPDictionary $Dictionary -Type string[]
+    }
+    elseif ($Params.containskey('flow') -and $Params.Flow -eq "YaraProcessScan")
+    {
+        New-DynamicParam -Name YaraSignatureFile -mandatory -DPDictionary $Dictionary
     }
 
     $Dictionary
@@ -1352,7 +1369,7 @@ function New-GRRHunt()
         $HuntDescription,
 
         [Parameter(Mandatory=$true)]
-        [ValidateSet("Netstat","ListProcesses","FileFinder","RegistryFinder","ExecutePythonHack","ArtifactCollectorFlow")]
+        [ValidateSet("Netstat","ListProcesses","FileFinder","RegistryFinder","ExecutePythonHack","ArtifactCollectorFlow","YaraProcessScan")]
         [string]
         $Flow,
 
@@ -1547,7 +1564,7 @@ function Invoke-GRRFlow()
         $Credential,
 
         [Parameter(Mandatory=$true)]
-        [ValidateSet("Netstat","ListProcesses","FileFinder","RegistryFinder","ExecutePythonHack","ArtifactCollectorFlow")]
+        [ValidateSet("Netstat","ListProcesses","FileFinder","RegistryFinder","ExecutePythonHack","ArtifactCollectorFlow","YaraProcessScan")]
         [string]
         $Flow,
 

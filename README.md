@@ -65,7 +65,7 @@ The following flow types are available for hunts and flows and the target group
 is chosen based on labels or the OS. See also [command
 help](https://github.com/swisscom/PowerGRR/blob/master/docs/Invoke-GRRFlow.md#-flow)
 for the available flow types.
-* Netstat, ListProcesses, FileFinder, RegistryFinder, ExecutePythonHack, ArtifactCollectorFlow
+* Netstat, ListProcesses, FileFinder, RegistryFinder, ExecutePythonHack, ArtifactCollectorFlow, YaraProcessScan
 
 **Repo Structure**
 

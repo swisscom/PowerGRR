@@ -136,6 +136,7 @@ Function Get-GRRComputerNameFromClientId()
         $Function = $MyInvocation.MyCommand
         Write-Verbose "$Function Entering $Function"
         $ret = ""
+        $output = @()
     }
 
     Process {
@@ -153,18 +154,47 @@ Function Get-GRRComputerNameFromClientId()
             }
 
             $ret = Invoke-GRRRequest @params -ShowJSON:$PSBoundParameters.containskey('ShowJSON')
-            if ($ret -and !$PSBoundParameters.containskey('ShowJSON') -and $ret.items)
+            if ($ret -and !$PSBoundParameters.containskey('ShowJSON') -and ($ret.PSobject.Properties.name -match "items"))
             {
-                $ret.items.os_info.node
+                if ($ret.items -and $ret.items -ne "")
+                {
+                    $item = $ret.items
+
+                    $info=[ordered]@{
+                        ComputerName=$item.os_info.node
+                        ClientId=$item.urn.substring(6)
+                        LastSeenAt=$(Get-EpocTimeFromUtc ($item.last_seen_at).toString().Insert(10,"."))
+                        OSVersion=$item.os_info.kernel
+                    }
+
+                    $output += New-Object PSObject -Property $info
+                }
+                else
+                {
+                    write-warning "ClientId $ClientId not found in GRR."
+                }
             }
             else
             {
-                $ret
+                if ($ret -and ($ret.substring(5) | ConvertFrom-Json).items)
+                {
+                    $info=[ordered]@{
+                        ComputerName=$client
+                        JSON=$ret
+                    }
+
+                    $output += New-Object PSObject -Property $info
+                }
+                else
+                {
+                    write-warning "ClientId $ClientId not found in GRR."
+                }
             }
         }
     }
 
     End {
+        $output | sort-object ComputerName -unique
         Write-Verbose "$Function Leaving $Function"
     }
 } # Get-GRRComputerNameFromClientId
@@ -397,7 +427,7 @@ Function Set-GRRLabel()
 
                 Write-Verbose "Body: $Body"
 
-                if ($pscmdlet.ShouldProcess( $( (Get-GRRComputerNameFromClientId -clientid $ClientId.ClientId -Credential $Credential)-join"," ), "Set label $Label"))
+                if ($pscmdlet.ShouldProcess( $( (Get-GRRComputerNameFromClientId -clientid $ClientId.ClientId -Credential $Credential).ComputerName -join"," ), "Set label $Label"))
                 {
                     if ($Headers -and $Websession)
                     {
@@ -471,7 +501,7 @@ function Remove-GRRLabel()
             {
                 $Body = '{"client_ids":["'+$(($ClientId.ClientId)-join'","')+'"],"labels":["'+$($Label-join'","')+'"]}'
 
-                if ($pscmdlet.ShouldProcess( $( (Get-GRRComputerNameFromClientId -clientid $ClientId.ClientId -Credential $Credential)-join"," ), "Remove label $Label"))
+                if ($pscmdlet.ShouldProcess( $( (Get-GRRComputerNameFromClientId -clientid $ClientId.ClientId -Credential $Credential).ComputerName -join"," ), "Remove label $Label"))
                 {
                     if ($Headers -and $Websession)
                     {

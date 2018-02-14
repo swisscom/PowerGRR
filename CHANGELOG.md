@@ -10,6 +10,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 * Add condition functionality to RegistryFinder flow
 * Add YaraProcessScan flow
 
+### Changed
+* Improve output in `Get-GRRComputerNameFromClientId`
+
 ### Fixed
 * Fix uninitialized variables in `Get-GRRSession` and `Invoke-GRRRequest`
     (Thanks to @Se1ecto)
@@ -17,7 +20,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 * Fix bug when client limit not getting set correctly 
 * Fix output formatting issue when using the pipeline in `Invoke-GRRFlow`
 <!--
-### Changed
 ### Deprecated
 ### Removed
 ### Security

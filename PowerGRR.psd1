@@ -97,7 +97,8 @@ FunctionsToExport = @(
     'Get-GRRClientApproval',
     'ConvertTo-Hex',
     'Wait-GRRHuntApproval',
-    'Wait-GRRClientApproval'
+    'Wait-GRRClientApproval',
+    'Get-GRRClientInfo'
     )
 
 # Cmdlets to export from this module

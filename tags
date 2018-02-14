@@ -9,10 +9,13 @@ ConvertTo-Hex	.\PowerGRR.psm1	/^function ConvertTo-Hex()$/;"	m
 Find-GRRClient	.\PowerGRR.psm1	/^Function Find-GRRClient()$/;"	m
 Find-GRRClientByLabel	.\PowerGRR.psm1	/^Function Find-GRRClientByLabel()$/;"	m
 Get-ClientCertificate	.\PowerGRR.psm1	/^Function Get-ClientCertificate()$/;"	m
+Get-DynamicFlowParam	.\PowerGRR.psm1	/^function Get-DynamicFlowParam()$/;"	m
 Get-EpocTimeFromUtc	.\PowerGRR.psm1	/^function Get-EpocTimeFromUtc ([long]$UnixTime)$/;"	m
+Get-FlowArgs	.\PowerGRR.psm1	/^function Get-FlowArgs()$/;"	m
 Get-GRRArtifact	.\PowerGRR.psm1	/^function Get-GRRArtifact()$/;"	m
 Get-GRRClientApproval	.\PowerGRR.psm1	/^function Get-GRRClientApproval()$/;"	m
 Get-GRRClientIdFromComputerName	.\PowerGRR.psm1	/^Function Get-GRRClientIdFromComputerName()$/;"	m
+Get-GRRClientInfo	.\PowerGRR.psm1	/^function Get-GRRClientInfo()$/;"	m
 Get-GRRComputerNameFromClientId	.\PowerGRR.psm1	/^Function Get-GRRComputerNameFromClientId()$/;"	m
 Get-GRRConfig	.\PowerGRR.psm1	/^Function Get-GRRConfig()$/;"	m
 Get-GRRFlowDescriptor	.\PowerGRR.psm1	/^function Get-GRRFlowDescriptor()$/;"	m

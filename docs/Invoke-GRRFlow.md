@@ -75,7 +75,6 @@ Invoke-GRRFlow -Flow YaraProcessScan -ComputerName host1 -Credential $cred -Yara
 
 Start a Yara scan on the specific host with the provided Yara rule.
 
-
 ## PARAMETERS
 
 ### -ComputerName

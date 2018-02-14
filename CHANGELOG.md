@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 * Add condition functionality to RegistryFinder flow
 * Add YaraProcessScan flow
+* Add `Get-GRRClientInfo` to display various information about a
+  specific client based on the hostname
 
 ### Changed
 * Improve output in `Get-GRRComputerNameFromClientId`

@@ -200,6 +200,99 @@ Function Get-GRRComputerNameFromClientId()
 } # Get-GRRComputerNameFromClientId
 
 
+function Get-GRRClientInfo()
+{
+    param(
+        [parameter(ValueFromPipeline=$True)]
+        [string[]]
+        $ComputerName,
+
+        [Parameter(Mandatory=$true)]
+        [System.Management.Automation.PSCredential]
+        [System.Management.Automation.Credential()]
+        $Credential,
+
+        [switch]
+        $OnlyLastSeen = $false,
+
+        [switch]
+        $ShowJSON
+    )
+
+    Begin {
+        $Function = $MyInvocation.MyCommand
+
+        Write-Verbose "$Function Entering $Function"
+
+        $ret = @()
+    }
+
+    Process {
+        Write-Progress -Activity "Running $Function"
+
+        foreach ($client in $ComputerName)
+        {
+            $res = Invoke-GRRRequest -Url "/clients?query=$client" -Credential $Credential -ShowJSON:$PSBoundParameters.containskey('ShowJSON')
+            if ($res -and !$PSBoundParameters.containskey('ShowJSON') -and ($res.PSobject.Properties.name -match "items"))
+            {
+                if ($res.items)
+                {
+                    foreach ($item in $res.items)
+                    {
+                        $info=[ordered]@{
+                            ComputerName=$item.os_info.node
+                            ClientId=$item.urn.substring(6)
+                            InstallationDate=$(Get-EpocTimeFromUtc ($item.os_info.install_date).toString().Insert(10,"."))
+                            LastSeenAt=$(Get-EpocTimeFromUtc ($item.last_seen_at).toString().Insert(10,"."))
+                            OSVersion=$item.os_info.kernel
+                            GRRClientVersion=$item.agent_info.client_version
+                            UserNames=$(if($item.users) { $item.users.username } )
+                            Labels=$(if($item.labels) { $item.labels.name } )
+                        }
+
+                        $ret += New-Object PSObject -Property $info
+                    }
+                }
+                else
+                {
+                    write-warning "ComputerName $client not found in GRR."
+                }
+            }
+            elseif ($res)
+            {
+                $info=[ordered]@{
+                    ComputerName=$client
+                    JSON=$res
+                }
+
+                $ret += New-Object PSObject -Property $info
+            }
+        }
+    }
+
+    End {
+        if ($OnlyLastSeen -and !$PSBoundParameters.containskey('ShowJSON'))
+        {
+            $RetReduced = @()
+
+            foreach ($r in $ret)
+            {
+                $RetReduced +=  ($ret | Where-Object {$_.computername -eq $r.computername} | sort-object lastseenat -descending | select-object -first 1)
+            }
+
+            $RetReduced | sort-object computername -unique
+        }
+        else
+        {
+            $ret
+        }
+
+        Write-Verbose "$Function Leaving $Function"
+    }
+
+}
+
+
 Function Get-GRRClientIdFromComputerName()
 {
     param(
@@ -2941,7 +3034,8 @@ Export-ModuleMember @(
     'Get-GRRClientApproval',
     'ConvertTo-Hex',
     'Wait-GRRHuntApproval',
-    'Wait-GRRClientApproval'
+    'Wait-GRRClientApproval',
+    'Get-GRRClientInfo'
 )
 
 #endregion

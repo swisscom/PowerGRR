@@ -38,6 +38,9 @@ Get client approvals identified by the given filters.
 ### [Get-GRRClientIdFromComputerName](Get-GRRClientIdFromComputerName.md)
 Convert a computername into the corresponding GRR client id.
 
+### [Get-GRRClientInfo](Get-GRRClientInfo.md)
+Get various information about a specific host.
+
 ### [Get-GRRComputerNameFromClientId](Get-GRRComputerNameFromClientId.md)
 Search for a specific client id and return the computername.
 

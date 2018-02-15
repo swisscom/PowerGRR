@@ -240,14 +240,14 @@ function Get-GRRClientInfo()
                     foreach ($item in $res.items)
                     {
                         $info=[ordered]@{
-                            ComputerName=$item.os_info.node
+                            ComputerName=$( if($item.os_info) { $item.os_info.node } )
                             ClientId=$item.urn.substring(6)
                             InstallationDate=$(Get-EpocTimeFromUtc ($item.os_info.install_date).toString().Insert(10,"."))
                             LastSeenAt=$(Get-EpocTimeFromUtc ($item.last_seen_at).toString().Insert(10,"."))
-                            OSVersion=$item.os_info.kernel
+                            OSVersion=$( if($item.os_info) { $item.os_info.kernel } )
                             GRRClientVersion=$item.agent_info.client_version
-                            UserNames=$(if($item.users) { $item.users.username } )
-                            Labels=$(if($item.labels) { $item.labels.name } )
+                            UserNames=$( if($item.users) { $item.users.username } )
+                            Labels=$( if($item.labels) { $item.labels.name } )
                         }
 
                         $ret += New-Object PSObject -Property $info

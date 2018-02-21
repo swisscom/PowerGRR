@@ -39,6 +39,7 @@ check current cmdlets how to use supporting functions.
 
 ## Making a new Release
 
+1. Update markdown help and external help file.
 1. Run the Pester tests. See [BUILD](BUILD.md). All tests must pass.
 1. Update CHANGELOG 
     * Update information according to the current release.

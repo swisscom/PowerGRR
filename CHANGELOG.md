@@ -4,7 +4,22 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) 
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## [Unreleased](https://github.com/swisscom/powergrr/compare/v0.7.0...master)
+## [Unreleased](https://github.com/swisscom/powergrr/compare/v0.8.0...master)
+<!--
+### Added
+### Changed
+### Fixed
+### Deprecated
+### Removed
+### Security
+-->
+
+## [v0.8.0](https://github.com/swisscom/powergrr/compare/v0.7.0...v0.8.0)- 2018-02-21
+
+Add the **functionality for using a condition in RegistryFinder flow** and **add the
+Yara process memory scan flow**. Extend and improve getting and displaying
+client information. Fix some issues within RegistryFinder flow, hunt
+definition and formatting in `Invoke-GRRFlow`.
 
 ### Added
 * Add condition functionality to RegistryFinder flow
@@ -21,11 +36,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 * Fix issue with registry path definition in RegistryFinder flow
 * Fix bug when client limit not getting set correctly 
 * Fix output formatting issue when using the pipeline in `Invoke-GRRFlow`
-<!--
-### Deprecated
-### Removed
-### Security
--->
 
 ## [v0.7.0](https://github.com/swisscom/powergrr/compare/v0.6.0...v0.7.0)- 2018-01-19
 

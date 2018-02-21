@@ -14,7 +14,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Security
 -->
 
-## [v0.8.0](https://github.com/swisscom/powergrr/compare/v0.7.0...v0.8.0)- 2018-02-21
+## [v0.8.0](https://github.com/swisscom/powergrr/compare/v0.7.0...v0.8.0) - 2018-02-21
 
 Add the **functionality for using a condition in RegistryFinder flow** and **add the
 Yara process memory scan flow**. Extend and improve getting and displaying
@@ -37,7 +37,7 @@ definition and formatting in `Invoke-GRRFlow`.
 * Fix bug when client limit not getting set correctly 
 * Fix output formatting issue when using the pipeline in `Invoke-GRRFlow`
 
-## [v0.7.0](https://github.com/swisscom/powergrr/compare/v0.6.0...v0.7.0)- 2018-01-19
+## [v0.7.0](https://github.com/swisscom/powergrr/compare/v0.6.0...v0.7.0) - 2018-01-19
 
 Improve payload conversions, add file content conditions for file finder and
 update result count functionality for hunt info according to added fields in
@@ -77,7 +77,7 @@ overview. Extend existing approval state commands with new wait functions.
    covered with the new fields - use the added parameter `ShowResultCount` in
    `Get-GRRHuntInfo` for these hunts.
 
-## [v0.6.0](https://github.com/swisscom/powergrr/compare/v0.5.0...v0.6.0)- 2017-09-14
+## [v0.6.0](https://github.com/swisscom/powergrr/compare/v0.5.0...v0.6.0) - 2017-09-14
 
 Add support for **reading client or hunt approvals and their state**. This
 allows using a loop until an approval gets valid and starting the

@@ -41,10 +41,9 @@ Function Get-GRRHuntInfo()
         [string]
         $HuntId = $(throw "Provide a hunt id with -HuntId"),
 
-        [Parameter(Mandatory=$true)]
         [System.Management.Automation.PSCredential]
         [System.Management.Automation.Credential()]
-        $Credential,
+        $Credential = (Get-GRRCredential),
 
         [switch]
         $ShowResultCount,
@@ -95,10 +94,9 @@ Function Get-GRRHuntResult()
         [string]
         $HuntId = $(throw "Provide a hunt id with -HuntId"),
 
-        [Parameter(Mandatory=$true)]
         [System.Management.Automation.PSCredential]
         [System.Management.Automation.Credential()]
-        $Credential,
+        $Credential = (Get-GRRCredential),
 
         [switch]
         $ShowJSON
@@ -123,10 +121,9 @@ Function Get-GRRComputerNameFromClientId()
         [string[]]
         $ClientId,
 
-        [Parameter(Mandatory=$true)]
         [System.Management.Automation.PSCredential]
         [System.Management.Automation.Credential()]
-        $Credential,
+        $Credential = (Get-GRRCredential),
 
         [switch]
         $ShowJSON
@@ -199,6 +196,24 @@ Function Get-GRRComputerNameFromClientId()
     }
 } # Get-GRRComputerNameFromClientId
 
+function Get-GRRCredential()
+{
+    if(get-variable -name GRRCredential -scope global -ErrorAction SilentlyContinue -valueonly)
+    {
+        $Credential = get-variable -name GRRCredential -scope global -ErrorAction SilentlyContinue -valueonly
+    }
+    else
+    {
+        try{
+            $Credential = Microsoft.PowerShell.Security\get-credential
+        }
+        catch {
+            throw "Please specify either -Credential param or set the variable `$GRRCredential before running the command."
+        }
+    }
+    # Return GRR credentials
+    $Credential
+}
 
 function Get-GRRClientInfo()
 {
@@ -207,10 +222,9 @@ function Get-GRRClientInfo()
         [string[]]
         $ComputerName,
 
-        [Parameter(Mandatory=$true)]
         [System.Management.Automation.PSCredential]
         [System.Management.Automation.Credential()]
-        $Credential,
+        $Credential = (Get-GRRCredential),
 
         [switch]
         $OnlyLastSeen = $false,
@@ -300,10 +314,9 @@ Function Get-GRRClientIdFromComputerName()
         [string[]]
         $ComputerName,
 
-        [Parameter(Mandatory=$true)]
         [System.Management.Automation.PSCredential]
         [System.Management.Automation.Credential()]
-        $Credential,
+        $Credential = (Get-GRRCredential),
 
         [switch]
         $OnlyLastSeen = $false,
@@ -387,10 +400,9 @@ Function Find-GRRClient()
         [string]
         $SearchString = $(throw "Provide a search string with -SearchString"),
 
-        [Parameter(Mandatory=$true)]
         [System.Management.Automation.PSCredential]
         [System.Management.Automation.Credential()]
-        $Credential,
+        $Credential = (Get-GRRCredential),
 
         [switch]
         $OnlyComputerName = $false,
@@ -434,10 +446,9 @@ Function Find-GRRClientByLabel()
         [string]
         $SearchString = $(throw "Provide a search string with -SearchString"),
 
-        [Parameter(Mandatory=$true)]
         [System.Management.Automation.PSCredential]
         [System.Management.Automation.Credential()]
-        $Credential,
+        $Credential = (Get-GRRCredential),
 
         [switch]
         $OnlyComputerName = $false,
@@ -481,10 +492,9 @@ Function Set-GRRLabel()
         [string[]]
         $Label = $(throw "Provide labels with -Label"),
 
-        [Parameter(Mandatory=$true)]
         [System.Management.Automation.PSCredential]
         [System.Management.Automation.Credential()]
-        $Credential,
+        $Credential = (Get-GRRCredential),
 
         [switch]
         $ShowJSON
@@ -557,10 +567,9 @@ function Remove-GRRLabel()
         [string[]]
         $Label = $(throw "Provide labels with -Label"),
 
-        [Parameter(Mandatory=$true)]
         [System.Management.Automation.PSCredential]
         [System.Management.Automation.Credential()]
-        $Credential,
+        $Credential = (Get-GRRCredential),
 
         [switch]
         $ShowJSON
@@ -630,10 +639,9 @@ function Get-GRRHuntApproval()
 {
     [CmdletBinding(DefaultParameterSetName="ByUser")]
     param(
-        [Parameter(Mandatory=$true)]
         [System.Management.Automation.PSCredential]
         [System.Management.Automation.Credential()]
-        $Credential,
+        $Credential = (Get-GRRCredential),
 
         [Parameter(ParameterSetName="ByApproval",Mandatory=$true)]
         [string]
@@ -738,10 +746,9 @@ function Get-GRRClientApproval()
 {
     [CmdletBinding(DefaultParameterSetName="ByUser")]
     param(
-        [Parameter(Mandatory=$true)]
         [System.Management.Automation.PSCredential]
         [System.Management.Automation.Credential()]
-        $Credential,
+        $Credential = (Get-GRRCredential),
 
         [Parameter(ParameterSetName="ByApproval",Mandatory=$true)]
         [Parameter(ParameterSetName="ByUser",Mandatory=$false)]
@@ -880,10 +887,9 @@ function Wait-GRRHuntApproval()
 {
     [CmdletBinding(SupportsShouldProcess=$True)]
     param(
-        [Parameter(Mandatory=$true)]
         [System.Management.Automation.PSCredential]
         [System.Management.Automation.Credential()]
-        $Credential,
+        $Credential = (Get-GRRCredential),
 
         [Parameter(Mandatory=$true)]
         [string]
@@ -947,10 +953,9 @@ function Wait-GRRClientApproval()
         [string]
         $ComputerName,
 
-        [Parameter(Mandatory=$true)]
         [System.Management.Automation.PSCredential]
         [System.Management.Automation.Credential()]
-        $Credential,
+        $Credential = (Get-GRRCredential),
 
         [Parameter(Mandatory=$true)]
         [string]
@@ -1011,10 +1016,9 @@ function New-GRRHuntApproval()
         [string]
         $HuntId,
 
-        [Parameter(Mandatory=$true)]
         [System.Management.Automation.PSCredential]
         [System.Management.Automation.Credential()]
-        $Credential,
+        $Credential = (Get-GRRCredential),
 
         [Parameter(Mandatory=$true)]
         [string[]]
@@ -1082,10 +1086,9 @@ function New-GRRClientApproval()
         [string]
         $ComputerName,
 
-        [Parameter(Mandatory=$true)]
         [System.Management.Automation.PSCredential]
         [System.Management.Automation.Credential()]
-        $Credential,
+        $Credential = (Get-GRRCredential),
 
         [Parameter(Mandatory=$true)]
         [string[]]
@@ -1165,10 +1168,9 @@ function New-GRRClientApproval()
 function Get-FlowArgs()
 {
     param(
-        [Parameter(Mandatory=$true)]
         [System.Management.Automation.PSCredential]
         [System.Management.Automation.Credential()]
-        $Credential,
+        $Credential = (Get-GRRCredential),
 
         [Parameter(Mandatory=$true)]
         [string]
@@ -1361,10 +1363,9 @@ function Start-GRRHunt()
 {
     [CmdletBinding(DefaultParameterSetName="Default", SupportsShouldProcess=$True)]
     param(
-        [Parameter(Mandatory=$true)]
         [System.Management.Automation.PSCredential]
         [System.Management.Automation.Credential()]
-        $Credential,
+        $Credential = (Get-GRRCredential),
 
         [string]
         $HuntId,
@@ -1434,10 +1435,9 @@ function Stop-GRRHunt()
         [string]
         $HuntId,
 
-        [Parameter(Mandatory=$true)]
         [System.Management.Automation.PSCredential]
         [System.Management.Automation.Credential()]
-        $Credential,
+        $Credential = (Get-GRRCredential),
 
         [switch]
         $ShowJSON
@@ -1524,7 +1524,7 @@ function New-GRRHunt()
         #[Parameter(Mandatory=$true)]
         #[System.Management.Automation.PSCredential]
         #[System.Management.Automation.Credential()]
-        $Credential,
+        $Credential = (Get-GRRCredential),
 
         [switch]
         $ShowJSON
@@ -1553,19 +1553,19 @@ function New-GRRHunt()
         Set-NewVariable -Parameters $PSBoundParameters
 
         # Fix for dynamic parameter autocompletion issue: https://github.com/PowerShell/PowerShell/issues/3984
-        if (!$Credential -or ($Credential.GetType()).name -ne "PSCredential")
-        {
-            Write-Debug "Credentials not supplied or of wrong type."
-            try
-            {
-                $Credential = Microsoft.PowerShell.Security\get-credential
-            }
-            catch
-            {
-                throw "Use the parameter '-Credential' and 'Microsoft.PowerShell.Security\get-credential' to supply your credentials."
-                break
-            }
-        }
+        #if (!$Credential -or ($Credential.GetType()).name -ne "PSCredential")
+        #{
+        #    Write-Debug "Credentials not supplied or of wrong type."
+        #    try
+        #    {
+        #        $Credential = Microsoft.PowerShell.Security\get-credential
+        #    }
+        #    catch
+        #    {
+        #        throw "Use the parameter '-Credential' and 'Microsoft.PowerShell.Security\get-credential' to supply your credentials."
+        #        break
+        #    }
+        #}
     }
 
     Process {
@@ -1684,7 +1684,7 @@ function Invoke-GRRFlow()
         #[Parameter(Mandatory=$true)]
         #[System.Management.Automation.PSCredential]
         #[System.Management.Automation.Credential()]
-        $Credential,
+        $Credential = (Get-GRRCredential),
 
         [Parameter(Mandatory=$true)]
         [ValidateSet("Netstat","ListProcesses","FileFinder","RegistryFinder","ExecutePythonHack","ArtifactCollectorFlow","YaraProcessScan")]
@@ -1715,19 +1715,19 @@ function Invoke-GRRFlow()
         $ret = @()
 
         # Fix for dynamic parameter autocompletion issue: https://github.com/PowerShell/PowerShell/issues/3984
-        if (!$Credential -or ($Credential.GetType()).name -ne "PSCredential")
-        {
-            Write-Debug "Credentials not supplied or of wrong type."
-            try
-            {
-                $Credential = Microsoft.PowerShell.Security\get-credential
-            }
-            catch
-            {
-                throw "Use the parameter '-Credential' and 'Microsoft.PowerShell.Security\get-credential' to supply your credentials."
-                break
-            }
-        }
+        #if (!$Credential -or ($Credential.GetType()).name -ne "PSCredential")
+        #{
+        #    Write-Debug "Credentials not supplied or of wrong type."
+        #    try
+        #    {
+        #        $Credential = Microsoft.PowerShell.Security\get-credential
+        #    }
+        #    catch
+        #    {
+        #        throw "Use the parameter '-Credential' and 'Microsoft.PowerShell.Security\get-credential' to supply your credentials."
+        #        break
+        #    }
+        #}
     }
 
     Process {
@@ -1814,10 +1814,9 @@ function Get-GRRFlowResult()
         [string]
         $ComputerName,
 
-        [Parameter(Mandatory=$true)]
         [System.Management.Automation.PSCredential]
         [System.Management.Automation.Credential()]
-        $Credential,
+        $Credential = (Get-GRRCredential),
 
         [string]
         [Parameter(Mandatory=$true)]
@@ -1892,10 +1891,9 @@ Function Get-GRRLabel()
 {
     [OutputType([string[]])]
     param(
-        [Parameter(Mandatory=$true)]
         [System.Management.Automation.PSCredential]
         [System.Management.Automation.Credential()]
-        $Credential,
+        $Credential = (Get-GRRCredential),
 
         [switch]
         $ShowJSON
@@ -1928,10 +1926,9 @@ Function Get-GRRHunt()
 {
     [CmdletBinding(DefaultParameterSetName="Count")]
     param(
-        [Parameter(Mandatory=$true)]
         [System.Management.Automation.PSCredential]
         [System.Management.Automation.Credential()]
-        $Credential,
+        $Credential = (Get-GRRCredential),
 
         [Parameter(ParameterSetName="Count",Mandatory=$false)]
         [int]
@@ -2041,10 +2038,9 @@ function Get-GRRFlowDescriptor()
 {
     [CmdletBinding()]
     param(
-        [Parameter(Mandatory=$true)]
         [System.Management.Automation.PSCredential]
         [System.Management.Automation.Credential()]
-        $Credential,
+        $Credential = (Get-GRRCredential),
 
         [switch]
         $ShowJSON
@@ -2087,10 +2083,9 @@ function Remove-GRRArtifact()
         [string[]]
         $Artifact,
 
-        [Parameter(Mandatory=$true)]
         [System.Management.Automation.PSCredential]
         [System.Management.Automation.Credential()]
-        $Credential,
+        $Credential = (Get-GRRCredential),
 
         [switch]
         $ShowJSON
@@ -2149,7 +2144,6 @@ function Get-ValidatedGRRArtifact()
         [string[]]
         $Artifacts,
 
-        [Parameter(Mandatory=$true)]
         [System.Management.Automation.PSCredential]
         [System.Management.Automation.Credential()]
         $Credential
@@ -2197,10 +2191,9 @@ function Add-GRRArtifact()
         [string]
         $ArtifactFile,
 
-        [Parameter(Mandatory=$true)]
         [System.Management.Automation.PSCredential]
         [System.Management.Automation.Credential()]
-        $Credential,
+        $Credential = (Get-GRRCredential),
 
         [switch]
         $ShowJSON
@@ -2251,10 +2244,9 @@ function Get-GRRArtifact()
 {
     [CmdletBinding()]
     param(
-        [Parameter(Mandatory=$true)]
         [System.Management.Automation.PSCredential]
         [System.Management.Automation.Credential()]
-        $Credential,
+        $Credential = (Get-GRRCredential),
 
         [switch]
         $ShowJSON
@@ -2361,8 +2353,7 @@ function Get-GRRSession ()
     param(
         [System.Management.Automation.PSCredential]
         [System.Management.Automation.Credential()]
-        [Parameter(Mandatory=$true)]
-        $Credential
+        $Credential = (Get-GRRCredential)
     )
 
     $Function = $MyInvocation.MyCommand
@@ -2481,12 +2472,12 @@ function Invoke-GRRRequest ()
         [ValidateSet("POST","GET", "PATCH", "DELETE")]
         $Method,
 
-        [Parameter(ParameterSetName="GET", Mandatory=$true)]
-        [Parameter(ParameterSetName="POST", Mandatory=$true)]
-        [Parameter(ParameterSetName="FILE", Mandatory=$true)]
+        [Parameter(ParameterSetName="GET", Mandatory=$false)]
+        [Parameter(ParameterSetName="POST", Mandatory=$false)]
+        [Parameter(ParameterSetName="FILE", Mandatory=$false)]
         [System.Management.Automation.PSCredential]
         [System.Management.Automation.Credential()]
-        $Credential,
+        $Credential = (Get-GRRCredential),
 
         [Parameter(ParameterSetName="GET", Mandatory=$false)]
         [Parameter(ParameterSetName="POST", Mandatory=$false)]

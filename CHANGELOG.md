@@ -5,8 +5,13 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased](https://github.com/swisscom/powergrr/compare/v0.8.0...master)
-<!--
 ### Added
+* Add functionality to read credentials from
+    environment (`$GRRCredential`) if available instead of prompting the user
+    when `-Credential` isn't supplied
+    ([#22](https://github.com/swisscom/PowerGRR/issues/22)). Use the new
+    function `Get-GRRCredential` as default value for that purpose.
+<!--
 ### Changed
 ### Fixed
 ### Deprecated

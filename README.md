@@ -188,6 +188,8 @@ in PowerShell Core release packages on Github (see PowerShell Core issue [#4650]
                    authentication](#certificate-authentication) in
                    requirements above.
 
+It's also possible to set these variables in the console.
+
 **Example Config**
 
 ``` PowerShell
@@ -224,10 +226,13 @@ Import-Module <path to module>\PowerGRR.psd1 -force
 ### Authentication
 
 1. Store your GRR credentials for any subsequent PowerGRR command or otherwise
-you will be prompted when running the commands.
+you will be prompted when running the commands. Either provide the credentials
+with `-Credential` in each command or use the variable `$GRRCredential` to set
+the credentials which then will be used without the need for supplying
+`-Credential`.
 
 ```powershell
-$creds = Microsoft.PowerShell.Security\get-credential
+$GRRCredential = Microsoft.PowerShell.Security\get-credential
 ```
 
 2. If you use client certificate authentication set the corresponding config
@@ -299,6 +304,9 @@ to quickly label some clients, start a flow against them or a hunt based on a la
 and read the results. You can find more code snippets and ideas in the
 [wiki](https://github.com/swisscom/PowerGRR/wiki) and see section
 [help](#help) above how to use the help system in PowerShell.
+
+Use `$GRRCredential` for setting the credentials before running the commands
+and the parameter `-Credential` is not needed anymore for each command.
 
 ```powershell
 # Read the client information to check LastSeenAt and the OSVersion

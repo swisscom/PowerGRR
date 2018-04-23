@@ -170,7 +170,7 @@ in PowerShell Core release packages on Github (see PowerShell Core issue [#4650]
       _~\Documents\WindowsPowerShell\modules_ on Windows or
       _~/.local/share/powershell/Modules/_ on macOS (see _$env:PSModulePath_).
     * Clone or download the files to any other folder (could also be a share).
-    * **Windows** Make sure to unbock the files when downloaded from the
+    * **Windows** Make sure to unblock the files when downloaded from the
         Internet by opening the properties page of the .psd1 and .psm1 files and
         checking "Unblock" at the bottom.
 

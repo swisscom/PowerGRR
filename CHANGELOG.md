@@ -11,8 +11,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
     when `-Credential` isn't supplied
     ([#22](https://github.com/swisscom/PowerGRR/issues/22)). Use the new
     function `Get-GRRCredential` as default value for that purpose.
-<!--
 ### Changed
+* Update PowerShell help file with further examples.
+<!--
 ### Fixed
 ### Deprecated
 ### Removed

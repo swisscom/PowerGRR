@@ -1,7 +1,7 @@
 ---
 Module Name: PowerGRR
 Module Guid: 5bdf023f-fe8a-4748-bd73-43a449791ba8
-Download Help Link: https://github.com/swisscom/powergrr/en-US/PowerGRR-help.xml
+Download Help Link: https://github.com/swisscom/PowerGRR/blob/master/en-us/PowerGRR-help.xml
 Help Version: 1.0.0.0
 Locale: en-US
 ---

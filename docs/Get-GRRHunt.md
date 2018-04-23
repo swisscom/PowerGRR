@@ -1,6 +1,6 @@
 ---
 external help file: PowerGRR-help.xml
-online version: 
+online version: https://github.com/swisscom/PowerGRR/blob/master/docs/Get-GRRHunt.md
 schema: 2.0.0
 ---
 
@@ -37,7 +37,7 @@ afterwards with PowerShell.
 
 ### Example 1
 ```
-PS C:\> Get-GRRHunts -Credential $cred | select -First 1
+PS C:\> Get-GRRHunt -Credential $cred | select -First 1
 ```
 
 Find last hunt id. You can use all the filtering from PowerShell. Each hunt is
@@ -47,7 +47,7 @@ to use a PRE-filtering.
 
 ### Example 2
 ```
-PS C:\> Get-GRRHunts -Credential $cred -Count 5
+PS C:\> Get-GRRHunt -Credential $cred -Count 5
 ```
 
 Find last 5 hunt id. You can use all the filtering from PowerShell. Each hunt

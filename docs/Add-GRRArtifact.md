@@ -1,6 +1,6 @@
 ---
 external help file: PowerGRR-help.xml
-online version: https://github.com/swisscom/powergrr/docs/Add-GRRArtifact.md
+online version: https://github.com/swisscom/PowerGRR/blob/master/docs/Add-GRRArtifact.md
 schema: 2.0.0
 ---
 

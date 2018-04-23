@@ -1,6 +1,6 @@
 ---
 external help file: PowerGRR-help.xml
-online version: 
+online version: https://github.com/swisscom/PowerGRR/blob/master/docs/Get-GRRHuntResult.md
 schema: 2.0.0
 ---
 

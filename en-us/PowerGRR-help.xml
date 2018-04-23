@@ -169,6 +169,13 @@
           <maml:para>Upload artifact "DNSNameServer" to GRR. See https://github.com/ForensicArtifacts/artifacts for more information about artifact definition.</maml:para>
         </dev:remarks>
       </command:example>
+      <command:example>
+        <maml:title>Example 2</maml:title>
+        <dev:code>PS C:\&gt; Add-GRRArtifact -ArtifactFile .\ForensicArtifacts\OutlookFiles.yaml</dev:code>
+        <dev:remarks>
+          <maml:para>Upload artifact "OutlookFiles" to GRR. See https://github.com/ForensicArtifacts/artifacts for more information about artifact definition. No credentials parameter is used because `$GRRCredential` is set before running the command.</maml:para>
+        </dev:remarks>
+      </command:example>
     </command:examples>
     <command:relatedLinks>
       <maml:navigationLink>
@@ -183,7 +190,7 @@
       <command:verb>ConvertFrom</command:verb>
       <command:noun>Base64</command:noun>
       <maml:description>
-        <maml:para>Decode a base64 encoded string.</maml:para>
+        <maml:para>Decode a base64 encoded string. This function is used also inside fetching results when only payload should be returned.</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
@@ -284,6 +291,13 @@
           <maml:para>Convert the collected sha256 hash (hash_entry e.g. from file finder flow) to the corresponding hex representation. The payload from GRR is base64 encoded, therefore Convertfrom-Base64 provides the needed step in between.</maml:para>
         </dev:remarks>
       </command:example>
+      <command:example>
+        <maml:title>Example 3</maml:title>
+        <dev:code>PS C:\&gt; $ret = $ret.items | ? {($_.payload | ConvertFrom-Base64) -match "false" }</dev:code>
+        <dev:remarks>
+          <maml:para>Analyse return values from a hunt and filter them for specific payload values.</maml:para>
+        </dev:remarks>
+      </command:example>
     </command:examples>
     <command:relatedLinks>
       <maml:navigationLink>
@@ -298,11 +312,12 @@
       <command:verb>ConvertTo</command:verb>
       <command:noun>Base64</command:noun>
       <maml:description>
-        <maml:para>{{Fill in the Synopsis}}</maml:para>
+        <maml:para>Encodes a string into base64.</maml:para>
+        <maml:para>This function is used inside other functions. Not used directly for day to day work.</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>{{Fill in the Description}}</maml:para>
+      <maml:para>Encodes a string into base64.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -310,7 +325,7 @@
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none">
           <maml:name>Value</maml:name>
           <maml:Description>
-            <maml:para>{{Fill Value Description}}</maml:para>
+            <maml:para>String to convert to base64.</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
           <dev:type>
@@ -322,7 +337,8 @@
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
           <maml:name>Encoding</maml:name>
           <maml:Description>
-            <maml:para>{{Fill Encoding Description}}</maml:para>
+            <maml:para>Encoding type - use `[Text.Encoding]::...` to specify the encoding.</maml:para>
+            <maml:para>`[Text.Encoding]::ASCII` is used by default.</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">Encoding</command:parameterValue>
           <dev:type>
@@ -337,7 +353,8 @@
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
         <maml:name>Encoding</maml:name>
         <maml:Description>
-          <maml:para>{{Fill Encoding Description}}</maml:para>
+          <maml:para>Encoding type - use `[Text.Encoding]::...` to specify the encoding.</maml:para>
+          <maml:para>`[Text.Encoding]::ASCII` is used by default.</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">Encoding</command:parameterValue>
         <dev:type>
@@ -349,7 +366,7 @@
       <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none">
         <maml:name>Value</maml:name>
         <maml:Description>
-          <maml:para>{{Fill Value Description}}</maml:para>
+          <maml:para>String to convert to base64.</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
         <dev:type>
@@ -387,9 +404,9 @@
     <command:examples>
       <command:example>
         <maml:title>Example 1</maml:title>
-        <dev:code>PS C:\&gt; {{ Add example code here }}</dev:code>
+        <dev:code>PS C:\&gt; "string to convert" | ConvertTo-Base64</dev:code>
         <dev:remarks>
-          <maml:para>{{ Add example description here }}</maml:para>
+          <maml:para>Convert the string to base64.</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
@@ -410,7 +427,7 @@
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>{{Fill in the Description}}</maml:para>
+      <maml:para>Find GRR clients based on the given search string.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -453,7 +470,7 @@
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>ShowJSON</maml:name>
           <maml:Description>
-            <maml:para>{{Fill ShowJSON Description}}</maml:para>
+            <maml:para>Show the response as JSON instead of parsed object.</maml:para>
           </maml:Description>
           <dev:type>
             <maml:name>SwitchParameter</maml:name>
@@ -503,7 +520,7 @@
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>ShowJSON</maml:name>
         <maml:Description>
-          <maml:para>{{Fill ShowJSON Description}}</maml:para>
+          <maml:para>Show the response as JSON instead of parsed object.</maml:para>
         </maml:Description>
         <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
         <dev:type>
@@ -548,9 +565,23 @@
       </command:example>
       <command:example>
         <maml:title>Example 2</maml:title>
-        <dev:code>PS C:\&gt; Find-GRRClient -SearchString keyword -Credential $cred -OnlyNode</dev:code>
+        <dev:code>PS C:\&gt; Find-GRRClient -SearchString keyword -Credential $cred -OnlyComputerName</dev:code>
         <dev:remarks>
-          <maml:para>Find GRR clients based on keywords. Use the available prefixes, e.g. "label:" or "host:" to limit the search results. Use `OnlyNode` to only display the host names.</maml:para>
+          <maml:para>Find GRR clients based on keywords. Use the available prefixes, e.g. "label:" or "host:" to limit the search results. Use `-OnlyComputerName` to only display the host names.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>Example 3</maml:title>
+        <dev:code>PS C:\&gt; Find-GRRClient -SearchString "username" -OnlyComputerName -OnlyComputerName</dev:code>
+        <dev:remarks>
+          <maml:para>Find GRR clients where the given user was logged in. Use `-OnlyComputerName` to only display the host names.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>Example 4</maml:title>
+        <dev:code>PS C:\&gt; $ret = Find-GRRClient -SearchString darwin -OnlyComputerName</dev:code>
+        <dev:remarks>
+          <maml:para>Find GRR clients with the OS "darwin" (MacOS). Use `-OnlyComputerName` to only display the host names.</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
@@ -609,7 +640,7 @@
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>ShowJSON</maml:name>
           <maml:Description>
-            <maml:para>{{Fill ShowJSON Description}}</maml:para>
+            <maml:para>Return plain JSON instead of parsed JSON object.</maml:para>
           </maml:Description>
           <dev:type>
             <maml:name>SwitchParameter</maml:name>
@@ -659,7 +690,7 @@
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>ShowJSON</maml:name>
         <maml:Description>
-          <maml:para>{{Fill ShowJSON Description}}</maml:para>
+          <maml:para>Return plain JSON instead of parsed JSON object.</maml:para>
         </maml:Description>
         <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
         <dev:type>
@@ -697,14 +728,14 @@
     <command:examples>
       <command:example>
         <maml:title>Example 1</maml:title>
-        <dev:code>PS C:\&gt; Find-GRRClientByLabel -Credential $creds -SearchString keyword</dev:code>
+        <dev:code>PS C:\&gt; Find-GRRClientByLabel -Credential $creds -SearchString label</dev:code>
         <dev:remarks>
           <maml:para>Search for clients with a specific label.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
         <maml:title>Example 2</maml:title>
-        <dev:code>PS C:\&gt; Find-GRRClientByLabel -Credential $creds -SearchString keyword -OnlyNode</dev:code>
+        <dev:code>PS C:\&gt; Find-GRRClientByLabel -Credential $creds -SearchString label -OnlyComputerName</dev:code>
         <dev:remarks>
           <maml:para>Search for clients with a specific label and show only the host names.</maml:para>
         </dev:remarks>
@@ -742,7 +773,7 @@
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="benannt" aliases="none">
           <maml:name>ShowJSON</maml:name>
           <maml:Description>
-            <maml:para>{{Fill ShowJSON Description}}</maml:para>
+            <maml:para>Return only plain JSON instead of converted JSON objects.</maml:para>
           </maml:Description>
           <dev:type>
             <maml:name>SwitchParameter</maml:name>
@@ -768,7 +799,7 @@
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="benannt" aliases="none">
         <maml:name>ShowJSON</maml:name>
         <maml:Description>
-          <maml:para>{{Fill ShowJSON Description}}</maml:para>
+          <maml:para>Return only plain JSON instead of converted JSON objects.</maml:para>
         </maml:Description>
         <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
         <dev:type>
@@ -1207,11 +1238,11 @@ subject            : @{...}</dev:code>
       <command:verb>Get</command:verb>
       <command:noun>GRRClientIdFromComputerName</command:noun>
       <maml:description>
-        <maml:para>Convert a computername into the corresponding GRR client id.</maml:para>
+        <maml:para>Convert a list of computer names into the corresponding GRR client id.</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>{{Fill in the Description}}</maml:para>
+      <maml:para>Convert a list of computer names into the corresponding GRR client id and display further information about the client.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -1254,7 +1285,7 @@ subject            : @{...}</dev:code>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>ShowJSON</maml:name>
           <maml:Description>
-            <maml:para>{{Fill ShowJSON Description}}</maml:para>
+            <maml:para>Return plain JSON instead of converted JSON.</maml:para>
           </maml:Description>
           <dev:type>
             <maml:name>SwitchParameter</maml:name>
@@ -1304,7 +1335,7 @@ subject            : @{...}</dev:code>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>ShowJSON</maml:name>
         <maml:Description>
-          <maml:para>{{Fill ShowJSON Description}}</maml:para>
+          <maml:para>Return plain JSON instead of converted JSON.</maml:para>
         </maml:Description>
         <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
         <dev:type>
@@ -1350,7 +1381,7 @@ host1   C.1111111111111111 18.05.2017 15:48:17 10.0.10586
 host1   C.2222222222222222 03.04.2017 14:55:37 6.1.7601
 host2   C.3333333333333333 26.06.2017 09:31:32 6.1.7601</dev:code>
         <dev:remarks>
-          <maml:para>Search for the client ids for the two hosts.</maml:para>
+          <maml:para>Search for the client ids for the two hosts. If one host has multiple IDs (e.g. after a new installation) both are shown. See Example 2 to only show last seen hosts.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
@@ -1383,11 +1414,11 @@ C.2222222222222222</dev:code>
       <command:verb>Get</command:verb>
       <command:noun>GRRClientInfo</command:noun>
       <maml:description>
-        <maml:para>{{Fill in the Synopsis}}</maml:para>
+        <maml:para>Get important client infos.</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>{{Fill in the Description}}</maml:para>
+      <maml:para>Get important client infos.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -1395,7 +1426,7 @@ C.2222222222222222</dev:code>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none">
           <maml:name>ComputerName</maml:name>
           <maml:Description>
-            <maml:para>{{Fill ComputerName Description}}</maml:para>
+            <maml:para>Computer name to search for.</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
           <dev:type>
@@ -1407,7 +1438,7 @@ C.2222222222222222</dev:code>
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
           <maml:name>Credential</maml:name>
           <maml:Description>
-            <maml:para>{{Fill Credential Description}}</maml:para>
+            <maml:para>GRR credentials.</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">PSCredential</command:parameterValue>
           <dev:type>
@@ -1419,7 +1450,7 @@ C.2222222222222222</dev:code>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="benannt" aliases="none">
           <maml:name>OnlyLastSeen</maml:name>
           <maml:Description>
-            <maml:para>{{Fill OnlyLastSeen Description}}</maml:para>
+            <maml:para>Flag, if only the last seen client ids should be returned for the host.</maml:para>
           </maml:Description>
           <dev:type>
             <maml:name>SwitchParameter</maml:name>
@@ -1430,7 +1461,7 @@ C.2222222222222222</dev:code>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="benannt" aliases="none">
           <maml:name>ShowJSON</maml:name>
           <maml:Description>
-            <maml:para>{{Fill ShowJSON Description}}</maml:para>
+            <maml:para>Return plain JSON instead of converted JSON.</maml:para>
           </maml:Description>
           <dev:type>
             <maml:name>SwitchParameter</maml:name>
@@ -1444,7 +1475,7 @@ C.2222222222222222</dev:code>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none">
         <maml:name>ComputerName</maml:name>
         <maml:Description>
-          <maml:para>{{Fill ComputerName Description}}</maml:para>
+          <maml:para>Computer name to search for.</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
         <dev:type>
@@ -1456,7 +1487,7 @@ C.2222222222222222</dev:code>
       <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
         <maml:name>Credential</maml:name>
         <maml:Description>
-          <maml:para>{{Fill Credential Description}}</maml:para>
+          <maml:para>GRR credentials.</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">PSCredential</command:parameterValue>
         <dev:type>
@@ -1468,7 +1499,7 @@ C.2222222222222222</dev:code>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="benannt" aliases="none">
         <maml:name>OnlyLastSeen</maml:name>
         <maml:Description>
-          <maml:para>{{Fill OnlyLastSeen Description}}</maml:para>
+          <maml:para>Flag, if only the last seen client ids should be returned for the host.</maml:para>
         </maml:Description>
         <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
         <dev:type>
@@ -1480,7 +1511,7 @@ C.2222222222222222</dev:code>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="benannt" aliases="none">
         <maml:name>ShowJSON</maml:name>
         <maml:Description>
-          <maml:para>{{Fill ShowJSON Description}}</maml:para>
+          <maml:para>Return plain JSON instead of converted JSON.</maml:para>
         </maml:Description>
         <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
         <dev:type>
@@ -1518,9 +1549,16 @@ C.2222222222222222</dev:code>
     <command:examples>
       <command:example>
         <maml:title>Example 1</maml:title>
-        <dev:code>PS C:\&gt; {{ Add example code here }}</dev:code>
+        <dev:code>PS C:\&gt; Get-GRRClientInfo -ComputerName host1</dev:code>
         <dev:remarks>
-          <maml:para>{{ Add example description here }}</maml:para>
+          <maml:para>Get host information for that specific host. No `-Credential` param is needed because `$GRRCredential` was set before running the command.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>Example 2</maml:title>
+        <dev:code>PS C:\&gt; "host1","host" | Get-GRRClientInfo -Credential $cred</dev:code>
+        <dev:remarks>
+          <maml:para>Get host information for that specific host based on the pipeline input.</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
@@ -1537,11 +1575,11 @@ C.2222222222222222</dev:code>
       <command:verb>Get</command:verb>
       <command:noun>GRRComputerNameFromClientId</command:noun>
       <maml:description>
-        <maml:para>Search for a specific client id and return the computername.</maml:para>
+        <maml:para>Search for a specific client id and return the computer name.</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>{{Fill in the Description}}</maml:para>
+      <maml:para>Search for a specific client id and return the computer name.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -1573,7 +1611,7 @@ C.2222222222222222</dev:code>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>ShowJSON</maml:name>
           <maml:Description>
-            <maml:para>{{Fill ShowJSON Description}}</maml:para>
+            <maml:para>Return only plain JSON instead of converted JSON objects.</maml:para>
           </maml:Description>
           <dev:type>
             <maml:name>SwitchParameter</maml:name>
@@ -1611,7 +1649,7 @@ C.2222222222222222</dev:code>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>ShowJSON</maml:name>
         <maml:Description>
-          <maml:para>{{Fill ShowJSON Description}}</maml:para>
+          <maml:para>Return only plain JSON instead of converted JSON objects.</maml:para>
         </maml:Description>
         <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
         <dev:type>
@@ -1655,6 +1693,14 @@ PS C:\&gt; c.1111111111111111 | Get-GRRComputerNameFromClientId -Credential $cre
 PS C:\&gt; c.1111111111111111,c.2222222222222222 | Get-GRRComputerNameFromClientId -Credential $cred</dev:code>
         <dev:remarks>
           <maml:para>Returns the host name for one or multiple client ids. Use the parameter ClientId or the pipeline as input.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>Example 2</maml:title>
+        <dev:code>PS C:\&gt; $ret.items.client_id | unique | Get-GRRComputerNameFromClientId -Credential $cred
+PS C:\&gt; $ret.items.client_id | unique | Get-GRRComputerNameFromClientId -Credential $cred | select -ExpandProperty computername | Get-GRRClientInfo -Credential $cred |  select -ExpandProperty usernames</dev:code>
+        <dev:remarks>
+          <maml:para>Convert the client id's from a hunt into their corresponding computer names. In the 2nd example the computer names are then used with `Get-GRRClientInfo` and therefore the logged in users from these hosts can be found.</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
@@ -1871,7 +1917,7 @@ PS C:\&gt; $ret | where { $_.category -match "file"} | select name</dev:code>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>{{Fill in the Description}}</maml:para>
+      <maml:para>Get flow results for a specific client and a flow.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -1891,7 +1937,7 @@ PS C:\&gt; $ret | where { $_.category -match "file"} | select name</dev:code>
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
           <maml:name>Credential</maml:name>
           <maml:Description>
-            <maml:para>{{Fill Credential Description}}</maml:para>
+            <maml:para>GRR credential.</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">PSCredential</command:parameterValue>
           <dev:type>
@@ -1915,7 +1961,7 @@ PS C:\&gt; $ret | where { $_.category -match "file"} | select name</dev:code>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="benannt" aliases="none">
           <maml:name>OnlyPayload</maml:name>
           <maml:Description>
-            <maml:para>{{Fill OnlyPayload Description}}</maml:para>
+            <maml:para>Return only the payload. If possible already base64 decoded.</maml:para>
           </maml:Description>
           <dev:type>
             <maml:name>SwitchParameter</maml:name>
@@ -1926,7 +1972,7 @@ PS C:\&gt; $ret | where { $_.category -match "file"} | select name</dev:code>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>ShowJSON</maml:name>
           <maml:Description>
-            <maml:para>{{Fill ShowJSON Description}}</maml:para>
+            <maml:para>Return plain JSON instead of converted JSON.</maml:para>
           </maml:Description>
           <dev:type>
             <maml:name>SwitchParameter</maml:name>
@@ -1952,7 +1998,7 @@ PS C:\&gt; $ret | where { $_.category -match "file"} | select name</dev:code>
       <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
         <maml:name>Credential</maml:name>
         <maml:Description>
-          <maml:para>{{Fill Credential Description}}</maml:para>
+          <maml:para>GRR credential.</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">PSCredential</command:parameterValue>
         <dev:type>
@@ -1976,7 +2022,7 @@ PS C:\&gt; $ret | where { $_.category -match "file"} | select name</dev:code>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="benannt" aliases="none">
         <maml:name>OnlyPayload</maml:name>
         <maml:Description>
-          <maml:para>{{Fill OnlyPayload Description}}</maml:para>
+          <maml:para>Return only the payload. If possible already base64 decoded.</maml:para>
         </maml:Description>
         <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
         <dev:type>
@@ -1988,7 +2034,7 @@ PS C:\&gt; $ret | where { $_.category -match "file"} | select name</dev:code>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>ShowJSON</maml:name>
         <maml:Description>
-          <maml:para>{{Fill ShowJSON Description}}</maml:para>
+          <maml:para>Return plain JSON instead of converted JSON.</maml:para>
         </maml:Description>
         <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
         <dev:type>
@@ -2026,10 +2072,17 @@ PS C:\&gt; $ret | where { $_.category -match "file"} | select name</dev:code>
     <command:examples>
       <command:example>
         <maml:title>Example 1</maml:title>
-        <dev:code>PS C:\&gt; $res = Get-GRRFlowResult -Credential $cred -ComputerName u261354 -FlowId "F:11111111"
+        <dev:code>PS C:\&gt; $res = Get-GRRFlowResult -Credential $cred -ComputerName host -FlowId "F:11111111"
 PS C:\&gt; $res.items.payload | ConvertFrom-Base64</dev:code>
         <dev:remarks>
-          <maml:para>Get the flow results and decode the base64 encoded payload.</maml:para>
+          <maml:para>Get the flow results and decode the base64 encoded payload. See next example for a short version to get only the payload.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>Example 2</maml:title>
+        <dev:code>PS C:\&gt; Get-GRRFlowResult -ComputerName host -Credential $cred -FlowId F:11111111 -OnlyPayload</dev:code>
+        <dev:remarks>
+          <maml:para>Get the flow results and decode the base64 encoded payload directly.</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
@@ -2045,7 +2098,7 @@ PS C:\&gt; $res.items.payload | ConvertFrom-Base64</dev:code>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>{{Fill in the Description}}</maml:para>
+      <maml:para>Get a list of available hunts. Filter the list with the parameter or afterwards with PowerShell.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -2065,7 +2118,7 @@ PS C:\&gt; $res.items.payload | ConvertFrom-Base64</dev:code>
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>ActiveWithin</maml:name>
           <maml:Description>
-            <maml:para>{{Fill ActiveWithin Description}}</maml:para>
+            <maml:para>Timeframe within the hunts were created.</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
@@ -2115,7 +2168,7 @@ PS C:\&gt; $res.items.payload | ConvertFrom-Base64</dev:code>
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>ActiveWithin</maml:name>
           <maml:Description>
-            <maml:para>{{Fill ActiveWithin Description}}</maml:para>
+            <maml:para>Timeframe within the hunts were created.</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
@@ -2215,7 +2268,7 @@ PS C:\&gt; $res.items.payload | ConvertFrom-Base64</dev:code>
       <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>ActiveWithin</maml:name>
         <maml:Description>
-          <maml:para>{{Fill ActiveWithin Description}}</maml:para>
+          <maml:para>Timeframe within the hunts were created.</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
@@ -2642,7 +2695,7 @@ False</dev:code>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>{{Fill in the Description}}</maml:para>
+      <maml:para>Get hunt info for a specific hunt.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -2662,7 +2715,7 @@ False</dev:code>
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
           <maml:name>Credential</maml:name>
           <maml:Description>
-            <maml:para>{{Fill Credential Description}}</maml:para>
+            <maml:para>GRR credentials.</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">PSCredential</command:parameterValue>
           <dev:type>
@@ -2674,7 +2727,7 @@ False</dev:code>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>ShowJSON</maml:name>
           <maml:Description>
-            <maml:para>{{Fill ShowJSON Description}}</maml:para>
+            <maml:para>Return plain JSON instead of parsed JSON object.</maml:para>
           </maml:Description>
           <dev:type>
             <maml:name>SwitchParameter</maml:name>
@@ -2699,7 +2752,7 @@ False</dev:code>
       <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
         <maml:name>Credential</maml:name>
         <maml:Description>
-          <maml:para>{{Fill Credential Description}}</maml:para>
+          <maml:para>GRR credentials.</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">PSCredential</command:parameterValue>
         <dev:type>
@@ -2723,7 +2776,7 @@ False</dev:code>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>ShowJSON</maml:name>
         <maml:Description>
-          <maml:para>{{Fill ShowJSON Description}}</maml:para>
+          <maml:para>Return plain JSON instead of parsed JSON object.</maml:para>
         </maml:Description>
         <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
         <dev:type>
@@ -2791,7 +2844,7 @@ False</dev:code>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>{{Fill in the Description}}</maml:para>
+      <maml:para>Get hunt results for a specific hunt.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -2811,7 +2864,7 @@ False</dev:code>
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
           <maml:name>Credential</maml:name>
           <maml:Description>
-            <maml:para>{{Fill Credential Description}}</maml:para>
+            <maml:para>GRR credentials.</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">PSCredential</command:parameterValue>
           <dev:type>
@@ -2823,7 +2876,7 @@ False</dev:code>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>ShowJSON</maml:name>
           <maml:Description>
-            <maml:para>{{Fill ShowJSON Description}}</maml:para>
+            <maml:para>Return only plain JSON instead of converted JSON objects.</maml:para>
           </maml:Description>
           <dev:type>
             <maml:name>SwitchParameter</maml:name>
@@ -2837,7 +2890,7 @@ False</dev:code>
       <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
         <maml:name>Credential</maml:name>
         <maml:Description>
-          <maml:para>{{Fill Credential Description}}</maml:para>
+          <maml:para>GRR credentials.</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">PSCredential</command:parameterValue>
         <dev:type>
@@ -2861,7 +2914,7 @@ False</dev:code>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>ShowJSON</maml:name>
         <maml:Description>
-          <maml:para>{{Fill ShowJSON Description}}</maml:para>
+          <maml:para>Return only plain JSON instead of converted JSON objects.</maml:para>
         </maml:Description>
         <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
         <dev:type>
@@ -2903,7 +2956,7 @@ False</dev:code>
 PS C:\&gt; ($res.items.payload.stat_entry.aff4path).substring(31) | sort -u
 PS C:\&gt; $res.items.client_id | sort -u</dev:code>
         <dev:remarks>
-          <maml:para>Get hunt results based on a hunt id. Display all the unique file paths which were found with a file finder hunt. Only display the unique GRR client id's.</maml:para>
+          <maml:para>Get hunt results based on a hunt id. Display all the unique file paths which were found with a file finder hunt. Only display the unique GRR client id's. then you can use `Get-GRRComputerNameByClientId` to display only the computer names.</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
@@ -2919,7 +2972,7 @@ PS C:\&gt; $res.items.client_id | sort -u</dev:code>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>{{Fill in the Description}}</maml:para>
+      <maml:para>Get all labels.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -2939,7 +2992,7 @@ PS C:\&gt; $res.items.client_id | sort -u</dev:code>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>ShowJSON</maml:name>
           <maml:Description>
-            <maml:para>{{Fill ShowJSON Description}}</maml:para>
+            <maml:para>Return plain JSON instead of parsed JSON object.</maml:para>
           </maml:Description>
           <dev:type>
             <maml:name>SwitchParameter</maml:name>
@@ -2965,7 +3018,7 @@ PS C:\&gt; $res.items.client_id | sort -u</dev:code>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>ShowJSON</maml:name>
         <maml:Description>
-          <maml:para>{{Fill ShowJSON Description}}</maml:para>
+          <maml:para>Return plain JSON instead of parsed JSON object.</maml:para>
         </maml:Description>
         <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
         <dev:type>
@@ -3028,7 +3081,8 @@ PS C:\&gt; $res.items.client_id | sort -u</dev:code>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>{{Fill in the Description}}</maml:para>
+      <maml:para>Return the headers and the websession for a specific GRR server.</maml:para>
+      <maml:para>Used inside GRR requests to get the GRR session. Can be used manually in the console.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -3036,7 +3090,7 @@ PS C:\&gt; $res.items.client_id | sort -u</dev:code>
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
           <maml:name>Credential</maml:name>
           <maml:Description>
-            <maml:para>{{Fill Credential Description}}</maml:para>
+            <maml:para>GRR credentials.</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">PSCredential</command:parameterValue>
           <dev:type>
@@ -3051,7 +3105,7 @@ PS C:\&gt; $res.items.client_id | sort -u</dev:code>
       <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
         <maml:name>Credential</maml:name>
         <maml:Description>
-          <maml:para>{{Fill Credential Description}}</maml:para>
+          <maml:para>GRR credentials.</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">PSCredential</command:parameterValue>
         <dev:type>
@@ -3089,9 +3143,9 @@ PS C:\&gt; $res.items.client_id | sort -u</dev:code>
     <command:examples>
       <command:example>
         <maml:title>Example 1</maml:title>
-        <dev:code>PS C:\&gt; {{ Add example code here }}</dev:code>
+        <dev:code>PS C:\&gt; Get-GRRSession -Credential $cred</dev:code>
         <dev:remarks>
-          <maml:para>{{ Add example description here }}</maml:para>
+          <maml:para>Gets a new GRR session and obtains the headers and the CSRF token.</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
@@ -3196,7 +3250,7 @@ PS C:\&gt; $res.items.client_id | sort -u</dev:code>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>ShowJSON</maml:name>
           <maml:Description>
-            <maml:para>{{Fill ShowJSON Description}}</maml:para>
+            <maml:para>Return only plain JSON instead of converted JSON objects.</maml:para>
           </maml:Description>
           <dev:type>
             <maml:name>SwitchParameter</maml:name>
@@ -3282,7 +3336,7 @@ PS C:\&gt; $res.items.client_id | sort -u</dev:code>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>ShowJSON</maml:name>
         <maml:Description>
-          <maml:para>{{Fill ShowJSON Description}}</maml:para>
+          <maml:para>Return only plain JSON instead of converted JSON objects.</maml:para>
         </maml:Description>
         <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
         <dev:type>
@@ -3359,7 +3413,7 @@ PS C:\&gt; $res.items.client_id | sort -u</dev:code>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>{{Fill in the Description}}</maml:para>
+      <maml:para>Helper function for GRR requests. If a function you need is not available, you can use this function to run the needed request. The headers and websession are obtained by `Get-GRRSession` and only needed for POST requests.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -3367,7 +3421,7 @@ PS C:\&gt; $res.items.client_id | sort -u</dev:code>
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="benannt" aliases="none">
           <maml:name>Body</maml:name>
           <maml:Description>
-            <maml:para>{{Fill Body Description}}</maml:para>
+            <maml:para>API POST request body.</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
@@ -3379,7 +3433,7 @@ PS C:\&gt; $res.items.client_id | sort -u</dev:code>
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="benannt" aliases="none">
           <maml:name>Credential</maml:name>
           <maml:Description>
-            <maml:para>{{Fill Credential Description}}</maml:para>
+            <maml:para>GRR credentials.</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">PSCredential</command:parameterValue>
           <dev:type>
@@ -3391,7 +3445,7 @@ PS C:\&gt; $res.items.client_id | sort -u</dev:code>
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="benannt" aliases="none">
           <maml:name>Headers</maml:name>
           <maml:Description>
-            <maml:para>{{Fill Headers Description}}</maml:para>
+            <maml:para>Headers for the API requests (CSRF ...)</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">Hashtable</command:parameterValue>
           <dev:type>
@@ -3403,7 +3457,7 @@ PS C:\&gt; $res.items.client_id | sort -u</dev:code>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="benannt" aliases="none">
           <maml:name>ShowJSON</maml:name>
           <maml:Description>
-            <maml:para>{{Fill ShowJSON Description}}</maml:para>
+            <maml:para>Return only plain JSON instead of converted JSON objects.</maml:para>
           </maml:Description>
           <dev:type>
             <maml:name>SwitchParameter</maml:name>
@@ -3414,7 +3468,7 @@ PS C:\&gt; $res.items.client_id | sort -u</dev:code>
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="benannt" aliases="none">
           <maml:name>Url</maml:name>
           <maml:Description>
-            <maml:para>{{Fill Url Description}}</maml:para>
+            <maml:para>API endpoint.</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
@@ -3426,7 +3480,7 @@ PS C:\&gt; $res.items.client_id | sort -u</dev:code>
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="benannt" aliases="none">
           <maml:name>Websession</maml:name>
           <maml:Description>
-            <maml:para>{{Fill Websession Description}}</maml:para>
+            <maml:para>Websession for the API request.</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">WebRequestSession</command:parameterValue>
           <dev:type>
@@ -3438,7 +3492,7 @@ PS C:\&gt; $res.items.client_id | sort -u</dev:code>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>Method</maml:name>
           <maml:Description>
-            <maml:para>{{Fill Method Description}}</maml:para>
+            <maml:para>HTTP method.</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
@@ -3453,7 +3507,7 @@ PS C:\&gt; $res.items.client_id | sort -u</dev:code>
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="benannt" aliases="none">
           <maml:name>Credential</maml:name>
           <maml:Description>
-            <maml:para>{{Fill Credential Description}}</maml:para>
+            <maml:para>GRR credentials.</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">PSCredential</command:parameterValue>
           <dev:type>
@@ -3465,7 +3519,7 @@ PS C:\&gt; $res.items.client_id | sort -u</dev:code>
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="benannt" aliases="none">
           <maml:name>Headers</maml:name>
           <maml:Description>
-            <maml:para>{{Fill Headers Description}}</maml:para>
+            <maml:para>Headers for the API requests (CSRF ...)</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">Hashtable</command:parameterValue>
           <dev:type>
@@ -3477,7 +3531,7 @@ PS C:\&gt; $res.items.client_id | sort -u</dev:code>
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="benannt" aliases="none">
           <maml:name>ShowJSON</maml:name>
           <maml:Description>
-            <maml:para>{{Fill ShowJSON Description}}</maml:para>
+            <maml:para>Return only plain JSON instead of converted JSON objects.</maml:para>
           </maml:Description>
           <dev:type>
             <maml:name>SwitchParameter</maml:name>
@@ -3488,7 +3542,7 @@ PS C:\&gt; $res.items.client_id | sort -u</dev:code>
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="benannt" aliases="none">
           <maml:name>Url</maml:name>
           <maml:Description>
-            <maml:para>{{Fill Url Description}}</maml:para>
+            <maml:para>API endpoint.</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
@@ -3500,7 +3554,7 @@ PS C:\&gt; $res.items.client_id | sort -u</dev:code>
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="benannt" aliases="none">
           <maml:name>Websession</maml:name>
           <maml:Description>
-            <maml:para>{{Fill Websession Description}}</maml:para>
+            <maml:para>Websession for the API request.</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">WebRequestSession</command:parameterValue>
           <dev:type>
@@ -3512,7 +3566,7 @@ PS C:\&gt; $res.items.client_id | sort -u</dev:code>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>Method</maml:name>
           <maml:Description>
-            <maml:para>{{Fill Method Description}}</maml:para>
+            <maml:para>HTTP method.</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
@@ -3524,7 +3578,7 @@ PS C:\&gt; $res.items.client_id | sort -u</dev:code>
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>File</maml:name>
           <maml:Description>
-            <maml:para>{{Fill File Description}}</maml:para>
+            <maml:para>File if an upload is performed.</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">FileInfo</command:parameterValue>
           <dev:type>
@@ -3539,7 +3593,7 @@ PS C:\&gt; $res.items.client_id | sort -u</dev:code>
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="benannt" aliases="none">
           <maml:name>Credential</maml:name>
           <maml:Description>
-            <maml:para>{{Fill Credential Description}}</maml:para>
+            <maml:para>GRR credentials.</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">PSCredential</command:parameterValue>
           <dev:type>
@@ -3551,7 +3605,7 @@ PS C:\&gt; $res.items.client_id | sort -u</dev:code>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="benannt" aliases="none">
           <maml:name>ShowJSON</maml:name>
           <maml:Description>
-            <maml:para>{{Fill ShowJSON Description}}</maml:para>
+            <maml:para>Return only plain JSON instead of converted JSON objects.</maml:para>
           </maml:Description>
           <dev:type>
             <maml:name>SwitchParameter</maml:name>
@@ -3562,7 +3616,7 @@ PS C:\&gt; $res.items.client_id | sort -u</dev:code>
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="benannt" aliases="none">
           <maml:name>Url</maml:name>
           <maml:Description>
-            <maml:para>{{Fill Url Description}}</maml:para>
+            <maml:para>API endpoint.</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
@@ -3574,7 +3628,7 @@ PS C:\&gt; $res.items.client_id | sort -u</dev:code>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>Method</maml:name>
           <maml:Description>
-            <maml:para>{{Fill Method Description}}</maml:para>
+            <maml:para>HTTP method.</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
@@ -3589,7 +3643,7 @@ PS C:\&gt; $res.items.client_id | sort -u</dev:code>
       <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="benannt" aliases="none">
         <maml:name>Body</maml:name>
         <maml:Description>
-          <maml:para>{{Fill Body Description}}</maml:para>
+          <maml:para>API POST request body.</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
@@ -3601,7 +3655,7 @@ PS C:\&gt; $res.items.client_id | sort -u</dev:code>
       <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="benannt" aliases="none">
         <maml:name>Credential</maml:name>
         <maml:Description>
-          <maml:para>{{Fill Credential Description}}</maml:para>
+          <maml:para>GRR credentials.</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">PSCredential</command:parameterValue>
         <dev:type>
@@ -3613,7 +3667,7 @@ PS C:\&gt; $res.items.client_id | sort -u</dev:code>
       <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="benannt" aliases="none">
         <maml:name>Headers</maml:name>
         <maml:Description>
-          <maml:para>{{Fill Headers Description}}</maml:para>
+          <maml:para>Headers for the API requests (CSRF ...)</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">Hashtable</command:parameterValue>
         <dev:type>
@@ -3625,7 +3679,7 @@ PS C:\&gt; $res.items.client_id | sort -u</dev:code>
       <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="benannt" aliases="none">
         <maml:name>ShowJSON</maml:name>
         <maml:Description>
-          <maml:para>{{Fill ShowJSON Description}}</maml:para>
+          <maml:para>Return only plain JSON instead of converted JSON objects.</maml:para>
         </maml:Description>
         <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
         <dev:type>
@@ -3637,7 +3691,7 @@ PS C:\&gt; $res.items.client_id | sort -u</dev:code>
       <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="benannt" aliases="none">
         <maml:name>Url</maml:name>
         <maml:Description>
-          <maml:para>{{Fill Url Description}}</maml:para>
+          <maml:para>API endpoint.</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
@@ -3649,7 +3703,7 @@ PS C:\&gt; $res.items.client_id | sort -u</dev:code>
       <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="benannt" aliases="none">
         <maml:name>Websession</maml:name>
         <maml:Description>
-          <maml:para>{{Fill Websession Description}}</maml:para>
+          <maml:para>Websession for the API request.</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">WebRequestSession</command:parameterValue>
         <dev:type>
@@ -3661,7 +3715,7 @@ PS C:\&gt; $res.items.client_id | sort -u</dev:code>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>Method</maml:name>
         <maml:Description>
-          <maml:para>{{Fill Method Description}}</maml:para>
+          <maml:para>HTTP method.</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
@@ -3673,7 +3727,7 @@ PS C:\&gt; $res.items.client_id | sort -u</dev:code>
       <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>File</maml:name>
         <maml:Description>
-          <maml:para>{{Fill File Description}}</maml:para>
+          <maml:para>File if an upload is performed.</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">FileInfo</command:parameterValue>
         <dev:type>
@@ -3711,9 +3765,9 @@ PS C:\&gt; $res.items.client_id | sort -u</dev:code>
     <command:examples>
       <command:example>
         <maml:title>Example 1</maml:title>
-        <dev:code>PS C:\&gt; {{ Add example code here }}</dev:code>
+        <dev:code>PS C:\&gt; Invoke-GRRRequest -Url "/hunts/$HuntId" -Credential $Credential</dev:code>
         <dev:remarks>
-          <maml:para>{{ Add example description here }}</maml:para>
+          <maml:para>Use the corresponding API endpoint to get the hunt info.</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
@@ -3729,7 +3783,7 @@ PS C:\&gt; $res.items.client_id | sort -u</dev:code>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>{{Fill in the Description}}</maml:para>
+      <maml:para>Create a new client approval.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -3737,7 +3791,7 @@ PS C:\&gt; $res.items.client_id | sort -u</dev:code>
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
           <maml:name>ComputerName</maml:name>
           <maml:Description>
-            <maml:para>{{Fill ComputerName Description}}</maml:para>
+            <maml:para>Computer for which the approval is created.</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
@@ -3749,7 +3803,7 @@ PS C:\&gt; $res.items.client_id | sort -u</dev:code>
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
           <maml:name>Credential</maml:name>
           <maml:Description>
-            <maml:para>{{Fill Credential Description}}</maml:para>
+            <maml:para>GRR credential.</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">PSCredential</command:parameterValue>
           <dev:type>
@@ -3761,7 +3815,7 @@ PS C:\&gt; $res.items.client_id | sort -u</dev:code>
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="none">
           <maml:name>NotifiedUsers</maml:name>
           <maml:Description>
-            <maml:para>{{Fill NotifiedUsers Description}}</maml:para>
+            <maml:para>Users which should be notified for the approval.</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
           <dev:type>
@@ -3773,7 +3827,7 @@ PS C:\&gt; $res.items.client_id | sort -u</dev:code>
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="3" aliases="none">
           <maml:name>Reason</maml:name>
           <maml:Description>
-            <maml:para>{{Fill Reason Description}}</maml:para>
+            <maml:para>Reason for that approval.</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
@@ -3796,7 +3850,7 @@ PS C:\&gt; $res.items.client_id | sort -u</dev:code>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="benannt" aliases="none">
           <maml:name>OnlyId</maml:name>
           <maml:Description>
-            <maml:para>{{Fill OnlyId Description}}</maml:para>
+            <maml:para>Return only the approval id. Use that flag to be able to pipe that into a wait command.</maml:para>
           </maml:Description>
           <dev:type>
             <maml:name>SwitchParameter</maml:name>
@@ -3807,7 +3861,7 @@ PS C:\&gt; $res.items.client_id | sort -u</dev:code>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="benannt" aliases="none">
           <maml:name>ShowJSON</maml:name>
           <maml:Description>
-            <maml:para>{{Fill ShowJSON Description}}</maml:para>
+            <maml:para>Return plain JSON instead of parsed JSON object.</maml:para>
           </maml:Description>
           <dev:type>
             <maml:name>SwitchParameter</maml:name>
@@ -3832,7 +3886,7 @@ PS C:\&gt; $res.items.client_id | sort -u</dev:code>
       <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
         <maml:name>ComputerName</maml:name>
         <maml:Description>
-          <maml:para>{{Fill ComputerName Description}}</maml:para>
+          <maml:para>Computer for which the approval is created.</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
@@ -3856,7 +3910,7 @@ PS C:\&gt; $res.items.client_id | sort -u</dev:code>
       <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
         <maml:name>Credential</maml:name>
         <maml:Description>
-          <maml:para>{{Fill Credential Description}}</maml:para>
+          <maml:para>GRR credential.</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">PSCredential</command:parameterValue>
         <dev:type>
@@ -3868,7 +3922,7 @@ PS C:\&gt; $res.items.client_id | sort -u</dev:code>
       <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="none">
         <maml:name>NotifiedUsers</maml:name>
         <maml:Description>
-          <maml:para>{{Fill NotifiedUsers Description}}</maml:para>
+          <maml:para>Users which should be notified for the approval.</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
         <dev:type>
@@ -3880,7 +3934,7 @@ PS C:\&gt; $res.items.client_id | sort -u</dev:code>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="benannt" aliases="none">
         <maml:name>OnlyId</maml:name>
         <maml:Description>
-          <maml:para>{{Fill OnlyId Description}}</maml:para>
+          <maml:para>Return only the approval id. Use that flag to be able to pipe that into a wait command.</maml:para>
         </maml:Description>
         <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
         <dev:type>
@@ -3892,7 +3946,7 @@ PS C:\&gt; $res.items.client_id | sort -u</dev:code>
       <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="3" aliases="none">
         <maml:name>Reason</maml:name>
         <maml:Description>
-          <maml:para>{{Fill Reason Description}}</maml:para>
+          <maml:para>Reason for that approval.</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
@@ -3904,7 +3958,7 @@ PS C:\&gt; $res.items.client_id | sort -u</dev:code>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="benannt" aliases="none">
         <maml:name>ShowJSON</maml:name>
         <maml:Description>
-          <maml:para>{{Fill ShowJSON Description}}</maml:para>
+          <maml:para>Return plain JSON instead of parsed JSON object.</maml:para>
         </maml:Description>
         <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
         <dev:type>
@@ -3954,9 +4008,9 @@ PS C:\&gt; $res.items.client_id | sort -u</dev:code>
     <command:examples>
       <command:example>
         <maml:title>Example 1</maml:title>
-        <dev:code>PS C:\&gt; {{ Add example code here }}</dev:code>
+        <dev:code>PS C:\&gt; New-GRRClientApproval -Credential $cred -NotifiedUsers firstname.lastname -Reason "the reason for that approval" -OnlyId -ComputerName host</dev:code>
         <dev:remarks>
-          <maml:para>{{ Add example description here }}</maml:para>
+          <maml:para>Creates a new approval for that specific host and notify the specified user.</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
@@ -4075,7 +4129,7 @@ PS C:\&gt; $res.items.client_id | sort -u</dev:code>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="benannt" aliases="none">
           <maml:name>ShowJSON</maml:name>
           <maml:Description>
-            <maml:para>{{Fill ShowJSON Description}}</maml:para>
+            <maml:para>Return plain JSON instead of parsed JSON object.</maml:para>
           </maml:Description>
           <dev:type>
             <maml:name>SwitchParameter</maml:name>
@@ -4097,7 +4151,7 @@ PS C:\&gt; $res.items.client_id | sort -u</dev:code>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>ClientLimit</maml:name>
           <maml:Description>
-            <maml:para>{{Fill ClientLimit Description}}</maml:para>
+            <maml:para>Client limit number. 0 for all hosts, 100 for 100 hosts only.</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
           <dev:type>
@@ -4109,7 +4163,7 @@ PS C:\&gt; $res.items.client_id | sort -u</dev:code>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>ClientRate</maml:name>
           <maml:Description>
-            <maml:para>{{Fill ClientRate Description}}</maml:para>
+            <maml:para>Client rate for that hunt. 0 no limit, 500 means 500 hosts per minute. Test the possibilities for your environment. If the rate is set to high, performance issues will arise.</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
           <dev:type>
@@ -4219,7 +4273,7 @@ PS C:\&gt; $res.items.client_id | sort -u</dev:code>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="benannt" aliases="none">
         <maml:name>ShowJSON</maml:name>
         <maml:Description>
-          <maml:para>{{Fill ShowJSON Description}}</maml:para>
+          <maml:para>Return plain JSON instead of parsed JSON object.</maml:para>
         </maml:Description>
         <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
         <dev:type>
@@ -4243,7 +4297,7 @@ PS C:\&gt; $res.items.client_id | sort -u</dev:code>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>ClientLimit</maml:name>
         <maml:Description>
-          <maml:para>{{Fill ClientLimit Description}}</maml:para>
+          <maml:para>Client limit number. 0 for all hosts, 100 for 100 hosts only.</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
         <dev:type>
@@ -4255,7 +4309,7 @@ PS C:\&gt; $res.items.client_id | sort -u</dev:code>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>ClientRate</maml:name>
         <maml:Description>
-          <maml:para>{{Fill ClientRate Description}}</maml:para>
+          <maml:para>Client rate for that hunt. 0 no limit, 500 means 500 hosts per minute. Test the possibilities for your environment. If the rate is set to high, performance issues will arise.</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
         <dev:type>
@@ -4328,7 +4382,7 @@ PS C:\&gt; $res.items.client_id | sort -u</dev:code>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>{{Fill in the Description}}</maml:para>
+      <maml:para>Create a new hunt approval.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -4406,7 +4460,7 @@ PS C:\&gt; $res.items.client_id | sort -u</dev:code>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="benannt" aliases="none">
           <maml:name>ShowJSON</maml:name>
           <maml:Description>
-            <maml:para>{{Fill ShowJSON Description}}</maml:para>
+            <maml:para>Return plain JSON instead of converted JSON.</maml:para>
           </maml:Description>
           <dev:type>
             <maml:name>SwitchParameter</maml:name>
@@ -4503,7 +4557,7 @@ PS C:\&gt; $res.items.client_id | sort -u</dev:code>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="benannt" aliases="none">
         <maml:name>ShowJSON</maml:name>
         <maml:Description>
-          <maml:para>{{Fill ShowJSON Description}}</maml:para>
+          <maml:para>Return plain JSON instead of converted JSON.</maml:para>
         </maml:Description>
         <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
         <dev:type>
@@ -4614,7 +4668,7 @@ PS C:\&gt; $res.items.client_id | sort -u</dev:code>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="benannt" aliases="none">
           <maml:name>ShowJSON</maml:name>
           <maml:Description>
-            <maml:para>{{Fill ShowJSON Description}}</maml:para>
+            <maml:para>Return plain JSON instead of converted JSON.</maml:para>
           </maml:Description>
           <dev:type>
             <maml:name>SwitchParameter</maml:name>
@@ -4675,7 +4729,7 @@ PS C:\&gt; $res.items.client_id | sort -u</dev:code>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="benannt" aliases="none">
         <maml:name>ShowJSON</maml:name>
         <maml:Description>
-          <maml:para>{{Fill ShowJSON Description}}</maml:para>
+          <maml:para>Return plain JSON instead of converted JSON.</maml:para>
         </maml:Description>
         <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
         <dev:type>
@@ -4764,7 +4818,7 @@ OK</dev:code>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>{{Fill in the Description}}</maml:para>
+      <maml:para>Remove a label on a range of clients.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -4772,7 +4826,7 @@ OK</dev:code>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none">
           <maml:name>ComputerName</maml:name>
           <maml:Description>
-            <maml:para>{{Fill ComputerName Description}}</maml:para>
+            <maml:para>Computer name(s) for which the label must be set.</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
           <dev:type>
@@ -4784,7 +4838,7 @@ OK</dev:code>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
           <maml:name>Label</maml:name>
           <maml:Description>
-            <maml:para>{{Fill Label Description}}</maml:para>
+            <maml:para>Label which must be set.</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
           <dev:type>
@@ -4796,7 +4850,7 @@ OK</dev:code>
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="none">
           <maml:name>Credential</maml:name>
           <maml:Description>
-            <maml:para>{{Fill Credential Description}}</maml:para>
+            <maml:para>GRR credentials.</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">PSCredential</command:parameterValue>
           <dev:type>
@@ -4830,7 +4884,7 @@ OK</dev:code>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>ShowJSON</maml:name>
           <maml:Description>
-            <maml:para>{{Fill ShowJSON Description}}</maml:para>
+            <maml:para>Return plain JSON instead of converted JSON.</maml:para>
           </maml:Description>
           <dev:type>
             <maml:name>SwitchParameter</maml:name>
@@ -4844,7 +4898,7 @@ OK</dev:code>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none">
         <maml:name>ComputerName</maml:name>
         <maml:Description>
-          <maml:para>{{Fill ComputerName Description}}</maml:para>
+          <maml:para>Computer name(s) for which the label must be set.</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
         <dev:type>
@@ -4868,7 +4922,7 @@ OK</dev:code>
       <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="none">
         <maml:name>Credential</maml:name>
         <maml:Description>
-          <maml:para>{{Fill Credential Description}}</maml:para>
+          <maml:para>GRR credentials.</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">PSCredential</command:parameterValue>
         <dev:type>
@@ -4880,7 +4934,7 @@ OK</dev:code>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
         <maml:name>Label</maml:name>
         <maml:Description>
-          <maml:para>{{Fill Label Description}}</maml:para>
+          <maml:para>Label which must be set.</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
         <dev:type>
@@ -4904,7 +4958,7 @@ OK</dev:code>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>ShowJSON</maml:name>
         <maml:Description>
-          <maml:para>{{Fill ShowJSON Description}}</maml:para>
+          <maml:para>Return plain JSON instead of converted JSON.</maml:para>
         </maml:Description>
         <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
         <dev:type>
@@ -5034,7 +5088,7 @@ PS C:\&gt; "host1", "host2" | Remove-GRRLabel -Label label1 -Credential $creds</
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>ShowJSON</maml:name>
           <maml:Description>
-            <maml:para>{{Fill ShowJSON Description}}</maml:para>
+            <maml:para>Return plain JSON instead of converted JSON.</maml:para>
           </maml:Description>
           <dev:type>
             <maml:name>SwitchParameter</maml:name>
@@ -5108,7 +5162,7 @@ PS C:\&gt; "host1", "host2" | Remove-GRRLabel -Label label1 -Credential $creds</
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>ShowJSON</maml:name>
         <maml:Description>
-          <maml:para>{{Fill ShowJSON Description}}</maml:para>
+          <maml:para>Return plain JSON instead of converted JSON.</maml:para>
         </maml:Description>
         <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
         <dev:type>
@@ -5172,7 +5226,7 @@ PS C:\&gt; "host1", "host2" | Set-GRRLabel -Label label1 -Credential $creds</dev
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>{{Fill in the Description}}</maml:para>
+      <maml:para>Start a GRR hunt based on the hunt id.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -5237,7 +5291,7 @@ PS C:\&gt; "host1", "host2" | Set-GRRLabel -Label label1 -Credential $creds</dev
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>ApprovalId</maml:name>
           <maml:Description>
-            <maml:para>{{Fill ApprovalId Description}}</maml:para>
+            <maml:para>Approval id to wait for.</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
@@ -5249,7 +5303,7 @@ PS C:\&gt; "host1", "host2" | Set-GRRLabel -Label label1 -Credential $creds</dev
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>TimeoutInMinutes</maml:name>
           <maml:Description>
-            <maml:para>{{Fill TimeoutInMinutes Description}}</maml:para>
+            <maml:para>Timeout for the wait.</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
           <dev:type>
@@ -5261,7 +5315,7 @@ PS C:\&gt; "host1", "host2" | Set-GRRLabel -Label label1 -Credential $creds</dev
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>Wait</maml:name>
           <maml:Description>
-            <maml:para>{{Fill Wait Description}}</maml:para>
+            <maml:para>Wait until the given approval gets valid.</maml:para>
           </maml:Description>
           <dev:type>
             <maml:name>SwitchParameter</maml:name>
@@ -5335,7 +5389,7 @@ PS C:\&gt; "host1", "host2" | Set-GRRLabel -Label label1 -Credential $creds</dev
       <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>ApprovalId</maml:name>
         <maml:Description>
-          <maml:para>{{Fill ApprovalId Description}}</maml:para>
+          <maml:para>Approval id to wait for.</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
@@ -5347,7 +5401,7 @@ PS C:\&gt; "host1", "host2" | Set-GRRLabel -Label label1 -Credential $creds</dev
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>TimeoutInMinutes</maml:name>
         <maml:Description>
-          <maml:para>{{Fill TimeoutInMinutes Description}}</maml:para>
+          <maml:para>Timeout for the wait.</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
         <dev:type>
@@ -5359,7 +5413,7 @@ PS C:\&gt; "host1", "host2" | Set-GRRLabel -Label label1 -Credential $creds</dev
       <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>Wait</maml:name>
         <maml:Description>
-          <maml:para>{{Fill Wait Description}}</maml:para>
+          <maml:para>Wait until the given approval gets valid.</maml:para>
         </maml:Description>
         <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
         <dev:type>
@@ -5409,6 +5463,13 @@ PS C:\&gt; "host1", "host2" | Set-GRRLabel -Label label1 -Credential $creds</dev
           <maml:para>Start the specific hunt and wait until given approval gets valid.</maml:para>
         </dev:remarks>
       </command:example>
+      <command:example>
+        <maml:title>Example 3</maml:title>
+        <dev:code>Start-GRRHunt -Credential $cred -HuntId $hunt -Wait -ApprovalId (New-GRRHuntApproval -Credential $cred -HuntId $hunt -NotifiedUsers user.name -Reason "Reason for that hunt approval" -OnlyId)</dev:code>
+        <dev:remarks>
+          <maml:para>Start the specific hunt and wait until given approval gets valid. Use both commands, the start and the approval in on command.</maml:para>
+        </dev:remarks>
+      </command:example>
     </command:examples>
     <command:relatedLinks />
   </command:command>
@@ -5422,7 +5483,7 @@ PS C:\&gt; "host1", "host2" | Set-GRRLabel -Label label1 -Credential $creds</dev
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>{{Fill in the Description}}</maml:para>
+      <maml:para>Stop a hunt.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -5442,7 +5503,7 @@ PS C:\&gt; "host1", "host2" | Set-GRRLabel -Label label1 -Credential $creds</dev
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
           <maml:name>Credential</maml:name>
           <maml:Description>
-            <maml:para>{{Fill Credential Description}}</maml:para>
+            <maml:para>GRR credentials.</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">PSCredential</command:parameterValue>
           <dev:type>
@@ -5465,7 +5526,7 @@ PS C:\&gt; "host1", "host2" | Set-GRRLabel -Label label1 -Credential $creds</dev
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="benannt" aliases="none">
           <maml:name>ShowJSON</maml:name>
           <maml:Description>
-            <maml:para>{{Fill ShowJSON Description}}</maml:para>
+            <maml:para>Return plain JSON instead of converted JSON.</maml:para>
           </maml:Description>
           <dev:type>
             <maml:name>SwitchParameter</maml:name>
@@ -5502,7 +5563,7 @@ PS C:\&gt; "host1", "host2" | Set-GRRLabel -Label label1 -Credential $creds</dev
       <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
         <maml:name>Credential</maml:name>
         <maml:Description>
-          <maml:para>{{Fill Credential Description}}</maml:para>
+          <maml:para>GRR credentials.</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">PSCredential</command:parameterValue>
         <dev:type>
@@ -5526,7 +5587,7 @@ PS C:\&gt; "host1", "host2" | Set-GRRLabel -Label label1 -Credential $creds</dev
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="benannt" aliases="none">
         <maml:name>ShowJSON</maml:name>
         <maml:Description>
-          <maml:para>{{Fill ShowJSON Description}}</maml:para>
+          <maml:para>Return plain JSON instead of converted JSON.</maml:para>
         </maml:Description>
         <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
         <dev:type>
@@ -5595,11 +5656,11 @@ PS C:\&gt; "host1", "host2" | Set-GRRLabel -Label label1 -Credential $creds</dev
       <command:verb>Wait</command:verb>
       <command:noun>GRRClientApproval</command:noun>
       <maml:description>
-        <maml:para>{{Fill in the Synopsis}}</maml:para>
+        <maml:para>Wait for the given client approval gets valid.</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>{{Fill in the Description}}</maml:para>
+      <maml:para>Wait for the given client approval gets valid.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -5607,7 +5668,7 @@ PS C:\&gt; "host1", "host2" | Set-GRRLabel -Label label1 -Credential $creds</dev
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
           <maml:name>ComputerName</maml:name>
           <maml:Description>
-            <maml:para>{{Fill ComputerName Description}}</maml:para>
+            <maml:para>Client for which the approval was made.</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
@@ -5619,7 +5680,7 @@ PS C:\&gt; "host1", "host2" | Set-GRRLabel -Label label1 -Credential $creds</dev
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
           <maml:name>Credential</maml:name>
           <maml:Description>
-            <maml:para>{{Fill Credential Description}}</maml:para>
+            <maml:para>GRR credential.</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">PSCredential</command:parameterValue>
           <dev:type>
@@ -5631,7 +5692,7 @@ PS C:\&gt; "host1", "host2" | Set-GRRLabel -Label label1 -Credential $creds</dev
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="none">
           <maml:name>ApprovalId</maml:name>
           <maml:Description>
-            <maml:para>{{Fill ApprovalId Description}}</maml:para>
+            <maml:para>Approval id to wait for.</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
@@ -5643,7 +5704,7 @@ PS C:\&gt; "host1", "host2" | Set-GRRLabel -Label label1 -Credential $creds</dev
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="3" aliases="none">
           <maml:name>TimeoutInMinutes</maml:name>
           <maml:Description>
-            <maml:para>{{Fill TimeoutInMinutes Description}}</maml:para>
+            <maml:para>Timeout to wait for.</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
           <dev:type>
@@ -5655,7 +5716,7 @@ PS C:\&gt; "host1", "host2" | Set-GRRLabel -Label label1 -Credential $creds</dev
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="4" aliases="none">
           <maml:name>Interval</maml:name>
           <maml:Description>
-            <maml:para>{{Fill Interval Description}}</maml:para>
+            <maml:para>Interval for the check.</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
           <dev:type>
@@ -5678,7 +5739,7 @@ PS C:\&gt; "host1", "host2" | Set-GRRLabel -Label label1 -Credential $creds</dev
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="benannt" aliases="none">
           <maml:name>ShowJSON</maml:name>
           <maml:Description>
-            <maml:para>{{Fill ShowJSON Description}}</maml:para>
+            <maml:para>Return only plain JSON instead of converted JSON objects.</maml:para>
           </maml:Description>
           <dev:type>
             <maml:name>SwitchParameter</maml:name>
@@ -5703,7 +5764,7 @@ PS C:\&gt; "host1", "host2" | Set-GRRLabel -Label label1 -Credential $creds</dev
       <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="none">
         <maml:name>ApprovalId</maml:name>
         <maml:Description>
-          <maml:para>{{Fill ApprovalId Description}}</maml:para>
+          <maml:para>Approval id to wait for.</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
@@ -5715,7 +5776,7 @@ PS C:\&gt; "host1", "host2" | Set-GRRLabel -Label label1 -Credential $creds</dev
       <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
         <maml:name>ComputerName</maml:name>
         <maml:Description>
-          <maml:para>{{Fill ComputerName Description}}</maml:para>
+          <maml:para>Client for which the approval was made.</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
@@ -5739,7 +5800,7 @@ PS C:\&gt; "host1", "host2" | Set-GRRLabel -Label label1 -Credential $creds</dev
       <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
         <maml:name>Credential</maml:name>
         <maml:Description>
-          <maml:para>{{Fill Credential Description}}</maml:para>
+          <maml:para>GRR credential.</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">PSCredential</command:parameterValue>
         <dev:type>
@@ -5751,7 +5812,7 @@ PS C:\&gt; "host1", "host2" | Set-GRRLabel -Label label1 -Credential $creds</dev
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="4" aliases="none">
         <maml:name>Interval</maml:name>
         <maml:Description>
-          <maml:para>{{Fill Interval Description}}</maml:para>
+          <maml:para>Interval for the check.</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
         <dev:type>
@@ -5763,7 +5824,7 @@ PS C:\&gt; "host1", "host2" | Set-GRRLabel -Label label1 -Credential $creds</dev
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="benannt" aliases="none">
         <maml:name>ShowJSON</maml:name>
         <maml:Description>
-          <maml:para>{{Fill ShowJSON Description}}</maml:para>
+          <maml:para>Return only plain JSON instead of converted JSON objects.</maml:para>
         </maml:Description>
         <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
         <dev:type>
@@ -5775,7 +5836,7 @@ PS C:\&gt; "host1", "host2" | Set-GRRLabel -Label label1 -Credential $creds</dev
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="3" aliases="none">
         <maml:name>TimeoutInMinutes</maml:name>
         <maml:Description>
-          <maml:para>{{Fill TimeoutInMinutes Description}}</maml:para>
+          <maml:para>Timeout to wait for.</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
         <dev:type>
@@ -5825,9 +5886,9 @@ PS C:\&gt; "host1", "host2" | Set-GRRLabel -Label label1 -Credential $creds</dev
     <command:examples>
       <command:example>
         <maml:title>Example 1</maml:title>
-        <dev:code>PS C:\&gt; {{ Add example code here }}</dev:code>
+        <dev:code>PS C:\&gt; Wait-GRRClientApproval -ComputerName host -Credential $cred -ApprovalId "approval:AAAAAAAA" -TimeoutInMinutes 1</dev:code>
         <dev:remarks>
-          <maml:para>{{ Add example description here }}</maml:para>
+          <maml:para>Wait for that specific approval to get valid. Wait 1 minute otherwise exit the wait.</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
@@ -5844,11 +5905,11 @@ PS C:\&gt; "host1", "host2" | Set-GRRLabel -Label label1 -Credential $creds</dev
       <command:verb>Wait</command:verb>
       <command:noun>GRRHuntApproval</command:noun>
       <maml:description>
-        <maml:para>{{Fill in the Synopsis}}</maml:para>
+        <maml:para>Wait for the hunt approval to get valid.</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>{{Fill in the Description}}</maml:para>
+      <maml:para>Wait for the hunt approval to get valid.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -5856,7 +5917,7 @@ PS C:\&gt; "host1", "host2" | Set-GRRLabel -Label label1 -Credential $creds</dev
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
           <maml:name>Credential</maml:name>
           <maml:Description>
-            <maml:para>{{Fill Credential Description}}</maml:para>
+            <maml:para>GRR credential.</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">PSCredential</command:parameterValue>
           <dev:type>
@@ -5868,7 +5929,7 @@ PS C:\&gt; "host1", "host2" | Set-GRRLabel -Label label1 -Credential $creds</dev
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
           <maml:name>HuntId</maml:name>
           <maml:Description>
-            <maml:para>{{Fill HuntId Description}}</maml:para>
+            <maml:para>Hunt id for which the approval was created.</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
@@ -5880,7 +5941,7 @@ PS C:\&gt; "host1", "host2" | Set-GRRLabel -Label label1 -Credential $creds</dev
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="none">
           <maml:name>ApprovalId</maml:name>
           <maml:Description>
-            <maml:para>{{Fill ApprovalId Description}}</maml:para>
+            <maml:para>Approval to wait for.</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
@@ -5892,7 +5953,7 @@ PS C:\&gt; "host1", "host2" | Set-GRRLabel -Label label1 -Credential $creds</dev
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="3" aliases="none">
           <maml:name>TimeoutInMinutes</maml:name>
           <maml:Description>
-            <maml:para>{{Fill TimeoutInMinutes Description}}</maml:para>
+            <maml:para>Timeout to wait.</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
           <dev:type>
@@ -5927,7 +5988,7 @@ PS C:\&gt; "host1", "host2" | Set-GRRLabel -Label label1 -Credential $creds</dev
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="benannt" aliases="none">
           <maml:name>ShowJSON</maml:name>
           <maml:Description>
-            <maml:para>{{Fill ShowJSON Description}}</maml:para>
+            <maml:para>Return only plain JSON instead of converted JSON objects.</maml:para>
           </maml:Description>
           <dev:type>
             <maml:name>SwitchParameter</maml:name>
@@ -5952,7 +6013,7 @@ PS C:\&gt; "host1", "host2" | Set-GRRLabel -Label label1 -Credential $creds</dev
       <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="none">
         <maml:name>ApprovalId</maml:name>
         <maml:Description>
-          <maml:para>{{Fill ApprovalId Description}}</maml:para>
+          <maml:para>Approval to wait for.</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
@@ -5976,7 +6037,7 @@ PS C:\&gt; "host1", "host2" | Set-GRRLabel -Label label1 -Credential $creds</dev
       <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
         <maml:name>Credential</maml:name>
         <maml:Description>
-          <maml:para>{{Fill Credential Description}}</maml:para>
+          <maml:para>GRR credential.</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">PSCredential</command:parameterValue>
         <dev:type>
@@ -5988,7 +6049,7 @@ PS C:\&gt; "host1", "host2" | Set-GRRLabel -Label label1 -Credential $creds</dev
       <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
         <maml:name>HuntId</maml:name>
         <maml:Description>
-          <maml:para>{{Fill HuntId Description}}</maml:para>
+          <maml:para>Hunt id for which the approval was created.</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
@@ -6012,7 +6073,7 @@ PS C:\&gt; "host1", "host2" | Set-GRRLabel -Label label1 -Credential $creds</dev
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="benannt" aliases="none">
         <maml:name>ShowJSON</maml:name>
         <maml:Description>
-          <maml:para>{{Fill ShowJSON Description}}</maml:para>
+          <maml:para>Return only plain JSON instead of converted JSON objects.</maml:para>
         </maml:Description>
         <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
         <dev:type>
@@ -6024,7 +6085,7 @@ PS C:\&gt; "host1", "host2" | Set-GRRLabel -Label label1 -Credential $creds</dev
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="3" aliases="none">
         <maml:name>TimeoutInMinutes</maml:name>
         <maml:Description>
-          <maml:para>{{Fill TimeoutInMinutes Description}}</maml:para>
+          <maml:para>Timeout to wait.</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
         <dev:type>
@@ -6074,9 +6135,16 @@ PS C:\&gt; "host1", "host2" | Set-GRRLabel -Label label1 -Credential $creds</dev
     <command:examples>
       <command:example>
         <maml:title>Example 1</maml:title>
-        <dev:code>PS C:\&gt; {{ Add example code here }}</dev:code>
+        <dev:code>PS C:\&gt; Wait-GRRHuntApproval -Credential $cred -HuntId "H:AAAAAAAA" -ApprovalId "approval:AAAAAAAA" -Timeout 10</dev:code>
         <dev:remarks>
-          <maml:para>{{ Add example description here }}</maml:para>
+          <maml:para>Wait 10 minutes for the hunt approval to get valid.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>Example 2</maml:title>
+        <dev:code>PS C:\&gt; Wait-GRRHuntApproval -Credential $cred -HuntId "H:AAAAAAAA" -ApprovalId "approval:AAAAAAAA" -Timeout 10 -StartHuntAfterApproval</dev:code>
+        <dev:remarks>
+          <maml:para>Wait 10 minutes for the hunt approval to get valid. Start the hunt after the approval got valid.</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>

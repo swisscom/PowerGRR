@@ -17,21 +17,21 @@ New-GRRClientApproval [-ComputerName] <String> [-Credential] <PSCredential> [-No
 ```
 
 ## DESCRIPTION
-{{Fill in the Description}}
+Create a new client approval.
 
 ## EXAMPLES
 
 ### Example 1
 ```
-PS C:\> {{ Add example code here }}
+PS C:\> New-GRRClientApproval -Credential $cred -NotifiedUsers firstname.lastname -Reason "the reason for that approval" -OnlyId -ComputerName host
 ```
 
-{{ Add example description here }}
+Creates a new approval for that specific host and notify the specified user.
 
 ## PARAMETERS
 
 ### -ComputerName
-{{Fill ComputerName Description}}
+Computer for which the approval is created.
 
 ```yaml
 Type: String
@@ -61,7 +61,7 @@ Accept wildcard characters: False
 ```
 
 ### -Credential
-{{Fill Credential Description}}
+GRR credential.
 
 ```yaml
 Type: PSCredential
@@ -76,7 +76,7 @@ Accept wildcard characters: False
 ```
 
 ### -NotifiedUsers
-{{Fill NotifiedUsers Description}}
+Users which should be notified for the approval.
 
 ```yaml
 Type: String[]
@@ -91,7 +91,8 @@ Accept wildcard characters: False
 ```
 
 ### -OnlyId
-{{Fill OnlyId Description}}
+Return only the approval id. Use that flag to be able to pipe that into a wait
+command.
 
 ```yaml
 Type: SwitchParameter
@@ -106,7 +107,7 @@ Accept wildcard characters: False
 ```
 
 ### -Reason
-{{Fill Reason Description}}
+Reason for that approval.
 
 ```yaml
 Type: String
@@ -121,7 +122,7 @@ Accept wildcard characters: False
 ```
 
 ### -ShowJSON
-{{Fill ShowJSON Description}}
+Return plain JSON instead of parsed JSON object.
 
 ```yaml
 Type: SwitchParameter

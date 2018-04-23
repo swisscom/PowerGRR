@@ -7,7 +7,7 @@ schema: 2.0.0
 # Wait-GRRHuntApproval
 
 ## SYNOPSIS
-{{Fill in the Synopsis}}
+Wait for the hunt approval to get valid.
 
 ## SYNTAX
 
@@ -17,21 +17,29 @@ Wait-GRRHuntApproval [-Credential] <PSCredential> [-HuntId] <String> [-ApprovalI
 ```
 
 ## DESCRIPTION
-{{Fill in the Description}}
+Wait for the hunt approval to get valid.
 
 ## EXAMPLES
 
 ### Example 1
 ```
-PS C:\> {{ Add example code here }}
+PS C:\> Wait-GRRHuntApproval -Credential $cred -HuntId "H:AAAAAAAA" -ApprovalId "approval:AAAAAAAA" -Timeout 10 
 ```
 
-{{ Add example description here }}
+Wait 10 minutes for the hunt approval to get valid.
+
+### Example 2
+```
+PS C:\> Wait-GRRHuntApproval -Credential $cred -HuntId "H:AAAAAAAA" -ApprovalId "approval:AAAAAAAA" -Timeout 10 -StartHuntAfterApproval
+```
+
+Wait 10 minutes for the hunt approval to get valid. Start the hunt after the
+approval got valid.
 
 ## PARAMETERS
 
 ### -ApprovalId
-{{Fill ApprovalId Description}}
+Approval to wait for.
 
 ```yaml
 Type: String
@@ -61,7 +69,7 @@ Accept wildcard characters: False
 ```
 
 ### -Credential
-{{Fill Credential Description}}
+GRR credential.
 
 ```yaml
 Type: PSCredential
@@ -76,7 +84,7 @@ Accept wildcard characters: False
 ```
 
 ### -HuntId
-{{Fill HuntId Description}}
+Hunt id for which the approval was created.
 
 ```yaml
 Type: String
@@ -106,7 +114,7 @@ Accept wildcard characters: False
 ```
 
 ### -ShowJSON
-{{Fill ShowJSON Description}}
+Return only plain JSON instead of converted JSON objects.
 
 ```yaml
 Type: SwitchParameter
@@ -121,7 +129,7 @@ Accept wildcard characters: False
 ```
 
 ### -TimeoutInMinutes
-{{Fill TimeoutInMinutes Description}}
+Timeout to wait.
 
 ```yaml
 Type: Int32

@@ -24,7 +24,7 @@ Start-GRRHunt [-Credential] <PSCredential> [[-HuntId] <String>] [-Wait] -Approva
 ```
 
 ## DESCRIPTION
-{{Fill in the Description}}
+Start a GRR hunt based on the hunt id.
 
 ## EXAMPLES
 
@@ -41,6 +41,14 @@ Start-GRRHunt -HuntId $huntid -Credential $cred -Wait -ApprovalId $approval -Tim
 ```
 
 Start the specific hunt and wait until given approval gets valid.
+
+### Example 3
+```
+Start-GRRHunt -Credential $cred -HuntId $hunt -Wait -ApprovalId (New-GRRHuntApproval -Credential $cred -HuntId $hunt -NotifiedUsers user.name -Reason "Reason for that hunt approval" -OnlyId)
+```
+
+Start the specific hunt and wait until given approval gets valid. Use both
+commands, the start and the approval in on command.
 
 ## PARAMETERS
 
@@ -121,7 +129,7 @@ Accept wildcard characters: False
 ```
 
 ### -ApprovalId
-{{Fill ApprovalId Description}}
+Approval id to wait for.
 
 ```yaml
 Type: String
@@ -136,7 +144,7 @@ Accept wildcard characters: False
 ```
 
 ### -TimeoutInMinutes
-{{Fill TimeoutInMinutes Description}}
+Timeout for the wait.
 
 ```yaml
 Type: Int32
@@ -151,7 +159,7 @@ Accept wildcard characters: False
 ```
 
 ### -Wait
-{{Fill Wait Description}}
+Wait until the given approval gets valid.
 
 ```yaml
 Type: SwitchParameter

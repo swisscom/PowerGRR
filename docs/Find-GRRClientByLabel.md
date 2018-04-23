@@ -23,14 +23,14 @@ Find-GRRClientByLabel [[-SearchString] <String>] [-Credential] <PSCredential> [-
 
 ### Example 1
 ```
-PS C:\> Find-GRRClientByLabel -Credential $creds -SearchString keyword
+PS C:\> Find-GRRClientByLabel -Credential $creds -SearchString label
 ```
 
 Search for clients with a specific label.
 
 ### Example 2
 ```
-PS C:\> Find-GRRClientByLabel -Credential $creds -SearchString keyword -OnlyNode
+PS C:\> Find-GRRClientByLabel -Credential $creds -SearchString label -OnlyComputerName
 ```
 
 Search for clients with a specific label and show only the host names.
@@ -83,7 +83,7 @@ Accept wildcard characters: False
 ```
 
 ### -ShowJSON
-{{Fill ShowJSON Description}}
+Return plain JSON instead of parsed JSON object.
 
 ```yaml
 Type: SwitchParameter

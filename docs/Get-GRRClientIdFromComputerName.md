@@ -7,7 +7,7 @@ schema: 2.0.0
 # Get-GRRClientIdFromComputerName
 
 ## SYNOPSIS
-Convert a computername into the corresponding GRR client id.
+Convert a list of computer names into the corresponding GRR client id.
 
 ## SYNTAX
 
@@ -17,7 +17,8 @@ Get-GRRClientIdFromComputerName [[-ComputerName] <String[]>] [-Credential] <PSCr
 ```
 
 ## DESCRIPTION
-{{Fill in the Description}}
+Convert a list of computer names into the corresponding GRR client id and
+display further information about the client.
 
 ## EXAMPLES
 
@@ -32,7 +33,9 @@ host1   C.2222222222222222 03.04.2017 14:55:37 6.1.7601
 host2   C.3333333333333333 26.06.2017 09:31:32 6.1.7601
 ```
 
-Search for the client ids for the two hosts.
+Search for the client ids for the two hosts. If one host has multiple IDs
+(e.g. after a new installation) both are shown. See Example 2 to only show
+last seen hosts.
 
 ### Example 2
 ```
@@ -105,7 +108,7 @@ Accept wildcard characters: False
 ```
 
 ### -ShowJSON
-{{Fill ShowJSON Description}}
+Return plain JSON instead of converted JSON.
 
 ```yaml
 Type: SwitchParameter

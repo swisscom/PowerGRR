@@ -7,7 +7,7 @@ schema: 2.0.0
 # Wait-GRRClientApproval
 
 ## SYNOPSIS
-{{Fill in the Synopsis}}
+Wait for the given client approval gets valid.
 
 ## SYNTAX
 
@@ -17,21 +17,22 @@ Wait-GRRClientApproval [-ComputerName] <String> [-Credential] <PSCredential> [-A
 ```
 
 ## DESCRIPTION
-{{Fill in the Description}}
+Wait for the given client approval gets valid.
 
 ## EXAMPLES
 
 ### Example 1
 ```
-PS C:\> {{ Add example code here }}
+PS C:\> Wait-GRRClientApproval -ComputerName host -Credential $cred -ApprovalId "approval:AAAAAAAA" -TimeoutInMinutes 1
 ```
 
-{{ Add example description here }}
+Wait for that specific approval to get valid. Wait 1 minute otherwise exit the
+wait.
 
 ## PARAMETERS
 
 ### -ApprovalId
-{{Fill ApprovalId Description}}
+Approval id to wait for.
 
 ```yaml
 Type: String
@@ -46,7 +47,7 @@ Accept wildcard characters: False
 ```
 
 ### -ComputerName
-{{Fill ComputerName Description}}
+Client for which the approval was made.
 
 ```yaml
 Type: String
@@ -76,7 +77,7 @@ Accept wildcard characters: False
 ```
 
 ### -Credential
-{{Fill Credential Description}}
+GRR credential.
 
 ```yaml
 Type: PSCredential
@@ -91,7 +92,7 @@ Accept wildcard characters: False
 ```
 
 ### -Interval
-{{Fill Interval Description}}
+Interval for the check.
 
 ```yaml
 Type: Int32
@@ -106,7 +107,7 @@ Accept wildcard characters: False
 ```
 
 ### -ShowJSON
-{{Fill ShowJSON Description}}
+Return only plain JSON instead of converted JSON objects.
 
 ```yaml
 Type: SwitchParameter
@@ -121,7 +122,7 @@ Accept wildcard characters: False
 ```
 
 ### -TimeoutInMinutes
-{{Fill TimeoutInMinutes Description}}
+Timeout to wait for.
 
 ```yaml
 Type: Int32

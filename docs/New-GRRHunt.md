@@ -159,7 +159,7 @@ Accept wildcard characters: False
 ```
 
 ### -ShowJSON
-{{Fill ShowJSON Description}}
+Return plain JSON instead of parsed JSON object.
 
 ```yaml
 Type: SwitchParameter
@@ -190,7 +190,7 @@ Accept wildcard characters: False
 ```
 
 ### -ClientLimit
-{{Fill ClientLimit Description}}
+Client limit number. 0 for all hosts, 100 for 100 hosts only.
 
 ```yaml
 Type: Int32
@@ -205,7 +205,9 @@ Accept wildcard characters: False
 ```
 
 ### -ClientRate
-{{Fill ClientRate Description}}
+Client rate for that hunt. 0 no limit, 500 means 500 hosts per minute. Test
+the possibilities for your environment. If the rate is set to high,
+performance issues will arise.
 
 ```yaml
 Type: Int32

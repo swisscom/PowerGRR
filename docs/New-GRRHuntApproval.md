@@ -17,7 +17,7 @@ New-GRRHuntApproval [-HuntId] <String> [-Credential] <PSCredential> [-NotifiedUs
 ```
 
 ## DESCRIPTION
-{{Fill in the Description}}
+Create a new hunt approval.
 
 ## EXAMPLES
 
@@ -121,7 +121,7 @@ Accept wildcard characters: False
 ```
 
 ### -ShowJSON
-{{Fill ShowJSON Description}}
+Return plain JSON instead of converted JSON.
 
 ```yaml
 Type: SwitchParameter

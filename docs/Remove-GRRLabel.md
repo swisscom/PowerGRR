@@ -17,7 +17,7 @@ Remove-GRRLabel [[-ComputerName] <String[]>] [[-Label] <String[]>] [-Credential]
 ```
 
 ## DESCRIPTION
-{{Fill in the Description}}
+Remove a label on a range of clients.
 
 ## EXAMPLES
 
@@ -41,7 +41,7 @@ removed.
 ## PARAMETERS
 
 ### -ComputerName
-{{Fill ComputerName Description}}
+Computer name(s) for which the label must be set.
 
 ```yaml
 Type: String[]
@@ -71,7 +71,7 @@ Accept wildcard characters: False
 ```
 
 ### -Credential
-{{Fill Credential Description}}
+GRR credentials.
 
 ```yaml
 Type: PSCredential
@@ -86,7 +86,7 @@ Accept wildcard characters: False
 ```
 
 ### -Label
-{{Fill Label Description}}
+Label which must be set.
 
 ```yaml
 Type: String[]
@@ -117,7 +117,7 @@ Accept wildcard characters: False
 ```
 
 ### -ShowJSON
-{{Fill ShowJSON Description}}
+Return plain JSON instead of converted JSON.
 
 ```yaml
 Type: SwitchParameter

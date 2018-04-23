@@ -17,7 +17,7 @@ Get-GRRHuntInfo [[-HuntId] <String>] [-Credential] <PSCredential> [-ShowResultCo
 ```
 
 ## DESCRIPTION
-{{Fill in the Description}}
+Get hunt info for a specific hunt.
 
 ## EXAMPLES
 
@@ -31,7 +31,7 @@ Read the hunt infos based on a hunt id.
 ## PARAMETERS
 
 ### -Credential
-{{Fill Credential Description}}
+GRR credentials.
 
 ```yaml
 Type: PSCredential
@@ -61,7 +61,7 @@ Accept wildcard characters: False
 ```
 
 ### -ShowJSON
-{{Fill ShowJSON Description}}
+Return plain JSON instead of parsed JSON object.
 
 ```yaml
 Type: SwitchParameter

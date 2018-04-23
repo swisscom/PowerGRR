@@ -18,7 +18,7 @@ Find-GRRClient [[-SearchString] <String>] [-Credential] <PSCredential> [-OnlyCom
 ```
 
 ## DESCRIPTION
-{{Fill in the Description}}
+Find GRR clients based on the given search string.
 
 ## EXAMPLES
 
@@ -32,12 +32,28 @@ Find GRR clients based on keywords. Use the available prefixes, e.g. "label:" or
 
 ### Example 2
 ```
-PS C:\> Find-GRRClient -SearchString keyword -Credential $cred -OnlyNode
+PS C:\> Find-GRRClient -SearchString keyword -Credential $cred -OnlyComputerName
 ```
 
 Find GRR clients based on keywords. Use the available prefixes, e.g. "label:" or
-"host:" to limit the search results. Use `OnlyNode` to only display the host
+"host:" to limit the search results. Use `-OnlyComputerName` to only display the host
 names.
+
+### Example 3
+```
+PS C:\> Find-GRRClient -SearchString "username" -OnlyComputerName -OnlyComputerName
+```
+
+Find GRR clients where the given user was logged in. Use `-OnlyComputerName` to only
+display the host names.
+
+### Example 4
+```
+PS C:\> $ret = Find-GRRClient -SearchString darwin -OnlyComputerName
+```
+
+Find GRR clients with the OS "darwin" (MacOS). Use `-OnlyComputerName` to only
+display the host names.
 
 ## PARAMETERS
 
@@ -87,7 +103,7 @@ Accept wildcard characters: False
 ```
 
 ### -ShowJSON
-{{Fill ShowJSON Description}}
+Show the response as JSON instead of parsed object.
 
 ```yaml
 Type: SwitchParameter

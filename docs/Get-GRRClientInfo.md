@@ -7,7 +7,7 @@ schema: 2.0.0
 # Get-GRRClientInfo
 
 ## SYNOPSIS
-{{Fill in the Synopsis}}
+Get important client infos.
 
 ## SYNTAX
 
@@ -17,21 +17,29 @@ Get-GRRClientInfo [[-ComputerName] <String[]>] [-Credential] <PSCredential> [-On
 ```
 
 ## DESCRIPTION
-{{Fill in the Description}}
+Get important client infos.
 
 ## EXAMPLES
 
 ### Example 1
 ```
-PS C:\> {{ Add example code here }}
+PS C:\> Get-GRRClientInfo -ComputerName host1
 ```
 
-{{ Add example description here }}
+Get host information for that specific host. No `-Credential` param is needed
+because `$GRRCredential` was set before running the command.
+
+### Example 2
+```
+PS C:\> "host1","host" | Get-GRRClientInfo -Credential $cred
+```
+
+Get host information for that specific host based on the pipeline input.
 
 ## PARAMETERS
 
 ### -ComputerName
-{{Fill ComputerName Description}}
+Computer name to search for.
 
 ```yaml
 Type: String[]
@@ -46,7 +54,7 @@ Accept wildcard characters: False
 ```
 
 ### -Credential
-{{Fill Credential Description}}
+GRR credentials.
 
 ```yaml
 Type: PSCredential
@@ -61,7 +69,7 @@ Accept wildcard characters: False
 ```
 
 ### -OnlyLastSeen
-{{Fill OnlyLastSeen Description}}
+Flag, if only the last seen client ids should be returned for the host.
 
 ```yaml
 Type: SwitchParameter
@@ -76,7 +84,7 @@ Accept wildcard characters: False
 ```
 
 ### -ShowJSON
-{{Fill ShowJSON Description}}
+Return plain JSON instead of converted JSON.
 
 ```yaml
 Type: SwitchParameter

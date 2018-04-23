@@ -29,6 +29,16 @@ PS C:\> Add-GRRArtifact -Credential $cred -ArtifactFile .\DNSNameServer.yaml
 Upload artifact "DNSNameServer" to GRR. See https://github.com/ForensicArtifacts/artifacts for more
 information about artifact definition.
 
+### Example 2
+```
+PS C:\> Add-GRRArtifact -ArtifactFile .\ForensicArtifacts\OutlookFiles.yaml
+```
+
+Upload artifact "OutlookFiles" to GRR. See https://github.com/ForensicArtifacts/artifacts for more
+information about artifact definition. No credentials parameter is used
+because `$GRRCredential` is set before running the command.
+
+
 ## PARAMETERS
 
 ### -ArtifactFile

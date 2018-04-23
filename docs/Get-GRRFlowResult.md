@@ -17,17 +17,25 @@ Get-GRRFlowResult [-ComputerName] <String> [-Credential] <PSCredential> [-FlowId
 ```
 
 ## DESCRIPTION
-{{Fill in the Description}}
+Get flow results for a specific client and a flow.
 
 ## EXAMPLES
 
 ### Example 1
 ```
-PS C:\> $res = Get-GRRFlowResult -Credential $cred -ComputerName u261354 -FlowId "F:11111111"
+PS C:\> $res = Get-GRRFlowResult -Credential $cred -ComputerName host -FlowId "F:11111111"
 PS C:\> $res.items.payload | ConvertFrom-Base64
 ```
 
-Get the flow results and decode the base64 encoded payload.
+Get the flow results and decode the base64 encoded payload. See next example
+for a short version to get only the payload.
+
+### Example 2
+```
+PS C:\> Get-GRRFlowResult -ComputerName host -Credential $cred -FlowId F:11111111 -OnlyPayload
+```
+
+Get the flow results and decode the base64 encoded payload directly.
 
 ## PARAMETERS
 
@@ -47,7 +55,7 @@ Accept wildcard characters: False
 ```
 
 ### -Credential
-{{Fill Credential Description}}
+GRR credential.
 
 ```yaml
 Type: PSCredential
@@ -77,7 +85,7 @@ Accept wildcard characters: False
 ```
 
 ### -OnlyPayload
-{{Fill OnlyPayload Description}}
+Return only the payload. If possible already base64 decoded.
 
 ```yaml
 Type: SwitchParameter
@@ -92,7 +100,7 @@ Accept wildcard characters: False
 ```
 
 ### -ShowJSON
-{{Fill ShowJSON Description}}
+Return plain JSON instead of converted JSON.
 
 ```yaml
 Type: SwitchParameter

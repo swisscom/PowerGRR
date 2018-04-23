@@ -30,7 +30,8 @@ Get-GRRHunt [-Credential] <PSCredential> [-DescriptionContains <String>] -Active
 ```
 
 ## DESCRIPTION
-{{Fill in the Description}}
+Get a list of available hunts. Filter the list with the parameter or
+afterwards with PowerShell.
 
 ## EXAMPLES
 
@@ -71,7 +72,7 @@ Accept wildcard characters: False
 ```
 
 ### -ActiveWithin
-{{Fill ActiveWithin Description}}
+Timeframe within the hunts were created.
 
 ```yaml
 Type: String

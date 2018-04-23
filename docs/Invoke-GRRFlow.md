@@ -173,7 +173,7 @@ Accept wildcard characters: False
 ```
 
 ### -ShowJSON
-{{Fill ShowJSON Description}}
+Return only plain JSON instead of converted JSON objects.
 
 ```yaml
 Type: SwitchParameter

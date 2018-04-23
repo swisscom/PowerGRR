@@ -7,7 +7,8 @@ schema: 2.0.0
 # ConvertFrom-Base64
 
 ## SYNOPSIS
-Decode a base64 encoded string.
+Decode a base64 encoded string. This function is used also inside fetching
+results when only payload should be returned.
 
 ## SYNTAX
 
@@ -39,6 +40,13 @@ PS C:\> ConvertFrom-Base64 "R1JSIGlzIGF3ZXNvbWU="
 Convert the collected sha256 hash (hash_entry e.g. from file finder flow) to
 the corresponding hex representation. The payload from GRR is base64 encoded,
 therefore Convertfrom-Base64 provides the needed step in between.
+
+### Example 3
+```
+PS C:\> $ret = $ret.items | ? {($_.payload | ConvertFrom-Base64) -match "false" } 
+```
+
+Analyse return values from a hunt and filter them for specific payload values.
 
 ## PARAMETERS
 

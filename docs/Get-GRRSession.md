@@ -16,21 +16,24 @@ Get-GRRSession [-Credential] <PSCredential> [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-{{Fill in the Description}}
+Return the headers and the websession for a specific GRR server.
+
+Used inside GRR requests to get the GRR session. Can be used manually in the
+console. 
 
 ## EXAMPLES
 
 ### Example 1
 ```
-PS C:\> {{ Add example code here }}
+PS C:\> Get-GRRSession -Credential $cred
 ```
 
-{{ Add example description here }}
+Gets a new GRR session and obtains the headers and the CSRF token.
 
 ## PARAMETERS
 
 ### -Credential
-{{Fill Credential Description}}
+GRR credentials.
 
 ```yaml
 Type: PSCredential

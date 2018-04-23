@@ -7,7 +7,10 @@ schema: 2.0.0
 # ConvertTo-Base64
 
 ## SYNOPSIS
-{{Fill in the Synopsis}}
+Encodes a string into base64.
+
+This function is used inside other functions. Not used directly for day to day
+work.
 
 ## SYNTAX
 
@@ -16,21 +19,23 @@ ConvertTo-Base64 [-Value] <String[]> [[-Encoding] <Encoding>] [<CommonParameters
 ```
 
 ## DESCRIPTION
-{{Fill in the Description}}
+Encodes a string into base64.
 
 ## EXAMPLES
 
 ### Example 1
 ```
-PS C:\> {{ Add example code here }}
+PS C:\> "string to convert" | ConvertTo-Base64
 ```
 
-{{ Add example description here }}
+Convert the string to base64.
 
 ## PARAMETERS
 
 ### -Encoding
-{{Fill Encoding Description}}
+Encoding type - use `[Text.Encoding]::...` to specify the encoding.
+
+`[Text.Encoding]::ASCII` is used by default.
 
 ```yaml
 Type: Encoding
@@ -45,7 +50,7 @@ Accept wildcard characters: False
 ```
 
 ### -Value
-{{Fill Value Description}}
+String to convert to base64.
 
 ```yaml
 Type: String[]

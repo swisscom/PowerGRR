@@ -17,7 +17,7 @@ Stop-GRRHunt [[-HuntId] <String>] [-Credential] <PSCredential> [-ShowJSON] [-Wha
 ```
 
 ## DESCRIPTION
-{{Fill in the Description}}
+Stop a hunt.
 
 ## EXAMPLES
 
@@ -46,7 +46,7 @@ Accept wildcard characters: False
 ```
 
 ### -Credential
-{{Fill Credential Description}}
+GRR credentials.
 
 ```yaml
 Type: PSCredential
@@ -76,7 +76,7 @@ Accept wildcard characters: False
 ```
 
 ### -ShowJSON
-{{Fill ShowJSON Description}}
+Return plain JSON instead of converted JSON.
 
 ```yaml
 Type: SwitchParameter

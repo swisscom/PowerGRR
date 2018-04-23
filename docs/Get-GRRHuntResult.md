@@ -16,7 +16,7 @@ Get-GRRHuntResult [[-HuntId] <String>] [-Credential] <PSCredential> [-ShowJSON] 
 ```
 
 ## DESCRIPTION
-{{Fill in the Description}}
+Get hunt results for a specific hunt.
 
 ## EXAMPLES
 
@@ -29,11 +29,13 @@ PS C:\> $res.items.client_id | sort -u
 
 Get hunt results based on a hunt id. Display all the unique file paths which
 were found with a file finder hunt. Only display the unique GRR client id's.
+then you can use `Get-GRRComputerNameByClientId` to display only the computer
+names.
 
 ## PARAMETERS
 
 ### -Credential
-{{Fill Credential Description}}
+GRR credentials.
 
 ```yaml
 Type: PSCredential
@@ -63,7 +65,7 @@ Accept wildcard characters: False
 ```
 
 ### -ShowJSON
-{{Fill ShowJSON Description}}
+Return only plain JSON instead of converted JSON objects.
 
 ```yaml
 Type: SwitchParameter

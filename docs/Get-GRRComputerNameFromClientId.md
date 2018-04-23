@@ -7,7 +7,7 @@ schema: 2.0.0
 # Get-GRRComputerNameFromClientId
 
 ## SYNOPSIS
-Search for a specific client id and return the computername.
+Search for a specific client id and return the computer name.
 
 ## SYNTAX
 
@@ -17,7 +17,7 @@ Get-GRRComputerNameFromClientId [[-ClientId] <String[]>] [-Credential] <PSCreden
 ```
 
 ## DESCRIPTION
-{{Fill in the Description}}
+Search for a specific client id and return the computer name.
 
 ## EXAMPLES
 
@@ -31,6 +31,16 @@ PS C:\> c.1111111111111111,c.2222222222222222 | Get-GRRComputerNameFromClientId 
 
 Returns the host name for one or multiple client ids. Use the parameter
 ClientId or the pipeline as input.
+
+### Example 2
+```
+PS C:\> $ret.items.client_id | unique | Get-GRRComputerNameFromClientId -Credential $cred
+PS C:\> $ret.items.client_id | unique | Get-GRRComputerNameFromClientId -Credential $cred | select -ExpandProperty computername | Get-GRRClientInfo -Credential $cred |  select -ExpandProperty usernames
+```
+
+Convert the client id's from a hunt into their corresponding computer names.
+In the 2nd example the computer names are then used with `Get-GRRClientInfo` and
+therefore the logged in users from these hosts can be found.
 
 ## PARAMETERS
 
@@ -65,7 +75,7 @@ Accept wildcard characters: False
 ```
 
 ### -ShowJSON
-{{Fill ShowJSON Description}}
+Return only plain JSON instead of converted JSON objects.
 
 ```yaml
 Type: SwitchParameter

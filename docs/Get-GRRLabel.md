@@ -16,7 +16,7 @@ Get-GRRLabel [-Credential] <PSCredential> [-ShowJSON] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-{{Fill in the Description}}
+Get all labels.
 
 ## EXAMPLES
 
@@ -52,7 +52,7 @@ Accept wildcard characters: False
 ```
 
 ### -ShowJSON
-{{Fill ShowJSON Description}}
+Return plain JSON instead of parsed JSON object.
 
 ```yaml
 Type: SwitchParameter

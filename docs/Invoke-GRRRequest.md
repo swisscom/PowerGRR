@@ -31,21 +31,23 @@ Invoke-GRRRequest [-Url] <String> [-Method <String>] [-Credential] <PSCredential
 ```
 
 ## DESCRIPTION
-{{Fill in the Description}}
+Helper function for GRR requests. If a function you need is not available, you
+can use this function to run the needed request. The headers and websession
+are obtained by `Get-GRRSession` and only needed for POST requests.
 
 ## EXAMPLES
 
 ### Example 1
 ```
-PS C:\> {{ Add example code here }}
+PS C:\> Invoke-GRRRequest -Url "/hunts/$HuntId" -Credential $Credential
 ```
 
-{{ Add example description here }}
+Use the corresponding API endpoint to get the hunt info.
 
 ## PARAMETERS
 
 ### -Body
-{{Fill Body Description}}
+API POST request body.
 
 ```yaml
 Type: String
@@ -60,7 +62,7 @@ Accept wildcard characters: False
 ```
 
 ### -Credential
-{{Fill Credential Description}}
+GRR credentials.
 
 ```yaml
 Type: PSCredential
@@ -75,7 +77,7 @@ Accept wildcard characters: False
 ```
 
 ### -Headers
-{{Fill Headers Description}}
+Headers for the API requests (CSRF ...)
 
 ```yaml
 Type: Hashtable
@@ -90,7 +92,7 @@ Accept wildcard characters: False
 ```
 
 ### -ShowJSON
-{{Fill ShowJSON Description}}
+Return only plain JSON instead of converted JSON objects.
 
 ```yaml
 Type: SwitchParameter
@@ -117,7 +119,7 @@ Accept wildcard characters: False
 ```
 
 ### -Url
-{{Fill Url Description}}
+API endpoint.
 
 ```yaml
 Type: String
@@ -132,7 +134,7 @@ Accept wildcard characters: False
 ```
 
 ### -Websession
-{{Fill Websession Description}}
+Websession for the API request.
 
 ```yaml
 Type: WebRequestSession
@@ -147,7 +149,7 @@ Accept wildcard characters: False
 ```
 
 ### -Method
-{{Fill Method Description}}
+HTTP method.
 
 ```yaml
 Type: String
@@ -162,7 +164,7 @@ Accept wildcard characters: False
 ```
 
 ### -File
-{{Fill File Description}}
+File if an upload is performed.
 
 ```yaml
 Type: FileInfo

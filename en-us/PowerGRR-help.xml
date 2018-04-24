@@ -180,7 +180,7 @@
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://github.com/swisscom/powergrr/docs/Add-GRRArtifact.md</maml:uri>
+        <maml:uri>https://github.com/swisscom/PowerGRR/blob/master/docs/Add-GRRArtifact.md</maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
   </command:command>
@@ -302,7 +302,7 @@
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://github.com/swisscom/powergrr/docs/ConvertFrom-Base64.md</maml:uri>
+        <maml:uri>https://github.com/swisscom/PowerGRR/blob/master/docs/ConvertFrom-Base64.md</maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
   </command:command>
@@ -413,7 +413,7 @@
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://github.com/swisscom/powergrr/docs/ConvertTo-Base64.md</maml:uri>
+        <maml:uri>https://github.com/swisscom/PowerGRR/blob/master/docs/ConvertTo-Base64.md</maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
   </command:command>
@@ -585,7 +585,12 @@
         </dev:remarks>
       </command:example>
     </command:examples>
-    <command:relatedLinks />
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://github.com/swisscom/PowerGRR/blob/master/docs/Find-GRRClient.md</maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
@@ -741,7 +746,12 @@
         </dev:remarks>
       </command:example>
     </command:examples>
-    <command:relatedLinks />
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://github.com/swisscom/PowerGRR/blob/master/docs/Find-GRRClientByLabel.md</maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
@@ -892,7 +902,7 @@ Attributes  : @{key_value_pairs=System.Object[]}</dev:code>
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://github.com/swisscom/powergrr/docs/Get-GRRArtifact.md</maml:uri>
+        <maml:uri>https://github.com/swisscom/PowerGRR/blob/master/docs/Get-GRRArtifact.md</maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
   </command:command>
@@ -1228,7 +1238,7 @@ subject            : @{...}</dev:code>
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://github.com/swisscom/powergrr/docs/Get-GRRClientApproval.md</maml:uri>
+        <maml:uri>https://github.com/swisscom/PowerGRR/blob/master/docs/Get-GRRClientApproval.md</maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
   </command:command>
@@ -1406,7 +1416,12 @@ C.2222222222222222</dev:code>
         </dev:remarks>
       </command:example>
     </command:examples>
-    <command:relatedLinks />
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://github.com/swisscom/PowerGRR/blob/master/docs/Get-GRRClientIdFromComputerName.md</maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
@@ -1565,7 +1580,7 @@ C.2222222222222222</dev:code>
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://github.com/swisscom/powergrr/docs/Get-GRRClientInfo.md</maml:uri>
+        <maml:uri>https://github.com/swisscom/PowerGRR/blob/master/docs/Get-GRRClientInfo.md</maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
   </command:command>
@@ -1704,7 +1719,12 @@ PS C:\&gt; $ret.items.client_id | unique | Get-GRRComputerNameFromClientId -Cred
         </dev:remarks>
       </command:example>
     </command:examples>
-    <command:relatedLinks />
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://github.com/swisscom/PowerGRR/blob/master/docs/Get-GRRComputerNameFromClientId.md</maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
@@ -1765,7 +1785,7 @@ ConfigFile              GRRUrl                GRRIgnoreCertificateErrors GRRClie
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://github.com/swisscom/powergrr/docs/Get-GRRConfig.md</maml:uri>
+        <maml:uri>https://github.com/swisscom/PowerGRR/blob/master/docs/Get-GRRConfig.md</maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
   </command:command>
@@ -1903,7 +1923,7 @@ PS C:\&gt; $ret | where { $_.category -match "file"} | select name</dev:code>
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://github.com/swisscom/powergrr/docs/Get-GRRFlowDescriptor.md</maml:uri>
+        <maml:uri>https://github.com/swisscom/PowerGRR/blob/master/docs/Get-GRRFlowDescriptor.md</maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
   </command:command>
@@ -2086,7 +2106,12 @@ PS C:\&gt; $res.items.payload | ConvertFrom-Base64</dev:code>
         </dev:remarks>
       </command:example>
     </command:examples>
-    <command:relatedLinks />
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://github.com/swisscom/PowerGRR/blob/master/docs/Get-GRRFlowResult.md</maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
@@ -2366,20 +2391,25 @@ PS C:\&gt; $res.items.payload | ConvertFrom-Base64</dev:code>
     <command:examples>
       <command:example>
         <maml:title>Example 1</maml:title>
-        <dev:code>PS C:\&gt; Get-GRRHunts -Credential $cred | select -First 1</dev:code>
+        <dev:code>PS C:\&gt; Get-GRRHunt -Credential $cred | select -First 1</dev:code>
         <dev:remarks>
           <maml:para>Find last hunt id. You can use all the filtering from PowerShell. Each hunt is represented as an own PowerShell object. The disadvantage of this POST-filtering is that the command first returns every hunt. See next example to use a PRE-filtering.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
         <maml:title>Example 2</maml:title>
-        <dev:code>PS C:\&gt; Get-GRRHunts -Credential $cred -Count 5</dev:code>
+        <dev:code>PS C:\&gt; Get-GRRHunt -Credential $cred -Count 5</dev:code>
         <dev:remarks>
           <maml:para>Find last 5 hunt id. You can use all the filtering from PowerShell. Each hunt is represented as an own PowerShell object. The advantage of this usage is that GRR server filters the hunts on the server before returning the response.</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
-    <command:relatedLinks />
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://github.com/swisscom/PowerGRR/blob/master/docs/Get-GRRHunt.md</maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
@@ -2681,7 +2711,7 @@ False</dev:code>
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://github.com/swisscom/powergrr/docs/Get-GRRHuntApproval.md</maml:uri>
+        <maml:uri>https://github.com/swisscom/PowerGRR/blob/master/docs/Get-GRRHuntApproval.md</maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
   </command:command>
@@ -2832,7 +2862,12 @@ False</dev:code>
         </dev:remarks>
       </command:example>
     </command:examples>
-    <command:relatedLinks />
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://github.com/swisscom/PowerGRR/blob/master/docs/Get-GRRHuntInfo.md</maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
@@ -2960,7 +2995,12 @@ PS C:\&gt; $res.items.client_id | sort -u</dev:code>
         </dev:remarks>
       </command:example>
     </command:examples>
-    <command:relatedLinks />
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://github.com/swisscom/PowerGRR/blob/master/docs/Get-GRRHuntResult.md</maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
@@ -3069,7 +3109,12 @@ PS C:\&gt; $res.items.client_id | sort -u</dev:code>
         </dev:remarks>
       </command:example>
     </command:examples>
-    <command:relatedLinks />
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://github.com/swisscom/PowerGRR/blob/master/docs/Get-GRRLabel.md</maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
@@ -3149,7 +3194,12 @@ PS C:\&gt; $res.items.client_id | sort -u</dev:code>
         </dev:remarks>
       </command:example>
     </command:examples>
-    <command:relatedLinks />
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://github.com/swisscom/PowerGRR/blob/master/docs/Get-GRRSession.md</maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
@@ -3401,7 +3451,12 @@ PS C:\&gt; $res.items.client_id | sort -u</dev:code>
         </dev:remarks>
       </command:example>
     </command:examples>
-    <command:relatedLinks />
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://github.com/swisscom/PowerGRR/blob/master/docs/Invoke-GRRFlow.md</maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
@@ -3771,7 +3826,12 @@ PS C:\&gt; $res.items.client_id | sort -u</dev:code>
         </dev:remarks>
       </command:example>
     </command:examples>
-    <command:relatedLinks />
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://github.com/swisscom/PowerGRR/blob/master/docs/Invoke-GRRRequest.md</maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
@@ -4014,7 +4074,12 @@ PS C:\&gt; $res.items.client_id | sort -u</dev:code>
         </dev:remarks>
       </command:example>
     </command:examples>
-    <command:relatedLinks />
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://github.com/swisscom/PowerGRR/blob/master/docs/New-GRRClientApproval.md</maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
@@ -4368,7 +4433,7 @@ PS C:\&gt; $res.items.client_id | sort -u</dev:code>
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://github.com/swisscom/powergrr/docs/New-GRRHunt.md</maml:uri>
+        <maml:uri>https://github.com/swisscom/PowerGRR/blob/master/docs/New-GRRHunt.md</maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
   </command:command>
@@ -4613,7 +4678,12 @@ PS C:\&gt; $res.items.client_id | sort -u</dev:code>
         </dev:remarks>
       </command:example>
     </command:examples>
-    <command:relatedLinks />
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://github.com/swisscom/PowerGRR/blob/master/docs/New-GRRHuntApproval.md</maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
@@ -4804,7 +4874,7 @@ OK</dev:code>
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://github.com/swisscom/powergrr/docs/Remove-GRRArtifact.md</maml:uri>
+        <maml:uri>https://github.com/swisscom/PowerGRR/blob/master/docs/Remove-GRRArtifact.md</maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
   </command:command>
@@ -5010,7 +5080,12 @@ PS C:\&gt; "host1", "host2" | Remove-GRRLabel -Label label1 -Credential $creds</
         </dev:remarks>
       </command:example>
     </command:examples>
-    <command:relatedLinks />
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://github.com/swisscom/PowerGRR/blob/master/docs/Remove-GRRLabel.md</maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
@@ -5214,7 +5289,12 @@ PS C:\&gt; "host1", "host2" | Set-GRRLabel -Label label1 -Credential $creds</dev
         </dev:remarks>
       </command:example>
     </command:examples>
-    <command:relatedLinks />
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://github.com/swisscom/PowerGRR/blob/master/docs/Set-GRRLabel.md</maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
@@ -5471,7 +5551,12 @@ PS C:\&gt; "host1", "host2" | Set-GRRLabel -Label label1 -Credential $creds</dev
         </dev:remarks>
       </command:example>
     </command:examples>
-    <command:relatedLinks />
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://github.com/swisscom/PowerGRR/blob/master/docs/Start-GRRHunt.md</maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
@@ -5646,7 +5731,7 @@ PS C:\&gt; "host1", "host2" | Set-GRRLabel -Label label1 -Credential $creds</dev
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://github.com/swisscom/powergrr/docs/Stop-GRRHunt.md</maml:uri>
+        <maml:uri>https://github.com/swisscom/PowerGRR/blob/master/docs/Stop-GRRHunt.md</maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
   </command:command>
@@ -5895,7 +5980,7 @@ PS C:\&gt; "host1", "host2" | Set-GRRLabel -Label label1 -Credential $creds</dev
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://github.com/swisscom/powergrr/docs/Wait-GRRClientApproval.md</maml:uri>
+        <maml:uri>https://github.com/swisscom/PowerGRR/blob/master/docs/Wait-GRRClientApproval.md</maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
   </command:command>
@@ -6151,7 +6236,7 @@ PS C:\&gt; "host1", "host2" | Set-GRRLabel -Label label1 -Credential $creds</dev
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://github.com/swisscom/powergrr/docs/Wait-GRRHuntApproval.md</maml:uri>
+        <maml:uri>https://github.com/swisscom/PowerGRR/blob/master/docs/Wait-GRRHuntApproval.md</maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
   </command:command>

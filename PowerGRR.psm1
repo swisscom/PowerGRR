@@ -1285,7 +1285,12 @@ function Get-FlowArgs()
 
         if ($ValidatedArtifacts)
         {
-            $PluginArguments = '{"artifact_list":["'+ $($ValidatedArtifacts -join "`",`"") + '"]}'
+            $PluginArguments = '{'
+            if ($Parameters['UseTsk'])
+            {
+                $PluginArguments += '"use_tsk":true,'
+            }
+            $PluginArguments += '"artifact_list":["'+ $($ValidatedArtifacts -join "`",`"") + '"]}'
             Write-Verbose "PluginArguments for ArtifactCollectorFlow: $PluginArguments"
         }
         else
@@ -1349,6 +1354,7 @@ function Get-DynamicFlowParam()
     elseif ($Params.containskey('flow') -and $Params.Flow -eq "ArtifactCollectorFlow")
     {
         New-DynamicParam -Name ArtifactList -mandatory -DPDictionary $Dictionary -Type string[]
+        New-DynamicParam -Name UseTsk -DPDictionary $Dictionary -Type switch
     }
     elseif ($Params.containskey('flow') -and $Params.Flow -eq "YaraProcessScan")
     {

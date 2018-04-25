@@ -42,6 +42,7 @@ needed values. Mandatory parameters are attributed with (m).
    - PyArgsValue (m), Type: string
 - ArtifactCollectorFlow:
    - ArtifactList (m), Type: String[]
+   - UseTsk, Type: switch
 - YaraProcessScan:
    - YaraSignatureFile (m), Type: string
 

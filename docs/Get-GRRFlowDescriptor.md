@@ -12,7 +12,7 @@ Get a list of all available flows.
 ## SYNTAX
 
 ```
-Get-GRRFlowDescriptor [-Credential] <PSCredential> [-ShowJSON] [<CommonParameters>]
+Get-GRRFlowDescriptor [[-Credential] <PSCredential>] [-ShowJSON] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -68,7 +68,7 @@ Type: PSCredential
 Parameter Sets: (All)
 Aliases: 
 
-Required: True
+Required: False
 Position: 0
 Default value: None
 Accept pipeline input: False

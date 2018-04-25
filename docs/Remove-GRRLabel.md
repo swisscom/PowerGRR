@@ -12,7 +12,7 @@ Remove a label on a range of clients.
 ## SYNTAX
 
 ```
-Remove-GRRLabel [[-ComputerName] <String[]>] [[-Label] <String[]>] [-Credential] <PSCredential> [-ShowJSON]
+Remove-GRRLabel [[-ComputerName] <String[]>] [[-Label] <String[]>] [[-Credential] <PSCredential>] [-ShowJSON]
  [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
@@ -78,7 +78,7 @@ Type: PSCredential
 Parameter Sets: (All)
 Aliases: 
 
-Required: True
+Required: False
 Position: 2
 Default value: None
 Accept pipeline input: False

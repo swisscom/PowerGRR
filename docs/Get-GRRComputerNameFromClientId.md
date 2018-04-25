@@ -12,7 +12,7 @@ Search for a specific client id and return the computer name.
 ## SYNTAX
 
 ```
-Get-GRRComputerNameFromClientId [[-ClientId] <String[]>] [-Credential] <PSCredential> [-ShowJSON]
+Get-GRRComputerNameFromClientId [[-ClientId] <String[]>] [[-Credential] <PSCredential>] [-ShowJSON]
  [<CommonParameters>]
 ```
 
@@ -67,7 +67,7 @@ Type: PSCredential
 Parameter Sets: (All)
 Aliases: 
 
-Required: True
+Required: False
 Position: 1
 Default value: None
 Accept pipeline input: False

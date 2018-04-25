@@ -12,7 +12,7 @@ Create a new hunt approval.
 ## SYNTAX
 
 ```
-New-GRRHuntApproval [-HuntId] <String> [-Credential] <PSCredential> [-NotifiedUsers] <String[]>
+New-GRRHuntApproval [-HuntId] <String> [[-Credential] <PSCredential>] [-NotifiedUsers] <String[]>
  [-Reason] <String> [-OnlyId] [-ShowJSON] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
@@ -53,7 +53,7 @@ Type: PSCredential
 Parameter Sets: (All)
 Aliases: 
 
-Required: True
+Required: False
 Position: 1
 Default value: None
 Accept pipeline input: False

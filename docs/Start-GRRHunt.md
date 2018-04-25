@@ -13,13 +13,13 @@ Start a GRR hunt based on the hunt id.
 
 ### Default (Default)
 ```
-Start-GRRHunt [-Credential] <PSCredential> [[-HuntId] <String>] [-ShowJSON] [-WhatIf] [-Confirm]
+Start-GRRHunt [[-Credential] <PSCredential>] [[-HuntId] <String>] [-ShowJSON] [-WhatIf] [-Confirm]
  [<CommonParameters>]
 ```
 
 ### WaitForApproval
 ```
-Start-GRRHunt [-Credential] <PSCredential> [[-HuntId] <String>] [-Wait] -ApprovalId <String>
+Start-GRRHunt [[-Credential] <PSCredential>] [[-HuntId] <String>] [-Wait] -ApprovalId <String>
  [-TimeoutInMinutes <Int32>] [-ShowJSON] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
@@ -75,7 +75,7 @@ Type: PSCredential
 Parameter Sets: (All)
 Aliases: 
 
-Required: True
+Required: False
 Position: 1
 Default value: None
 Accept pipeline input: False

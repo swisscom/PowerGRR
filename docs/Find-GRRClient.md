@@ -13,7 +13,7 @@ the computername or the whole GRR object.
 ## SYNTAX
 
 ```
-Find-GRRClient [[-SearchString] <String>] [-Credential] <PSCredential> [-OnlyComputerName] [-ShowJSON]
+Find-GRRClient [[-SearchString] <String>] [[-Credential] <PSCredential>] [-OnlyComputerName] [-ShowJSON]
  [<CommonParameters>]
 ```
 
@@ -65,7 +65,7 @@ Type: PSCredential
 Parameter Sets: (All)
 Aliases: 
 
-Required: True
+Required: False
 Position: 1
 Default value: None
 Accept pipeline input: False

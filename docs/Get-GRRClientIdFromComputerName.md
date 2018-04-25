@@ -12,7 +12,7 @@ Convert a list of computer names into the corresponding GRR client id.
 ## SYNTAX
 
 ```
-Get-GRRClientIdFromComputerName [[-ComputerName] <String[]>] [-Credential] <PSCredential> [-OnlyLastSeen]
+Get-GRRClientIdFromComputerName [[-ComputerName] <String[]>] [[-Credential] <PSCredential>] [-OnlyLastSeen]
  [-ShowJSON] [<CommonParameters>]
 ```
 
@@ -85,7 +85,7 @@ Type: PSCredential
 Parameter Sets: (All)
 Aliases: 
 
-Required: True
+Required: False
 Position: 1
 Default value: None
 Accept pipeline input: False

@@ -12,7 +12,7 @@ Get a list of all GRR artifacts.
 ## SYNTAX
 
 ```
-Get-GRRArtifact [-Credential] <PSCredential> [-ShowJSON] [<CommonParameters>]
+Get-GRRArtifact [[-Credential] <PSCredential>] [-ShowJSON] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -80,7 +80,7 @@ Type: PSCredential
 Parameter Sets: (All)
 Aliases: 
 
-Required: True
+Required: False
 Position: 0
 Default value: None
 Accept pipeline input: False

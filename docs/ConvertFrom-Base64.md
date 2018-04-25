@@ -43,7 +43,7 @@ therefore Convertfrom-Base64 provides the needed step in between.
 
 ### Example 3
 ```
-PS C:\> $ret = $ret.items | ? {($_.payload | ConvertFrom-Base64) -match "false" } 
+PS C:\> $ret = $ret.items | ? {($_.payload | ConvertFrom-Base64) -match "false" }
 ```
 
 Analyse return values from a hunt and filter them for specific payload values.

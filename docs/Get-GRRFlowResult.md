@@ -12,7 +12,7 @@ Get flow results for a specific client and a flow.
 ## SYNTAX
 
 ```
-Get-GRRFlowResult [-ComputerName] <String> [-Credential] <PSCredential> [-FlowId] <String> [-OnlyPayload]
+Get-GRRFlowResult [-ComputerName] <String> [[-Credential] <PSCredential>] [-FlowId] <String> [-OnlyPayload]
  [-ShowJSON] [<CommonParameters>]
 ```
 
@@ -62,7 +62,7 @@ Type: PSCredential
 Parameter Sets: (All)
 Aliases: 
 
-Required: True
+Required: False
 Position: 1
 Default value: None
 Accept pipeline input: False

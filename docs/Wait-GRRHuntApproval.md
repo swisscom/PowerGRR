@@ -12,7 +12,7 @@ Wait for the hunt approval to get valid.
 ## SYNTAX
 
 ```
-Wait-GRRHuntApproval [-Credential] <PSCredential> [-HuntId] <String> [-ApprovalId] <String>
+Wait-GRRHuntApproval [[-Credential] <PSCredential>] [-HuntId] <String> [-ApprovalId] <String>
  [[-TimeoutInMinutes] <Int32>] [[-Interval] <Int32>] [-ShowJSON] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
@@ -23,7 +23,7 @@ Wait for the hunt approval to get valid.
 
 ### Example 1
 ```
-PS C:\> Wait-GRRHuntApproval -Credential $cred -HuntId "H:AAAAAAAA" -ApprovalId "approval:AAAAAAAA" -Timeout 10 
+PS C:\> Wait-GRRHuntApproval -Credential $cred -HuntId "H:AAAAAAAA" -ApprovalId "approval:AAAAAAAA" -Timeout 10
 ```
 
 Wait 10 minutes for the hunt approval to get valid.
@@ -76,7 +76,7 @@ Type: PSCredential
 Parameter Sets: (All)
 Aliases: 
 
-Required: True
+Required: False
 Position: 0
 Default value: None
 Accept pipeline input: False

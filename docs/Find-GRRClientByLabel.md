@@ -12,7 +12,7 @@ Search for clients with a given label.
 ## SYNTAX
 
 ```
-Find-GRRClientByLabel [[-SearchString] <String>] [-Credential] <PSCredential> [-OnlyComputerName] [-ShowJSON]
+Find-GRRClientByLabel [[-SearchString] <String>] [[-Credential] <PSCredential>] [-OnlyComputerName] [-ShowJSON]
  [<CommonParameters>]
 ```
 
@@ -45,7 +45,7 @@ Type: PSCredential
 Parameter Sets: (All)
 Aliases: 
 
-Required: True
+Required: False
 Position: 1
 Default value: None
 Accept pipeline input: False

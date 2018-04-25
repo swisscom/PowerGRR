@@ -12,7 +12,7 @@ Delete artifacts in GRR.
 ## SYNTAX
 
 ```
-Remove-GRRArtifact [-Artifact] <String[]> [-Credential] <PSCredential> [-ShowJSON] [-WhatIf] [-Confirm]
+Remove-GRRArtifact [-Artifact] <String[]> [[-Credential] <PSCredential>] [-ShowJSON] [-WhatIf] [-Confirm]
  [<CommonParameters>]
 ```
 
@@ -85,7 +85,7 @@ Type: PSCredential
 Parameter Sets: (All)
 Aliases: 
 
-Required: True
+Required: False
 Position: 1
 Default value: None
 Accept pipeline input: False

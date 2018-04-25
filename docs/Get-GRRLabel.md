@@ -12,7 +12,7 @@ Get all labels.
 ## SYNTAX
 
 ```
-Get-GRRLabel [-Credential] <PSCredential> [-ShowJSON] [<CommonParameters>]
+Get-GRRLabel [[-Credential] <PSCredential>] [-ShowJSON] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -44,7 +44,7 @@ Type: PSCredential
 Parameter Sets: (All)
 Aliases: 
 
-Required: True
+Required: False
 Position: 0
 Default value: None
 Accept pipeline input: False

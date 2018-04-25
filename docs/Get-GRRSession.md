@@ -12,7 +12,7 @@ Return the headers and the websession for a specific GRR server.
 ## SYNTAX
 
 ```
-Get-GRRSession [-Credential] <PSCredential> [<CommonParameters>]
+Get-GRRSession [[-Credential] <PSCredential>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -40,7 +40,7 @@ Type: PSCredential
 Parameter Sets: (All)
 Aliases: 
 
-Required: True
+Required: False
 Position: 0
 Default value: None
 Accept pipeline input: False

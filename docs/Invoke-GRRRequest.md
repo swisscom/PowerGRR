@@ -15,18 +15,18 @@ can use this function to run the needed request.
 ### FILE
 ```
 Invoke-GRRRequest [-Url] <String> -File <FileInfo> [-Headers] <Hashtable> [-Websession] <WebRequestSession>
- [-Method <String>] [-Credential] <PSCredential> [-ShowJSON] [<CommonParameters>]
+ [-Method <String>] [[-Credential] <PSCredential>] [-ShowJSON] [<CommonParameters>]
 ```
 
 ### POST
 ```
 Invoke-GRRRequest [-Url] <String> [-Body] <String> [-Headers] <Hashtable> [-Websession] <WebRequestSession>
- [-Method <String>] [-Credential] <PSCredential> [-ShowJSON] [<CommonParameters>]
+ [-Method <String>] [[-Credential] <PSCredential>] [-ShowJSON] [<CommonParameters>]
 ```
 
 ### GET
 ```
-Invoke-GRRRequest [-Url] <String> [-Method <String>] [-Credential] <PSCredential> [-ShowJSON]
+Invoke-GRRRequest [-Url] <String> [-Method <String>] [[-Credential] <PSCredential>] [-ShowJSON]
  [<CommonParameters>]
 ```
 
@@ -69,7 +69,7 @@ Type: PSCredential
 Parameter Sets: (All)
 Aliases: 
 
-Required: True
+Required: False
 Position: Benannt
 Default value: None
 Accept pipeline input: False

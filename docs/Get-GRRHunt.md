@@ -14,18 +14,18 @@ afterwards with PowerShell.
 
 ### Count (Default)
 ```
-Get-GRRHunt [-Credential] <PSCredential> [-Count <Int32>] [-Offset <Int32>] [-ShowJSON] [<CommonParameters>]
+Get-GRRHunt [[-Credential] <PSCredential>] [-Count <Int32>] [-Offset <Int32>] [-ShowJSON] [<CommonParameters>]
 ```
 
 ### CreatedBy
 ```
-Get-GRRHunt [-Credential] <PSCredential> [-CreatedBy <String>] -ActiveWithin <String> [-ShowJSON]
+Get-GRRHunt [[-Credential] <PSCredential>] [-CreatedBy <String>] -ActiveWithin <String> [-ShowJSON]
  [<CommonParameters>]
 ```
 
 ### DescriptionContains
 ```
-Get-GRRHunt [-Credential] <PSCredential> [-DescriptionContains <String>] -ActiveWithin <String> [-ShowJSON]
+Get-GRRHunt [[-Credential] <PSCredential>] [-DescriptionContains <String>] -ActiveWithin <String> [-ShowJSON]
  [<CommonParameters>]
 ```
 
@@ -64,7 +64,7 @@ Type: PSCredential
 Parameter Sets: (All)
 Aliases: 
 
-Required: True
+Required: False
 Position: 0
 Default value: None
 Accept pipeline input: False

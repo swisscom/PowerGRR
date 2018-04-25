@@ -13,14 +13,14 @@ Get client approval identified by the given filters.
 
 ### ByUser (Default)
 ```
-Get-GRRClientApproval [-Credential] <PSCredential> [[-ComputerName] <String>] [[-Offset] <Int32>]
+Get-GRRClientApproval [[-Credential] <PSCredential>] [[-ComputerName] <String>] [[-Offset] <Int32>]
  [[-Count] <Int32>] [[-State] <String>] [-ShowJSON] [<CommonParameters>]
 ```
 
 ### ByApproval
 ```
-Get-GRRClientApproval [-Credential] <PSCredential> [-ComputerName] <String> [-ApprovalId] <String> [-OnlyState]
- [-ShowJSON] [<CommonParameters>]
+Get-GRRClientApproval [[-Credential] <PSCredential>] [-ComputerName] <String> [-ApprovalId] <String>
+ [-OnlyState] [-ShowJSON] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -152,7 +152,7 @@ Type: PSCredential
 Parameter Sets: (All)
 Aliases: 
 
-Required: True
+Required: False
 Position: Benannt
 Default value: None
 Accept pipeline input: False

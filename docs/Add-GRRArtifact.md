@@ -12,7 +12,7 @@ Upload artifact to GRR.
 ## SYNTAX
 
 ```
-Add-GRRArtifact [[-ArtifactFile] <String>] [-Credential] <PSCredential> [-ShowJSON] [-WhatIf] [-Confirm]
+Add-GRRArtifact [[-ArtifactFile] <String>] [[-Credential] <PSCredential>] [-ShowJSON] [-WhatIf] [-Confirm]
  [<CommonParameters>]
 ```
 
@@ -37,7 +37,6 @@ PS C:\> Add-GRRArtifact -ArtifactFile .\ForensicArtifacts\OutlookFiles.yaml
 Upload artifact "OutlookFiles" to GRR. See https://github.com/ForensicArtifacts/artifacts for more
 information about artifact definition. No credentials parameter is used
 because `$GRRCredential` is set before running the command.
-
 
 ## PARAMETERS
 
@@ -79,7 +78,7 @@ Type: PSCredential
 Parameter Sets: (All)
 Aliases: 
 
-Required: True
+Required: False
 Position: 1
 Default value: None
 Accept pipeline input: False

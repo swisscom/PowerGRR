@@ -13,13 +13,13 @@ Get hunt approval identified by the given filters.
 
 ### ByUser (Default)
 ```
-Get-GRRHuntApproval [-Credential] <PSCredential> [[-Offset] <Int32>] [[-Count] <Int32>] [-ShowJSON]
+Get-GRRHuntApproval [[-Credential] <PSCredential>] [[-Offset] <Int32>] [[-Count] <Int32>] [-ShowJSON]
  [<CommonParameters>]
 ```
 
 ### ByApproval
 ```
-Get-GRRHuntApproval [-Credential] <PSCredential> [-HuntId] <String> [-ApprovalId] <String> [-OnlyState]
+Get-GRRHuntApproval [[-Credential] <PSCredential>] [-HuntId] <String> [-ApprovalId] <String> [-OnlyState]
  [-ShowJSON] [<CommonParameters>]
 ```
 
@@ -131,7 +131,7 @@ Type: PSCredential
 Parameter Sets: (All)
 Aliases: 
 
-Required: True
+Required: False
 Position: Benannt
 Default value: None
 Accept pipeline input: False

@@ -12,7 +12,7 @@ Create a new client approval.
 ## SYNTAX
 
 ```
-New-GRRClientApproval [-ComputerName] <String> [-Credential] <PSCredential> [-NotifiedUsers] <String[]>
+New-GRRClientApproval [-ComputerName] <String> [[-Credential] <PSCredential>] [-NotifiedUsers] <String[]>
  [-Reason] <String> [-OnlyId] [-ShowJSON] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
@@ -68,7 +68,7 @@ Type: PSCredential
 Parameter Sets: (All)
 Aliases: 
 
-Required: True
+Required: False
 Position: 1
 Default value: None
 Accept pipeline input: False

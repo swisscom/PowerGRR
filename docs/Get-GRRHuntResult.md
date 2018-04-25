@@ -12,7 +12,7 @@ Get hunt results for a specific hunt.
 ## SYNTAX
 
 ```
-Get-GRRHuntResult [[-HuntId] <String>] [-Credential] <PSCredential> [-ShowJSON] [<CommonParameters>]
+Get-GRRHuntResult [[-HuntId] <String>] [[-Credential] <PSCredential>] [-ShowJSON] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -42,7 +42,7 @@ Type: PSCredential
 Parameter Sets: (All)
 Aliases: 
 
-Required: True
+Required: False
 Position: 1
 Default value: None
 Accept pipeline input: False

@@ -12,7 +12,7 @@ Stop a hunt.
 ## SYNTAX
 
 ```
-Stop-GRRHunt [[-HuntId] <String>] [-Credential] <PSCredential> [-ShowJSON] [-WhatIf] [-Confirm]
+Stop-GRRHunt [[-HuntId] <String>] [[-Credential] <PSCredential>] [-ShowJSON] [-WhatIf] [-Confirm]
  [<CommonParameters>]
 ```
 
@@ -53,7 +53,7 @@ Type: PSCredential
 Parameter Sets: (All)
 Aliases: 
 
-Required: True
+Required: False
 Position: 1
 Default value: None
 Accept pipeline input: False

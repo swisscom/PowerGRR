@@ -27,7 +27,7 @@
           </dev:type>
           <dev:defaultValue>None</dev:defaultValue>
         </command:parameter>
-        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
           <maml:name>Credential</maml:name>
           <maml:Description>
             <maml:para>GRR credentials to use.</maml:para>
@@ -99,7 +99,7 @@
         </dev:type>
         <dev:defaultValue>False</dev:defaultValue>
       </command:parameter>
-      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
         <maml:name>Credential</maml:name>
         <maml:Description>
           <maml:para>GRR credentials to use.</maml:para>
@@ -444,7 +444,7 @@
           </dev:type>
           <dev:defaultValue>None</dev:defaultValue>
         </command:parameter>
-        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
           <maml:name>Credential</maml:name>
           <maml:Description>
             <maml:para>GRR credentials.</maml:para>
@@ -481,7 +481,7 @@
       </command:syntaxItem>
     </command:syntax>
     <command:parameters>
-      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
         <maml:name>Credential</maml:name>
         <maml:Description>
           <maml:para>GRR credentials.</maml:para>
@@ -619,7 +619,7 @@
           </dev:type>
           <dev:defaultValue>None</dev:defaultValue>
         </command:parameter>
-        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
           <maml:name>Credential</maml:name>
           <maml:Description>
             <maml:para>GRR credentials.</maml:para>
@@ -656,7 +656,7 @@
       </command:syntaxItem>
     </command:syntax>
     <command:parameters>
-      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
         <maml:name>Credential</maml:name>
         <maml:Description>
           <maml:para>GRR credentials.</maml:para>
@@ -768,7 +768,7 @@
     <command:syntax>
       <command:syntaxItem>
         <maml:name>Get-GRRArtifact</maml:name>
-        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
           <maml:name>Credential</maml:name>
           <maml:Description>
             <maml:para>GRR credentials.</maml:para>
@@ -794,7 +794,7 @@
       </command:syntaxItem>
     </command:syntax>
     <command:parameters>
-      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
         <maml:name>Credential</maml:name>
         <maml:Description>
           <maml:para>GRR credentials.</maml:para>
@@ -946,7 +946,7 @@ Attributes  : @{key_value_pairs=System.Object[]}</dev:code>
           </dev:type>
           <dev:defaultValue>None</dev:defaultValue>
         </command:parameter>
-        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="benannt" aliases="none">
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="benannt" aliases="none">
           <maml:name>Credential</maml:name>
           <maml:Description>
             <maml:para>GRR credentials.</maml:para>
@@ -1007,7 +1007,7 @@ Attributes  : @{key_value_pairs=System.Object[]}</dev:code>
           </dev:type>
           <dev:defaultValue>None</dev:defaultValue>
         </command:parameter>
-        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="benannt" aliases="none">
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="benannt" aliases="none">
           <maml:name>Credential</maml:name>
           <maml:Description>
             <maml:para>GRR credentials.</maml:para>
@@ -1098,7 +1098,7 @@ Attributes  : @{key_value_pairs=System.Object[]}</dev:code>
         </dev:type>
         <dev:defaultValue>None</dev:defaultValue>
       </command:parameter>
-      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="benannt" aliases="none">
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="benannt" aliases="none">
         <maml:name>Credential</maml:name>
         <maml:Description>
           <maml:para>GRR credentials.</maml:para>
@@ -1269,7 +1269,7 @@ subject            : @{...}</dev:code>
           </dev:type>
           <dev:defaultValue>None</dev:defaultValue>
         </command:parameter>
-        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
           <maml:name>Credential</maml:name>
           <maml:Description>
             <maml:para>GRR credentials.</maml:para>
@@ -1318,7 +1318,7 @@ subject            : @{...}</dev:code>
         </dev:type>
         <dev:defaultValue>None</dev:defaultValue>
       </command:parameter>
-      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
         <maml:name>Credential</maml:name>
         <maml:Description>
           <maml:para>GRR credentials.</maml:para>
@@ -1450,7 +1450,7 @@ C.2222222222222222</dev:code>
           </dev:type>
           <dev:defaultValue>None</dev:defaultValue>
         </command:parameter>
-        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
           <maml:name>Credential</maml:name>
           <maml:Description>
             <maml:para>GRR credentials.</maml:para>
@@ -1499,7 +1499,7 @@ C.2222222222222222</dev:code>
         </dev:type>
         <dev:defaultValue>None</dev:defaultValue>
       </command:parameter>
-      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
         <maml:name>Credential</maml:name>
         <maml:Description>
           <maml:para>GRR credentials.</maml:para>
@@ -1611,7 +1611,7 @@ C.2222222222222222</dev:code>
           </dev:type>
           <dev:defaultValue>None</dev:defaultValue>
         </command:parameter>
-        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
           <maml:name>Credential</maml:name>
           <maml:Description>
             <maml:para>GRR credentials.</maml:para>
@@ -1649,7 +1649,7 @@ C.2222222222222222</dev:code>
         </dev:type>
         <dev:defaultValue>None</dev:defaultValue>
       </command:parameter>
-      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
         <maml:name>Credential</maml:name>
         <maml:Description>
           <maml:para>GRR credentials.</maml:para>
@@ -1804,7 +1804,7 @@ ConfigFile              GRRUrl                GRRIgnoreCertificateErrors GRRClie
     <command:syntax>
       <command:syntaxItem>
         <maml:name>Get-GRRFlowDescriptor</maml:name>
-        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
           <maml:name>Credential</maml:name>
           <maml:Description>
             <maml:para>GRR credentials.</maml:para>
@@ -1830,7 +1830,7 @@ ConfigFile              GRRUrl                GRRIgnoreCertificateErrors GRRClie
       </command:syntaxItem>
     </command:syntax>
     <command:parameters>
-      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
         <maml:name>Credential</maml:name>
         <maml:Description>
           <maml:para>GRR credentials.</maml:para>
@@ -1954,7 +1954,7 @@ PS C:\&gt; $ret | where { $_.category -match "file"} | select name</dev:code>
           </dev:type>
           <dev:defaultValue>None</dev:defaultValue>
         </command:parameter>
-        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
           <maml:name>Credential</maml:name>
           <maml:Description>
             <maml:para>GRR credential.</maml:para>
@@ -2015,7 +2015,7 @@ PS C:\&gt; $ret | where { $_.category -match "file"} | select name</dev:code>
         </dev:type>
         <dev:defaultValue>None</dev:defaultValue>
       </command:parameter>
-      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
         <maml:name>Credential</maml:name>
         <maml:Description>
           <maml:para>GRR credential.</maml:para>
@@ -2128,7 +2128,7 @@ PS C:\&gt; $res.items.payload | ConvertFrom-Base64</dev:code>
     <command:syntax>
       <command:syntaxItem>
         <maml:name>Get-GRRHunt</maml:name>
-        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
           <maml:name>Credential</maml:name>
           <maml:Description>
             <maml:para>GRR credentials.</maml:para>
@@ -2178,7 +2178,7 @@ PS C:\&gt; $res.items.payload | ConvertFrom-Base64</dev:code>
       </command:syntaxItem>
       <command:syntaxItem>
         <maml:name>Get-GRRHunt</maml:name>
-        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
           <maml:name>Credential</maml:name>
           <maml:Description>
             <maml:para>GRR credentials.</maml:para>
@@ -2228,7 +2228,7 @@ PS C:\&gt; $res.items.payload | ConvertFrom-Base64</dev:code>
       </command:syntaxItem>
       <command:syntaxItem>
         <maml:name>Get-GRRHunt</maml:name>
-        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
           <maml:name>Credential</maml:name>
           <maml:Description>
             <maml:para>GRR credentials.</maml:para>
@@ -2278,7 +2278,7 @@ PS C:\&gt; $res.items.payload | ConvertFrom-Base64</dev:code>
       </command:syntaxItem>
     </command:syntax>
     <command:parameters>
-      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
         <maml:name>Credential</maml:name>
         <maml:Description>
           <maml:para>GRR credentials.</maml:para>
@@ -2439,7 +2439,7 @@ PS C:\&gt; $res.items.payload | ConvertFrom-Base64</dev:code>
           </dev:type>
           <dev:defaultValue>None</dev:defaultValue>
         </command:parameter>
-        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="benannt" aliases="none">
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="benannt" aliases="none">
           <maml:name>Credential</maml:name>
           <maml:Description>
             <maml:para>GRR credentials.</maml:para>
@@ -2500,7 +2500,7 @@ PS C:\&gt; $res.items.payload | ConvertFrom-Base64</dev:code>
           </dev:type>
           <dev:defaultValue>None</dev:defaultValue>
         </command:parameter>
-        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="benannt" aliases="none">
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="benannt" aliases="none">
           <maml:name>Credential</maml:name>
           <maml:Description>
             <maml:para>GRR credentials.</maml:para>
@@ -2562,7 +2562,7 @@ PS C:\&gt; $res.items.payload | ConvertFrom-Base64</dev:code>
         </dev:type>
         <dev:defaultValue>None</dev:defaultValue>
       </command:parameter>
-      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="benannt" aliases="none">
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="benannt" aliases="none">
         <maml:name>Credential</maml:name>
         <maml:Description>
           <maml:para>GRR credentials.</maml:para>
@@ -2742,7 +2742,7 @@ False</dev:code>
           </dev:type>
           <dev:defaultValue>None</dev:defaultValue>
         </command:parameter>
-        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
           <maml:name>Credential</maml:name>
           <maml:Description>
             <maml:para>GRR credentials.</maml:para>
@@ -2779,7 +2779,7 @@ False</dev:code>
       </command:syntaxItem>
     </command:syntax>
     <command:parameters>
-      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
         <maml:name>Credential</maml:name>
         <maml:Description>
           <maml:para>GRR credentials.</maml:para>
@@ -2896,7 +2896,7 @@ False</dev:code>
           </dev:type>
           <dev:defaultValue>None</dev:defaultValue>
         </command:parameter>
-        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
           <maml:name>Credential</maml:name>
           <maml:Description>
             <maml:para>GRR credentials.</maml:para>
@@ -2922,7 +2922,7 @@ False</dev:code>
       </command:syntaxItem>
     </command:syntax>
     <command:parameters>
-      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
         <maml:name>Credential</maml:name>
         <maml:Description>
           <maml:para>GRR credentials.</maml:para>
@@ -3017,7 +3017,7 @@ PS C:\&gt; $res.items.client_id | sort -u</dev:code>
     <command:syntax>
       <command:syntaxItem>
         <maml:name>Get-GRRLabel</maml:name>
-        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
           <maml:name>Credential</maml:name>
           <maml:Description>
             <maml:para>GRR credentials.</maml:para>
@@ -3043,7 +3043,7 @@ PS C:\&gt; $res.items.client_id | sort -u</dev:code>
       </command:syntaxItem>
     </command:syntax>
     <command:parameters>
-      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
         <maml:name>Credential</maml:name>
         <maml:Description>
           <maml:para>GRR credentials.</maml:para>
@@ -3132,7 +3132,7 @@ PS C:\&gt; $res.items.client_id | sort -u</dev:code>
     <command:syntax>
       <command:syntaxItem>
         <maml:name>Get-GRRSession</maml:name>
-        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
           <maml:name>Credential</maml:name>
           <maml:Description>
             <maml:para>GRR credentials.</maml:para>
@@ -3147,7 +3147,7 @@ PS C:\&gt; $res.items.client_id | sort -u</dev:code>
       </command:syntaxItem>
     </command:syntax>
     <command:parameters>
-      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
         <maml:name>Credential</maml:name>
         <maml:Description>
           <maml:para>GRR credentials.</maml:para>
@@ -3214,7 +3214,7 @@ PS C:\&gt; $res.items.client_id | sort -u</dev:code>
       <maml:para>Invoke a flow on one or multiple clients. The dynamic parameter "Flow" allows using dedicated parameters for each flow type.</maml:para>
       <maml:para>Use the following dynamic parameters for each flow type (-Flow) to specifcy the needed values. Mandatory parameters are attributed with (m).  - Netstat: </maml:para>
       <maml:para>- FileFinder:</maml:para>
-      <maml:para>   - Path (m), Type: String[]    - ActionType (m), ValidateSet: Hash, Download    - ConditionType, ValidateSet: Regex,Literal    - Mode, ValidateSet: All_HITS, FIRST_HIT    - SearchString, Type: String - RegistryFinder:     - Key (m), Type: String[]    - ConditionType, ValidateSet: Regex,Literal    - Mode, ValidateSet: All_HITS, FIRST_HIT    - ConditionValue, Type: String - ListProcesses:     - FileNameRegex, Type: string - ExecutePythonHack:     - HackName (m), Type: string    - PyArgsName (m), Type: string    - PyArgsValue (m), Type: string - ArtifactCollectorFlow:    - ArtifactList (m), Type: String[] - YaraProcessScan:    - YaraSignatureFile (m), Type: string</maml:para>
+      <maml:para>   - Path (m), Type: String[]    - ActionType (m), ValidateSet: Hash, Download    - ConditionType, ValidateSet: Regex,Literal    - Mode, ValidateSet: All_HITS, FIRST_HIT    - SearchString, Type: String - RegistryFinder:     - Key (m), Type: String[]    - ConditionType, ValidateSet: Regex,Literal    - Mode, ValidateSet: All_HITS, FIRST_HIT    - ConditionValue, Type: String - ListProcesses:     - FileNameRegex, Type: string - ExecutePythonHack:     - HackName (m), Type: string    - PyArgsName (m), Type: string    - PyArgsValue (m), Type: string - ArtifactCollectorFlow:    - ArtifactList (m), Type: String[]    - UseTsk, Type: switch - YaraProcessScan:    - YaraSignatureFile (m), Type: string</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -3485,7 +3485,7 @@ PS C:\&gt; $res.items.client_id | sort -u</dev:code>
           </dev:type>
           <dev:defaultValue>None</dev:defaultValue>
         </command:parameter>
-        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="benannt" aliases="none">
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="benannt" aliases="none">
           <maml:name>Credential</maml:name>
           <maml:Description>
             <maml:para>GRR credentials.</maml:para>
@@ -3559,7 +3559,7 @@ PS C:\&gt; $res.items.client_id | sort -u</dev:code>
       </command:syntaxItem>
       <command:syntaxItem>
         <maml:name>Invoke-GRRRequest</maml:name>
-        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="benannt" aliases="none">
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="benannt" aliases="none">
           <maml:name>Credential</maml:name>
           <maml:Description>
             <maml:para>GRR credentials.</maml:para>
@@ -3645,7 +3645,7 @@ PS C:\&gt; $res.items.client_id | sort -u</dev:code>
       </command:syntaxItem>
       <command:syntaxItem>
         <maml:name>Invoke-GRRRequest</maml:name>
-        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="benannt" aliases="none">
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="benannt" aliases="none">
           <maml:name>Credential</maml:name>
           <maml:Description>
             <maml:para>GRR credentials.</maml:para>
@@ -3707,7 +3707,7 @@ PS C:\&gt; $res.items.client_id | sort -u</dev:code>
         </dev:type>
         <dev:defaultValue>None</dev:defaultValue>
       </command:parameter>
-      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="benannt" aliases="none">
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="benannt" aliases="none">
         <maml:name>Credential</maml:name>
         <maml:Description>
           <maml:para>GRR credentials.</maml:para>
@@ -3860,7 +3860,7 @@ PS C:\&gt; $res.items.client_id | sort -u</dev:code>
           </dev:type>
           <dev:defaultValue>None</dev:defaultValue>
         </command:parameter>
-        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
           <maml:name>Credential</maml:name>
           <maml:Description>
             <maml:para>GRR credential.</maml:para>
@@ -3967,7 +3967,7 @@ PS C:\&gt; $res.items.client_id | sort -u</dev:code>
         </dev:type>
         <dev:defaultValue>False</dev:defaultValue>
       </command:parameter>
-      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
         <maml:name>Credential</maml:name>
         <maml:Description>
           <maml:para>GRR credential.</maml:para>
@@ -4088,7 +4088,7 @@ PS C:\&gt; $res.items.client_id | sort -u</dev:code>
       <command:noun>GRRHunt</command:noun>
       <maml:description>
         <maml:para>Create a new hunt.</maml:para>
-        <maml:para>Flow types: - FileFinder:     - Path (m), Type: String[]    - ActionType (m), ValidateSet: Hash, Download    - ConditionType, ValidateSet: Regex,Literal    - Mode, ValidateSet: All_HITS, FIRST_HIT    - SearchString, Type: String - RegistryFinder:     - Key (m), Type: String[] - ListProcesses:     - FileNameRegex, Type: string - ExecutePythonHack:     - HackName (m), Type: string    - PyArgsName (m), Type: string    - PyArgsValue (m), Type: string - ArtifactCollectorFlow:    - ArtifactList (m), Type: String[] - YaraProcessScan:    - YaraSignatureFile (m), Type: string</maml:para>
+        <maml:para>Flow types: - FileFinder:     - Path (m), Type: String[]    - ActionType (m), ValidateSet: Hash, Download    - ConditionType, ValidateSet: Regex,Literal    - Mode, ValidateSet: All_HITS, FIRST_HIT    - SearchString, Type: String - RegistryFinder:     - Key (m), Type: String[] - ListProcesses:     - FileNameRegex, Type: string - ExecutePythonHack:     - HackName (m), Type: string    - PyArgsName (m), Type: string    - PyArgsValue (m), Type: string - ArtifactCollectorFlow:    - ArtifactList (m), Type: String[]    - UseTsk, Type: switch - YaraProcessScan:    - YaraSignatureFile (m), Type: string</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
@@ -4464,7 +4464,7 @@ PS C:\&gt; $res.items.client_id | sort -u</dev:code>
           </dev:type>
           <dev:defaultValue>None</dev:defaultValue>
         </command:parameter>
-        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
           <maml:name>Credential</maml:name>
           <maml:Description>
             <maml:para>GRR credentials.</maml:para>
@@ -4559,7 +4559,7 @@ PS C:\&gt; $res.items.client_id | sort -u</dev:code>
         </dev:type>
         <dev:defaultValue>False</dev:defaultValue>
       </command:parameter>
-      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
         <maml:name>Credential</maml:name>
         <maml:Description>
           <maml:para>GRR credentials.</maml:para>
@@ -4712,7 +4712,7 @@ PS C:\&gt; $res.items.client_id | sort -u</dev:code>
           </dev:type>
           <dev:defaultValue>None</dev:defaultValue>
         </command:parameter>
-        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
           <maml:name>Credential</maml:name>
           <maml:Description>
             <maml:para>GRR credential.</maml:para>
@@ -4784,7 +4784,7 @@ PS C:\&gt; $res.items.client_id | sort -u</dev:code>
         </dev:type>
         <dev:defaultValue>False</dev:defaultValue>
       </command:parameter>
-      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
         <maml:name>Credential</maml:name>
         <maml:Description>
           <maml:para>GRR credential.</maml:para>
@@ -4917,7 +4917,7 @@ OK</dev:code>
           </dev:type>
           <dev:defaultValue>None</dev:defaultValue>
         </command:parameter>
-        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="none">
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="none">
           <maml:name>Credential</maml:name>
           <maml:Description>
             <maml:para>GRR credentials.</maml:para>
@@ -4989,7 +4989,7 @@ OK</dev:code>
         </dev:type>
         <dev:defaultValue>False</dev:defaultValue>
       </command:parameter>
-      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="none">
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="none">
         <maml:name>Credential</maml:name>
         <maml:Description>
           <maml:para>GRR credentials.</maml:para>
@@ -5126,7 +5126,7 @@ PS C:\&gt; "host1", "host2" | Remove-GRRLabel -Label label1 -Credential $creds</
           </dev:type>
           <dev:defaultValue>None</dev:defaultValue>
         </command:parameter>
-        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="none">
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="none">
           <maml:name>Credential</maml:name>
           <maml:Description>
             <maml:para>GRR credentials.</maml:para>
@@ -5198,7 +5198,7 @@ PS C:\&gt; "host1", "host2" | Remove-GRRLabel -Label label1 -Credential $creds</
         </dev:type>
         <dev:defaultValue>False</dev:defaultValue>
       </command:parameter>
-      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="none">
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="none">
         <maml:name>Credential</maml:name>
         <maml:Description>
           <maml:para>GRR credentials.</maml:para>
@@ -5323,7 +5323,7 @@ PS C:\&gt; "host1", "host2" | Set-GRRLabel -Label label1 -Credential $creds</dev
           </dev:type>
           <dev:defaultValue>None</dev:defaultValue>
         </command:parameter>
-        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
           <maml:name>Credential</maml:name>
           <maml:Description>
             <maml:para>GRR credentials.</maml:para>
@@ -5418,7 +5418,7 @@ PS C:\&gt; "host1", "host2" | Set-GRRLabel -Label label1 -Credential $creds</dev
         </dev:type>
         <dev:defaultValue>False</dev:defaultValue>
       </command:parameter>
-      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
         <maml:name>Credential</maml:name>
         <maml:Description>
           <maml:para>GRR credentials.</maml:para>
@@ -5585,7 +5585,7 @@ PS C:\&gt; "host1", "host2" | Set-GRRLabel -Label label1 -Credential $creds</dev
           </dev:type>
           <dev:defaultValue>None</dev:defaultValue>
         </command:parameter>
-        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
           <maml:name>Credential</maml:name>
           <maml:Description>
             <maml:para>GRR credentials.</maml:para>
@@ -5645,7 +5645,7 @@ PS C:\&gt; "host1", "host2" | Set-GRRLabel -Label label1 -Credential $creds</dev
         </dev:type>
         <dev:defaultValue>False</dev:defaultValue>
       </command:parameter>
-      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
         <maml:name>Credential</maml:name>
         <maml:Description>
           <maml:para>GRR credentials.</maml:para>
@@ -5762,7 +5762,7 @@ PS C:\&gt; "host1", "host2" | Set-GRRLabel -Label label1 -Credential $creds</dev
           </dev:type>
           <dev:defaultValue>None</dev:defaultValue>
         </command:parameter>
-        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
           <maml:name>Credential</maml:name>
           <maml:Description>
             <maml:para>GRR credential.</maml:para>
@@ -5882,7 +5882,7 @@ PS C:\&gt; "host1", "host2" | Set-GRRLabel -Label label1 -Credential $creds</dev
         </dev:type>
         <dev:defaultValue>False</dev:defaultValue>
       </command:parameter>
-      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
         <maml:name>Credential</maml:name>
         <maml:Description>
           <maml:para>GRR credential.</maml:para>
@@ -5999,7 +5999,7 @@ PS C:\&gt; "host1", "host2" | Set-GRRLabel -Label label1 -Credential $creds</dev
     <command:syntax>
       <command:syntaxItem>
         <maml:name>Wait-GRRHuntApproval</maml:name>
-        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
           <maml:name>Credential</maml:name>
           <maml:Description>
             <maml:para>GRR credential.</maml:para>
@@ -6119,7 +6119,7 @@ PS C:\&gt; "host1", "host2" | Set-GRRLabel -Label label1 -Credential $creds</dev
         </dev:type>
         <dev:defaultValue>False</dev:defaultValue>
       </command:parameter>
-      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
         <maml:name>Credential</maml:name>
         <maml:Description>
           <maml:para>GRR credential.</maml:para>

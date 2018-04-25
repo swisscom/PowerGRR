@@ -12,7 +12,7 @@ Set a label on one or multiple clients.
 ## SYNTAX
 
 ```
-Set-GRRLabel [[-ComputerName] <String[]>] [[-Label] <String[]>] [-Credential] <PSCredential> [-ShowJSON]
+Set-GRRLabel [[-ComputerName] <String[]>] [[-Label] <String[]>] [[-Credential] <PSCredential>] [-ShowJSON]
  [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
@@ -77,7 +77,7 @@ Type: PSCredential
 Parameter Sets: (All)
 Aliases: 
 
-Required: True
+Required: False
 Position: 2
 Default value: None
 Accept pipeline input: False

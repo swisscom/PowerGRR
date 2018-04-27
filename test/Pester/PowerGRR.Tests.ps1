@@ -1088,9 +1088,12 @@ Describe "internal functions" {
             }
         }
 
-        Context 'Testing Get-EpocTimeFromUtc' {
+        Context 'Testing ConvertFrom-EpocTime' {
             It 'convert unix timestamp to utc' {
-                $ret = Get-EpocTimeFromUtc 1496907016
+                $ret = ConvertFrom-EpocTime 1496907016
+                $ret | should be "06/08/2017 07:30:16"
+
+                $ret = 1496907016 | ConvertFrom-EpocTime
                 $ret | should be "06/08/2017 07:30:16"
             }
         }

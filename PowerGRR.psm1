@@ -160,7 +160,7 @@ Function Get-GRRComputerNameFromClientId()
                     $info=[ordered]@{
                         ComputerName=$item.os_info.node
                         ClientId=$item.urn.substring(6)
-                        LastSeenAt=$(Get-EpocTimeFromUtc ($item.last_seen_at).toString().Insert(10,"."))
+                        LastSeenAt=$(ConvertFrom-EpocTime ($item.last_seen_at).toString().Insert(10,"."))
                         OSVersion=$item.os_info.kernel
                     }
 
@@ -256,8 +256,8 @@ function Get-GRRClientInfo()
                         $info=[ordered]@{
                             ComputerName=$( if($item.os_info) { $item.os_info.node } )
                             ClientId=$item.urn.substring(6)
-                            InstallationDate=$(Get-EpocTimeFromUtc ($item.os_info.install_date).toString().Insert(10,"."))
-                            LastSeenAt=$(Get-EpocTimeFromUtc ($item.last_seen_at).toString().Insert(10,"."))
+                            InstallationDate=$(ConvertFrom-EpocTime ($item.os_info.install_date).toString().Insert(10,"."))
+                            LastSeenAt=$(ConvertFrom-EpocTime ($item.last_seen_at).toString().Insert(10,"."))
                             OSVersion=$( if($item.os_info) { $item.os_info.kernel } )
                             GRRClientVersion=$item.agent_info.client_version
                             UserNames=$( if($item.users) { $item.users.username } )
@@ -348,7 +348,7 @@ Function Get-GRRClientIdFromComputerName()
                         $info=[ordered]@{
                             ComputerName=$item.os_info.node
                             ClientId=$item.urn.substring(6)
-                            LastSeenAt=$(Get-EpocTimeFromUtc ($item.last_seen_at).toString().Insert(10,"."))
+                            LastSeenAt=$(ConvertFrom-EpocTime ($item.last_seen_at).toString().Insert(10,"."))
                             OSVersion=$item.os_info.kernel
                         }
 
@@ -2017,7 +2017,7 @@ Function Get-GRRHunt()
         foreach ($r in $ret.items)
         {
             $info=[ordered]@{
-                Created=$(Get-EpocTimeFromUtc ($r.created).toString().Insert(10,"."))
+                Created=$(ConvertFrom-EpocTime ($r.created).toString().Insert(10,"."))
                 HuntId=$r.urn
                 Description=$r.description
                 Creator=$r.Creator
@@ -2347,11 +2347,22 @@ Function Get-ClientCertificate()
 } # Get-ClientCertificate
 
 
-function Get-EpocTimeFromUtc ([long]$UnixTime)
+Function ConvertFrom-EpocTime()
 {
-    $epoch = New-Object System.DateTime (1970, 1, 1, 0, 0, 0, [System.DateTimeKind]::Utc);
-    $epoch.AddSeconds($UnixTime)
-} # FromUtcEpocTime
+    [CmdletBinding()]
+    param (
+        [Parameter(Mandatory=$true,ValueFromPipeline=$true)]
+        [long[]]$UnixTime
+    )
+
+    Process
+    {
+        $UnixTime | ForEach-Object {
+            $epoch = New-Object System.DateTime (1970, 1, 1, 0, 0, 0, [System.DateTimeKind]::Utc)
+            $epoch.AddSeconds($_)
+        }
+    }
+} # ConvertFrom-EpocTime
 
 
 function Get-GRRSession ()
@@ -2668,7 +2679,7 @@ function Invoke-GRRRequest ()
 } # Invoke-GRRRequest
 
 
-function ConvertTo-Base64 ()
+function ConvertTo-Base64()
 {
     [CmdletBinding()]
     param(
@@ -2697,7 +2708,7 @@ function ConvertTo-Base64 ()
 }
 
 
-function ConvertFrom-Base64()
+Function ConvertFrom-Base64()
 {
     param(
         [Parameter(ValueFromPipeline=$True, Mandatory=$true)]
@@ -3032,7 +3043,8 @@ Export-ModuleMember @(
     'ConvertTo-Hex',
     'Wait-GRRHuntApproval',
     'Wait-GRRClientApproval',
-    'Get-GRRClientInfo'
+    'Get-GRRClientInfo',
+    'ConvertFrom-EpocTime'
 )
 
 #endregion

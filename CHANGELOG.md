@@ -15,6 +15,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
   files like registry files.
 ### Changed
 * Update PowerShell help file with further examples.
+* Rename `Get-EpocTimeFromUtc` to `ConvertFrom-EpocTime`, add pipeline support
+    and export the function. Use `ConvertFrom-EpocTime` to convert unix
+    timestamps to UTC, e.g. in a registry flow, convert the st_mtime value
+    within PowerShell.
 <!--
 ### Fixed
 ### Deprecated

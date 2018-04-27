@@ -5,12 +5,14 @@
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
 !_TAG_PROGRAM_VERSION	5.8	//
 Add-GRRArtifact	.\PowerGRR.psm1	/^function Add-GRRArtifact()$/;"	m
+ConvertFrom-Base64	.\PowerGRR.psm1	/^Function ConvertFrom-Base64()$/;"	m
+ConvertFrom-EpocTime	.\PowerGRR.psm1	/^Function ConvertFrom-EpocTime()$/;"	m
+ConvertTo-Base64	.\PowerGRR.psm1	/^function ConvertTo-Base64()$/;"	m
 ConvertTo-Hex	.\PowerGRR.psm1	/^function ConvertTo-Hex()$/;"	m
 Find-GRRClient	.\PowerGRR.psm1	/^Function Find-GRRClient()$/;"	m
 Find-GRRClientByLabel	.\PowerGRR.psm1	/^Function Find-GRRClientByLabel()$/;"	m
 Get-ClientCertificate	.\PowerGRR.psm1	/^Function Get-ClientCertificate()$/;"	m
 Get-DynamicFlowParam	.\PowerGRR.psm1	/^function Get-DynamicFlowParam()$/;"	m
-Get-EpocTimeFromUtc	.\PowerGRR.psm1	/^function Get-EpocTimeFromUtc ([long]$UnixTime)$/;"	m
 Get-FlowArgs	.\PowerGRR.psm1	/^function Get-FlowArgs()$/;"	m
 Get-GRRArtifact	.\PowerGRR.psm1	/^function Get-GRRArtifact()$/;"	m
 Get-GRRClientApproval	.\PowerGRR.psm1	/^function Get-GRRClientApproval()$/;"	m
@@ -18,6 +20,7 @@ Get-GRRClientIdFromComputerName	.\PowerGRR.psm1	/^Function Get-GRRClientIdFromCo
 Get-GRRClientInfo	.\PowerGRR.psm1	/^function Get-GRRClientInfo()$/;"	m
 Get-GRRComputerNameFromClientId	.\PowerGRR.psm1	/^Function Get-GRRComputerNameFromClientId()$/;"	m
 Get-GRRConfig	.\PowerGRR.psm1	/^Function Get-GRRConfig()$/;"	m
+Get-GRRCredential	.\PowerGRR.psm1	/^function Get-GRRCredential()$/;"	m
 Get-GRRFlowDescriptor	.\PowerGRR.psm1	/^function Get-GRRFlowDescriptor()$/;"	m
 Get-GRRFlowResult	.\PowerGRR.psm1	/^function Get-GRRFlowResult()$/;"	m
 Get-GRRHunt	.\PowerGRR.psm1	/^Function Get-GRRHunt()$/;"	m

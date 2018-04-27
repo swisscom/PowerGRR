@@ -98,7 +98,8 @@ FunctionsToExport = @(
     'ConvertTo-Hex',
     'Wait-GRRHuntApproval',
     'Wait-GRRClientApproval',
-    'Get-GRRClientInfo'
+    'Get-GRRClientInfo',
+    'ConvertFrom-EpocTime'
     )
 
 # Cmdlets to export from this module

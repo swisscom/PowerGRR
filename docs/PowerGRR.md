@@ -22,6 +22,9 @@ Upload artifact to GRR.
 ### [ConvertFrom-Base64](ConvertFrom-Base64.md)
 Decode a base64 encoded string.
 
+### [ConvertFrom-EpocTime](ConvertFrom-EpocTime.md)
+Convert a unix timestamp into UTC.
+
 ### [Get-GRRArtifact](Get-GRRArtifact.md)
 Get the list of available artifacts.
 

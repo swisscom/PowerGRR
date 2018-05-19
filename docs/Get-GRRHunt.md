@@ -1,5 +1,6 @@
 ---
 external help file: PowerGRR-help.xml
+Module Name: PowerGRR
 online version: https://github.com/swisscom/PowerGRR/blob/master/docs/Get-GRRHunt.md
 schema: 2.0.0
 ---
@@ -62,7 +63,7 @@ GRR credentials.
 ```yaml
 Type: PSCredential
 Parameter Sets: (All)
-Aliases: 
+Aliases:
 
 Required: False
 Position: 0
@@ -77,7 +78,7 @@ Timeframe within the hunts were created.
 ```yaml
 Type: String
 Parameter Sets: CreatedBy, DescriptionContains
-Aliases: 
+Aliases:
 
 Required: True
 Position: Named
@@ -92,7 +93,7 @@ The amount of returned hunts.
 ```yaml
 Type: Int32
 Parameter Sets: Count
-Aliases: 
+Aliases:
 
 Required: False
 Position: Named
@@ -107,7 +108,7 @@ Author of a hunt.
 ```yaml
 Type: String
 Parameter Sets: CreatedBy
-Aliases: 
+Aliases:
 
 Required: False
 Position: Named
@@ -122,7 +123,7 @@ Text which is contains within the hunt description.
 ```yaml
 Type: String
 Parameter Sets: DescriptionContains
-Aliases: 
+Aliases:
 
 Required: False
 Position: Named
@@ -137,7 +138,7 @@ Offset for the search.
 ```yaml
 Type: Int32
 Parameter Sets: Count
-Aliases: 
+Aliases:
 
 Required: False
 Position: Named
@@ -152,7 +153,7 @@ Return plain JSON instead of converted JSON.
 ```yaml
 Type: SwitchParameter
 Parameter Sets: (All)
-Aliases: 
+Aliases:
 
 Required: False
 Position: Named
@@ -175,4 +176,3 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## NOTES
 
 ## RELATED LINKS
-

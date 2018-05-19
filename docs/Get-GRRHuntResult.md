@@ -1,5 +1,6 @@
 ---
 external help file: PowerGRR-help.xml
+Module Name: PowerGRR
 online version: https://github.com/swisscom/PowerGRR/blob/master/docs/Get-GRRHuntResult.md
 schema: 2.0.0
 ---
@@ -40,7 +41,7 @@ GRR credentials.
 ```yaml
 Type: PSCredential
 Parameter Sets: (All)
-Aliases: 
+Aliases:
 
 Required: False
 Position: 1
@@ -55,7 +56,7 @@ Hunt id for which the results should be returned.
 ```yaml
 Type: String
 Parameter Sets: (All)
-Aliases: 
+Aliases:
 
 Required: False
 Position: 0
@@ -70,7 +71,7 @@ Return only plain JSON instead of converted JSON objects.
 ```yaml
 Type: SwitchParameter
 Parameter Sets: (All)
-Aliases: 
+Aliases:
 
 Required: False
 Position: Named
@@ -93,4 +94,3 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## NOTES
 
 ## RELATED LINKS
-

@@ -1,5 +1,6 @@
 ---
 external help file: PowerGRR-help.xml
+Module Name: PowerGRR
 online version: https://github.com/swisscom/PowerGRR/blob/master/docs/Add-GRRArtifact.md
 schema: 2.0.0
 ---
@@ -46,7 +47,7 @@ Path to artifact file.
 ```yaml
 Type: String
 Parameter Sets: (All)
-Aliases: 
+Aliases:
 
 Required: False
 Position: 0
@@ -76,7 +77,7 @@ GRR credentials to use.
 ```yaml
 Type: PSCredential
 Parameter Sets: (All)
-Aliases: 
+Aliases:
 
 Required: False
 Position: 1
@@ -91,7 +92,7 @@ Return plain JSON instead of parsed JSON object.
 ```yaml
 Type: SwitchParameter
 Parameter Sets: (All)
-Aliases: 
+Aliases:
 
 Required: False
 Position: Benannt
@@ -130,4 +131,3 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## NOTES
 
 ## RELATED LINKS
-

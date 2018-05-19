@@ -1,5 +1,6 @@
 ---
 external help file: PowerGRR-help.xml
+Module Name: PowerGRR
 online version: https://github.com/swisscom/PowerGRR/blob/master/docs/ConvertFrom-Base64.md
 schema: 2.0.0
 ---
@@ -56,7 +57,7 @@ Base64 encoded string to decode.
 ```yaml
 Type: String
 Parameter Sets: (All)
-Aliases: 
+Aliases:
 
 Required: True
 Position: 0
@@ -71,7 +72,7 @@ Encoding to use. Unicode or UTF8.
 ```yaml
 Type: String
 Parameter Sets: (All)
-Aliases: 
+Aliases:
 
 Required: False
 Position: Named
@@ -94,4 +95,3 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## NOTES
 
 ## RELATED LINKS
-

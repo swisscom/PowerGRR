@@ -1,5 +1,6 @@
 ---
 external help file: PowerGRR-help.xml
+Module Name: PowerGRR
 online version: https://github.com/swisscom/PowerGRR/blob/master/docs/Get-GRRComputerNameFromClientId.md
 schema: 2.0.0
 ---
@@ -50,7 +51,7 @@ Client id to search for.
 ```yaml
 Type: String[]
 Parameter Sets: (All)
-Aliases: 
+Aliases:
 
 Required: False
 Position: 0
@@ -65,7 +66,7 @@ GRR credentials.
 ```yaml
 Type: PSCredential
 Parameter Sets: (All)
-Aliases: 
+Aliases:
 
 Required: False
 Position: 1
@@ -80,7 +81,7 @@ Return only plain JSON instead of converted JSON objects.
 ```yaml
 Type: SwitchParameter
 Parameter Sets: (All)
-Aliases: 
+Aliases:
 
 Required: False
 Position: Named
@@ -103,4 +104,3 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## NOTES
 
 ## RELATED LINKS
-

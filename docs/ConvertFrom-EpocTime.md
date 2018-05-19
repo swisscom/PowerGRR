@@ -1,5 +1,6 @@
 ---
 external help file: PowerGRR-help.xml
+Module Name: PowerGRR
 online version: https://github.com/swisscom/powergrr/blob/master/docs/ConvertFrom-EpocTime.md
 schema: 2.0.0
 ---
@@ -41,7 +42,7 @@ Unix timestamp to convert.
 ```yaml
 Type: Int64[]
 Parameter Sets: (All)
-Aliases: 
+Aliases:
 
 Required: True
 Position: 0
@@ -64,4 +65,3 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## NOTES
 
 ## RELATED LINKS
-

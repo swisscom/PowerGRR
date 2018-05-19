@@ -4,7 +4,24 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) 
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## [Unreleased](https://github.com/swisscom/powergrr/compare/v0.8.0...master)
+## [Unreleased](https://github.com/swisscom/powergrr/compare/v0.9.0...master)
+<!--
+### Added
+### Changed
+### Fixed
+### Deprecated
+### Removed
+### Security
+-->
+
+## [v0.9.0](https://github.com/swisscom/powergrr/compare/v0.8.0...v0.9.0) - 2018-05-19
+
+**Improve password handling** by allowing to **set the `$GRRCredential` variable
+with the credential in the console** which is then used by all subsequent command
+calls. The use of `-Credential` is therefore not needed anymore. For **better
+converting the unix timestamp**, the function `ConvertFrom-EpocTime` was
+added. Additionally, **improve PowerShell help**.
+
 ### Added
 * Add functionality to read credentials from
     environment (`$GRRCredential`) if available instead of prompting the user
@@ -19,12 +36,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
     and export the function. Use `ConvertFrom-EpocTime` to convert unix
     timestamps to UTC, e.g. in a registry flow, convert the st_mtime value
     within PowerShell.
-<!--
-### Fixed
-### Deprecated
-### Removed
-### Security
--->
 
 ## [v0.8.0](https://github.com/swisscom/powergrr/compare/v0.7.0...v0.8.0) - 2018-02-21
 

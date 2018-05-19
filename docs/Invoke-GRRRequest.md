@@ -1,5 +1,6 @@
 ---
 external help file: PowerGRR-help.xml
+Module Name: PowerGRR
 online version: https://github.com/swisscom/PowerGRR/blob/master/docs/Invoke-GRRRequest.md
 schema: 2.0.0
 ---
@@ -52,7 +53,7 @@ API POST request body.
 ```yaml
 Type: String
 Parameter Sets: POST
-Aliases: 
+Aliases:
 
 Required: True
 Position: Benannt
@@ -67,7 +68,7 @@ GRR credentials.
 ```yaml
 Type: PSCredential
 Parameter Sets: (All)
-Aliases: 
+Aliases:
 
 Required: False
 Position: Benannt
@@ -82,7 +83,7 @@ Headers for the API requests (CSRF ...)
 ```yaml
 Type: Hashtable
 Parameter Sets: FILE, POST
-Aliases: 
+Aliases:
 
 Required: True
 Position: Benannt
@@ -97,7 +98,7 @@ Return only plain JSON instead of converted JSON objects.
 ```yaml
 Type: SwitchParameter
 Parameter Sets: FILE
-Aliases: 
+Aliases:
 
 Required: True
 Position: Benannt
@@ -109,7 +110,7 @@ Accept wildcard characters: False
 ```yaml
 Type: SwitchParameter
 Parameter Sets: POST, GET
-Aliases: 
+Aliases:
 
 Required: False
 Position: Benannt
@@ -124,7 +125,7 @@ API endpoint.
 ```yaml
 Type: String
 Parameter Sets: (All)
-Aliases: 
+Aliases:
 
 Required: True
 Position: Benannt
@@ -139,7 +140,7 @@ Websession for the API request.
 ```yaml
 Type: WebRequestSession
 Parameter Sets: FILE, POST
-Aliases: 
+Aliases:
 
 Required: True
 Position: Benannt
@@ -154,7 +155,7 @@ HTTP method.
 ```yaml
 Type: String
 Parameter Sets: (All)
-Aliases: 
+Aliases:
 
 Required: False
 Position: Named
@@ -169,7 +170,7 @@ File if an upload is performed.
 ```yaml
 Type: FileInfo
 Parameter Sets: FILE
-Aliases: 
+Aliases:
 
 Required: True
 Position: Named
@@ -192,4 +193,3 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## NOTES
 
 ## RELATED LINKS
-

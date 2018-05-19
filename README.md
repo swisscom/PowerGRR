@@ -9,6 +9,7 @@ Please see [Command Documentation](docs/PowerGRR.md), [Wiki](https://github.com/
 
 ***
 <!-- vim-markdown-toc GFM -->
+
 * [What is PowerGRR?](#what-is-powergrr)
 * [Requirements](#requirements)
     * [GRR server](#grr-server)
@@ -86,9 +87,7 @@ for the available flow types.
 
 To be able to use all PowerGRR commands, one must use the current version of GRR.
 Some API calls, like starting a hunt or uploading or removing an artifact, are only
-working with current versions of GRR and not with the latest release (3.1.0.2).
-However, most API calls were already available in 3.1.0.2 and thus are working
-with PowerGRR too.
+working with current versions of GRR and not with the previous versions.
 
 ### PowerShell
 

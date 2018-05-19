@@ -1,5 +1,6 @@
 ---
 external help file: PowerGRR-help.xml
+Module Name: PowerGRR
 online version: https://github.com/swisscom/PowerGRR/blob/master/docs/Get-GRRHuntApproval.md
 schema: 2.0.0
 ---
@@ -99,7 +100,7 @@ Approval id from New-GRRClientApproval.
 ```yaml
 Type: String
 Parameter Sets: ByApproval
-Aliases: 
+Aliases:
 
 Required: True
 Position: Benannt
@@ -114,7 +115,7 @@ Amount of approvals to be returned.
 ```yaml
 Type: Int32
 Parameter Sets: ByUser
-Aliases: 
+Aliases:
 
 Required: False
 Position: Benannt
@@ -129,7 +130,7 @@ GRR credentials.
 ```yaml
 Type: PSCredential
 Parameter Sets: (All)
-Aliases: 
+Aliases:
 
 Required: False
 Position: Benannt
@@ -144,7 +145,7 @@ Hunt id for which an approval was requested.
 ```yaml
 Type: String
 Parameter Sets: ByApproval
-Aliases: 
+Aliases:
 
 Required: True
 Position: Benannt
@@ -159,7 +160,7 @@ Offset for the returned approvals.
 ```yaml
 Type: Int32
 Parameter Sets: ByUser
-Aliases: 
+Aliases:
 
 Required: False
 Position: Benannt
@@ -174,7 +175,7 @@ Return only the state of the approval. Useful for loops.
 ```yaml
 Type: SwitchParameter
 Parameter Sets: ByApproval
-Aliases: 
+Aliases:
 
 Required: False
 Position: Benannt
@@ -189,7 +190,7 @@ Return only plain JSON instead of converted JSON objects.
 ```yaml
 Type: SwitchParameter
 Parameter Sets: (All)
-Aliases: 
+Aliases:
 
 Required: False
 Position: Benannt
@@ -212,4 +213,3 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## NOTES
 
 ## RELATED LINKS
-

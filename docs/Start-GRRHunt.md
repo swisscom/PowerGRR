@@ -1,5 +1,6 @@
 ---
 external help file: PowerGRR-help.xml
+Module Name: PowerGRR
 online version: https://github.com/swisscom/PowerGRR/blob/master/docs/Start-GRRHunt.md
 schema: 2.0.0
 ---
@@ -73,7 +74,7 @@ GRR credentials.
 ```yaml
 Type: PSCredential
 Parameter Sets: (All)
-Aliases: 
+Aliases:
 
 Required: False
 Position: 1
@@ -88,7 +89,7 @@ HuntId of the hunt which should be started.
 ```yaml
 Type: String
 Parameter Sets: (All)
-Aliases: 
+Aliases:
 
 Required: False
 Position: 0
@@ -103,7 +104,7 @@ Show plain JSON as output instead of the return object.
 ```yaml
 Type: SwitchParameter
 Parameter Sets: (All)
-Aliases: 
+Aliases:
 
 Required: False
 Position: Benannt
@@ -134,7 +135,7 @@ Approval id to wait for.
 ```yaml
 Type: String
 Parameter Sets: WaitForApproval
-Aliases: 
+Aliases:
 
 Required: True
 Position: Named
@@ -149,7 +150,7 @@ Timeout for the wait.
 ```yaml
 Type: Int32
 Parameter Sets: WaitForApproval
-Aliases: 
+Aliases:
 
 Required: False
 Position: Named
@@ -164,7 +165,7 @@ Wait until the given approval gets valid.
 ```yaml
 Type: SwitchParameter
 Parameter Sets: WaitForApproval
-Aliases: 
+Aliases:
 
 Required: True
 Position: Named
@@ -187,4 +188,3 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## NOTES
 
 ## RELATED LINKS
-

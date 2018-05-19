@@ -163,14 +163,14 @@
     </maml:alertSet>
     <command:examples>
       <command:example>
-        <maml:title>Example 1</maml:title>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
         <dev:code>PS C:\&gt; Add-GRRArtifact -Credential $cred -ArtifactFile .\DNSNameServer.yaml</dev:code>
         <dev:remarks>
           <maml:para>Upload artifact "DNSNameServer" to GRR. See https://github.com/ForensicArtifacts/artifacts for more information about artifact definition.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
-        <maml:title>Example 2</maml:title>
+        <maml:title>-------------------------- Example 2 --------------------------</maml:title>
         <dev:code>PS C:\&gt; Add-GRRArtifact -ArtifactFile .\ForensicArtifacts\OutlookFiles.yaml</dev:code>
         <dev:remarks>
           <maml:para>Upload artifact "OutlookFiles" to GRR. See https://github.com/ForensicArtifacts/artifacts for more information about artifact definition. No credentials parameter is used because `$GRRCredential` is set before running the command.</maml:para>
@@ -278,21 +278,21 @@
     </maml:alertSet>
     <command:examples>
       <command:example>
-        <maml:title>Example 1</maml:title>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
         <dev:code>PS C:\&gt; $sha256_b64 = $_.payload.hash_entry.sha256; $hash = Convertfrom-Base64 $sha256_b64 -Encoding Unicode | ConvertTo-Hex</dev:code>
         <dev:remarks>
           <maml:para>Convert the collected sha256 hash (hash_entry e.g. from file finder flow) to the corresponding hex representation. The payload from GRR is base64 encoded, therefore Convertfrom-Base64 provides the needed step in between. For a hash conversion the use of "-Encoding Unicode" is needed.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
-        <maml:title>Example 2</maml:title>
+        <maml:title>-------------------------- Example 2 --------------------------</maml:title>
         <dev:code>PS C:\&gt; ConvertFrom-Base64 "R1JSIGlzIGF3ZXNvbWU="</dev:code>
         <dev:remarks>
           <maml:para>Convert the collected sha256 hash (hash_entry e.g. from file finder flow) to the corresponding hex representation. The payload from GRR is base64 encoded, therefore Convertfrom-Base64 provides the needed step in between.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
-        <maml:title>Example 3</maml:title>
+        <maml:title>-------------------------- Example 3 --------------------------</maml:title>
         <dev:code>PS C:\&gt; $ret = $ret.items | ? {($_.payload | ConvertFrom-Base64) -match "false" }</dev:code>
         <dev:remarks>
           <maml:para>Analyse return values from a hunt and filter them for specific payload values.</maml:para>
@@ -376,7 +376,7 @@
     </maml:alertSet>
     <command:examples>
       <command:example>
-        <maml:title>Example 1</maml:title>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
         <dev:code>PS C:\&gt; ConvertFrom-EpocTime 1514997715
 
 Mittwoch, 3. Januar 2018 16:41:55
@@ -493,7 +493,7 @@ Mittwoch, 3. Januar 2018 16:41:55</dev:code>
     </maml:alertSet>
     <command:examples>
       <command:example>
-        <maml:title>Example 1</maml:title>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
         <dev:code>PS C:\&gt; "string to convert" | ConvertTo-Base64</dev:code>
         <dev:remarks>
           <maml:para>Convert the string to base64.</maml:para>
@@ -647,28 +647,28 @@ Mittwoch, 3. Januar 2018 16:41:55</dev:code>
     </maml:alertSet>
     <command:examples>
       <command:example>
-        <maml:title>Example 1</maml:title>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
         <dev:code>PS C:\&gt; Find-GRRClient -SearchString keyword -Credential $cred</dev:code>
         <dev:remarks>
           <maml:para>Find GRR clients based on keywords. Use the available prefixes, e.g. "label:" or "host:" to limit the search results.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
-        <maml:title>Example 2</maml:title>
+        <maml:title>-------------------------- Example 2 --------------------------</maml:title>
         <dev:code>PS C:\&gt; Find-GRRClient -SearchString keyword -Credential $cred -OnlyComputerName</dev:code>
         <dev:remarks>
           <maml:para>Find GRR clients based on keywords. Use the available prefixes, e.g. "label:" or "host:" to limit the search results. Use `-OnlyComputerName` to only display the host names.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
-        <maml:title>Example 3</maml:title>
+        <maml:title>-------------------------- Example 3 --------------------------</maml:title>
         <dev:code>PS C:\&gt; Find-GRRClient -SearchString "username" -OnlyComputerName -OnlyComputerName</dev:code>
         <dev:remarks>
           <maml:para>Find GRR clients where the given user was logged in. Use `-OnlyComputerName` to only display the host names.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
-        <maml:title>Example 4</maml:title>
+        <maml:title>-------------------------- Example 4 --------------------------</maml:title>
         <dev:code>PS C:\&gt; $ret = Find-GRRClient -SearchString darwin -OnlyComputerName</dev:code>
         <dev:remarks>
           <maml:para>Find GRR clients with the OS "darwin" (MacOS). Use `-OnlyComputerName` to only display the host names.</maml:para>
@@ -822,14 +822,14 @@ Mittwoch, 3. Januar 2018 16:41:55</dev:code>
     </maml:alertSet>
     <command:examples>
       <command:example>
-        <maml:title>Example 1</maml:title>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
         <dev:code>PS C:\&gt; Find-GRRClientByLabel -Credential $creds -SearchString label</dev:code>
         <dev:remarks>
           <maml:para>Search for clients with a specific label.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
-        <maml:title>Example 2</maml:title>
+        <maml:title>-------------------------- Example 2 --------------------------</maml:title>
         <dev:code>PS C:\&gt; Find-GRRClientByLabel -Credential $creds -SearchString label -OnlyComputerName</dev:code>
         <dev:remarks>
           <maml:para>Search for clients with a specific label and show only the host names.</maml:para>
@@ -936,14 +936,14 @@ Mittwoch, 3. Januar 2018 16:41:55</dev:code>
     </maml:alertSet>
     <command:examples>
       <command:example>
-        <maml:title>Example 1</maml:title>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
         <dev:code>PS C:\&gt; Get-GRRArtifact -Credential $cred</dev:code>
         <dev:remarks>
           <maml:para>List all artifacts.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
-        <maml:title>Example 2</maml:title>
+        <maml:title>-------------------------- Example 2 --------------------------</maml:title>
         <dev:code>PS C:\&gt; $osx = Get-GRRArtifact -Credential $cred | ? {$_.name -match "osx"} | select name, description, iscustom
 PS C:\&gt; $osx
 
@@ -957,7 +957,7 @@ OSXUsers              Users directories in /Users                               
         </dev:remarks>
       </command:example>
       <command:example>
-        <maml:title>Example 3</maml:title>
+        <maml:title>-------------------------- Example 3 --------------------------</maml:title>
         <dev:code>PS C:\&gt; Get-GRRArtifact -Credential $cred | ?{ $_.SupportedOS -match "windows" -and $_.name -match "dns" }
 
 Name        : WindowsDNSNameServer
@@ -973,7 +973,7 @@ Attributes  : @{key_value_pairs=System.Object[]}</dev:code>
         </dev:remarks>
       </command:example>
       <command:example>
-        <maml:title>Example 4</maml:title>
+        <maml:title>-------------------------- Example 4 --------------------------</maml:title>
         <dev:code>PS C:\&gt; Get-GRRArtifact -Credential $cred | ? {$_iscustom -eq $true}
 
 Name        : WindowsDNSNameServer
@@ -1276,7 +1276,7 @@ Attributes  : @{key_value_pairs=System.Object[]}</dev:code>
     </maml:alertSet>
     <command:examples>
       <command:example>
-        <maml:title>Example 1</maml:title>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
         <dev:code>PS C:\&gt; Get-GRRClientApproval -Credential $cred -Count 1
 
 notified_users     : {user}
@@ -1292,7 +1292,7 @@ subject            : @{...}</dev:code>
         </dev:remarks>
       </command:example>
       <command:example>
-        <maml:title>Example 2</maml:title>
+        <maml:title>-------------------------- Example 2 --------------------------</maml:title>
         <dev:code>PS C:\&gt; Get-GRRClientApproval -Credential $cred  -OnlyState -ComputerName host1 -ApprovalId approval:AAAAAAAA
 False</dev:code>
         <dev:remarks>
@@ -1300,7 +1300,7 @@ False</dev:code>
         </dev:remarks>
       </command:example>
       <command:example>
-        <maml:title>Example 3</maml:title>
+        <maml:title>-------------------------- Example 3 --------------------------</maml:title>
         <dev:code>PS C:\&gt; Get-GRRClientApproval -Credential $cred -State INVALID -Count 2
 
 notified_users     : {user}
@@ -1472,7 +1472,7 @@ subject            : @{...}</dev:code>
     </maml:alertSet>
     <command:examples>
       <command:example>
-        <maml:title>Example 1</maml:title>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
         <dev:code>PS C:\&gt; Get-GRRClientIdFromComputerName -ComputerName host1,host2 -Credential $creds
 
 Node    ClientId           LastSeenAt          OSVersion
@@ -1485,7 +1485,7 @@ host2   C.3333333333333333 26.06.2017 09:31:32 6.1.7601</dev:code>
         </dev:remarks>
       </command:example>
       <command:example>
-        <maml:title>Example 2</maml:title>
+        <maml:title>-------------------------- Example 2 --------------------------</maml:title>
         <dev:code>PS C:\&gt; Get-GRRClientIdFromComputerName -ComputerName host1,host2 -Credential $creds -OnlyLastSeen
 
 Node    ClientId           LastSeenAt          OSVersion
@@ -1497,7 +1497,7 @@ host2   C.3333333333333333 26.06.2017 09:31:32 6.1.7601</dev:code>
         </dev:remarks>
       </command:example>
       <command:example>
-        <maml:title>Example 3</maml:title>
+        <maml:title>-------------------------- Example 3 --------------------------</maml:title>
         <dev:code>PS C:\&gt; (Get-GRRClientIdFromComputerName -ComputerName host1,host2  -Credential $creds -OnlyLastSeen).clientid
 C.1111111111111111
 C.2222222222222222</dev:code>
@@ -1653,14 +1653,14 @@ C.2222222222222222</dev:code>
     </maml:alertSet>
     <command:examples>
       <command:example>
-        <maml:title>Example 1</maml:title>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
         <dev:code>PS C:\&gt; Get-GRRClientInfo -ComputerName host1</dev:code>
         <dev:remarks>
           <maml:para>Get host information for that specific host. No `-Credential` param is needed because `$GRRCredential` was set before running the command.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
-        <maml:title>Example 2</maml:title>
+        <maml:title>-------------------------- Example 2 --------------------------</maml:title>
         <dev:code>PS C:\&gt; "host1","host" | Get-GRRClientInfo -Credential $cred</dev:code>
         <dev:remarks>
           <maml:para>Get host information for that specific host based on the pipeline input.</maml:para>
@@ -1791,7 +1791,7 @@ C.2222222222222222</dev:code>
     </maml:alertSet>
     <command:examples>
       <command:example>
-        <maml:title>Example 1</maml:title>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
         <dev:code>PS C:\&gt; Get-GRRComputerNameFromClientId -Credential $creds -ClientId c.1111111111111111
 PS C:\&gt; Get-GRRComputerNameFromClientId -Credential $creds -ClientId c.1111111111111111, c.2222222222222222
 PS C:\&gt; c.1111111111111111 | Get-GRRComputerNameFromClientId -Credential $cred
@@ -1801,7 +1801,7 @@ PS C:\&gt; c.1111111111111111,c.2222222222222222 | Get-GRRComputerNameFromClient
         </dev:remarks>
       </command:example>
       <command:example>
-        <maml:title>Example 2</maml:title>
+        <maml:title>-------------------------- Example 2 --------------------------</maml:title>
         <dev:code>PS C:\&gt; $ret.items.client_id | unique | Get-GRRComputerNameFromClientId -Credential $cred
 PS C:\&gt; $ret.items.client_id | unique | Get-GRRComputerNameFromClientId -Credential $cred | select -ExpandProperty computername | Get-GRRClientInfo -Credential $cred |  select -ExpandProperty usernames</dev:code>
         <dev:remarks>
@@ -1861,7 +1861,7 @@ PS C:\&gt; $ret.items.client_id | unique | Get-GRRComputerNameFromClientId -Cred
     </maml:alertSet>
     <command:examples>
       <command:example>
-        <maml:title>Example 1</maml:title>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
         <dev:code>PS&gt; Get-GRRConfig
 
 ConfigFile              GRRUrl                GRRIgnoreCertificateErrors GRRClientCertIssuer
@@ -1972,14 +1972,14 @@ ConfigFile              GRRUrl                GRRIgnoreCertificateErrors GRRClie
     </maml:alertSet>
     <command:examples>
       <command:example>
-        <maml:title>Example 1</maml:title>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
         <dev:code>PS C:\&gt; Get-GRRFlowDescriptor -Credential $cred</dev:code>
         <dev:remarks>
           <maml:para>List all available flows.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
-        <maml:title>Example 2</maml:title>
+        <maml:title>-------------------------- Example 2 --------------------------</maml:title>
         <dev:code>PS C:\&gt; $ret = Get-GRRFlowDescriptor -Credential $cred
 PS C:\&gt; $ret | select name</dev:code>
         <dev:remarks>
@@ -1987,7 +1987,7 @@ PS C:\&gt; $ret | select name</dev:code>
         </dev:remarks>
       </command:example>
       <command:example>
-        <maml:title>Example 3</maml:title>
+        <maml:title>-------------------------- Example 3 --------------------------</maml:title>
         <dev:code>PS C:\&gt; $ret = Get-GRRFlowDescriptor -Credential $cred
 PS C:\&gt; $ret | where { $_.category -match "memory"}</dev:code>
         <dev:remarks>
@@ -1995,7 +1995,7 @@ PS C:\&gt; $ret | where { $_.category -match "memory"}</dev:code>
         </dev:remarks>
       </command:example>
       <command:example>
-        <maml:title>Example 4</maml:title>
+        <maml:title>-------------------------- Example 4 --------------------------</maml:title>
         <dev:code>PS C:\&gt; $ret = Get-GRRFlowDescriptor -Credential $cred
 PS C:\&gt; $ret | where { $_.category -match "file"} | select name</dev:code>
         <dev:remarks>
@@ -2003,7 +2003,7 @@ PS C:\&gt; $ret | where { $_.category -match "file"} | select name</dev:code>
         </dev:remarks>
       </command:example>
       <command:example>
-        <maml:title>Example 5</maml:title>
+        <maml:title>-------------------------- Example 5 --------------------------</maml:title>
         <dev:code>PS C:\&gt; Get-GRRFlowDescriptor -Credential $cred | ? { $_.name -match "proc" }</dev:code>
         <dev:remarks>
           <maml:para>List all available flows where "proc" is in the flow name.</maml:para>
@@ -2181,7 +2181,7 @@ PS C:\&gt; $ret | where { $_.category -match "file"} | select name</dev:code>
     </maml:alertSet>
     <command:examples>
       <command:example>
-        <maml:title>Example 1</maml:title>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
         <dev:code>PS C:\&gt; $res = Get-GRRFlowResult -Credential $cred -ComputerName host -FlowId "F:11111111"
 PS C:\&gt; $res.items.payload | ConvertFrom-Base64</dev:code>
         <dev:remarks>
@@ -2189,7 +2189,7 @@ PS C:\&gt; $res.items.payload | ConvertFrom-Base64</dev:code>
         </dev:remarks>
       </command:example>
       <command:example>
-        <maml:title>Example 2</maml:title>
+        <maml:title>-------------------------- Example 2 --------------------------</maml:title>
         <dev:code>PS C:\&gt; Get-GRRFlowResult -ComputerName host -Credential $cred -FlowId F:11111111 -OnlyPayload</dev:code>
         <dev:remarks>
           <maml:para>Get the flow results and decode the base64 encoded payload directly.</maml:para>
@@ -2480,14 +2480,14 @@ PS C:\&gt; $res.items.payload | ConvertFrom-Base64</dev:code>
     </maml:alertSet>
     <command:examples>
       <command:example>
-        <maml:title>Example 1</maml:title>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
         <dev:code>PS C:\&gt; Get-GRRHunt -Credential $cred | select -First 1</dev:code>
         <dev:remarks>
           <maml:para>Find last hunt id. You can use all the filtering from PowerShell. Each hunt is represented as an own PowerShell object. The disadvantage of this POST-filtering is that the command first returns every hunt. See next example to use a PRE-filtering.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
-        <maml:title>Example 2</maml:title>
+        <maml:title>-------------------------- Example 2 --------------------------</maml:title>
         <dev:code>PS C:\&gt; Get-GRRHunt -Credential $cred -Count 5</dev:code>
         <dev:remarks>
           <maml:para>Find last 5 hunt id. You can use all the filtering from PowerShell. Each hunt is represented as an own PowerShell object. The advantage of this usage is that GRR server filters the hunts on the server before returning the response.</maml:para>
@@ -2740,7 +2740,7 @@ PS C:\&gt; $res.items.payload | ConvertFrom-Base64</dev:code>
     </maml:alertSet>
     <command:examples>
       <command:example>
-        <maml:title>Example 1</maml:title>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
         <dev:code>PS C:\&gt; Get-GRRHuntApproval -Credential $cred -Count 1
 
 notified_users     : {user}
@@ -2756,7 +2756,7 @@ subject            : @{...}</dev:code>
         </dev:remarks>
       </command:example>
       <command:example>
-        <maml:title>Example 2</maml:title>
+        <maml:title>-------------------------- Example 2 --------------------------</maml:title>
         <dev:code>PS C:\&gt; Get-GRRHuntApproval -Credential $cred
 
 notified_users     : {user}
@@ -2774,7 +2774,7 @@ subject            : @{...}
         </dev:remarks>
       </command:example>
       <command:example>
-        <maml:title>Example 3</maml:title>
+        <maml:title>-------------------------- Example 3 --------------------------</maml:title>
         <dev:code>PS C:\&gt; Get-GRRHuntApproval -Credential $cred -HuntId H:11111111 -ApprovalId approval:AAAAAAAA
 
 notified_users     : {user}
@@ -2790,7 +2790,7 @@ subject            : @{...}</dev:code>
         </dev:remarks>
       </command:example>
       <command:example>
-        <maml:title>Example 4</maml:title>
+        <maml:title>-------------------------- Example 4 --------------------------</maml:title>
         <dev:code>PS C:\&gt; PS&gt; Get-GRRHuntApproval -Credential $cred -HuntId H:11111111 -ApprovalId approval:AAAAAAAA -OnlyState
 False</dev:code>
         <dev:remarks>
@@ -2945,7 +2945,7 @@ False</dev:code>
     </maml:alertSet>
     <command:examples>
       <command:example>
-        <maml:title>Example 1</maml:title>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
         <dev:code>PS C:\&gt; Get-GRRHuntInfo "H:AAAAAAAA" -Credential $cred</dev:code>
         <dev:remarks>
           <maml:para>Read the hunt infos based on a hunt id.</maml:para>
@@ -3076,7 +3076,7 @@ False</dev:code>
     </maml:alertSet>
     <command:examples>
       <command:example>
-        <maml:title>Example 1</maml:title>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
         <dev:code>PS C:\&gt; $res = Get-GRRHuntResult -HuntId H:AAAAAAAA -Credential $creds
 PS C:\&gt; ($res.items.payload.stat_entry.aff4path).substring(31) | sort -u
 PS C:\&gt; $res.items.client_id | sort -u</dev:code>
@@ -3185,14 +3185,14 @@ PS C:\&gt; $res.items.client_id | sort -u</dev:code>
     </maml:alertSet>
     <command:examples>
       <command:example>
-        <maml:title>Example 1</maml:title>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
         <dev:code>PS C:\&gt; Get-GRRLabel -Credential $creds</dev:code>
         <dev:remarks>
           <maml:para>Return every label which is available in GRR.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
-        <maml:title>Example 2</maml:title>
+        <maml:title>-------------------------- Example 2 --------------------------</maml:title>
         <dev:code>PS C:\&gt; Get-GRRLabel -Credential $creds | sls osx</dev:code>
         <dev:remarks>
           <maml:para>Return every available label which contains "osx".</maml:para>
@@ -3277,7 +3277,7 @@ PS C:\&gt; $res.items.client_id | sort -u</dev:code>
     </maml:alertSet>
     <command:examples>
       <command:example>
-        <maml:title>Example 1</maml:title>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
         <dev:code>PS C:\&gt; Get-GRRSession -Credential $cred</dev:code>
         <dev:remarks>
           <maml:para>Gets a new GRR session and obtains the headers and the CSRF token.</maml:para>
@@ -3513,28 +3513,28 @@ PS C:\&gt; $res.items.client_id | sort -u</dev:code>
     </maml:alertSet>
     <command:examples>
       <command:example>
-        <maml:title>Example 1</maml:title>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
         <dev:code>PS C:\&gt; Invoke-GRRFlow -ComputerName host1 -Credential $cred -Flow FileFinder -path "C:\test.exe" -actiontype hash</dev:code>
         <dev:remarks>
           <maml:para>Start a new file finder flow.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
-        <maml:title>Example 2</maml:title>
+        <maml:title>-------------------------- Example 2 --------------------------</maml:title>
         <dev:code>PS C:\&gt; Invoke-GRRFlow -ComputerName host1 -Credential $cred -Flow FileFinder -path "C:\Files\*" -actiontype hash -ConditionType Literal -SearchString "GRR"</dev:code>
         <dev:remarks>
           <maml:para>Start a new file finder flow and use the literal condition.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
-        <maml:title>Example 3</maml:title>
+        <maml:title>-------------------------- Example 3 --------------------------</maml:title>
         <dev:code>PS C:\&gt; Invoke-GRRFlow -ComputerName host1 -Credential $cred -Flow FileFinder -path "C:\Files\*" -actiontype hash -ConditionType Regex -SearchString ".*GRR.*"</dev:code>
         <dev:remarks>
           <maml:para>Start a new file finder flow and use the regex condition.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
-        <maml:title>Example 4</maml:title>
+        <maml:title>-------------------------- Example 4 --------------------------</maml:title>
         <dev:code>Invoke-GRRFlow -Flow YaraProcessScan -ComputerName host1 -Credential $cred -YaraSignatureFile $FilePathToYaraRule</dev:code>
         <dev:remarks>
           <maml:para>Start a Yara scan on the specific host with the provided Yara rule.</maml:para>
@@ -3909,7 +3909,7 @@ PS C:\&gt; $res.items.client_id | sort -u</dev:code>
     </maml:alertSet>
     <command:examples>
       <command:example>
-        <maml:title>Example 1</maml:title>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
         <dev:code>PS C:\&gt; Invoke-GRRRequest -Url "/hunts/$HuntId" -Credential $Credential</dev:code>
         <dev:remarks>
           <maml:para>Use the corresponding API endpoint to get the hunt info.</maml:para>
@@ -4157,7 +4157,7 @@ PS C:\&gt; $res.items.client_id | sort -u</dev:code>
     </maml:alertSet>
     <command:examples>
       <command:example>
-        <maml:title>Example 1</maml:title>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
         <dev:code>PS C:\&gt; New-GRRClientApproval -Credential $cred -NotifiedUsers firstname.lastname -Reason "the reason for that approval" -OnlyId -ComputerName host</dev:code>
         <dev:remarks>
           <maml:para>Creates a new approval for that specific host and notify the specified user.</maml:para>
@@ -4513,7 +4513,7 @@ PS C:\&gt; $res.items.client_id | sort -u</dev:code>
     </maml:alertSet>
     <command:examples>
       <command:example>
-        <maml:title>Example 1</maml:title>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
         <dev:code>PS C:\&gt; New-GRRHunt -Credential $cred -HuntDescription "Hunting for malicious launch agent" -Flow FileFinder -EmailAddress emailadress@for-notifications.tld -MatchMode MATCH_ALL -OnlyUrl -RuleType label -Label label1 -path "/Users/knockknock/Library/LaunchAgents/apple.evil.plist" -actiontype hash</dev:code>
         <dev:remarks>
           <maml:para>Create a new hunt and show only the URL after creating the hunt.</maml:para>
@@ -4761,7 +4761,7 @@ PS C:\&gt; $res.items.client_id | sort -u</dev:code>
     </maml:alertSet>
     <command:examples>
       <command:example>
-        <maml:title>Example 1</maml:title>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
         <dev:code>PS C:\&gt; New-GRRHuntApproval -Credential $cred -HuntId H:AAAAAAAA -NotifiedUsers username -Reason "Hunt for malicious files" -OnlyId</dev:code>
         <dev:remarks>
           <maml:para>Create a new hunt approval.</maml:para>
@@ -4938,7 +4938,7 @@ PS C:\&gt; $res.items.client_id | sort -u</dev:code>
     </maml:alertSet>
     <command:examples>
       <command:example>
-        <maml:title>Example 1</maml:title>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
         <dev:code>PS C:\&gt; Remove-GRRArtifact -Credential $cred -Artifact WindowsDNSNameServer
 
 status
@@ -4949,7 +4949,7 @@ OK</dev:code>
         </dev:remarks>
       </command:example>
       <command:example>
-        <maml:title>Example 2</maml:title>
+        <maml:title>-------------------------- Example 2 --------------------------</maml:title>
         <dev:code>PS&gt; Remove-GRRArtifact -Credential $cred -Artifact WindowsDNSNameServer,WindowsDNSNameServer2v
 WARNUNG: Skipping artifact 'WindowsDNSNameServer2v' because it is not defined in GRR.
 
@@ -5155,7 +5155,7 @@ OK</dev:code>
     </maml:alertSet>
     <command:examples>
       <command:example>
-        <maml:title>Example 1</maml:title>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
         <dev:code>PS C:\&gt; Remove-GRRLabel -ComputerName host1, host2 -Label label1 -Credential $creds
 PS C:\&gt; "host1", "host2" | Remove-GRRLabel -Label label1 -Credential $creds</dev:code>
         <dev:remarks>
@@ -5163,7 +5163,7 @@ PS C:\&gt; "host1", "host2" | Remove-GRRLabel -Label label1 -Credential $creds</
         </dev:remarks>
       </command:example>
       <command:example>
-        <maml:title>Example 2</maml:title>
+        <maml:title>-------------------------- Example 2 --------------------------</maml:title>
         <dev:code>PS C:\&gt; Remove-GRRLabel -ComputerName (Find-GRRClient -SearchString keyword -Credential $cred -OnlyNode) -Label test5,test3 -Credential $creds</dev:code>
         <dev:remarks>
           <maml:para>Use the GRR search to find specific clients on which both labels should be removed.</maml:para>
@@ -5364,7 +5364,7 @@ PS C:\&gt; "host1", "host2" | Remove-GRRLabel -Label label1 -Credential $creds</
     </maml:alertSet>
     <command:examples>
       <command:example>
-        <maml:title>Example 1</maml:title>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
         <dev:code>PS C:\&gt; Set-GRRLabel -ComputerName host1, host2 -Label label1 -Credential $creds
 PS C:\&gt; "host1", "host2" | Set-GRRLabel -Label label1 -Credential $creds</dev:code>
         <dev:remarks>
@@ -5372,7 +5372,7 @@ PS C:\&gt; "host1", "host2" | Set-GRRLabel -Label label1 -Credential $creds</dev
         </dev:remarks>
       </command:example>
       <command:example>
-        <maml:title>Example 2</maml:title>
+        <maml:title>-------------------------- Example 2 --------------------------</maml:title>
         <dev:code>PS C:\&gt; Set-GRRLabel -ComputerName (Find-GRRClient -SearchString keyword -Credential $cred -OnlyNode) -Label test5,test3 -Credential $creds</dev:code>
         <dev:remarks>
           <maml:para>Use the GRR search to find specific clients which should be labeled.</maml:para>
@@ -5620,21 +5620,21 @@ PS C:\&gt; "host1", "host2" | Set-GRRLabel -Label label1 -Credential $creds</dev
     </maml:alertSet>
     <command:examples>
       <command:example>
-        <maml:title>Example 1</maml:title>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
         <dev:code>PS C:\&gt; Start-GRRHunt -Credential $cred -HuntId H:AAAAAAAA</dev:code>
         <dev:remarks>
           <maml:para>Start the specific hunt. Approval must be granted before.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
-        <maml:title>Example 2</maml:title>
+        <maml:title>-------------------------- Example 2 --------------------------</maml:title>
         <dev:code>Start-GRRHunt -HuntId $huntid -Credential $cred -Wait -ApprovalId $approval -TimeoutInMinutes 15 -Verbose</dev:code>
         <dev:remarks>
           <maml:para>Start the specific hunt and wait until given approval gets valid.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
-        <maml:title>Example 3</maml:title>
+        <maml:title>-------------------------- Example 3 --------------------------</maml:title>
         <dev:code>Start-GRRHunt -Credential $cred -HuntId $hunt -Wait -ApprovalId (New-GRRHuntApproval -Credential $cred -HuntId $hunt -NotifiedUsers user.name -Reason "Reason for that hunt approval" -OnlyId)</dev:code>
         <dev:remarks>
           <maml:para>Start the specific hunt and wait until given approval gets valid. Use both commands, the start and the approval in on command.</maml:para>
@@ -5811,7 +5811,7 @@ PS C:\&gt; "host1", "host2" | Set-GRRLabel -Label label1 -Credential $creds</dev
     </maml:alertSet>
     <command:examples>
       <command:example>
-        <maml:title>Example 1</maml:title>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
         <dev:code>PS C:\&gt; Stop-GRRHunt -Credential $cred -HuntId H:7D5E2318</dev:code>
         <dev:remarks>
           <maml:para>Stop the specific hunt.</maml:para>
@@ -6060,7 +6060,7 @@ PS C:\&gt; "host1", "host2" | Set-GRRLabel -Label label1 -Credential $creds</dev
     </maml:alertSet>
     <command:examples>
       <command:example>
-        <maml:title>Example 1</maml:title>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
         <dev:code>PS C:\&gt; Wait-GRRClientApproval -ComputerName host -Credential $cred -ApprovalId "approval:AAAAAAAA" -TimeoutInMinutes 1</dev:code>
         <dev:remarks>
           <maml:para>Wait for that specific approval to get valid. Wait 1 minute otherwise exit the wait.</maml:para>
@@ -6309,14 +6309,14 @@ PS C:\&gt; "host1", "host2" | Set-GRRLabel -Label label1 -Credential $creds</dev
     </maml:alertSet>
     <command:examples>
       <command:example>
-        <maml:title>Example 1</maml:title>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
         <dev:code>PS C:\&gt; Wait-GRRHuntApproval -Credential $cred -HuntId "H:AAAAAAAA" -ApprovalId "approval:AAAAAAAA" -Timeout 10</dev:code>
         <dev:remarks>
           <maml:para>Wait 10 minutes for the hunt approval to get valid.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
-        <maml:title>Example 2</maml:title>
+        <maml:title>-------------------------- Example 2 --------------------------</maml:title>
         <dev:code>PS C:\&gt; Wait-GRRHuntApproval -Credential $cred -HuntId "H:AAAAAAAA" -ApprovalId "approval:AAAAAAAA" -Timeout 10 -StartHuntAfterApproval</dev:code>
         <dev:remarks>
           <maml:para>Wait 10 minutes for the hunt approval to get valid. Start the hunt after the approval got valid.</maml:para>

@@ -158,7 +158,7 @@ Function Get-GRRComputerNameFromClientId()
                     $item = $ret.items
 
                     $info=[ordered]@{
-                        ComputerName=$item.os_info.node
+                        ComputerName=$item.os_info.fqdn
                         ClientId=$item.urn.substring(6)
                         LastSeenAt=$(ConvertFrom-EpocTime ($item.last_seen_at).toString().Insert(10,"."))
                         OSVersion=$item.os_info.kernel
@@ -254,7 +254,7 @@ function Get-GRRClientInfo()
                     foreach ($item in $res.items)
                     {
                         $info=[ordered]@{
-                            ComputerName=$( if($item.os_info) { $item.os_info.node } )
+                            ComputerName=$( if($item.os_info) { $item.os_info.fqdn } )
                             ClientId=$item.urn.substring(6)
                             InstallationDate=$(ConvertFrom-EpocTime ($item.os_info.install_date).toString().Insert(10,"."))
                             LastSeenAt=$(ConvertFrom-EpocTime ($item.last_seen_at).toString().Insert(10,"."))
@@ -346,7 +346,7 @@ Function Get-GRRClientIdFromComputerName()
                     foreach ($item in $res.items)
                     {
                         $info=[ordered]@{
-                            ComputerName=$item.os_info.node
+                            ComputerName=$item.os_info.fqdn
                             ClientId=$item.urn.substring(6)
                             LastSeenAt=$(ConvertFrom-EpocTime ($item.last_seen_at).toString().Insert(10,"."))
                             OSVersion=$item.os_info.kernel
@@ -424,7 +424,7 @@ Function Find-GRRClient()
         {
             if ($ret -and ($ret.PSobject.Properties.name -match "items") -and $ret.items)
             {
-                $ret.items.os_info.node
+                $ret.items.os_info.fqdn
             }
         }
         else
@@ -469,7 +469,7 @@ Function Find-GRRClientByLabel()
     {
         if ($ret -and $ret.items)
         {
-            $ret.items.os_info.node
+            $ret.items.os_info.fqdn
         }
     }
     else

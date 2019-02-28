@@ -7,7 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased](https://github.com/swisscom/powergrr/compare/v0.9.0...master)
 <!--
 ### Added
+-->
 ### Changed
+* Change computer name field name from "node" to "fqdn" for newer GRR versions
+<!--
 ### Fixed
 ### Deprecated
 ### Removed

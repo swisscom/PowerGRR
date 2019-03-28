@@ -1,7 +1,7 @@
 <#
 MIT License
 
-Copyright (c) 2017,2018 Swisscom (Schweiz) AG
+Copyright (c) 2017,2018,2019 Swisscom (Schweiz) AG
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -260,7 +260,7 @@ function Get-GRRClientInfo()
                             LastSeenAt=$(ConvertFrom-EpocTime ($item.last_seen_at).toString().Insert(10,"."))
                             OSVersion=$( if($item.os_info) { $item.os_info.kernel } )
                             GRRClientVersion=$item.agent_info.client_version
-                            UserNames=$( if($item.users) { $item.users.username } )
+                            UserNames=$( if($item -and ($item.PSobject.Properties.name -match "users")) { $item.users.username } )
                             Labels=$( if($item.labels) { $item.labels.name } )
                         }
 

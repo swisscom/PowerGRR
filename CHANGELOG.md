@@ -10,8 +10,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 -->
 ### Changed
 * Change computer name field name from "node" to "fqdn" for newer GRR versions
-<!--
 ### Fixed
+* Fix issue with empty usernames in client info
+<!--
 ### Deprecated
 ### Removed
 ### Security

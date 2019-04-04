@@ -4,19 +4,21 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) 
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## [Unreleased](https://github.com/swisscom/powergrr/compare/v0.9.0...master)
+## [Unreleased](https://github.com/swisscom/powergrr/compare/v0.9.1...master)
 <!--
 ### Added
--->
 ### Changed
-* Change computer name field name from "node" to "fqdn" for newer GRR versions
 ### Fixed
-* Fix issue with empty usernames in client info
-<!--
+### Security
 ### Deprecated
 ### Removed
-### Security
 -->
+
+## [v0.9.1](https://github.com/swisscom/powergrr/compare/v0.9.0...v0.9.1) - 2019-04-04
+
+Fix API field name for computer name from "node" to "fqdn" which was changed in
+newer GRR versions. Furthermore, fix issue when usernames are missing in client
+info (`Get-GRRClientInfo`).
 
 ## [v0.9.0](https://github.com/swisscom/powergrr/compare/v0.8.0...v0.9.0) - 2018-05-19
 

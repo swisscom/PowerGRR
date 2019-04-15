@@ -1,7 +1,7 @@
 <#
 MIT License
 
-Copyright (c) 2017,2018,2019 Swisscom (Schweiz) AG
+Copyright (c) 2017-2019 Swisscom (Schweiz) AG
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -1813,6 +1813,90 @@ function Invoke-GRRFlow()
 } # Invoke-GRRFlow
 
 
+function Get-GRRFlowInfo()
+{
+    param(
+        [parameter(ValueFromPipeline=$True, Mandatory=$true)]
+        [string]
+        $ComputerName,
+
+        [System.Management.Automation.PSCredential]
+        [System.Management.Automation.Credential()]
+        $Credential = (Get-GRRCredential),
+
+        [string]
+        [Parameter(Mandatory=$true)]
+        $FlowId,
+
+        [switch]
+        $ShowJSON
+    )
+
+    Begin {
+        $Function = $MyInvocation.MyCommand
+        Write-Verbose "$Function Entering $Function"
+        $ret = ""
+    }
+
+    Process {
+        Write-Progress -Activity "Running $Function"
+
+        $params = @{
+            'ComputerName' = $ComputerName;
+            'Credential' = $Credential
+            'OnlyLastSeen' = $true
+        }
+
+        $ClientId = Get-GRRClientIdFromComputerName @params
+        if ($ClientId)
+        {
+            $ClientId = $ClientId.ClientId
+
+            $params =  @{
+                'Url' = "/clients/$ClientId/flows/$FlowId";
+                'Credential' = $Credential
+            }
+
+            $ret = Invoke-GRRRequest @params -ShowJSON:$PSBoundParameters.containskey('ShowJSON')
+        }
+        else
+        {
+            Write-warning "No ClientId found for $ComputerName"
+        }
+    } # process
+
+    End {
+        if ($ret)
+        {
+            if ($PSBoundParameters.containskey('ShowJSON'))
+            {
+                $ret | ConvertTo-Json
+            }
+            else
+            {
+                $info=[ordered]@{
+                    FlowID=$ret.flow_id
+                    Creator=$ret.creator
+                    Name=$ret.name
+                    Args=$ret.args
+                    State=$ret.state
+                    StartetAt=$(ConvertFrom-EpocTime ($ret.started_at).toString().Insert(10,"."))
+                    LastActiveAt=$(ConvertFrom-EpocTime ($ret.last_active_at).toString().Insert(10,"."))
+                    ComputerName=$ComputerName
+                    ClientId=$ret.client_id
+                    Context=$ret.context
+                }
+
+                New-Object PSObject -Property $info
+            }
+        }
+
+        Write-Verbose "$Function Leaving $Function"
+    }
+
+} # Get-GRRFlowInfo
+
+
 function Get-GRRFlowResult()
 {
     param(
@@ -3044,7 +3128,8 @@ Export-ModuleMember @(
     'Wait-GRRHuntApproval',
     'Wait-GRRClientApproval',
     'Get-GRRClientInfo',
-    'ConvertFrom-EpocTime'
+    'ConvertFrom-EpocTime',
+    'Get-GRRFlowInfo'
 )
 
 #endregion

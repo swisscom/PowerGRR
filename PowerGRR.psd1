@@ -99,7 +99,8 @@ FunctionsToExport = @(
     'Wait-GRRHuntApproval',
     'Wait-GRRClientApproval',
     'Get-GRRClientInfo',
-    'ConvertFrom-EpocTime'
+    'ConvertFrom-EpocTime',
+    'Get-GRRFlowInfo'
     )
 
 # Cmdlets to export from this module

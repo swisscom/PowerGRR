@@ -5,9 +5,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased](https://github.com/swisscom/powergrr/compare/v0.9.1...master)
-<!--
 ### Added
+* Add `Get-GRRFlowInfo` for reading flow state and general flow information.
+   This is the counterpart for `Get-GRRHuntInfo` which already exists.
 ### Changed
+* Update markdown and PowerShell help
+<!--
 ### Fixed
 ### Security
 ### Deprecated

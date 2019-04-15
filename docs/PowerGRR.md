@@ -53,6 +53,9 @@ Get the current PowerGRR config.
 ### [Get-GRRFlowDescriptor](Get-GRRFlowDescriptor.md)
 Get a list of all available flows.
 
+### [Get-GRRFlowInfo](Get-GRRFlowInfo.md)
+Read informationen and state for specific flow.
+
 ### [Get-GRRFlowResult](Get-GRRFlowResult.md)
 Get flow results for a specific client and a flow.
 

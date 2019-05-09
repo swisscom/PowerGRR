@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
    This is the counterpart for `Get-GRRHuntInfo` which already exists.
 ### Changed
 * Update markdown and PowerShell help
+* Improve time handling in `ConvertFrom-EpocTime`
 <!--
 ### Fixed
 ### Security

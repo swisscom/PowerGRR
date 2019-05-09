@@ -2442,8 +2442,13 @@ Function ConvertFrom-EpocTime()
     Process
     {
         $UnixTime | ForEach-Object {
+            $time = $_
+            if ($time.tostring().Length -gt 10 -and -not $time.tostring().Contains(".") )
+            {
+                [long]$time = $time.toString().Insert(10,".")
+            }
             $epoch = New-Object System.DateTime (1970, 1, 1, 0, 0, 0, [System.DateTimeKind]::Utc)
-            $epoch.AddSeconds($_)
+            $epoch.AddSeconds($time)
         }
     }
 } # ConvertFrom-EpocTime

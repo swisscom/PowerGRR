@@ -11,11 +11,6 @@ Please see [Command Documentation](docs/PowerGRR.md), [Wiki](https://github.com/
 <!-- vim-markdown-toc GFM -->
 
 * [What is PowerGRR?](#what-is-powergrr)
-* [Requirements](#requirements)
-    * [GRR server](#grr-server)
-    * [PowerShell](#powershell)
-    * [Certificate authentication](#certificate-authentication)
-    * [Known issues on non-Windows platforms](#known-issues-on-non-windows-platforms)
 * [Installation](#installation)
 * [Configuration](#configuration)
 * [Usage](#usage)
@@ -31,22 +26,15 @@ Please see [Command Documentation](docs/PowerGRR.md), [Wiki](https://github.com/
 
 ## What is PowerGRR? 
 
-PowerGRR is a **PowerShell module for working with the
+PowerGRR is a **PowerShell module for the
 [GRR](https://github.com/google/grr) API working on Windows, macOS and
 Linux**. GRR Rapid Response is an incident response framework focused on
-remote live forensics. The module allows working with flows, hunts, labels,
+remote live forensics. PowerGRR allows working with flows, hunts, labels,
 artifacts, approvals and the search feature. Furthermore, it allows **working
 with the computer names instead of the GRR internal client id**. This makes
 handling and working with other tools more easy because often you just have
 the computer names. PowerGRR also enables you to easily document your work in
 text form which is then directly reusable by others.
-
-PowerGRR creates a comfortable, cli-based workflow for incident response.
-PowerShell is installed on every Windows workstation and working directly with
-PowerShell objects enables you to sift quickly through flow and hunt data.
-This object-oriented approach gives you a fast way to analyze output
-within PowerShell, e.g. get all unique registry paths from a hunt or show a
-list of unique clients where a file was found.
 
 Some of the use cases where PowerGRR could speed up the work:
 * Start a flow on one or multiple clients and get flow results as PowerShell
@@ -67,80 +55,6 @@ is chosen based on labels or the OS. See also [command
 help](https://github.com/swisscom/PowerGRR/blob/master/docs/Invoke-GRRFlow.md#-flow)
 for the available flow types.
 * Netstat, ListProcesses, FileFinder, RegistryFinder, ExecutePythonHack, ArtifactCollectorFlow, YaraProcessScan
-
-**Repo Structure**
-
-| Name              | Description                                                        |
-| ----------------  | ------------------------------------------------------------------ |
-| docs\             | Markdown documentation                                             |
-| en-us\            | With playPS created PowerShell helpfile (use `help <command>`)     |
-| test\             | Pester tests (for using with Invoke-Pester)                        |
-| BUILD.md          | Build instructions for ctags, playPS and Pester                    |
-| CHANGELOG.md      | Changelog of the project                                           |
-| PowerGRR.psd1     | PowerGRR module description                                        |
-| PowerGRR.psm1     | PowerGRR module file                                               |
-| tags              | ctags file for PowerGRR                                            |
-
-## Requirements
-
-### GRR server
-
-To be able to use all PowerGRR commands, one must use the current version of GRR.
-Some API calls, like starting a hunt or uploading or removing an artifact, are only
-working with current versions of GRR and not with the previous versions.
-
-### PowerShell
-
-Windows PowerShell or [PowerShell
-Core](https://github.com/PowerShell/powershell) is required in order to run
-PowerGRR. See [PowerShell](https://msdn.microsoft.com/en-us/powershell) for
-more information about PowerShell itself.
-
-Windows has Windows PowerShell installed by default - so nothing to do here. 
-
-For **macOS and Linux see [PowerShell Package installation
-instructions](https://github.com/PowerShell/PowerShell/blob/master/docs/installation/linux.md)**
-for information about how to get PowerShell Core installed. The installation is
-fast and for most OSes there are ready to use packages and available
-installation commands.
-
-### Certificate authentication
-
-If you are using certificate authentication, a PKCS12 certificate is required. You can
-convert your existing certificate with the following openssl command:
-
-```
-openssl pkcs12 -export -in example.crt -inkey example.key -out certificate.p12
-```
-
-* Use the Windows certificate store and add a config option for the certificate 
-issuer which certificate should be used
-* Use client certificate files with the corresponding config option. Client certificate 
-authentication with files works with _Windows PowerShell_ and since _v6.0.0-beta.6 
-with PowerShell Core_ (@markekraus made the needed pull request - [#4546](https://github.com/PowerShell/PowerShell/pull/4546)).
-
-If you are using certificate authentication with PowerShell Core on macOS, 
-please see paragraph **Client certificate authentication using
-PowerShell Core** _in section [Known issues on non-Windows
-platforms](#known-issues-on-non-windows-platforms)_ below for further
-information.
-
-### Known issues on non-Windows platforms
-
-Despite GRR related commands were tested on PowerShell Core on different OSes
-(Windows, Linux, macOS), some issues exist on non-Windows platforms. _If you
-run into other troubles with PowerShell Core or with non-Windows platforms,
-please file an issue._
-
-**PowerShell help**
-
-The PowerShell help examples (`help <command> -Examples`) are not shown in
-Ubuntu 16.04. See issue [#9](https://github.com/swisscom/PowerGRR/issues/9).
-
-**Client certificate authentication using PowerShell Core**
-
-The client certificate authentication on macOS is currently not supported 
-in PowerShell Core release packages on Github (see PowerShell Core issue [#4650](https://github.com/PowerShell/PowerShell/issues/4650)).
 
 ## Installation
 
@@ -185,10 +99,7 @@ in PowerShell Core release packages on Github (see PowerShell Core issue [#4650]
    * **[OPTIONAL]** _$GRRClientCertIssuer_:  If set, the client certificate
                     from the Windows cert store signed by the given issuer is used.
    * **[OPTIONAL]** _$GRRClientCertFilePath_: If set, the client certificate
-                   file is used for the authentication. If you are using
-                   PowerShell Core see section [certificate
-                   authentication](#certificate-authentication) in
-                   requirements above.
+                   file is used for the authentication.
 
 It's also possible to set these variables in the console.
 
@@ -238,9 +149,7 @@ $GRRCredential = Microsoft.PowerShell.Security\get-credential
 ```
 
 2. If you use client certificate authentication set the corresponding config
-variable as described in [Configuration](#configuration) above. If you are
-using PowerShell Core see section [certificate
-authentication](#certificate-authentication) in requirements above.
+variable as described in [Configuration](#configuration) above.
 
 ### Cmdlets
 

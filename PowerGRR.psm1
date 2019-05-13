@@ -38,53 +38,46 @@ $ErrorMessageMissingConfiguration = "No configuration file was found. Create a '
 Function Get-GRRHuntInfo()
 {
     param(
-        [string]
-        $HuntId = $(throw "Provide a hunt id with -HuntId"),
+        [parameter(ValueFromPipeline=$True)]
+        [string[]]
+        $HuntId,
 
         [System.Management.Automation.PSCredential]
         [System.Management.Automation.Credential()]
         $Credential = (Get-GRRCredential),
 
         [switch]
-        $ShowResultCount,
-
-        [switch]
         $ShowJSON
     )
 
-    $Function = $MyInvocation.MyCommand
-    Write-Verbose "$Function Entering $Function"
+    Begin {
+        $Function = $MyInvocation.MyCommand
 
-    Write-Progress -Activity "Running $Function"
+        Write-Verbose "$Function Entering $Function"
+        Write-Progress -Activity "Running $Function"
 
-    $Info = Invoke-GRRRequest -Url "/hunts/$HuntId" -Credential $Credential -ShowJSON:$PSBoundParameters.containskey('ShowJSON')
-
-    if ($Info)
-    {
-        if ($ShowResultCount)
-        {
-            $Results =  Get-GRRHuntResult $HuntId -Credential $Credential
-
-            if ($PSBoundParameters.containskey('ShowJSON'))
-            {
-                $Info = $Info.substring(5) | ConvertFrom-Json
-            }
-
-            if ($Results -and $Results.PSobject.Properties.name -match "total_count")
-            {
-                add-member -InputObject $Info -MemberType NoteProperty -Name "total_results" -value $Results.total_count
-            }
-
-            if ($PSBoundParameters.containskey('ShowJSON'))
-            {
-                $Info = $Info | ConvertTo-Json
-            }
-        }
-
-        $Info
+        $output = @()
     }
 
-    Write-Verbose "$Function Leaving $Function"
+    Process {
+        foreach ($Hunt in $HuntId)
+        {
+            Write-Progress -Activity "Running $Function for hunt $Hunt"
+            Write-Verbose "Processing $Hunt"
+
+            $params = @{
+                'Url' = "/hunts/$Hunt";
+                'Credential' = $Credential
+            }
+
+            $output += Invoke-GRRRequest @params -ShowJSON:$PSBoundParameters.containskey('ShowJSON')
+        }
+    }
+
+    End {
+        $output
+        Write-Verbose "$Function Leaving $Function"
+    }
 } # Get-GRRHuntInfo
 
 

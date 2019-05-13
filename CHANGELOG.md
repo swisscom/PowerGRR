@@ -8,6 +8,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 * Add `Get-GRRFlowInfo` for reading flow state and general flow information.
    This is the counterpart for `Get-GRRHuntInfo` which already exists.
+* Add pipeline support and allow using multiple hunt ids when calling
+   `Get-GRRHuntInfo`.
 ### Changed
 * Update markdown and PowerShell help
 * Improve time handling in `ConvertFrom-EpocTime`

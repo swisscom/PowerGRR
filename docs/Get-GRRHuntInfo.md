@@ -29,6 +29,22 @@ PS C:\> Get-GRRHuntInfo "H:AAAAAAAA" -Credential $cred
 
 Read the hunt infos based on a hunt id.
 
+### Example 2
+```
+PS C:\> "H:AAAAAAAA" | Get-GRRHuntInfo | select description, all_clients_count, completed_clients_count, remaining_clients_count, clients_queued_count, clients_with_results_count, results_count | fl
+```
+
+Use pipeline to get hunt info and the credentials from the variable
+`$GRRCredential` are used without the need for `-Credential`.
+
+### Example 3
+```
+PS C:\> Get-GRRHuntInfo -HuntId H:AAAAAAAA, H:BBBBBBBB, H:CCCCCCCC | select description, all_clients_count, completed_clients_count, remaining_clients_count, clients_queued_count, clients_with_results_count, results_count | fl
+```
+
+Read all the hunt infos for all the given hunt ids and use the credentials
+from the variable `$GRRCredential` without the need for `-Credential`.
+
 ## PARAMETERS
 
 ### -Credential

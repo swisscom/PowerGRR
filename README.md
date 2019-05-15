@@ -2,7 +2,7 @@
 
 # PowerGRR - PowerShell Module for GRR API
 
-PowerGRR is a PowerShell module for working with the GRR API working on Windows, macOS and Linux. 
+PowerGRR is an API client library in PowerShell working on Windows, Linux and macOS for GRR automation and scripting.
 
 Please see [Command Documentation](docs/PowerGRR.md), [Wiki](https://github.com/swisscom/PowerGRR/wiki) and
 [CHANGELOG](CHANGELOG.md).

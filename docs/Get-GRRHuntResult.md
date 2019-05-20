@@ -24,7 +24,7 @@ Get hunt results for a specific hunt.
 ### Example 1
 ```
 PS C:\> $res = Get-GRRHuntResult -HuntId H:AAAAAAAA -Credential $creds
-PS C:\> ($res.items.payload.stat_entry.aff4path).substring(31) | sort -u
+PS C:\> ($res.items.payload.stat_entry.pathspec.path).substring(31) | sort -u
 PS C:\> $res.items.client_id | sort -u
 ```
 

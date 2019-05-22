@@ -304,7 +304,7 @@ $ret.items.client_id | get-unique
 $ret.items.client_id | Get-GRRComputerNameFromClientId -Credential $cred | get-unique
 
 # Get unique file paths from a file finder hunt
-($ret.items.payload.stat_entry.pathspec.path).substring(31) | sort -u
+$ret.items.payload.stat_entry.pathspec.path | sort -u
 
 # Remove the label if you don't use it anymore
 $clients | Remove-GRRLabel -SearchString INC01 -$Credential $creds

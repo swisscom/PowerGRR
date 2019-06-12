@@ -3233,7 +3233,7 @@ False</dev:code>
       <command:example>
         <maml:title>-------------------------- Example 1 --------------------------</maml:title>
         <dev:code>PS C:\&gt; $res = Get-GRRHuntResult -HuntId H:AAAAAAAA -Credential $creds
-PS C:\&gt; ($res.items.payload.stat_entry.aff4path).substring(31) | sort -u
+PS C:\&gt; $res.items.payload.stat_entry.pathspec.path | sort -u
 PS C:\&gt; $res.items.client_id | sort -u</dev:code>
         <dev:remarks>
           <maml:para>Get hunt results based on a hunt id. Display all the unique file paths which were found with a file finder hunt. Only display the unique GRR client id's. then you can use `Get-GRRComputerNameByClientId` to display only the computer names.</maml:para>

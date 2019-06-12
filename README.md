@@ -123,6 +123,12 @@ $GRRClientCertIssuer = $( if ($GRRUrl -match "main") { "certificate issuer" } )
 
 ## Usage
 
+Use `command -<tab>` to tab between the available parameters or use 
+`command -<ctrl+space>` to display a list of all paremeters. Some commands 
+use dynamic parameters which are only available after selecting the main one, 
+e.g. in `Invoke-GRRFlow` first choose your flow type with `-Flow ...` and then
+the flow-specific parameters become available.
+
 ### Import
 
 If PowerGRR was saved inside the module path run the following command:
@@ -298,7 +304,7 @@ $ret.items.client_id | get-unique
 $ret.items.client_id | Get-GRRComputerNameFromClientId -Credential $cred | get-unique
 
 # Get unique file paths from a file finder hunt
-($ret.items.payload.stat_entry.aff4path).substring(31) | sort -u
+$ret.items.payload.stat_entry.pathspec.path | sort -u
 
 # Remove the label if you don't use it anymore
 $clients | Remove-GRRLabel -SearchString INC01 -$Credential $creds

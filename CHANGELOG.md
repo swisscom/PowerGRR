@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Changed
 * Update markdown and PowerShell help
 * Improve time handling in `ConvertFrom-EpocTime`
+* Improve string handling in `ConvertTo-Base64`
 <!--
 ### Fixed
 ### Security

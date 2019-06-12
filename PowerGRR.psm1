@@ -2793,7 +2793,7 @@ function ConvertTo-Base64()
 Function ConvertFrom-Base64()
 {
     param(
-        [Parameter(ValueFromPipeline=$True, Mandatory=$true)]
+        [Parameter(ValueFromPipeline=$True)]
         [string]
         $String,
 
@@ -2803,7 +2803,10 @@ Function ConvertFrom-Base64()
     )
 
     Process {
-        [System.Text.Encoding]::$($Encoding).GetString([System.Convert]::FromBase64String($String))
+        if ($String)
+        {
+            [System.Text.Encoding]::$($Encoding).GetString([System.Convert]::FromBase64String($String))
+        }
     }
 } # ConvertFrom-Base64
 

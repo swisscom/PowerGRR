@@ -103,11 +103,15 @@ for the available flow types.
 
 It's also possible to set these variables in the console.
 
-**Example Config**
+**Example Configs**
 
 ``` PowerShell
 $GRRUrl = "https://grrserver.tld"
-$GRRClientCertIssuer = "issuer of the certificate"
+```
+
+``` PowerShell
+$GRRUrl = "https://grrserver.tld"
+$GRRClientCertIssuer = "issuer of the certificate for client auth"
 ```
 
 If you want to get crazy you could even use a config file file looking

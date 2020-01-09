@@ -24,7 +24,7 @@ Author = 'Swisscom (Schweiz) AG'
 CompanyName = 'Swisscom (Schweiz) AG'
 
 # Copyright statement for this module
-Copyright = '(c) 2017-2019 Swisscom (Schweiz) AG'
+Copyright = '(c) 2017-2020 Swisscom (Schweiz) AG'
 
 # Description of the functionality provided by this module
 Description = 'The module allows the use of the GRR API from within PowerShell on Windows, macOS and Linux.'

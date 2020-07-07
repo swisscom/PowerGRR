@@ -1775,7 +1775,7 @@ function Invoke-GRRFlow()
                         $info=[ordered]@{
                             ComputerName=$client
                             ClientId=$ClientId
-                            FlowId=($temp.urn).Substring(31)
+                            FlowId=($temp.urn).Substring(25)
                         }
 
                         $ret += New-Object PSObject -Property $info

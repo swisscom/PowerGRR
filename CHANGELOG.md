@@ -14,8 +14,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 * Update markdown and PowerShell help
 * Improve time handling in `ConvertFrom-EpocTime`
 * Improve string handling in `ConvertTo-Base64`
-<!--
 ### Fixed
+* Fix flow ID return value in `Invoke-GRRFlow`
+<!--
 ### Security
 ### Deprecated
 ### Removed

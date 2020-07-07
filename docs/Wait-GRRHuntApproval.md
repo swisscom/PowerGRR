@@ -24,14 +24,14 @@ Wait for the hunt approval to get valid.
 
 ### Example 1
 ```
-PS C:\> Wait-GRRHuntApproval -Credential $cred -HuntId "H:AAAAAAAA" -ApprovalId "approval:AAAAAAAA" -Timeout 10
+PS C:\> Wait-GRRHuntApproval -Credential $cred -HuntId AAAAAAAA -ApprovalId 1111111111111111 -Timeout 10
 ```
 
 Wait 10 minutes for the hunt approval to get valid.
 
 ### Example 2
 ```
-PS C:\> Wait-GRRHuntApproval -Credential $cred -HuntId "H:AAAAAAAA" -ApprovalId "approval:AAAAAAAA" -Timeout 10 -StartHuntAfterApproval
+PS C:\> Wait-GRRHuntApproval -Credential $cred -HuntId AAAAAAAA -ApprovalId 1111111111111111 -Timeout 10 -StartHuntAfterApproval
 ```
 
 Wait 10 minutes for the hunt approval to get valid. Start the hunt after the

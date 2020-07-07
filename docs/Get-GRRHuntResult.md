@@ -23,7 +23,7 @@ Get hunt results for a specific hunt.
 
 ### Example 1
 ```
-PS C:\> $res = Get-GRRHuntResult -HuntId H:AAAAAAAA -Credential $creds
+PS C:\> $res = Get-GRRHuntResult -HuntId AAAAAAAA -Credential $creds
 PS C:\> $res.items.payload.stat_entry.pathspec.path | sort -u
 PS C:\> $res.items.client_id | sort -u
 ```

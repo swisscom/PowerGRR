@@ -24,7 +24,7 @@ Wait for the given client approval gets valid.
 
 ### Example 1
 ```
-PS C:\> Wait-GRRClientApproval -ComputerName host -Credential $cred -ApprovalId "approval:AAAAAAAA" -TimeoutInMinutes 1
+PS C:\> Wait-GRRClientApproval -ComputerName host -Credential $cred -ApprovalId 1111111111111111 -TimeoutInMinutes 1
 ```
 
 Wait for that specific approval to get valid. Wait 1 minute otherwise exit the

@@ -24,7 +24,7 @@ Get hunt info for a specific hunt.
 
 ### Example 1
 ```
-PS C:\> Get-GRRHuntInfo "H:AAAAAAAA" -Credential $cred
+PS C:\> Get-GRRHuntInfo "AAAAAAAA" -Credential $cred
 ```
 
 Read the hunt infos based on a hunt id.

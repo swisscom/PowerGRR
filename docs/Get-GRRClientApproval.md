@@ -44,7 +44,7 @@ reason             : INC01
 email_cc_addresses : {cc-email@your-domain.tld}
 is_valid           : False
 approvers          : {user}
-id                 : approval:AAAAAAAA
+id                 : 1111111111111111
 subject            : @{...}
 ```
 
@@ -53,11 +53,11 @@ for only returning the state.
 
 ### Example 2
 ```
-PS C:\> Get-GRRClientApproval -Credential $cred  -OnlyState -ComputerName host1 -ApprovalId approval:AAAAAAAA
+PS C:\> Get-GRRClientApproval -Credential $cred  -OnlyState -ComputerName host1 -ApprovalId 1111111111111111
 False
 ```
 
-Get the client approval for the host 'host1' and the approval id 'approval:AAAAAAAA'.
+Get the client approval for the host 'host1' and the approval id 1111111111111111.
 Use this command in a loop to wait until the approval is valid and you can continue with
 the desired actions.
 
@@ -71,7 +71,7 @@ reason             : INC01
 email_cc_addresses : {cc-email@your-domain.tld}
 is_valid           : False
 approvers          : {user}
-id                 : approval:AAAAAAAA
+id                 : 1111111111111111
 subject            : @{...}
 
 notified_users     : {user2}
@@ -80,7 +80,7 @@ reason             : INC02
 email_cc_addresses : {cc-email@your-domain.tld}
 is_valid           : False
 approvers          : {user2}
-id                 : approval:BBBBBBBB
+id                 : 2222222222222222
 subject            : @{...}
 ```
 

@@ -24,7 +24,7 @@ Create a new hunt approval.
 
 ### Example 1
 ```
-PS C:\> New-GRRHuntApproval -Credential $cred -HuntId H:AAAAAAAA -NotifiedUsers username -Reason "Hunt for malicious files" -OnlyId
+PS C:\> New-GRRHuntApproval -Credential $cred -HuntId AAAAAAAA -NotifiedUsers username -Reason "Hunt for malicious files" -OnlyId
 ```
 
 Create a new hunt approval.

@@ -31,7 +31,7 @@ Start a GRR hunt based on the hunt id.
 
 ### Example 1
 ```
-PS C:\> Start-GRRHunt -Credential $cred -HuntId H:AAAAAAAA
+PS C:\> Start-GRRHunt -Credential $cred -HuntId AAAAAAAA
 ```
 
 Start the specific hunt. Approval must be granted before.

@@ -43,7 +43,7 @@ reason             : Hunting for malicious binaries
 email_cc_addresses : {email@domain.tld}
 is_valid           : False
 approvers          : {}
-id                 : approval:AAAAAAAA
+id                 : 1111111111111111
 subject            : @{...}
 ```
 
@@ -59,7 +59,7 @@ reason             : Hunting for malicious binaries
 email_cc_addresses : {email@domain.tld}
 is_valid           : False
 approvers          : {}
-id                 : approval:AAAAAAAA
+id                 : 2222222222222222
 subject            : @{...}
 
 ...
@@ -69,7 +69,7 @@ Return all hunt approval requests. Use PowerShell to filter them as needed.
 
 ### Example 3
 ```
-PS C:\> Get-GRRHuntApproval -Credential $cred -HuntId H:11111111 -ApprovalId approval:AAAAAAAA
+PS C:\> Get-GRRHuntApproval -Credential $cred -HuntId 11111111 -ApprovalId 1111111111111111
 
 notified_users     : {user}
 is_valid_message   : Requires 2 approvers for access.
@@ -77,7 +77,7 @@ reason             : Hunting for malicious binaries
 email_cc_addresses : {email@domain.tld}
 is_valid           : False
 approvers          : {}
-id                 : approval:AAAAAAAA
+id                 : 1111111111111111
 subject            : @{...}
 ```
 
@@ -85,7 +85,7 @@ Return a specific hunt approval request and use PowerShell to get a specifc valu
 
 ### Example 4
 ```
-PS C:\> PS> Get-GRRHuntApproval -Credential $cred -HuntId H:11111111 -ApprovalId approval:AAAAAAAA -OnlyState
+PS C:\> PS> Get-GRRHuntApproval -Credential $cred -HuntId 11111111 -ApprovalId 1111111111111111 -OnlyState
 False
 ```
 

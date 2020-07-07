@@ -24,7 +24,7 @@ Stop a hunt.
 
 ### Example 1
 ```
-PS C:\> Stop-GRRHunt -Credential $cred -HuntId H:7D5E2318
+PS C:\> Stop-GRRHunt -Credential $cred -HuntId 7D5E2318
 ```
 
 Stop the specific hunt.

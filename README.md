@@ -58,7 +58,7 @@ for the available flow types.
 
 ## Installation
 
-* Install PowerGRR from [PowerShell Gallery](https://www.powershellgallery.com/packages/PowerGRR/). [PowerShellGet](https://github.com/powerShell/powershellget) is required which is installed in PowerShell Core and since Windows PowerShell v5 by default. Only released versions are available there, see [CHANGELOG](CHANGELOG.md).
+* **Install PowerGRR from [PowerShell Gallery](https://www.powershellgallery.com/packages/PowerGRR/)**. [PowerShellGet](https://github.com/powerShell/powershellget) is required which is installed in PowerShell Core and since Windows PowerShell v5 by default. Only released versions are available there, see [CHANGELOG](CHANGELOG.md).
 
     ``` powershell
     # Inspect

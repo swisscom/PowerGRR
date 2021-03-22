@@ -4,7 +4,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) 
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## [Unreleased](https://github.com/swisscom/powergrr/compare/v0.9.1...master)
+## [Unreleased](https://github.com/swisscom/powergrr/compare/v0.10.0...master)
+<!--
+### Added
+### Changed
+### Fixed
+### Security
+### Deprecated
+### Removed
+-->
+
+## [v0.10.0](https://github.com/swisscom/powergrr/compare/v0.9.1..v0.10.0) - 2021-03-22
+
+Add further flow and hunt handling commands and fix an API issue in Invoke-GRRFlow.
+
 ### Added
 * Add `Get-GRRFlowInfo` for reading flow state and general flow information.
    This is the counterpart for `Get-GRRHuntInfo` which already exists.
@@ -16,11 +29,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 * Improve string handling in `ConvertTo-Base64`
 ### Fixed
 * Fix flow ID return value in `Invoke-GRRFlow`
-<!--
-### Security
-### Deprecated
-### Removed
--->
 
 ## [v0.9.1](https://github.com/swisscom/powergrr/compare/v0.9.0...v0.9.1) - 2019-04-04
 

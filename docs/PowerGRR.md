@@ -50,7 +50,7 @@ Search for a specific client id and return the computername.
 ### [Get-GRRConfig](Get-GRRConfig.md)
 Get the current PowerGRR config.
 
-### [Get-GRRFlow(Get-GRRFlow.md)
+### [Get-GRRFlow](Get-GRRFlow.md)
 List flows for specific client.
 
 ### [Get-GRRFlowDescriptor](Get-GRRFlowDescriptor.md)

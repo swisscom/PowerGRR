@@ -242,7 +242,7 @@ MBP-LAPTOP02    C.bbbbbbbbbbbbbbbb 18.05.2017 15:49:12 16.6.0
 WIN-DESKTOP03   C.dddddddddddddddd 11.03.2017 10:23:51 10.0.10586
 WIN-DESKTOP04   C.eeeeeeeeeeeeeeee 11.03.2017 10:23:51 10.0.10586
 
-Get-GRRClientIdFromComputerName WIN-DESKTOP01).clientid
+(Get-GRRClientIdFromComputerName WIN-DESKTOP01).clientid
 
 # Set a label for multiple hosts during incident response with the parameter
 # __ComputerName__

@@ -2178,7 +2178,7 @@ Function Get-GRRHunt()
         {
             $info=[ordered]@{
                 Created=$(ConvertFrom-EpocTime ($r.created).toString().Insert(10,"."))
-                HuntId=$r.urn
+                HuntId=$r.hunt_id
                 Description=$r.description
                 Creator=$r.Creator
                 State=$r.state

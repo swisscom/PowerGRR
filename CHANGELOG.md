@@ -12,8 +12,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Changed
 * Update external help file.
 
-<!--
 ### Fixed
+* Fix hunt id return value format in `Get-GRRHunt`.
+
+<!--
 ### Security
 ### Deprecated
 ### Removed

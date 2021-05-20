@@ -45,7 +45,7 @@ Some of the use cases where PowerGRR could speed up the work:
 * Add or remove a label on one or multiple clients based on a list of computer
     names.
 * Add artifacts to or remove artifacts from the GRR artifact repository.
-* List hunts, artifacts, client or hunt approvals, labels and clients and
+* List flows, hunts, artifacts, client or hunt approvals, labels and clients and
   filter them in different ways.
 * Build [IR scripts for common forensic workflows and start multiple hunts or
     flows in one shot using multiple cmdlets inside a PowerShell script](https://github.com/swisscom/PowerGRR/wiki/Live-response-collection-script).
@@ -242,6 +242,8 @@ MBP-LAPTOP02    C.bbbbbbbbbbbbbbbb 18.05.2017 15:49:12 16.6.0
 WIN-DESKTOP03   C.dddddddddddddddd 11.03.2017 10:23:51 10.0.10586
 WIN-DESKTOP04   C.eeeeeeeeeeeeeeee 11.03.2017 10:23:51 10.0.10586
 
+Get-GRRClientIdFromComputerName WIN-DESKTOP01).clientid
+
 # Set a label for multiple hosts during incident response with the parameter
 # __ComputerName__
 Set-GRRLabel -ComputerName WIN-DESKTOP01, WIN-DESKTOP03, WIN-DESKTOP04 -Label INC02_Windows `
@@ -312,6 +314,27 @@ $ret.items.payload.stat_entry.pathspec.path | sort -u
 
 # Remove the label if you don't use it anymore
 $clients | Remove-GRRLabel -SearchString INC01 -$Credential $creds
+
+# Find specific artifact names for ArtifactCollectorFlow
+$ret = Get-GRRArtifact
+$ret | select -first 1
+
+Name        : APTSources
+Description : APT package sources list
+IsCustom    : False
+URLs        : http://manpages.ubuntu.com/manpages/trusty/en/man5/sources.list.5.html
+Labels      : {Configuration Files, System}
+SupportedOS : {Linux}
+Type        : FILE
+Attributes  : @{paths=System.Object[]}
+
+$ret | ? { $_.description -match "registry" }
+
+# If you use a GRR API request for which there is no predefined function, 
+# then use Invoke-GRRRequest with the specific API endpoint, as an example, 
+# we list all flows of a given client
+$ret = Invoke-GRRRequest -Url /clients/$((Get-GRRClientIdFromComputerName WIN-DESKTOP01).clientid)/flows
+$ret.items
 ```
 
 ## Contributing

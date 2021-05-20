@@ -21,7 +21,9 @@ Get-GRRClientInfo	.\PowerGRR.psm1	/^function Get-GRRClientInfo()$/;"	m
 Get-GRRComputerNameFromClientId	.\PowerGRR.psm1	/^Function Get-GRRComputerNameFromClientId()$/;"	m
 Get-GRRConfig	.\PowerGRR.psm1	/^Function Get-GRRConfig()$/;"	m
 Get-GRRCredential	.\PowerGRR.psm1	/^function Get-GRRCredential()$/;"	m
+Get-GRRFlow	.\PowerGRR.psm1	/^function Get-GRRFlow()$/;"	m
 Get-GRRFlowDescriptor	.\PowerGRR.psm1	/^function Get-GRRFlowDescriptor()$/;"	m
+Get-GRRFlowInfo	.\PowerGRR.psm1	/^function Get-GRRFlowInfo()$/;"	m
 Get-GRRFlowResult	.\PowerGRR.psm1	/^function Get-GRRFlowResult()$/;"	m
 Get-GRRHunt	.\PowerGRR.psm1	/^Function Get-GRRHunt()$/;"	m
 Get-GRRHuntApproval	.\PowerGRR.psm1	/^function Get-GRRHuntApproval()$/;"	m

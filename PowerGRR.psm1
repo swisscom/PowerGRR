@@ -1806,6 +1806,89 @@ function Invoke-GRRFlow()
 } # Invoke-GRRFlow
 
 
+function Get-GRRFlow()
+{
+    param(
+            [parameter(ValueFromPipeline=$True, Mandatory=$true)]
+            [string]
+            $ComputerName,
+
+            [System.Management.Automation.PSCredential]
+            [System.Management.Automation.Credential()]
+            $Credential = (Get-GRRCredential),
+
+            [switch]
+            $ShowJSON
+         )
+
+        Begin {
+            $Function = $MyInvocation.MyCommand
+            Write-Verbose "$Function Entering $Function"
+            $ret = ""
+        }
+
+    Process {
+        Write-Progress -Activity "Running $Function"
+
+        $params = @{
+            'ComputerName' = $ComputerName;
+            'Credential' = $Credential
+            'OnlyLastSeen' = $true
+        }
+
+        $ClientId = Get-GRRClientIdFromComputerName @params
+        if ($ClientId)
+        {
+            $ClientId = $ClientId.ClientId
+
+                $params =  @{
+                    'Url' = "/clients/$ClientId/flows";
+                    'Credential' = $Credential
+                }
+
+            $ret = Invoke-GRRRequest @params -ShowJSON:$PSBoundParameters.containskey('ShowJSON')
+        }
+        else
+        {
+            Write-warning "No ClientId found for $ComputerName"
+        }
+    } # process
+
+    End {
+        $flows = @()
+
+        if ($ret)
+        {
+            if ($PSBoundParameters.containskey('ShowJSON'))
+            {
+                $ret | ConvertTo-Json
+            }
+            elseif ($ret -and ($ret.PSobject.Properties.name -match "items"))
+            {
+                foreach ($r in $ret.items) {
+                    $info=[ordered]@{
+                        FlowID=$r.flow_id
+                        Creator=$r.creator
+                        Flow=$r.name
+                        State=$r.state
+                        StartetAt=$(ConvertFrom-EpocTime ($r.started_at).toString().Insert(10,"."))
+                        LastActiveAt=$(ConvertFrom-EpocTime ($r.last_active_at).toString().Insert(10,"."))
+                        ComputerName=$ComputerName
+                        ClientId=$r.client_id
+                    }
+
+                    $flows += New-Object PSObject -Property $info
+                }
+                $flows
+            }
+        }
+
+        Write-Verbose "$Function Leaving $Function"
+    } #end
+
+} # Get-GRRFlow
+
+
 function Get-GRRFlowInfo()
 {
     param(
@@ -3130,7 +3213,8 @@ Export-ModuleMember @(
     'Wait-GRRClientApproval',
     'Get-GRRClientInfo',
     'ConvertFrom-EpocTime',
-    'Get-GRRFlowInfo'
+    'Get-GRRFlowInfo',
+    'Get-GRRFlow'
 )
 
 #endregion

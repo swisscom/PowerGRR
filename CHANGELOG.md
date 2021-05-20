@@ -5,9 +5,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased](https://github.com/swisscom/powergrr/compare/v0.10.0...master)
-<!--
+
 ### Added
+* Add `Get-GRRFlow` for listing all flows of a specific client.
+
 ### Changed
+* Update external help file.
+
+<!--
 ### Fixed
 ### Security
 ### Deprecated

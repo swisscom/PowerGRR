@@ -199,7 +199,7 @@
     <command:syntax>
       <command:syntaxItem>
         <maml:name>ConvertFrom-Base64</maml:name>
-        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none">
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none">
           <maml:name>String</maml:name>
           <maml:Description>
             <maml:para>Base64 encoded string to decode.</maml:para>
@@ -226,7 +226,7 @@
       </command:syntaxItem>
     </command:syntax>
     <command:parameters>
-      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none">
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none">
         <maml:name>String</maml:name>
         <maml:Description>
           <maml:para>Base64 encoded string to decode.</maml:para>
@@ -1285,7 +1285,7 @@ reason             : INC01
 email_cc_addresses : {cc-email@your-domain.tld}
 is_valid           : False
 approvers          : {user}
-id                 : approval:AAAAAAAA
+id                 : 1111111111111111
 subject            : @{...}</dev:code>
         <dev:remarks>
           <maml:para>Return the latest approval. Use " | select -expandproperty is_valid" after the command for only returning the state.</maml:para>
@@ -1293,10 +1293,10 @@ subject            : @{...}</dev:code>
       </command:example>
       <command:example>
         <maml:title>-------------------------- Example 2 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; Get-GRRClientApproval -Credential $cred  -OnlyState -ComputerName host1 -ApprovalId approval:AAAAAAAA
+        <dev:code>PS C:\&gt; Get-GRRClientApproval -Credential $cred  -OnlyState -ComputerName host1 -ApprovalId 1111111111111111
 False</dev:code>
         <dev:remarks>
-          <maml:para>Get the client approval for the host 'host1' and the approval id 'approval:AAAAAAAA'. Use this command in a loop to wait until the approval is valid and you can continue with the desired actions.</maml:para>
+          <maml:para>Get the client approval for the host 'host1' and the approval id 1111111111111111. Use this command in a loop to wait until the approval is valid and you can continue with the desired actions.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
@@ -1309,7 +1309,7 @@ reason             : INC01
 email_cc_addresses : {cc-email@your-domain.tld}
 is_valid           : False
 approvers          : {user}
-id                 : approval:AAAAAAAA
+id                 : 1111111111111111
 subject            : @{...}
 
 notified_users     : {user2}
@@ -1318,7 +1318,7 @@ reason             : INC02
 email_cc_addresses : {cc-email@your-domain.tld}
 is_valid           : False
 approvers          : {user2}
-id                 : approval:BBBBBBBB
+id                 : 2222222222222222
 subject            : @{...}</dev:code>
         <dev:remarks>
           <maml:para>Get the latest two client approvals with the state "INVALID", that means not yet approved.</maml:para>
@@ -1876,6 +1876,148 @@ ConfigFile              GRRUrl                GRRIgnoreCertificateErrors GRRClie
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
         <maml:uri>https://github.com/swisscom/PowerGRR/blob/master/docs/Get-GRRConfig.md</maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
+      <command:name>Get-GRRFlow</command:name>
+      <command:verb>Get</command:verb>
+      <command:noun>GRRFlow</command:noun>
+      <maml:description>
+        <maml:para>List flows for a given client.</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>List all flows for a given client. The returned object allows filtering for specific flows.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>Get-GRRFlow</maml:name>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none">
+          <maml:name>ComputerName</maml:name>
+          <maml:Description>
+            <maml:para>Computer name for which client the flow information should be read.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
+          <maml:name>Credential</maml:name>
+          <maml:Description>
+            <maml:para>GRR credential object or when using GRRCredential parameter is not needed.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">PSCredential</command:parameterValue>
+          <dev:type>
+            <maml:name>PSCredential</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="benannt" aliases="none">
+          <maml:name>ShowJSON</maml:name>
+          <maml:Description>
+            <maml:para>If given, the return value is json.</maml:para>
+          </maml:Description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none">
+        <maml:name>ComputerName</maml:name>
+        <maml:Description>
+          <maml:para>Computer name for which client the flow information should be read.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
+        <maml:name>Credential</maml:name>
+        <maml:Description>
+          <maml:para>GRR credential object or when using GRRCredential parameter is not needed.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">PSCredential</command:parameterValue>
+        <dev:type>
+          <maml:name>PSCredential</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="benannt" aliases="none">
+        <maml:name>ShowJSON</maml:name>
+        <maml:Description>
+          <maml:para>If given, the return value is json.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>System.String</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>System.Object</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para></maml:para>
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
+        <dev:code>PS&gt; Get-GRRFlow -ComputerName Worker1
+
+
+FlowID       : AAAAAAAAAAAAAAAA
+Creator      : GRRHunter
+Flow         : ListProcesses
+State        : RUNNING
+StartetAt    : 20.05.2021 07:51:08
+LastActiveAt : 20.05.2021 08:44:58
+ComputerName : Worker1
+ClientId     : C.1111111111111111
+...</dev:code>
+        <dev:remarks>
+          <maml:para>The command lists all flows for the client Worker1.</maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://github.com/swisscom/PowerGRR/blob/master/docs/Get-GRRFlow.md</maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
   </command:command>
@@ -2904,7 +3046,7 @@ reason             : Hunting for malicious binaries
 email_cc_addresses : {email@domain.tld}
 is_valid           : False
 approvers          : {}
-id                 : approval:AAAAAAAA
+id                 : 1111111111111111
 subject            : @{...}</dev:code>
         <dev:remarks>
           <maml:para>Return latest hunt approval request.</maml:para>
@@ -2920,7 +3062,7 @@ reason             : Hunting for malicious binaries
 email_cc_addresses : {email@domain.tld}
 is_valid           : False
 approvers          : {}
-id                 : approval:AAAAAAAA
+id                 : 2222222222222222
 subject            : @{...}
 
 ...</dev:code>
@@ -2930,7 +3072,7 @@ subject            : @{...}
       </command:example>
       <command:example>
         <maml:title>-------------------------- Example 3 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; Get-GRRHuntApproval -Credential $cred -HuntId H:11111111 -ApprovalId approval:AAAAAAAA
+        <dev:code>PS C:\&gt; Get-GRRHuntApproval -Credential $cred -HuntId 11111111 -ApprovalId 1111111111111111
 
 notified_users     : {user}
 is_valid_message   : Requires 2 approvers for access.
@@ -2938,7 +3080,7 @@ reason             : Hunting for malicious binaries
 email_cc_addresses : {email@domain.tld}
 is_valid           : False
 approvers          : {}
-id                 : approval:AAAAAAAA
+id                 : 1111111111111111
 subject            : @{...}</dev:code>
         <dev:remarks>
           <maml:para>Return a specific hunt approval request and use PowerShell to get a specifc values.</maml:para>
@@ -2946,7 +3088,7 @@ subject            : @{...}</dev:code>
       </command:example>
       <command:example>
         <maml:title>-------------------------- Example 4 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; PS&gt; Get-GRRHuntApproval -Credential $cred -HuntId H:11111111 -ApprovalId approval:AAAAAAAA -OnlyState
+        <dev:code>PS C:\&gt; PS&gt; Get-GRRHuntApproval -Credential $cred -HuntId 11111111 -ApprovalId 1111111111111111 -OnlyState
 False</dev:code>
         <dev:remarks>
           <maml:para>Return only the state of a specific hunt approval request. Use that for a loop and if approval becomes valid start the hunt directly.</maml:para>
@@ -2975,14 +3117,14 @@ False</dev:code>
     <command:syntax>
       <command:syntaxItem>
         <maml:name>Get-GRRHuntInfo</maml:name>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none">
           <maml:name>HuntId</maml:name>
           <maml:Description>
             <maml:para>Hunt id for which the info should be returned.</maml:para>
           </maml:Description>
-          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
           <dev:type>
-            <maml:name>String</maml:name>
+            <maml:name>String[]</maml:name>
             <maml:uri />
           </dev:type>
           <dev:defaultValue>None</dev:defaultValue>
@@ -3010,17 +3152,6 @@ False</dev:code>
           </dev:type>
           <dev:defaultValue>False</dev:defaultValue>
         </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
-          <maml:name>ShowResultCount</maml:name>
-          <maml:Description>
-            <maml:para>{{Fill ShowResultCount Description}}</maml:para>
-          </maml:Description>
-          <dev:type>
-            <maml:name>SwitchParameter</maml:name>
-            <maml:uri />
-          </dev:type>
-          <dev:defaultValue>False</dev:defaultValue>
-        </command:parameter>
       </command:syntaxItem>
     </command:syntax>
     <command:parameters>
@@ -3036,14 +3167,14 @@ False</dev:code>
         </dev:type>
         <dev:defaultValue>None</dev:defaultValue>
       </command:parameter>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none">
         <maml:name>HuntId</maml:name>
         <maml:Description>
           <maml:para>Hunt id for which the info should be returned.</maml:para>
         </maml:Description>
-        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
         <dev:type>
-          <maml:name>String</maml:name>
+          <maml:name>String[]</maml:name>
           <maml:uri />
         </dev:type>
         <dev:defaultValue>None</dev:defaultValue>
@@ -3052,18 +3183,6 @@ False</dev:code>
         <maml:name>ShowJSON</maml:name>
         <maml:Description>
           <maml:para>Return plain JSON instead of parsed JSON object.</maml:para>
-        </maml:Description>
-        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
-        <dev:type>
-          <maml:name>SwitchParameter</maml:name>
-          <maml:uri />
-        </dev:type>
-        <dev:defaultValue>False</dev:defaultValue>
-      </command:parameter>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
-        <maml:name>ShowResultCount</maml:name>
-        <maml:Description>
-          <maml:para>{{Fill ShowResultCount Description}}</maml:para>
         </maml:Description>
         <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
         <dev:type>
@@ -3101,9 +3220,23 @@ False</dev:code>
     <command:examples>
       <command:example>
         <maml:title>-------------------------- Example 1 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; Get-GRRHuntInfo "H:AAAAAAAA" -Credential $cred</dev:code>
+        <dev:code>PS C:\&gt; Get-GRRHuntInfo "AAAAAAAA" -Credential $cred</dev:code>
         <dev:remarks>
           <maml:para>Read the hunt infos based on a hunt id.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 2 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; "H:AAAAAAAA" | Get-GRRHuntInfo | select description, all_clients_count, completed_clients_count, remaining_clients_count, clients_queued_count, clients_with_results_count, results_count | fl</dev:code>
+        <dev:remarks>
+          <maml:para>Use pipeline to get hunt info and the credentials from the variable `$GRRCredential` are used without the need for `-Credential`.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 3 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; Get-GRRHuntInfo -HuntId H:AAAAAAAA, H:BBBBBBBB, H:CCCCCCCC | select description, all_clients_count, completed_clients_count, remaining_clients_count, clients_queued_count, clients_with_results_count, results_count | fl</dev:code>
+        <dev:remarks>
+          <maml:para>Read all the hunt infos for all the given hunt ids and use the credentials from the variable `$GRRCredential` without the need for `-Credential`.</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
@@ -3232,7 +3365,7 @@ False</dev:code>
     <command:examples>
       <command:example>
         <maml:title>-------------------------- Example 1 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; $res = Get-GRRHuntResult -HuntId H:AAAAAAAA -Credential $creds
+        <dev:code>PS C:\&gt; $res = Get-GRRHuntResult -HuntId AAAAAAAA -Credential $creds
 PS C:\&gt; $res.items.payload.stat_entry.pathspec.path | sort -u
 PS C:\&gt; $res.items.client_id | sort -u</dev:code>
         <dev:remarks>
@@ -4917,7 +5050,7 @@ PS C:\&gt; $res.items.client_id | sort -u</dev:code>
     <command:examples>
       <command:example>
         <maml:title>-------------------------- Example 1 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; New-GRRHuntApproval -Credential $cred -HuntId H:AAAAAAAA -NotifiedUsers username -Reason "Hunt for malicious files" -OnlyId</dev:code>
+        <dev:code>PS C:\&gt; New-GRRHuntApproval -Credential $cred -HuntId AAAAAAAA -NotifiedUsers username -Reason "Hunt for malicious files" -OnlyId</dev:code>
         <dev:remarks>
           <maml:para>Create a new hunt approval.</maml:para>
         </dev:remarks>
@@ -5776,7 +5909,7 @@ PS C:\&gt; "host1", "host2" | Set-GRRLabel -Label label1 -Credential $creds</dev
     <command:examples>
       <command:example>
         <maml:title>-------------------------- Example 1 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; Start-GRRHunt -Credential $cred -HuntId H:AAAAAAAA</dev:code>
+        <dev:code>PS C:\&gt; Start-GRRHunt -Credential $cred -HuntId AAAAAAAA</dev:code>
         <dev:remarks>
           <maml:para>Start the specific hunt. Approval must be granted before.</maml:para>
         </dev:remarks>
@@ -5967,7 +6100,7 @@ PS C:\&gt; "host1", "host2" | Set-GRRLabel -Label label1 -Credential $creds</dev
     <command:examples>
       <command:example>
         <maml:title>-------------------------- Example 1 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; Stop-GRRHunt -Credential $cred -HuntId H:7D5E2318</dev:code>
+        <dev:code>PS C:\&gt; Stop-GRRHunt -Credential $cred -HuntId 7D5E2318</dev:code>
         <dev:remarks>
           <maml:para>Stop the specific hunt.</maml:para>
         </dev:remarks>
@@ -6216,7 +6349,7 @@ PS C:\&gt; "host1", "host2" | Set-GRRLabel -Label label1 -Credential $creds</dev
     <command:examples>
       <command:example>
         <maml:title>-------------------------- Example 1 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; Wait-GRRClientApproval -ComputerName host -Credential $cred -ApprovalId "approval:AAAAAAAA" -TimeoutInMinutes 1</dev:code>
+        <dev:code>PS C:\&gt; Wait-GRRClientApproval -ComputerName host -Credential $cred -ApprovalId 1111111111111111 -TimeoutInMinutes 1</dev:code>
         <dev:remarks>
           <maml:para>Wait for that specific approval to get valid. Wait 1 minute otherwise exit the wait.</maml:para>
         </dev:remarks>
@@ -6465,14 +6598,14 @@ PS C:\&gt; "host1", "host2" | Set-GRRLabel -Label label1 -Credential $creds</dev
     <command:examples>
       <command:example>
         <maml:title>-------------------------- Example 1 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; Wait-GRRHuntApproval -Credential $cred -HuntId "H:AAAAAAAA" -ApprovalId "approval:AAAAAAAA" -Timeout 10</dev:code>
+        <dev:code>PS C:\&gt; Wait-GRRHuntApproval -Credential $cred -HuntId AAAAAAAA -ApprovalId 1111111111111111 -Timeout 10</dev:code>
         <dev:remarks>
           <maml:para>Wait 10 minutes for the hunt approval to get valid.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
         <maml:title>-------------------------- Example 2 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; Wait-GRRHuntApproval -Credential $cred -HuntId "H:AAAAAAAA" -ApprovalId "approval:AAAAAAAA" -Timeout 10 -StartHuntAfterApproval</dev:code>
+        <dev:code>PS C:\&gt; Wait-GRRHuntApproval -Credential $cred -HuntId AAAAAAAA -ApprovalId 1111111111111111 -Timeout 10 -StartHuntAfterApproval</dev:code>
         <dev:remarks>
           <maml:para>Wait 10 minutes for the hunt approval to get valid. Start the hunt after the approval got valid.</maml:para>
         </dev:remarks>

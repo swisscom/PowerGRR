@@ -101,6 +101,8 @@ FunctionsToExport = @(
     'Get-GRRClientInfo',
     'ConvertFrom-EpocTime',
     'Get-GRRFlowInfo'
+    'Get-GRRFlowInfo',
+    'Get-GRRFlow'
     )
 
 # Cmdlets to export from this module

@@ -53,7 +53,7 @@ New-MarkdownHelp -Module PowerGRR -OutputFolder .\docs\ -WithModulePage -Force -
    possible to add the online URL to the help. This allows using "-Online"
    with the help command to display the online help.
 ``` powershell
-New-MarkdownHelp -Command Get-GRRLabel -OutputFolder .\docs\ -OnlineVersionUrl "https://github.com/swisscom/powergrr/docs/Get-GRRLabel.md" 
+New-MarkdownHelp -Command Get-GRRFlowInfo -OutputFolder .\docs\ -OnlineVersionUrl "https://github.com/swisscom/PowerGRR/blob/master/docs/Get-GRRFlowInfo.md" 
 ```
 
 **Important:** After creating a new help file for one specific command it must 

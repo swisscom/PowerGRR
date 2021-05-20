@@ -14,7 +14,7 @@ results when only payload should be returned.
 ## SYNTAX
 
 ```
-ConvertFrom-Base64 [-String] <String> [-Encoding <String>] [<CommonParameters>]
+ConvertFrom-Base64 [[-String] <String>] [-Encoding <String>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -59,7 +59,7 @@ Type: String
 Parameter Sets: (All)
 Aliases:
 
-Required: True
+Required: False
 Position: 0
 Default value: None
 Accept pipeline input: True (ByValue)

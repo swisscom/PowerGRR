@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Fixed
 * Fix hunt id return value format in `Get-GRRHunt`.
+* Fix backslash escaping in Yara rule handling
 
 <!--
 ### Security

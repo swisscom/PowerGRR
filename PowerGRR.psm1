@@ -1301,6 +1301,7 @@ function Get-FlowArgs()
         }
 
         $YaraSignature = Get-content $FilePath
+        $YaraSignature = $YaraSignature -replace "`\\", "\\"
         $YaraSignature = $YaraSignature -replace "`"", "\`""
         $PluginArguments = '{"yara_signature":"'+$YaraSignature+'"}'
     }

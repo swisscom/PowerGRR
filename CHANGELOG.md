@@ -4,7 +4,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) 
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## [Unreleased](https://github.com/swisscom/powergrr/compare/v0.10.0...master)
+## [Unreleased](https://github.com/swisscom/powergrr/compare/v0.11.0...master)
+
+<!--
+### Added
+### Changed
+### Fixed
+### Security
+### Deprecated
+### Removed
+-->
+
+## [v0.11.0](https://github.com/swisscom/powergrr/compare/v0.10.0..v0.11.0) - 2021-06-02
+
+Add new command for getting all the flows and improve Yara rule handling.
 
 ### Added
 * Add `Get-GRRFlow` for listing all flows of a specific client.
@@ -15,12 +28,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Fixed
 * Fix hunt id return value format in `Get-GRRHunt`.
 * Fix backslash escaping in Yara rule handling
-
-<!--
-### Security
-### Deprecated
-### Removed
--->
 
 ## [v0.10.0](https://github.com/swisscom/powergrr/compare/v0.9.1..v0.10.0) - 2021-03-22
 

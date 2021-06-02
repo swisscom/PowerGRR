@@ -27,7 +27,7 @@ CompanyName = 'Swisscom (Schweiz) AG'
 Copyright = '(c) 2017-2021 Swisscom (Schweiz) AG'
 
 # Description of the functionality provided by this module
-Description = 'The module allows the use of the GRR API from within PowerShell on Windows, macOS and Linux.'
+Description = 'PowerGRR is an API client library in PowerShell working on Windows, Linux and macOS for GRR automation and scripting.'
 
 # Minimum version of the Windows PowerShell engine required by this module
 PowerShellVersion = '3.0'

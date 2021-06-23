@@ -6,8 +6,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased](https://github.com/swisscom/powergrr/compare/v0.11.0...master)
 
-<!--
 ### Added
+
+* Add pathtype parameter to FileFinder which allows using TSK or NTFS to
+  access locked files, used for e.g. registry files or $MFT on Windows.
+
+<!--
 ### Changed
 ### Fixed
 ### Security

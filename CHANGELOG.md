@@ -11,8 +11,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 * Add pathtype parameter to FileFinder flow which allows using TSK (deprecated) 
   or NTFS to access locked files, used for e.g. registry files or $MFT on Windows.
 
-<!--
 ### Changed
+* Update CHANGELOG, docs and external help file
+
+<!--
 ### Fixed
 ### Security
 ### Deprecated

@@ -1180,6 +1180,12 @@ function Get-FlowArgs()
     {
         $PluginArguments = '{"paths":["'+$($Parameters['Path']-join'","')+'"]'
 
+	if ($($Parameters['Pathtype']))
+	{
+		$Pathtype = $( $Parameters['Pathtype'])
+		$PluginArguments += ',"pathtype":"'+$($Parameters['Pathtype'])+'"'
+	}
+
         if ($($Parameters['Mode']))
         {
             $RegexMode = $( $Parameters['Mode'])
@@ -1323,6 +1329,7 @@ function Get-DynamicFlowParam()
     if ($Params.containskey('flow') -and $Params.Flow -eq "FileFinder")
     {
         New-DynamicParam -Name Path -mandatory -DPDictionary $Dictionary -Type String[]
+        New-DynamicParam -Name Pathtype -ValidateSet "OS(default)",TSK,NTFS,REGISTRY -DPDictionary $Dictionary
         New-DynamicParam -Name ActionType -mandatory -ValidateSet Hash,Download -DPDictionary $Dictionary
         New-DynamicParam -Name ConditionType -ValidateSet Regex,Literal -DPDictionary $Dictionary
         New-DynamicParam -Name Mode -ValidateSet ALL_HITS,FIRST_HIT -DPDictionary $Dictionary

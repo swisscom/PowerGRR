@@ -23,10 +23,12 @@ Get-GRRConfig	.\PowerGRR.psm1	/^Function Get-GRRConfig()$/;"	m
 Get-GRRCredential	.\PowerGRR.psm1	/^function Get-GRRCredential()$/;"	m
 Get-GRRFlow	.\PowerGRR.psm1	/^function Get-GRRFlow()$/;"	m
 Get-GRRFlowDescriptor	.\PowerGRR.psm1	/^function Get-GRRFlowDescriptor()$/;"	m
+Get-GRRFlowExport	.\PowerGRR.psm1	/^function Get-GRRFlowExport()$/;"	m
 Get-GRRFlowInfo	.\PowerGRR.psm1	/^function Get-GRRFlowInfo()$/;"	m
 Get-GRRFlowResult	.\PowerGRR.psm1	/^function Get-GRRFlowResult()$/;"	m
 Get-GRRHunt	.\PowerGRR.psm1	/^Function Get-GRRHunt()$/;"	m
 Get-GRRHuntApproval	.\PowerGRR.psm1	/^function Get-GRRHuntApproval()$/;"	m
+Get-GRRHuntExport	.\PowerGRR.psm1	/^Function Get-GRRHuntExport()$/;"	m
 Get-GRRHuntInfo	.\PowerGRR.psm1	/^Function Get-GRRHuntInfo()$/;"	m
 Get-GRRHuntResult	.\PowerGRR.psm1	/^Function Get-GRRHuntResult()$/;"	m
 Get-GRRLabel	.\PowerGRR.psm1	/^Function Get-GRRLabel()$/;"	m

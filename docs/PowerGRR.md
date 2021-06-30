@@ -59,6 +59,9 @@ Get a list of all available flows.
 ### [Get-GRRFlowInfo](Get-GRRFlowInfo.md)
 Read informationen and state for specific flow.
 
+### [Get-GRRFlowExport](Get-GRRFlowExport.md)
+Export files archive from a flow.
+
 ### [Get-GRRFlowResult](Get-GRRFlowResult.md)
 Get flow results for a specific client and a flow.
 
@@ -68,6 +71,9 @@ afterwards with PowerShell.
 
 ### [Get-GRRHuntApproval](Get-GRRHuntApproval.md)
 Get hunt approvals identified by the given filters. 
+
+### [Get-GRRHuntExport](Get-GRRHuntExport.md)
+Export files archive from a hunt.
 
 ### [Get-GRRHuntInfo](Get-GRRHuntInfo.md)
 Get hunt info for a specific hunt.

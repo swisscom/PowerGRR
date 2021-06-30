@@ -27,8 +27,8 @@ Invoke-GRRRequest [-Url] <String> [-Body] <String> [-Headers] <Hashtable> [-Webs
 
 ### GET
 ```
-Invoke-GRRRequest [-Url] <String> [-Method <String>] [[-Credential] <PSCredential>] [-ShowJSON]
- [<CommonParameters>]
+Invoke-GRRRequest [-Url] <String> [-FilePath <String>] [-Method <String>] [[-Credential] <PSCredential>]
+ [-ShowJSON] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -173,6 +173,21 @@ Parameter Sets: FILE
 Aliases:
 
 Required: True
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -FilePath
+File path for the output file from a GRR request.
+
+```yaml
+Type: String
+Parameter Sets: GET
+Aliases:
+
+Required: False
 Position: Named
 Default value: None
 Accept pipeline input: False

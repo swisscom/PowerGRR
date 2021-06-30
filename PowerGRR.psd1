@@ -102,7 +102,9 @@ FunctionsToExport = @(
     'ConvertFrom-EpocTime',
     'Get-GRRFlowInfo'
     'Get-GRRFlowInfo',
-    'Get-GRRFlow'
+    'Get-GRRFlow',
+    'Get-GRRFlowExport',
+    'Get-GRRHuntExport'
     )
 
 # Cmdlets to export from this module

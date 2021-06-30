@@ -27,7 +27,7 @@ needed values. Mandatory parameters are attributed with (m).
 - FileFinder: 
    - Path (m), Type: String[]
    - PathType (m), ValidateSet: TSK, NTFS, OS(default)
-   - ActionType (m), ValidateSet: Hash, Download
+   - ActionType (m), ValidateSet: STAT, Hash, Download
    - ConditionType, ValidateSet: Regex,Literal
    - Mode, ValidateSet: All_HITS, FIRST_HIT
    - SearchString, Type: String

@@ -38,21 +38,22 @@ text form which is then directly reusable by others.
 
 Some of the use cases where PowerGRR could speed up the work:
 * Start a flow on one or multiple clients and get flow results as PowerShell
-    object for easier filtering.
+    object for easier filtering. Download collected files directly from
+    command line.
 * Create and start a new hunt and get the hunt info or results as PowerShell
-    objects.
+    objects. Download collected files directly from command line.
 * [Create a hunt or a client approval request and wait until they get valid](https://github.com/swisscom/powergrr/wiki#commands-for-using-the-grr-approval-system).
 * Add or remove a label on one or multiple clients based on a list of computer
     names.
 * Add artifacts to or remove artifacts from the GRR artifact repository.
-* List flows, hunts, artifacts, client or hunt approvals, labels and clients and
+* List clients, flows, hunts, artifacts, labels, client or hunt approvals and
   filter them in different ways.
 * Build [IR scripts for common forensic workflows and start multiple hunts or
     flows in one shot using multiple cmdlets inside a PowerShell script](https://github.com/swisscom/PowerGRR/wiki/Live-response-collection-script).
 
 The following flow types are available for hunts and flows and the target group
 is chosen based on labels or the OS. See also [command
-help](https://github.com/swisscom/PowerGRR/blob/master/docs/Invoke-GRRFlow.md#-flow)
+help](https://github.com/swisscom/PowerGRR/blob/master/docs/Invoke-GRRFlow.md#description)
 for the available flow types.
 * Netstat, ListProcesses, FileFinder, RegistryFinder, ExecutePythonHack, ArtifactCollectorFlow, YaraProcessScan
 

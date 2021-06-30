@@ -80,6 +80,51 @@ Function Get-GRRHuntInfo()
     }
 } # Get-GRRHuntInfo
 
+Function Get-GRRHuntExport()
+{
+    param(
+        [parameter(ValueFromPipeline=$True)]
+        [string]
+        $HuntId,
+
+        [string]
+        $FilePath,
+
+        [System.Management.Automation.PSCredential]
+        [System.Management.Automation.Credential()]
+        $Credential = (Get-GRRCredential)
+    )
+
+    Begin {
+        $Function = $MyInvocation.MyCommand
+
+        Write-Verbose "$Function Entering $Function"
+        Write-Progress -Activity "Running $Function"
+
+        $output = @()
+    }
+
+    Process {
+        foreach ($Hunt in $HuntId)
+        {
+            Write-Progress -Activity "Running $Function for hunt $Hunt"
+            Write-Verbose "Processing $Hunt"
+
+            $params = @{
+                'Url' = "/hunts/$Hunt/results/files-archive?archive_format=ZIP";
+                'Credential' = $Credential;
+                'FilePath' = $FilePath;
+            }
+
+            $output += Invoke-GRRRequest @params
+        }
+    }
+
+    End {
+        $output
+        Write-Verbose "$Function Leaving $Function"
+    }
+} # Get-GRRHuntExport
 
 Function Get-GRRHuntResult()
 {
@@ -1180,11 +1225,11 @@ function Get-FlowArgs()
     {
         $PluginArguments = '{"paths":["'+$($Parameters['Path']-join'","')+'"]'
 
-	if ($($Parameters['Pathtype']))
-	{
-		$Pathtype = $( $Parameters['Pathtype'])
-		$PluginArguments += ',"pathtype":"'+$($Parameters['Pathtype'])+'"'
-	}
+        if ($($Parameters['Pathtype']))
+        {
+            $Pathtype = $( $Parameters['Pathtype'])
+            $PluginArguments += ',"pathtype":"'+$($Parameters['Pathtype'])+'"'
+        }
 
         if ($($Parameters['Mode']))
         {
@@ -1330,7 +1375,7 @@ function Get-DynamicFlowParam()
     {
         New-DynamicParam -Name Path -mandatory -DPDictionary $Dictionary -Type String[]
         New-DynamicParam -Name Pathtype -ValidateSet "OS(default)",TSK,NTFS,REGISTRY -DPDictionary $Dictionary
-        New-DynamicParam -Name ActionType -mandatory -ValidateSet Hash,Download -DPDictionary $Dictionary
+        New-DynamicParam -Name ActionType -mandatory -ValidateSet STAT,Hash,Download -DPDictionary $Dictionary
         New-DynamicParam -Name ConditionType -ValidateSet Regex,Literal -DPDictionary $Dictionary
         New-DynamicParam -Name Mode -ValidateSet ALL_HITS,FIRST_HIT -DPDictionary $Dictionary
         New-DynamicParam -Name SearchString -DPDictionary $Dictionary
@@ -2060,6 +2105,63 @@ function Get-GRRFlowResult()
 
 } # Get-GRRFlowResult
 
+function Get-GRRFlowExport()
+{
+    param(
+        [parameter(ValueFromPipeline=$True, Mandatory=$true)]
+        [string]
+        $ComputerName,
+
+        [System.Management.Automation.PSCredential]
+        [System.Management.Automation.Credential()]
+        $Credential = (Get-GRRCredential),
+
+        [string]
+        [Parameter(Mandatory=$true)]
+        $FlowId,
+
+        [string]
+        $FilePath
+    )
+
+    Begin {
+        $Function = $MyInvocation.MyCommand
+        Write-Verbose "$Function Entering $Function"
+        $ret = ""
+    }
+
+    Process {
+        Write-Progress -Activity "Running $Function"
+
+        $params = @{
+            'ComputerName' = $ComputerName;
+            'Credential' = $Credential;
+            'OnlyLastSeen' = $true
+        }
+
+        $ClientId = Get-GRRClientIdFromComputerName @params
+        if ($ClientId)
+        {
+            $ClientId = $ClientId.ClientId
+
+            $params =  @{
+                'Url' = "/clients/$ClientId/flows/$FlowId/results/files-archive?archive_format=ZIP";
+                'Credential' = $Credential
+                'FilePath' = $FilePath
+            }
+            $ret = Invoke-GRRRequest @params
+        }
+        else
+        {
+            Write-warning "No ClientId found for $ComputerName"
+        }
+    } # process
+
+    End {
+        Write-Verbose "$Function Leaving $Function"
+    }
+
+} # Get-GRRFlowExport
 
 Function Get-GRRLabel()
 {
@@ -2357,7 +2459,6 @@ function Get-ValidatedGRRArtifact()
     Write-Verbose "$Function Leaving $Function"
 }
 
-
 function Add-GRRArtifact()
 {
     [CmdletBinding(SupportsShouldProcess=$True)]
@@ -2393,16 +2494,25 @@ function Add-GRRArtifact()
             {
                 if ($Headers -and $Websession)
                 {
-                    $params =  @{
-                        'Url' = "/artifacts";
-                        'Credential' = $Credential;
-                        'File' = $ArtifactFile;
-                        'Headers' = $Headers;
-                        'Websession' = $Websession
-                        'ShowJSON' = $PSBoundParameters.containskey('ShowJSON')
-                    }
+                    $ret = gc $ArtifactFile | sls name; $ret = $ret -match "name: (.*)"
+                    $ArtifactName = $matches[1]
+                    $ArtifactExist = Get-GRRArtifact | ? { $_.name -match $ArtifactName  }
 
-                    Invoke-GRRRequest @params
+                    if ($ArtifactExist)
+                    {
+                        write-warning "Artifact $ArtifactName already exists. Remove it first using Remove-GRRArtifact before uploading a new version."
+                    } else
+                    {
+                        $params =  @{
+                            'Url' = "/artifacts";
+                            'Credential' = $Credential;
+                            'File' = $ArtifactFile;
+                            'Headers' = $Headers;
+                            'Websession' = $Websession;
+                            'ShowJSON' = $PSBoundParameters.containskey('ShowJSON')
+                        }
+                        Invoke-GRRRequest @params
+                    } # validate artifact and add
                 } # headers and websession set
             } #whatif
         } # Artifact file found
@@ -2648,6 +2758,10 @@ function Invoke-GRRRequest ()
         [System.IO.FileInfo]
         $File,
 
+        [Parameter(ParameterSetName="GET", Mandatory=$false)]
+        [string]
+        $FilePath,
+
         [Parameter(ParameterSetName="FILE", Mandatory=$true)]
         [Parameter(ParameterSetName="POST", Mandatory=$true)]
         [System.Collections.Hashtable]
@@ -2754,34 +2868,15 @@ function Invoke-GRRRequest ()
             $Boundary = ([guid]::NewGuid()).guid
             $FileContent = get-content $File -enc byte -raw
             $Enc = [System.Text.Encoding]::GetEncoding('utf-8')
-            $FileBodyTemplate = $Enc.GetString($FileContent)
-            [System.Text.StringBuilder]$contents = New-Object System.Text.StringBuilder
-            [void]$contents.AppendLine("--$Boundary")
-            [void]$contents.AppendLine("Content-Disposition: form-data; name=""_params_""")
-            [void]$contents.AppendLine()
-            [void]$contents.AppendLine("{}")
-            [void]$contents.AppendLine("--$Boundary")
-            [void]$contents.AppendLine("Content-Disposition: form-data; name=""artifact""; filename=""$($File.Name)""")
-            [void]$contents.AppendLine("Content-Type: application/octet-stream")
-            [void]$contents.AppendLine()
-            [void]$contents.AppendLine($FileBodyTemplate)
-            [void]$contents.AppendLine("--$Boundary--")
-            $Body = $contents.ToString()
 
-            # XXX PowerShell Core issues
-            # 1. multipart upload not possible
-            #   - https://github.com/PowerShell/PowerShell/issues/2112
-            # 2. Content-Type multipart is invalid
-            #   - https://github.com/dotnet/corefx/issues/16290
-            #   - https://msdn.microsoft.com/en-us/library/hh875107(v=vs.118).aspx
-            $HeaderCT = @{"Content-Type" = "multipart/form-data;boundary=$Boundary"}
+            $FileBodyTemplate = $Enc.GetString($FileContent) | ConvertTo-Json -Compress -Depth 1
+            $Body = '{"artifact":'+$FileBodyTemplate+'}'
+            $HeaderCT = @{"Content-Type" = "application/x-www-form-urlencoded"}
             $Headers += $HeaderCT
 
             $params += @{
-                'Method' = "POST"
+                'Method' = "POST";
                 'Websession' = $Websession;
-                # XXX PowerShell Core issue
-                #'ContentType' = "multipart/form-data;boundary=$Boundary";
                 'Body' = $Body;
             }
 
@@ -2823,7 +2918,11 @@ function Invoke-GRRRequest ()
 
         try
         {
-            $ret = Invoke-RestMethod @params
+            if ($FilePath) {
+                $ret = Invoke-RestMethod @params -outfile $FilePath
+            } else{
+                $ret = Invoke-RestMethod @params
+            }
         }
         catch
         {
@@ -2831,7 +2930,7 @@ function Invoke-GRRRequest ()
             Write-Error $ErrorMessage
         }
 
-        if ($ret)
+        if ($ret -and !($FilePath) )
         {
             if ($ShowJSON)
             {
@@ -3222,7 +3321,9 @@ Export-ModuleMember @(
     'Get-GRRClientInfo',
     'ConvertFrom-EpocTime',
     'Get-GRRFlowInfo',
-    'Get-GRRFlow'
+    'Get-GRRFlow',
+    'Get-GRRFlowExport',
+    'Get-GRRHuntExport'
 )
 
 #endregion

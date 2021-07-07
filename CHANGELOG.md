@@ -4,12 +4,23 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) 
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## [Unreleased](https://github.com/swisscom/powergrr/compare/v0.11.0...master)
+## [Unreleased](https://github.com/swisscom/powergrr/compare/v0.12.0...master)
+
+<!--
+### Added
+### Changed
+### Fixed
+### Security
+### Deprecated
+### Removed
+-->
+
+## [v0.12.0](https://github.com/swisscom/powergrr/compare/v0.11.0..v0.12.0) - 2021-07-07
 
 This release **adds new commands for exporting (downlading) the files archive from a flow or
 a hunt**, **adds support in FileFinder flow for collecting locked files
 using raw file access** and the _stat_ action type and finally,
-**fixes the artifact upload mechanism required by newer GRR releases**.
+**fixes the artifact upload implementation required by newer GRR releases**.
 
 ### Added
 
@@ -20,22 +31,16 @@ using raw file access** and the _stat_ action type and finally,
 * Add _stat_ ActionType parameter to FileFinder flow.
 * Add _pathtype_ parameter to FileFinder flow which _allows using TSK (deprecated) 
   or NTFS to access locked files_, used for e.g. registry files or $MFT on Windows.
-* Add artifact exist check before uploading a new one (`Add-GRRArtifact`) if
-  it already exists in GRR to prevent a 500 error.
-* Add files archive export functionality in support function
-    (`Invoke-GRRRequest`).
+* Add artifact exist check before uploading a new one (`Add-GRRArtifact`) to
+  prevent a 500 error.
+* Add file download functionality in support function `Invoke-GRRRequest`.
 
 ### Changed
 * Update CHANGELOG, docs and external help file
 
 ### Fixed
-* Fix add artifact command (`Add-GRRArtifact`) to work with current GRR
+* Fix upload artifact command (`Add-GRRArtifact`) to work with current GRR
   release. Replace multi part with a JSON upload.
-<!--
-### Security
-### Deprecated
-### Removed
--->
 
 ## [v0.11.0](https://github.com/swisscom/powergrr/compare/v0.10.0..v0.11.0) - 2021-06-02
 

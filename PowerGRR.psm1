@@ -1286,7 +1286,7 @@ function Get-FlowArgs()
                 throw "Please provide a regex condition string with -ConditionString."
             }
             $PluginArguments += ',"conditions":[{"condition_type":"VALUE_REGEX_MATCH",'
-            $PluginArguments += '"value_regex_match":{"regex":"'+$($Parameters['ConditionString'])+'","mode":"'+$RegexMode+'"}}]}'
+            $PluginArguments += '"value_regex_match":{"regex":"'+$($Parameters['ConditionString'] | ConvertTo-Base64 )+'","mode":"'+$RegexMode+'"}}]}'
         }
         elseif ($Parameters['ConditionType'] -match "literal")
         {

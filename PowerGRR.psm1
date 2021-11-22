@@ -1247,7 +1247,7 @@ function Get-FlowArgs()
                 throw "Please provide a regex search string with -SearchString."
             }
             $PluginArguments += ',"conditions":[{"condition_type":"CONTENTS_REGEX_MATCH",'
-            $PluginArguments += '"contents_regex_match":{"regex":"'+$($Parameters['SearchString'])+'","mode":"'+$RegexMode+'"}}]}'
+            $PluginArguments += '"contents_regex_match":{"regex":"'+$($Parameters['SearchString'] | ConvertTo-Base64 )+'","mode":"'+$RegexMode+'"}}]}'
         }
         elseif ($Parameters['ConditionType'] -match "literal")
         {

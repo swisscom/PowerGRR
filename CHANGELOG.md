@@ -7,7 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased](https://github.com/swisscom/powergrr/compare/v0.12.0...master)
 
 ### Fixed
-* Fix regex handling in method `Get-FlowArgs` by using base64 for regex
+* Fix regex handling for file and registry finder flows in method `Get-FlowArgs`
+  by using base64 for regex.
 <!--
 ### Added
 ### Changed

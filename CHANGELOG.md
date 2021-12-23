@@ -19,7 +19,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [v0.12.0](https://github.com/swisscom/powergrr/compare/v0.11.0..v0.12.0) - 2021-07-07
 
-This release **adds new commands for exporting (downlading) the files archive from a flow or
+This release **adds new commands for exporting (downloading) the files archive from a flow or
 a hunt**, **adds support in FileFinder flow for collecting locked files
 using raw file access** and the _stat_ action type and finally,
 **fixes the artifact upload implementation required by newer GRR releases**.

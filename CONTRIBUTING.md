@@ -52,17 +52,6 @@ check current cmdlets how to use supporting functions.
 1. Set a tag for the new version (e.g. "vx.x.x").
 1. Push the tag and the code changes to the repo.
 1. Add a new Github release and add release notes
-1. Publish the new module version to PowerShell gallery
-    * Make a clean folder for PowerGRR in the module path.
-    * Add the psm1, psd1 and the external help (en-us) to that PowerGRR module
-        folder.
-    * Run the following command to publish the module to the PowerShell gallery.
-    ``` powershell
-    Publish-Module -Name PowerGRR -NuGetApiKey <apiKey> 
-    ```
-1. Update release notes in PowerShellGallery
-
-The module is currently located at https://www.powershellgallery.com/packages/PowerGRR.
 
 ## PowerGRR Internals
 

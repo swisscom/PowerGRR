@@ -59,24 +59,7 @@ for the available flow types.
 
 ## Installation
 
-* **Install PowerGRR from [PowerShell Gallery](https://www.powershellgallery.com/packages/PowerGRR/)**. [PowerShellGet](https://github.com/powerShell/powershellget) is required which is installed in PowerShell Core and since Windows PowerShell v5 by default. Only released versions are available there, see [CHANGELOG](CHANGELOG.md).
-
-    ``` powershell
-    # Inspect
-    Save-Module -Name PowerGRR -Path <path> 
-
-    # Install
-    Install-Module -Name PowerGRR -Scope CurrentUser
-
-    # Update
-    Update-Module -Name PowerGRR
-    ```
-   
-   If you get an error, try using the following command to set PowerShell Gallery as one of your repositories:
-   
-   ``` powershell
-   Register-PSRepository -Default
-   ```
+Update March 2022: Install PowerGRR from PowerShell Gallery was only supported until March 2022. Afterwards, only manual install through Github is provided. See [CHANGELOG](CHANGELOG.md) for more details about versions.
    
 * Install PowerGRR from Github:
 

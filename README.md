@@ -59,7 +59,7 @@ for the available flow types.
 
 ## Installation
 
-Update March 2022: Install PowerGRR from PowerShell Gallery was only supported until March 2022. Afterwards, only manual install through Github is provided. See [CHANGELOG](CHANGELOG.md) for more details about versions.
+Update March 2022: Install [PowerGRR from PowerShell Gallery](https://www.powershellgallery.com/packages/PowerGRR) was only supported until March 2022. Afterwards, only manual install through Github is provided. See [CHANGELOG](CHANGELOG.md) for more details about versions.
    
 * Install PowerGRR from Github:
 
